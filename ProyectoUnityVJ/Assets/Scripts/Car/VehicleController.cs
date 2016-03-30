@@ -14,15 +14,21 @@ public class VehicleController : MonoBehaviour
         maxSteeringAngle = K.MAX_STEERING_ANGLE;
     }
 
-    private void Update()
-    {
-
-    }
-
     public void ApplyLocalPositionToVisuals(WheelPair wheelP)
     {
-            //wheelP.leftWheelMesh.transform.Rotate(Vector3.right, Time.deltaTime * wheelP.leftWheel.rpm * 10, Space.Self);
-            //wheelP.rightWheelMesh.transform.Rotate(Vector3.right, Time.deltaTime * wheelP.rightWheel.rpm * 10, Space.Self);          
+        Vector3 positionLeft;
+        Vector3 positionRight;
+        Quaternion rotationLeft;
+        Quaternion rotationRight;
+
+        wheelP.leftWheel.GetWorldPose(out positionLeft,out rotationLeft);
+        wheelP.rightWheel.GetWorldPose(out positionRight,out rotationRight);
+
+        wheelP.leftWheelMesh.transform.position = positionLeft;
+        wheelP.rightWheelMesh.transform.position = positionRight;
+
+        wheelP.leftWheelMesh.transform.rotation = rotationLeft;
+        wheelP.rightWheelMesh.transform.rotation = rotationRight;
     }
 
     private void FixedUpdate()
