@@ -30,6 +30,7 @@ public abstract class VehicleController : MonoBehaviour
         _trailRenderList = new List<GameObject>();
         foreach (var wheelP in wheelPairList)
         {
+            if (trailRenderModel == null) break;
             var go = GameObject.Instantiate<GameObject>(trailRenderModel);
             go.transform.position = wheelP.leftWheel.transform.position - transform.up * 1.7f;
             go.transform.parent = wheelP.leftWheel.transform;
