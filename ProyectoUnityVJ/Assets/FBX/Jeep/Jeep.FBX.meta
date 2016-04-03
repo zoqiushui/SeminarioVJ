@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: b5452c3ed542b3f459f99383ad7157f3
 timeCreated: 1459620702
 licenseType: Pro
+=======
+guid: 042b73722f6fd1d4a8cc61675259e6f5
+timeCreated: 1459626571
+licenseType: Free
+>>>>>>> origin/master
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
@@ -43,7 +49,10 @@ ModelImporter:
     100070: Object006
     100072: Object008
     100074: Torus003
+<<<<<<< HEAD
     100076: Jeep
+=======
+>>>>>>> origin/master
     400000: Body
     400002: Box102
     400004: Box103
@@ -82,7 +91,10 @@ ModelImporter:
     400070: Object006
     400072: Object008
     400074: Torus003
+<<<<<<< HEAD
     400076: Jeep
+=======
+>>>>>>> origin/master
     2300000: Box102
     2300002: Box103
     2300004: Box104
