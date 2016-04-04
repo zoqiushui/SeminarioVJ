@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 public class TestController : MonoBehaviour
 {
-    public float maxTorque = 50f;
+    public float maxTorque;
     public Transform centerOfMass;
     public Text speedText; // PARA TEST
     public GameObject trailRenderModel;
@@ -12,16 +12,12 @@ public class TestController : MonoBehaviour
     private Rigidbody _rb;
     private float currentSpeed;
     public float maxSpeed;
-    private float minSpeed;
     public float maxReverseSpeed;
     public float brakeTorque;
-    private float acceleration;
-    public float decelerationRate = 10.0f;
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _rb.centerOfMass = centerOfMass.localPosition;
-        minSpeed = 0f;
     }
 	
 	void Update ()
@@ -32,38 +28,28 @@ public class TestController : MonoBehaviour
 	}
     void FixedUpdate()
     {
-        float acce = 0f;
+        //brakeTorque: fuerza de frenado
+        var motorInput = Input.GetAxis("Vertical");
 
-        if (Input.GetAxis("Vertical") > 0)
+        if (currentSpeed > maxSpeed && motorInput > 0)
         {
-            if (currentSpeed < maxSpeed) acceleration = Input.GetAxis("Vertical");
+            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 1000;
         }
-        else if (Input.GetAxis("Vertical") < 0)
+        else if (currentSpeed > maxReverseSpeed && motorInput < 0)
         {
-            if (currentSpeed > minSpeed)
-            {
-                acceleration = Input.GetAxis("Vertical");
-            }
-            else
-            {
-                acceleration = Input.GetAxis("Vertical");
-            }
+            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 1000;
         }
-        else if(Input.GetAxis("Vertical") == 0)
+        else
         {
-            if (currentSpeed > minSpeed && acceleration > 0)
-            {
-               /* acceleration = acceleration - (decelerationRate * Time.deltaTime);
-                acceleration = Mathf.Clamp(acceleration, minSpeed, maxSpeed);*/
-            }
+            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 0;
         }
-        Debug.Log(acceleration);
-        acce = acceleration;
+        if (motorInput == 0) _rb.drag = _rb.velocity.magnitude / 100;
+
         float steer = Input.GetAxis("Horizontal");
         float finalAngle = steer * 45f;
         wheelColliders[0].steerAngle = finalAngle;
         wheelColliders[1].steerAngle = finalAngle;
-        for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = acce * maxTorque;
+        for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = motorInput * maxTorque;
     }
     private void UpdateTiresPosition()
     {
