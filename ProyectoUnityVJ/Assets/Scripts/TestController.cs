@@ -39,17 +39,31 @@ public class TestController : MonoBehaviour
         {
             for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 1000;
         }
-        else
+        else if (!Input.GetKey(KeyCode.Space))
         {
             for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 0;
         }
+
         if (motorInput == 0) _rb.drag = _rb.velocity.magnitude / 100;
 
         float steer = Input.GetAxis("Horizontal");
         float finalAngle = steer * 45f;
         wheelColliders[0].steerAngle = finalAngle;
         wheelColliders[1].steerAngle = finalAngle;
+
         for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = motorInput * maxTorque;
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 1000;
+            _rb.drag += 4 * Time.deltaTime;
+        }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 0;
+            _rb.drag = 0;
+        }
+
     }
     private void UpdateTiresPosition()
     {

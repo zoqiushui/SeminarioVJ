@@ -24,7 +24,7 @@ public class VehicleCamera : MonoBehaviour
 
     void LateUpdate()
     {
-        float speedFactor = Mathf.Clamp01(target.transform.parent.GetComponent<Rigidbody>().velocity.magnitude / 70.0f);
+        float speedFactor = Mathf.Clamp01(target.transform.parent.GetComponent<Rigidbody>().velocity.magnitude / 70f);
         Camera.main.fieldOfView = Mathf.Lerp(55, 72, speedFactor);
         float currentDistance = Mathf.Lerp(7.5f, 6.5f, speedFactor);
 
