@@ -81,6 +81,6 @@ public class TestController : MonoBehaviour
     protected void UIText()
     {
         //_localVelocity = transform.InverseTransformDirection(_rb.velocity);
-        speedText.text = "Speed: " + currentSpeed;
+        speedText.text = "Speed: " + (int)currentSpeed;
     }
 }

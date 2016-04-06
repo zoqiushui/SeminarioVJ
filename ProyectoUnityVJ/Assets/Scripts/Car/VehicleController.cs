@@ -95,7 +95,7 @@ public abstract class VehicleController : MonoBehaviour
     {
         if (!_isGrounded)
         {
-            transform.position += -Vector3.up * K.GRAVITY * Time.deltaTime;
+            transform.position += -transform.up * K.GRAVITY * Time.deltaTime;
         }
     }
 
