@@ -1,6 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
+/// <summary>
+/// La informacion del lock on target.
+/// </summary>
+/*[System.Serializable]
+public class LifeGuiData
+{ 
+    private Rect position;
+    public Texture2D lockTexture;
+}*/
 
 public class RocketLauncher : Weapon
 {
@@ -17,9 +28,16 @@ public class RocketLauncher : Weapon
     private bool _enemyFound;
     public Camera _mainCam;
 
+    private GameObject prevTarget;
+
+    public GameObject lockOn;
+    private Image _lockOn;
+
     // Use this for initialization
     void Start ()
     {
+        lockOn.SetActive(false);
+        _lockOn = lockOn.GetComponent<Image>();
         targets = new List<GameObject>();
         shootButtom = InputKey;
         cooldown = CooldownTime;
@@ -28,7 +46,7 @@ public class RocketLauncher : Weapon
     void Update()
     {
         ShootDownButtom();
-        if (canShoot) LockEnemy();
+        if (canShoot && !_enemyFound) LockEnemy();
         if (_enemyFound && targets.Count > 1)
         {
             SearchClose(targets);
@@ -42,7 +60,24 @@ public class RocketLauncher : Weapon
             Launch();
         }
 
+        if (_finalTarget != null && _enemyFound)
+            LockTarget();
 
+
+    }
+
+    private void LockTarget()
+    {
+        lockOn.SetActive(true);
+        if (prevTarget != _finalTarget)
+        {
+            Vector3 temp = _mainCam.WorldToScreenPoint(_finalTarget.transform.position);
+            print(temp.z);
+            temp.z = 0;
+            _lockOn.rectTransform.position = temp;
+            prevTarget = _finalTarget;
+            //   print(Input.mousePosition);
+        }
     }
 
     private void LockEnemy()
@@ -102,6 +137,10 @@ public class RocketLauncher : Weapon
         }
         _finalTarget = null;
         targets.Clear();
+        prevTarget = null;
+        lockOn.SetActive(false);
 
     }
+
+
 }

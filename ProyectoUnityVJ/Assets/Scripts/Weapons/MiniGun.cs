@@ -9,6 +9,7 @@ public class MiniGun : Weapon
     public GameObject particleEffect;
     public float forceImpact;
     public float maxDistance;
+    public Transform shootPoint;
     private Vector3 direction;
     private RaycastHit hit;
 
@@ -38,13 +39,14 @@ public class MiniGun : Weapon
 
         canShoot = false;
         base.Shoot();
-        direction = transform.TransformDirection(Vector3.forward);
+        direction = shootPoint.TransformDirection(Vector3.forward);
 
-        Debug.DrawRay(transform.position, direction * maxDistance, Color.blue);
+        Debug.DrawRay(shootPoint.position, direction * maxDistance, Color.blue);
 
-        if (Physics.Raycast(transform.position, direction, out hit,maxDistance))
+        if (Physics.Raycast(shootPoint.position, direction, out hit,maxDistance))
         {
-            hit.rigidbody.AddForceAtPosition(direction * forceImpact, hit.point);
+            if(hit.rigidbody!=null)
+                hit.rigidbody.AddForceAtPosition(direction * forceImpact, hit.point);
         }
     }
 }
