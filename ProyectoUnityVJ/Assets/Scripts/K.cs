@@ -20,5 +20,10 @@ public class K
     public const float JEEP_STEER_SPEED = 0.8f;
     public const float JEEP_BRAKE = 1.5f;
 
+    // ===== UI =====
+    public const float SPEEDOMETER_MAX_ANGLE = -270;
+    public const float SPEEDOMETER_MIN_ANGLE = 45;
+    public const float SPEEDOMETER_MAX_SPEED = 260;
+
     public const float GRAVITY = 9.8f;
 }

@@ -10,7 +10,7 @@ public class TestController : MonoBehaviour
     public WheelCollider[] wheelColliders;
     public Transform[] tiresCar;
     private Rigidbody _rb;
-    private float currentSpeed;
+    [SerializeField] private float currentSpeed;
     public float maxSpeed;
     public float maxReverseSpeed;
     public float brakeTorque;
@@ -81,6 +81,7 @@ public class TestController : MonoBehaviour
     protected void UIText()
     {
         //_localVelocity = transform.InverseTransformDirection(_rb.velocity);
-        speedText.text = "Speed: " + (int)currentSpeed;
+        //speedText.text = "Speed: " + (int)currentSpeed;
+        IngameUIManager.instance.SetPlayerSpeed(currentSpeed/K.SPEEDOMETER_MAX_SPEED);
     }
 }
