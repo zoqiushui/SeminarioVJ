@@ -69,15 +69,15 @@ public class RocketLauncher : Weapon
     private void LockTarget()
     {
         lockOn.SetActive(true);
-        if (prevTarget != _finalTarget)
-        {
+    //    if (prevTarget != _finalTarget)
+   //     {
             Vector3 temp = _mainCam.WorldToScreenPoint(_finalTarget.transform.position);
             print(temp.z);
             temp.z = 0;
             _lockOn.rectTransform.position = temp;
             prevTarget = _finalTarget;
             //   print(Input.mousePosition);
-        }
+      //  }
     }
 
     private void LockEnemy()
