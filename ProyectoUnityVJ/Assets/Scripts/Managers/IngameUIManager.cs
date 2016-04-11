@@ -22,6 +22,10 @@ public class IngameUIManager : MonoBehaviour
         speedpmeterNeedleImage.transform.eulerAngles = _playerSpeedometerRotation;
     }
 
+    /// <summary>
+    /// Recibe la velocidad actual del jugador dividido la velocidad maxima que puede mostrar el velocimetro.
+    /// </summary>
+    /// <param name="speed">Velocidad actual / Velocidad maxima del velocimetro</param>
     public void SetPlayerSpeed(float speed)
     {
         _playerSpeed = speed;

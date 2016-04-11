@@ -82,6 +82,6 @@ public class TestController : MonoBehaviour
     {
         //_localVelocity = transform.InverseTransformDirection(_rb.velocity);
         //speedText.text = "Speed: " + (int)currentSpeed;
-        IngameUIManager.instance.SetPlayerSpeed(currentSpeed/K.SPEEDOMETER_MAX_SPEED);
+        IngameUIManager.instance.SetPlayerSpeed(currentSpeed / K.SPEEDOMETER_MAX_SPEED);
     }
 }
