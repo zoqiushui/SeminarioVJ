@@ -5,7 +5,7 @@ public class TestController : MonoBehaviour
 {
     public float maxTorque;
     public Transform centerOfMass;
-    public Text speedText; // PARA TEST
+    public Text speedText;
     public GameObject trailRenderModel;
     public WheelCollider[] wheelColliders;
     public Transform[] tiresCar;
@@ -47,7 +47,7 @@ public class TestController : MonoBehaviour
         if (motorInput == 0) _rb.drag = _rb.velocity.magnitude / 100;
 
         float steer = Input.GetAxis("Horizontal");
-        float finalAngle = steer * 45f;
+        float finalAngle = steer * K.JEEP_MAX_STEERING_ANGLE;
         wheelColliders[0].steerAngle = finalAngle;
         wheelColliders[1].steerAngle = finalAngle;
 
