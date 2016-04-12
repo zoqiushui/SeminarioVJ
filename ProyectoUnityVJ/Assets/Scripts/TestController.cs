@@ -19,12 +19,13 @@ public class TestController : MonoBehaviour
     public int minimumTurn = 10;
     public Vector3 dragMultiplier;
     private bool handbrake;
+    private float resetTimer;
+    public float resetTime;
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _rb.centerOfMass = centerOfMass.localPosition;
         handbrake = false;
-        dragMultiplier = new Vector3(2, 5, 0);
     }
 	
 	void Update ()
@@ -33,6 +34,7 @@ public class TestController : MonoBehaviour
         UIText();
         currentSpeed = _rb.velocity.magnitude * 3.6f;
         GetInput();
+        CheckCarFlipped();
     }
     void FixedUpdate()
     {
@@ -112,7 +114,23 @@ public class TestController : MonoBehaviour
         if (speed > maxSpeed / 2) return minimumTurn;
         var speedIndex = 1 - (speed / (maxSpeed / 2));
         return minimumTurn + speedIndex * (maximumTurn - minimumTurn);
-    }		
+    }
+
+    private void CheckCarFlipped()
+    {
+        if (transform.localEulerAngles.z > 80 && transform.localEulerAngles.z < 280) resetTimer += Time.deltaTime;
+        else resetTimer = 0;
+        if (resetTimer > resetTime) FlipCar();
+    }
+
+    private void FlipCar()
+    {
+        transform.rotation = Quaternion.LookRotation(transform.forward);
+        transform.position += Vector3.up * 0.5f;
+        _rb.velocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
+        resetTimer = 0;
+    }
     private void UpdateTiresPosition()
     {
         for (int i = 0; i < tiresCar.Length; i++)
