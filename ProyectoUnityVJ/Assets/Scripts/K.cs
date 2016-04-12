@@ -8,6 +8,7 @@ public class K
     public const int LAYER_MNINIMAP_PLAYER_CAR = 9;
     public const int LAYER_PLAYER = 10;
     public const int LAYER_NODE = 11;
+    public const int LAYER_IA = 12;
 
     // ===== Ground Check =====
     public const float IS_GROUNDED_RAYCAST_DISTANCE = 2;
