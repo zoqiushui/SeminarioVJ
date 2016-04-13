@@ -21,6 +21,9 @@ public class TestController : MonoBehaviour
     private bool handbrake;
     private float resetTimer;
     public float resetTime;
+    public float stuckMaxDist;
+    public LayerMask layer;
+
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -34,7 +37,8 @@ public class TestController : MonoBehaviour
         UIText();
         currentSpeed = _rb.velocity.magnitude * 3.6f;
         GetInput();
-        CheckCarFlipped();
+        if (Input.GetKeyUp(KeyCode.R)) ResetCar();
+        //CheckCarFlipped();
     }
     void FixedUpdate()
     {
@@ -116,7 +120,7 @@ public class TestController : MonoBehaviour
         return minimumTurn + speedIndex * (maximumTurn - minimumTurn);
     }
 
-    private void CheckCarFlipped()
+    /*private void CheckCarFlipped()
     {
         if (transform.localEulerAngles.z > 80 && transform.localEulerAngles.z < 280) resetTimer += Time.deltaTime;
         else resetTimer = 0;
@@ -130,6 +134,34 @@ public class TestController : MonoBehaviour
         _rb.velocity = Vector3.zero;
         _rb.angularVelocity = Vector3.zero;
         resetTimer = 0;
+    }
+    */
+    private void ResetCar()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, -transform.up, out hit, layer))
+        {
+            if (hit.distance < 5f)
+            {
+                transform.rotation = Quaternion.LookRotation(transform.forward);
+
+                if (Physics.Raycast(transform.position + transform.up, transform.forward, stuckMaxDist))
+                {
+                    print("forward");
+                    transform.Translate(-10, 0, -10);
+                }
+                else if (Physics.Raycast(transform.position + transform.up, transform.right, stuckMaxDist))
+                    transform.Translate(-10, 0, 0);
+                else if (Physics.Raycast(transform.position + transform.up, -transform.right, stuckMaxDist))
+                    transform.Translate(10, 0, 0);
+
+                transform.rotation = Quaternion.LookRotation(transform.forward);
+                transform.position += Vector3.up * 0.5f;
+                _rb.velocity = Vector3.zero;
+                _rb.angularVelocity = Vector3.zero;
+            }
+        }
+
     }
     private void UpdateTiresPosition()
     {

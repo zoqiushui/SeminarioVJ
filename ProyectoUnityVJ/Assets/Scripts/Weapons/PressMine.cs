@@ -25,7 +25,7 @@ public class PressMine : Trap
 
     public override void Detonator()
     {
-        print("detonate");
+       // print("detonate");
 
         base.Detonator();
         Explosion();
@@ -35,17 +35,17 @@ public class PressMine : Trap
 
     public void Explosion()
     {
-        print("explote");
+       // print("explote");
         var cols = Physics.OverlapSphere(transform.position, expRadius, layersDamege);
         for (int i = 0; i < cols.Length; i++)
         {
             Vector3 direction = cols[i].transform.position - transform.position;
             float dist = direction.magnitude;
             direction.Normalize();
-            print(cols[i].gameObject);
+           // print(cols[i].gameObject);
             if (cols[i].GetComponent<Rigidbody>() != null)
             {
-                print("impact");
+               // print("impact");
                 print(cols[i].gameObject);
                 cols[i].GetComponent<Rigidbody>().AddForce(direction * expPower * (1 - (dist / expRadius)),ForceMode.Impulse);
             }// colis[i].rigidbody.AddForce(direction * expPower * (1 - (dist / expRadius)));
