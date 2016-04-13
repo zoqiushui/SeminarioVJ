@@ -8,32 +8,30 @@ public class VehicleCamera : MonoBehaviour
     public float velocityDamping;
     private Vector3 prevVelocity;
     private Vector3 currentVelocity;
-
+    private float distanceHeight;
     void Awake()
     {
         prevVelocity = Vector3.zero;
         currentVelocity = Vector3.zero;
         height = transform.localPosition.y;
+        distanceHeight = height - target.position.y;
     }
     void FixedUpdate()
-    {
+    {       
         currentVelocity = Vector3.Lerp(prevVelocity, target.transform.parent.GetComponent<Rigidbody>().velocity, velocityDamping * Time.deltaTime);
-        currentVelocity.y = 0;
+     //   currentVelocity.y = 0;
         prevVelocity = currentVelocity;
     }
-
     void LateUpdate()
-    {
+    { 
         float speedFactor = Mathf.Clamp01(target.transform.parent.GetComponent<Rigidbody>().velocity.magnitude / 70f);
         Camera.main.fieldOfView = Mathf.Lerp(55, 72, speedFactor);
         float currentDistance = Mathf.Lerp(7.5f, 6.5f, speedFactor);
 
         currentVelocity = currentVelocity.normalized;
-
-        Vector3 newTargetPosition = target.position + new Vector3(0,height - target.position.y,0);
+        Vector3 newTargetPosition = target.position + new Vector3(0, distanceHeight, 0);
         Vector3 newPosition = newTargetPosition - (currentVelocity * currentDistance);
         newPosition.y = newTargetPosition.y;
-
         transform.position = newPosition;
         transform.LookAt(target.position + Vector3.up *3);
     }
