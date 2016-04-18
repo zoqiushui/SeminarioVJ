@@ -27,9 +27,5 @@ public class K
     public const float SPEEDOMETER_MIN_ANGLE = 45;
     public const float SPEEDOMETER_MAX_SPEED = 260;
 
-    // ===== IA =====
-    public const float IA_MAX_HP = 100;
-    public const float IA_MAX_SPEED = 20;
-
     public const float GRAVITY = 9.8f;
 }

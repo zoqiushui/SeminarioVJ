@@ -15,7 +15,7 @@ public class Node : MonoBehaviour
 
     private void GetNextWaypoints()
     {
-        var waypoints = Physics.OverlapSphere(transform.position, 60);
+        var waypoints = Physics.OverlapSphere(transform.position, 100);
         foreach (var w in waypoints)
         {
             if (w.gameObject != this && w.gameObject.layer == K.LAYER_NODE)
