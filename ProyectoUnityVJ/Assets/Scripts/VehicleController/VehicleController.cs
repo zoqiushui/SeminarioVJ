@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+
 public class VehicleController : MonoBehaviour
 {
     public float maxTorque;
@@ -10,7 +11,7 @@ public class VehicleController : MonoBehaviour
     public WheelCollider[] wheelColliders;
     public Transform[] tiresCar;
     private Rigidbody _rb;
-    [SerializeField] private float currentSpeed;
+    private float currentSpeed;
     public float maxSpeed;
     public float maxReverseSpeed;
     private float steer = 0;
@@ -23,6 +24,9 @@ public class VehicleController : MonoBehaviour
     public float resetTime;
     public float stuckMaxDist;
     public LayerMask layer;
+    public float fallForce = 10000;
+
+    private bool _isGrounded;
 
     void Awake()
     {
@@ -30,8 +34,8 @@ public class VehicleController : MonoBehaviour
         _rb.centerOfMass = centerOfMass.localPosition;
         handbrake = false;
     }
-	
-	void Update ()
+
+    void Update()
     {
         UpdateTiresPosition();
         UIText();
@@ -39,7 +43,9 @@ public class VehicleController : MonoBehaviour
         GetInput();
         if (Input.GetKeyUp(KeyCode.R)) ResetCar();
         //CheckCarFlipped();
+        CheckIfGrounded();
     }
+
     void FixedUpdate()
     {
         //Transforma una dirección de world space a local space.
@@ -50,6 +56,8 @@ public class VehicleController : MonoBehaviour
 
         //ADDFORCE de Deslizamiento calculando dirección.
         UpdateDrag(relativeVelocity);
+
+        FallSpeed();
     }
 
     private void GetInput()
@@ -173,6 +181,29 @@ public class VehicleController : MonoBehaviour
 
             tiresCar[i].position = pos;
             tiresCar[i].rotation = quat;
+        }
+    }
+
+    protected void CheckIfGrounded()
+    {
+        Ray ray = new Ray(centerOfMass.transform.position, -transform.up);
+        Debug.DrawRay(ray.origin, ray.direction, Color.red);
+        RaycastHit hit;
+        _isGrounded = false;
+        if (Physics.Raycast(ray, out hit, 1))
+        {
+            if (hit.collider.gameObject.layer == K.LAYER_GROUND)
+            {
+                _isGrounded = true;
+            }
+        }
+    }
+
+    protected void FallSpeed()
+    {
+        if (!_isGrounded)
+        {
+            _rb.AddForce(-transform.up * fallForce);
         }
     }
 
