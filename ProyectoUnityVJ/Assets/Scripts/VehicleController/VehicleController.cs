@@ -25,6 +25,7 @@ public class VehicleController : MonoBehaviour
     public float stuckMaxDist;
     public LayerMask layer;
     public float fallForce = 10000;
+    public GameObject carModel;
 
     private bool _isGrounded;
 
@@ -58,6 +59,8 @@ public class VehicleController : MonoBehaviour
         UpdateDrag(relativeVelocity);
 
         FallSpeed();
+        BlockCarRotation();
+
     }
 
     private void GetInput()
@@ -184,6 +187,9 @@ public class VehicleController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checkea si el vehiculo esta tocando el piso.
+    /// </summary>
     protected void CheckIfGrounded()
     {
         Ray ray = new Ray(centerOfMass.transform.position, -transform.up);
@@ -199,12 +205,35 @@ public class VehicleController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Hace que el auto caiga mas rapido en los saltos.
+    /// </summary>
     protected void FallSpeed()
     {
         if (!_isGrounded)
         {
             _rb.AddForce(-transform.up * fallForce);
         }
+    }
+
+    /// <summary>
+    /// Impide que el auto se de vuelta.
+    /// </summary>
+    protected void BlockCarRotation()
+    {
+        /*if (_isGrounded)
+        {
+            if (transform.eulerAngles.z > 20)
+            {
+                Debug.Log("rotar a dcha");
+                _rb.AddTorque(carModel.transform.forward * 10000);
+            }
+            else if (transform.eulerAngles.z < -20)
+            {
+                Debug.Log("rotar a izq");
+                _rb.AddTorque(-carModel.transform.forward * 10000);
+            }
+        }*/
     }
 
     protected void UIText()

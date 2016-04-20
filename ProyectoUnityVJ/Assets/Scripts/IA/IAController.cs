@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class IAController : MonoBehaviour
 {
     public Node node;
-    public Canvas hpBarCanvas;
+    public GameObject hpBarContainer;
     public RawImage hpBarImage;
 
     private float _maxHp, _currentHp, _speed;
@@ -19,6 +19,7 @@ public class IAController : MonoBehaviour
     }
     private void Update()
     {
+        hpBarContainer.transform.LookAt(Camera.main.transform.position);
         aux.x = _currentHp / _maxHp;
         hpBarImage.transform.localScale = aux;
         if (Vector3.Distance(transform.position,node.transform.position) < 2)
