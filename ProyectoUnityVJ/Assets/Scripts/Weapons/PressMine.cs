@@ -36,20 +36,22 @@ public class PressMine : Trap
     public void Explosion()
     {
        // print("explote");
+       
         var cols = Physics.OverlapSphere(transform.position, expRadius, layersDamege);
         for (int i = 0; i < cols.Length; i++)
         {
-            Vector3 direction = cols[i].transform.position - transform.position;
-            float dist = direction.magnitude;
-            direction.Normalize();
+       //     Vector3 direction = cols[i].transform.position - transform.position;
+       //   float dist = direction.magnitude;
+       //   direction.Normalize();
            // print(cols[i].gameObject);
             if (cols[i].GetComponent<Rigidbody>() != null)
             {
                // print("impact");
                 print(cols[i].gameObject);
-                cols[i].GetComponent<Rigidbody>().AddForce(direction * expPower * (1 - (dist / expRadius)),ForceMode.Impulse);
+                cols[i].GetComponent<Rigidbody>().AddExplosionForce(expPower, transform.position,expRadius,0.5f,ForceMode.Impulse);
             }// colis[i].rigidbody.AddForce(direction * expPower * (1 - (dist / expRadius)));
         }
+
         GameObject.Destroy(this.gameObject);
     }
     void OnDrawGizmos()

@@ -88,6 +88,7 @@ public class RocketLauncher : Weapon
         //float distance = Mathf.Infinity;
         foreach (var posibilities in GameObject.FindGameObjectsWithTag("Target"))
         {
+			Debug.Log (posibilities.gameObject);
           //float dist = (posibilities.transform.position - transform.position).sqrMagnitude;
             Vector3 direction = posibilities.transform.position - myTransf.position;
             float angle = Vector3.Angle(myTransf.forward, direction);
@@ -103,6 +104,7 @@ public class RocketLauncher : Weapon
                     if (hit.collider.gameObject.tag == "Target" && temp.z > 8)
                     {
                         targets.Add(posibilities);
+                        print(posibilities);
                         if(!_enemyFound) _enemyFound = true;
                     }
                 }

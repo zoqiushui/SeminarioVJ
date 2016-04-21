@@ -7,10 +7,11 @@ public class MiniGun : Weapon
     public float CooldownTime;
     public short InputKey;
     public GameObject particleEffect;
+    public GameObject bulletPref;
     public float forceImpact;
     public float maxDistance;
     public Transform shootPoint;
-    private Vector3 direction;
+  //  private Vector3 direction;
     private RaycastHit hit;
 
     // Use this for initialization
@@ -26,7 +27,7 @@ public class MiniGun : Weapon
     {
         if (Input.GetMouseButton(shootButtom))
             particleEffect.SetActive(true);
-        else if (particleEffect.active)
+        else if (particleEffect.activeInHierarchy)
             particleEffect.SetActive(false);
 
         ShootDownButtom();
@@ -39,14 +40,16 @@ public class MiniGun : Weapon
 
         canShoot = false;
         base.Shoot();
-        direction = shootPoint.TransformDirection(Vector3.forward);
-
+       // direction = shootPoint.TransformDirection(Vector3.forward);
+        Instantiate(bulletPref, shootPoint.position + shootPoint.forward, shootPoint.rotation);
+        
+        /*
         Debug.DrawRay(shootPoint.position, direction * maxDistance, Color.blue);
 
         if (Physics.Raycast(shootPoint.position, direction, out hit,maxDistance))
         {
             if(hit.rigidbody!=null)
                 hit.rigidbody.AddForceAtPosition(direction * forceImpact, hit.point);
-        }
+        }*/
     }
 }

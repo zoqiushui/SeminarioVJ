@@ -9,13 +9,21 @@ public class VehicleCamera : MonoBehaviour
     private Vector3 prevVelocity;
     private Vector3 currentVelocity;
     private float distanceHeight;
-    void Awake()
+	private bool _press;
+
+	void Awake()
     {
         prevVelocity = Vector3.zero;
         currentVelocity = Vector3.zero;
         height = transform.localPosition.y;
         distanceHeight = height - target.position.y;
     }
+	void Update()
+	{
+		if (Input.GetAxis ("Vertical") != 0 && !_press)		_press = true;
+	}
+
+
     void FixedUpdate()
     {       
         currentVelocity = Vector3.Lerp(prevVelocity, target.transform.parent.GetComponent<Rigidbody>().velocity, velocityDamping * Time.deltaTime);
@@ -23,18 +31,21 @@ public class VehicleCamera : MonoBehaviour
         prevVelocity = currentVelocity;
     }
     void LateUpdate()
-    { 
-        float speedFactor = Mathf.Clamp01(target.transform.parent.GetComponent<Rigidbody>().velocity.magnitude / 70f);
-        Camera.main.fieldOfView = Mathf.Lerp(55, 72, speedFactor);
-        float currentDistance = Mathf.Lerp(7.5f, 6.5f, speedFactor);
+	{
+		if (_press) 
+		{
+			float speedFactor = Mathf.Clamp01 (target.transform.parent.GetComponent<Rigidbody> ().velocity.magnitude / 70f);
+			Camera.main.fieldOfView = Mathf.Lerp (55, 72, speedFactor);
+			float currentDistance = Mathf.Lerp (7.5f, 6.5f, speedFactor);
 
-        currentVelocity = currentVelocity.normalized;
-        Vector3 newTargetPosition = target.position + new Vector3(0, distanceHeight, 0);
-        Vector3 newPosition = newTargetPosition - (currentVelocity * currentDistance);
-        newPosition.y = newTargetPosition.y;
-        transform.position = newPosition;
-        transform.LookAt(target.position + Vector3.up *3);
-    }
+			currentVelocity = currentVelocity.normalized;
+			Vector3 newTargetPosition = target.position + new Vector3 (0, distanceHeight, 0);
+			Vector3 newPosition = newTargetPosition - (currentVelocity * currentDistance);
+			newPosition.y = newTargetPosition.y;
+			transform.position = newPosition;
+			transform.LookAt (target.position + Vector3.up * 3);
+		}
+	}
 
     void OnDrawGizmos()
     {
