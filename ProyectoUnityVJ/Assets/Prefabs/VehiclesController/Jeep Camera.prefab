@@ -26,8 +26,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 125260}
-  m_LocalRotation: {x: 0.2533451, y: 0, z: 0, w: 0.967376}
-  m_LocalPosition: {x: 97, y: 9.5, z: 5.6099997}
+  m_LocalRotation: {x: 0.19699118, y: 0, z: 0, w: 0.98040533}
+  m_LocalPosition: {x: 1185, y: 10.25, z: 3.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -50,7 +50,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 50
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -72,7 +72,7 @@ AudioListener:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 125260}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!92 &9297924
 Behaviour:
   m_ObjectHideFlags: 1
@@ -92,7 +92,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  velocityDamping: 2.5
+  rotationDamping: 3
+  minFOV: 50
+  maxFOV: 70
 --- !u!124 &12497514
 Behaviour:
   m_ObjectHideFlags: 1

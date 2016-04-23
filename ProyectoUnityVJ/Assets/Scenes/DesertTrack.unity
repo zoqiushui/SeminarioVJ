@@ -988,35 +988,35 @@ Prefab:
     m_Modifications:
     - target: {fileID: 496998, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -77.86
+      value: -77.9
       objectReference: {fileID: 0}
     - target: {fileID: 496998, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 34.2
+      value: 36.13
       objectReference: {fileID: 0}
     - target: {fileID: 496998, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 347.35
+      value: 346.85
       objectReference: {fileID: 0}
     - target: {fileID: 496998, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.17914207
+      value: 0.1392936
       objectReference: {fileID: 0}
     - target: {fileID: 496998, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.68403816
+      value: 0.6932513
       objectReference: {fileID: 0}
     - target: {fileID: 496998, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0.1791421
+      value: -0.13929361
       objectReference: {fileID: 0}
     - target: {fileID: 496998, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.6840381
+      value: 0.6932512
       objectReference: {fileID: 0}
     - target: {fileID: 496998, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11479700, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
       propertyPath: target
@@ -1033,6 +1033,14 @@ Prefab:
     - target: {fileID: 12497514, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496998, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 496998, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
@@ -4943,7 +4951,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &254760219
 Transform:
   m_ObjectHideFlags: 0
@@ -8807,6 +8815,84 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.53018856, y: 0.62302303, z: 5.6259723}
   m_Center: {x: 0.00039681233, y: -0.00000012575028, z: 2.8132303}
+--- !u!1001 &426780406
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 473706, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1185
+      objectReference: {fileID: 0}
+    - target: {fileID: 473706, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 3.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 473706, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 12.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 473706, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 473706, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 473706, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 473706, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 473706, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 480600, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.09074578
+      objectReference: {fileID: 0}
+    - target: {fileID: 480600, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.72925246
+      objectReference: {fileID: 0}
+    - target: {fileID: 480600, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.6738108
+      objectReference: {fileID: 0}
+    - target: {fileID: 480600, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: -0.07704067
+      objectReference: {fileID: 0}
+    - target: {fileID: 11458670, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: _mainCam
+      value: 
+      objectReference: {fileID: 1702999389}
+    - target: {fileID: 11458670, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: lockOn
+      value: 
+      objectReference: {fileID: 2016792}
+    - target: {fileID: 109072, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_Name
+      value: JeepController (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 11482268, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: speedText
+      value: 
+      objectReference: {fileID: 281608733}
+    - target: {fileID: 109072, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &434064726
 GameObject:
   m_ObjectHideFlags: 0
@@ -16945,23 +17031,23 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1421971544}
     m_Modifications:
     - target: {fileID: 496998, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1185
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 496998, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 9.5
+      value: 7.15
       objectReference: {fileID: 0}
     - target: {fileID: 496998, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 5.6099997
+      value: -8.92
       objectReference: {fileID: 0}
     - target: {fileID: 496998, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.2533451
+      value: 0.19699118
       objectReference: {fileID: 0}
     - target: {fileID: 496998, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
       propertyPath: m_LocalRotation.y
@@ -16973,11 +17059,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 496998, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.967376
+      value: 0.98040533
       objectReference: {fileID: 0}
     - target: {fileID: 496998, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
       propertyPath: m_RootOrder
-      value: 16
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 125260, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
+      propertyPath: m_Name
+      value: Jeep Camera (1)
       objectReference: {fileID: 0}
     - target: {fileID: 11479700, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
       propertyPath: target
@@ -16986,10 +17076,6 @@ Prefab:
     - target: {fileID: 125260, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 125260, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
-      propertyPath: m_Name
-      value: Jeep Camera (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0f6731916b55e9f498aad297dac3c0ec, type: 2}
@@ -18559,84 +18645,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.007900474, y: 0.017875383, z: 0.22725372}
   m_Center: {x: 0.003949714, y: 0.0000009538356, z: 0.018332344}
---- !u!1001 &902277674
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 473706, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 1185
-      objectReference: {fileID: 0}
-    - target: {fileID: 473706, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 3.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 473706, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 12.28
-      objectReference: {fileID: 0}
-    - target: {fileID: 473706, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 473706, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 473706, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 473706, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 473706, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: m_RootOrder
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 480600, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0.09074577
-      objectReference: {fileID: 0}
-    - target: {fileID: 480600, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0.7292524
-      objectReference: {fileID: 0}
-    - target: {fileID: 480600, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0.6738107
-      objectReference: {fileID: 0}
-    - target: {fileID: 480600, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: -0.077040665
-      objectReference: {fileID: 0}
-    - target: {fileID: 11482268, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: speedText
-      value: 
-      objectReference: {fileID: 281608733}
-    - target: {fileID: 11458670, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: _mainCam
-      value: 
-      objectReference: {fileID: 1702999389}
-    - target: {fileID: 11458670, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: lockOn
-      value: 
-      objectReference: {fileID: 2016792}
-    - target: {fileID: 109072, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 109072, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: m_Name
-      value: JeepController (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &906402344
 GameObject:
   m_ObjectHideFlags: 0
@@ -20839,7 +20847,7 @@ Transform:
 --- !u!4 &1018693780 stripped
 Transform:
   m_PrefabParentObject: {fileID: 430046, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-  m_PrefabInternal: {fileID: 902277674}
+  m_PrefabInternal: {fileID: 426780406}
 --- !u!4 &1024557155 stripped
 Transform:
   m_PrefabParentObject: {fileID: 402476, guid: fc8ef0ce573730242a3e7ff361f376ae, type: 2}
@@ -26604,7 +26612,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 473706, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -71.86
+      value: -68.9
       objectReference: {fileID: 0}
     - target: {fileID: 473706, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
       propertyPath: m_LocalPosition.y
@@ -26632,7 +26640,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 473706, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11482268, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
       propertyPath: speedText
@@ -26669,6 +26677,42 @@ Prefab:
     - target: {fileID: 5463994, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
       propertyPath: m_AngularDrag
       value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5463994, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_Mass
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 14624586, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_SuspensionDistance
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14687300, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_SuspensionDistance
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14610444, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_SuspensionDistance
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14648584, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_SuspensionDistance
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14624586, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_SuspensionSpring.damper
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 14687300, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_SuspensionSpring.damper
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 14610444, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_SuspensionSpring.damper
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 14648584, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_SuspensionSpring.damper
+      value: 10000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
@@ -27920,6 +27964,10 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300014, guid: 71f55ae9002b1384a93bed5c951640b3, type: 3}
+--- !u!4 &1421971544 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 473706, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+  m_PrefabInternal: {fileID: 426780406}
 --- !u!1001 &1422977183
 Prefab:
   m_ObjectHideFlags: 0

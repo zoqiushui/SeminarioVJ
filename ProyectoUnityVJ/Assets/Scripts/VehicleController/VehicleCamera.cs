@@ -4,47 +4,52 @@ using System.Collections;
 public class VehicleCamera : MonoBehaviour
 {
     public Transform target = null;
-    private float height;
-    public float velocityDamping;
-    private Vector3 prevVelocity;
-    private Vector3 currentVelocity;
-    private float distanceHeight;
-	private bool _press;
+    private float _height;
+    private float _distanceHeight;
+    private Rigidbody _rbTarget;
+    public float rotationDamping = 3f;
+    public float minFOV = 50f;
+    public float maxFOV = 70f;
+    private float _minDistance;
+    private float _maxDistance;
 
 	void Awake()
     {
-        prevVelocity = Vector3.zero;
-        currentVelocity = Vector3.zero;
-        height = transform.localPosition.y;
-        distanceHeight = height - target.position.y;
-    }
-	void Update()
-	{
-		if (Input.GetAxis ("Vertical") != 0 && !_press)		_press = true;
-	}
-
-
-    void FixedUpdate()
-    {       
-        currentVelocity = Vector3.Lerp(prevVelocity, target.transform.parent.GetComponent<Rigidbody>().velocity, velocityDamping * Time.deltaTime);
-     //   currentVelocity.y = 0;
-        prevVelocity = currentVelocity;
+        if (!target) return;
+        _rbTarget = target.transform.parent.GetComponent<Rigidbody>();
+        _height = transform.localPosition.y;
+        _distanceHeight = _height - target.position.y;
+        _minDistance = Vector3.Distance(transform.position, target.transform.position + Vector3.up * 3f);
+        _maxDistance = _minDistance - 2f;
     }
     void LateUpdate()
 	{
-		if (_press) 
-		{
-			float speedFactor = Mathf.Clamp01 (target.transform.parent.GetComponent<Rigidbody> ().velocity.magnitude / 70f);
-			Camera.main.fieldOfView = Mathf.Lerp (55, 72, speedFactor);
-			float currentDistance = Mathf.Lerp (7.5f, 6.5f, speedFactor);
+        if (!target || !_rbTarget) return;
 
-			currentVelocity = currentVelocity.normalized;
-			Vector3 newTargetPosition = target.position + new Vector3 (0, distanceHeight, 0);
-			Vector3 newPosition = newTargetPosition - (currentVelocity * currentDistance);
-			newPosition.y = newTargetPosition.y;
-			transform.position = newPosition;
-			transform.LookAt (target.position + Vector3.up * 3);
-		}
+        float speed = (_rbTarget.transform.InverseTransformDirection(_rbTarget.velocity).z) * 3f;
+
+        float speedFactor = Mathf.Clamp01(_rbTarget.velocity.magnitude / 70);
+        Camera.main.fieldOfView = Mathf.Lerp(minFOV, maxFOV, speedFactor);
+        float currentDistance = Mathf.Lerp(_minDistance, _maxDistance, speedFactor);
+
+        //Calcula los angulos de rotación actuales
+        float targetRotationAngle = target.eulerAngles.y;
+        float currentRotationAngle = transform.eulerAngles.y;
+
+        // Rotación de camara en marcha atrás.
+        if (speed < -2) targetRotationAngle = target.eulerAngles.y + 180;
+
+        //Damp de la rotación en el eje Y.
+        currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, targetRotationAngle, rotationDamping * Time.deltaTime);
+        //Convierte el angulo a rotación.
+        Quaternion currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
+
+        //Altura de la camara.
+        Vector3 newTargetPosition = target.position + new Vector3(0, _distanceHeight, 0);
+
+        transform.position = newTargetPosition;
+        transform.position -= currentRotation * Vector3.forward * currentDistance;
+        transform.LookAt(target.position + Vector3.up * 3);
 	}
 
     void OnDrawGizmos()

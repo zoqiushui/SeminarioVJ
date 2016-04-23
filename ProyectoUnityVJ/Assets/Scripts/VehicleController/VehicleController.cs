@@ -26,7 +26,7 @@ public class VehicleController : MonoBehaviour
     public LayerMask layer;
     public float fallForce = 10000;
     public GameObject carModel;
-
+    private float finalAngle;
     private bool _isGrounded;
 
     void Awake()
@@ -40,11 +40,11 @@ public class VehicleController : MonoBehaviour
     {
         UpdateTiresPosition();
         UIText();
-        currentSpeed = _rb.velocity.magnitude * 3.6f;
+        currentSpeed = _rb.velocity.magnitude * 3f;
         GetInput();
         if (Input.GetKeyUp(KeyCode.R)) ResetCar();
         //CheckCarFlipped();
-        CheckIfGrounded();
+    //    CheckIfGrounded();
     }
 
     void FixedUpdate()
@@ -67,9 +67,11 @@ public class VehicleController : MonoBehaviour
     {
         throttle = Input.GetAxis("Vertical");
         steer = Input.GetAxis("Horizontal");
-        float finalAngle = steer * K.JEEP_MAX_STEERING_ANGLE;
-        wheelColliders[0].steerAngle = finalAngle;
-        wheelColliders[1].steerAngle = finalAngle;
+        finalAngle = steer * K.JEEP_MAX_STEERING_ANGLE;
+
+     //   wheelColliders[0].steerAngle = finalAngle;
+   //     wheelColliders[1].steerAngle = finalAngle;
+
         for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = throttle * maxTorque;
 
         if (currentSpeed > maxSpeed && throttle > 0)
@@ -128,6 +130,7 @@ public class VehicleController : MonoBehaviour
     {
         if (speed > maxSpeed / 2) return minimumTurn;
         var speedIndex = 1 - (speed / (maxSpeed / 2));
+
         return minimumTurn + speedIndex * (maximumTurn - minimumTurn);
     }
 
@@ -181,9 +184,14 @@ public class VehicleController : MonoBehaviour
             Quaternion quat;
             Vector3 pos;
             wheelColliders[i].GetWorldPose(out pos, out quat);
-
             tiresCar[i].position = pos;
             tiresCar[i].rotation = quat;
+            if (i < 2f)
+            {
+                Vector3 steerAngle = tiresCar[i].localEulerAngles;
+                steerAngle.y = finalAngle;
+                tiresCar[i].localEulerAngles = steerAngle;
+            }
         }
     }
 
