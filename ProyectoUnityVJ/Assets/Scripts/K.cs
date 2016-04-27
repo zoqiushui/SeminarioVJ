@@ -21,6 +21,7 @@ public class K
     public const float JEEP_MAX_STEERING_ANGLE = 30;
     public const float JEEP_STEER_SPEED = 0.8f;
     public const float JEEP_BRAKE = 1.5f;
+    public const float JEEP_ROTATION_FORCE = 10000;
 
     // ===== UI =====
     public const float SPEEDOMETER_MAX_ANGLE = -270;

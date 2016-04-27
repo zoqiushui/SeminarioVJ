@@ -44,7 +44,7 @@ public class VehicleController : MonoBehaviour
         GetInput();
         if (Input.GetKeyUp(KeyCode.R)) ResetCar();
         //CheckCarFlipped();
-    //    CheckIfGrounded();
+        //    CheckIfGrounded();
     }
 
     void FixedUpdate()
@@ -69,8 +69,8 @@ public class VehicleController : MonoBehaviour
         steer = Input.GetAxis("Horizontal");
         finalAngle = steer * K.JEEP_MAX_STEERING_ANGLE;
 
-     //   wheelColliders[0].steerAngle = finalAngle;
-   //     wheelColliders[1].steerAngle = finalAngle;
+        //   wheelColliders[0].steerAngle = finalAngle;
+        //     wheelColliders[1].steerAngle = finalAngle;
 
         for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = throttle * maxTorque;
 
@@ -229,19 +229,37 @@ public class VehicleController : MonoBehaviour
     /// </summary>
     protected void BlockCarRotation()
     {
-        /*if (_isGrounded)
+
+        if (transform.eulerAngles.z > 20 && transform.eulerAngles.z <= 180)
         {
-            if (transform.eulerAngles.z > 20)
-            {
-                Debug.Log("rotar a dcha");
-                _rb.AddTorque(carModel.transform.forward * 10000);
-            }
-            else if (transform.eulerAngles.z < -20)
-            {
-                Debug.Log("rotar a izq");
-                _rb.AddTorque(-carModel.transform.forward * 10000);
-            }
-        }*/
+            //Debug.Log("rotar a dcha");
+            _rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+            _rb.constraints = RigidbodyConstraints.None;
+            _rb.AddTorque(carModel.transform.forward * K.JEEP_ROTATION_FORCE);
+        }
+        else if (transform.eulerAngles.z < 340 && transform.eulerAngles.z > 180)
+        {
+            //Debug.Log("rotar a izq");
+            _rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+            _rb.constraints = RigidbodyConstraints.None;
+            _rb.AddTorque(-carModel.transform.forward * K.JEEP_ROTATION_FORCE);
+        }
+
+        if (transform.eulerAngles.x > 20 && transform.eulerAngles.x <= 180)
+        {
+            //Debug.Log("rotar a arriba");
+            _rb.constraints = RigidbodyConstraints.FreezeRotationX;
+            _rb.constraints = RigidbodyConstraints.None;
+            _rb.AddTorque(carModel.transform.forward * K.JEEP_ROTATION_FORCE);
+        }
+        else if (transform.eulerAngles.x < 340 && transform.eulerAngles.x > 180)
+        {
+            //Debug.Log("rotar a abajo");
+            _rb.constraints = RigidbodyConstraints.FreezeRotationX;
+            _rb.constraints = RigidbodyConstraints.None;
+            _rb.AddTorque(-carModel.transform.forward * K.JEEP_ROTATION_FORCE);
+        }
+
     }
 
     protected void UIText()
