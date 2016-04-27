@@ -24,7 +24,7 @@ public class RocketLauncher : Weapon
     public Transform myTransf;
     public GameObject rocket;
     private GameObject _finalTarget;
-    public List<GameObject> targets;
+    private List<GameObject> targets;
     private bool _enemyFound;
     public Camera _mainCam;
     
@@ -56,12 +56,12 @@ public class RocketLauncher : Weapon
 
         if (Input.GetMouseButtonUp(InputKey) && _finalTarget!=null && canShoot)
         {
-            Launch();
+            Shoot();
         }
 
         if (_finalTarget != null && _enemyFound)    LockTarget();
 
-        if (!Input.GetMouseButton(InputKey) && lockOn.active) lockOn.SetActive(false);
+        if (!Input.GetMouseButton(InputKey) && lockOn.activeSelf) lockOn.SetActive(false);
 
 
     }
@@ -73,7 +73,7 @@ public class RocketLauncher : Weapon
         if (temp.z < 10)
         {
             _finalTarget = null;
-            Launch();
+            Shoot();
         }
         else
         {
@@ -131,10 +131,10 @@ public class RocketLauncher : Weapon
         }
     }
 
-    public void Launch()
+    public override void Shoot()
     {
+        base.Shoot();
         _enemyFound = false;
-        canShoot = false;
         if (_finalTarget != null)
         {
             GameObject rock = (GameObject)GameObject.Instantiate(rocket, launchPoint.position, Quaternion.identity);

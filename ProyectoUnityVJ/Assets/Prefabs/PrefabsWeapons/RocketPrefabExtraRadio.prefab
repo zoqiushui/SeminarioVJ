@@ -63,7 +63,7 @@ GameObject:
   - 54: {fileID: 5467900}
   - 114: {fileID: 11431508}
   m_Layer: 14
-  m_Name: RocketPrefab
+  m_Name: RocketPrefabExtraRadio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214,9 +214,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeTime: 3
   velocity: 150
-  turnSpeed: 40
-  radio: 5
-  damage: 15
+  turnSpeed: 300
+  radio: 7
+  damage: 20
   layersDamage:
     serializedVersion: 2
     m_Bits: 4096
@@ -1777,7 +1777,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: turnSpeed
-      value: 40
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Layer
@@ -1789,11 +1789,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: damage
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: radio
-      value: 5
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Name
+      value: RocketPrefabExtraRadio
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: expFeed

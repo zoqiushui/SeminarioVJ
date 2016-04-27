@@ -41,8 +41,9 @@ public class IAController : MonoBehaviour
 
 		if (_currentHp <= 0) 
 		{
-			Instantiate (remains, transform.position, transform.rotation);
-			Destroy (this.gameObject);
+            Destroy(this.gameObject);
+            Instantiate (remains, transform.position, transform.rotation);
+			
 		}
 	}
 }

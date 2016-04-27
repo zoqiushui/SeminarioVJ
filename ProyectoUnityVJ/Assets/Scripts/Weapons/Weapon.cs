@@ -9,23 +9,12 @@ public class Weapon : MonoBehaviour
     protected bool canShoot;
     private float _timeCoolDown;
 
-    // Use this for initialization
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
-
     public virtual void ShootDownButtom()
     {
         _timeCoolDown += Time.deltaTime;
         
 
-        if (Input.GetMouseButton(shootButtom) && _timeCoolDown > cooldown)
+        if (Input.GetMouseButton(shootButtom) && _timeCoolDown > cooldown && !canShoot)
         {
             _timeCoolDown = 0;
             canShoot = true;
@@ -36,7 +25,7 @@ public class Weapon : MonoBehaviour
     {
         _timeCoolDown += Time.deltaTime;
 
-        if (Input.GetMouseButtonUp(shootButtom) && _timeCoolDown > cooldown)
+        if (Input.GetMouseButtonUp(shootButtom) && _timeCoolDown > cooldown && !canShoot)
         {
             _timeCoolDown = 0;
             canShoot = true;
@@ -45,6 +34,7 @@ public class Weapon : MonoBehaviour
 
     public virtual void Shoot()
     {
+        canShoot = false;
       //  print("Disparo");
     }
 
