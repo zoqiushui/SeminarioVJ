@@ -12,6 +12,7 @@ public class VehicleController : MonoBehaviour
     public Transform[] tiresCar;
     private Rigidbody _rb;
     private float currentSpeed;
+    private float acceleration;
     public float maxSpeed;
     public float maxReverseSpeed;
     private float steer = 0;
@@ -34,6 +35,7 @@ public class VehicleController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _rb.centerOfMass = centerOfMass.localPosition;
         handbrake = false;
+        Cursor.visible = false;
     }
 
     void Update()
@@ -43,14 +45,20 @@ public class VehicleController : MonoBehaviour
         currentSpeed = _rb.velocity.magnitude * 3f;
         GetInput();
         if (Input.GetKeyUp(KeyCode.R)) ResetCar();
+
+        Debug.Log(currentSpeed);
         //CheckCarFlipped();
-        //    CheckIfGrounded();
+        CheckIfGrounded();
     }
 
     void FixedUpdate()
     {
         //Transforma una dirección de world space a local space.
-        var relativeVelocity = transform.InverseTransformDirection(_rb.velocity);
+        var relativeVelocity = _rb.transform.InverseTransformDirection(_rb.velocity);
+
+        acceleration = _rb.transform.InverseTransformDirection(_rb.velocity).z;
+
+     //   Debug.Log(acceleration);
 
         //Maniobrabilidad
         ApplySteering(relativeVelocity);
@@ -72,7 +80,8 @@ public class VehicleController : MonoBehaviour
         //   wheelColliders[0].steerAngle = finalAngle;
         //     wheelColliders[1].steerAngle = finalAngle;
 
-        for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = throttle * maxTorque;
+        if (_isGrounded) for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = throttle * maxTorque;
+        else Debug.Log("SKDJAKLJDAS");
 
         if (currentSpeed > maxSpeed && throttle > 0)
         {
@@ -94,10 +103,17 @@ public class VehicleController : MonoBehaviour
 
     private void CheckHandbrake()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.S) && acceleration > 0)
+        {
+            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 7000;
+            dragMultiplier.z += 10 * Time.deltaTime;
+            handbrake = true;
+        }
+        else if( Input.GetKey(KeyCode.S) && acceleration > 0)
         {
             for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 1000;
-            dragMultiplier.z += 10 * Time.deltaTime;
+            //    dragMultiplier.z += 10 * Time.deltaTime;
+            dragMultiplier.z += 2 * Time.deltaTime;
             handbrake = true;
         }
         else

@@ -14,30 +14,28 @@ public class RockedLauncherMK2 : Weapon
     public Camera _mainCam;
     
     public GameObject lockOn;
-    private Image _lockOn;
+    private RawImage _lockOn;
     private Ray ray;
     private RaycastHit hit;
 
-
-    // Use this for initialization
     void Start ()
     {
-        lockOn.SetActive(false);
-        _lockOn = lockOn.GetComponent<Image>();
+        lockOn.SetActive(true);
+        _lockOn = lockOn.GetComponent<RawImage>();
         shootButtom = InputKey;
         cooldown = CooldownTime;
     }
 
-    // Update is called once per frame
     void Update()
     {
         OneShoot();
+        _lockOn.transform.position = Input.mousePosition;
 
         if(Input.GetMouseButtonDown(shootButtom) && canShoot)
         {
-            lockOn.SetActive(true);
+         //   lockOn.SetActive(true);
             Vector3 temp = _mainCam.WorldToScreenPoint(Input.mousePosition);
-            _lockOn.rectTransform.position = temp;
+        //    _lockOn.rectTransform.position = temp;
 
         }
 
@@ -57,7 +55,6 @@ public class RockedLauncherMK2 : Weapon
         base.Shoot();
         GameObject rock = (GameObject)GameObject.Instantiate(rocket, launchPoint.position, Quaternion.identity);
         rock.GetComponent<Rocket>().SetTarget(_pointAttack);
-        lockOn.SetActive(false);
-
+     //   lockOn.SetActive(false);
     }
 }
