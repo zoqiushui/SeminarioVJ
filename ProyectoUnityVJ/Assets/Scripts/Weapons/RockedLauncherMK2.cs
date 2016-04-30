@@ -28,8 +28,9 @@ public class RockedLauncherMK2 : Weapon
 
     void Update()
     {
-        OneShoot();
         _lockOn.transform.position = Input.mousePosition;
+        AimCollision();
+        OneShoot();
 
         if(Input.GetMouseButtonDown(shootButtom) && canShoot)
         {
@@ -48,6 +49,7 @@ public class RockedLauncherMK2 : Weapon
                 Shoot();
             }
         }
+
     }
 
     public override void Shoot()
@@ -56,5 +58,17 @@ public class RockedLauncherMK2 : Weapon
         GameObject rock = (GameObject)GameObject.Instantiate(rocket, launchPoint.position, Quaternion.identity);
         rock.GetComponent<Rocket>().SetTarget(_pointAttack);
      //   lockOn.SetActive(false);
+    }
+
+    private void AimCollision()
+    {
+        ray = _mainCam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 1 << K.LAYER_ENEMY))
+        {
+            if (hit.collider.gameObject.layer == K.LAYER_ENEMY)_lockOn.gameObject.GetComponent<CanvasRenderer>().SetColor(Color.red);
+            else _lockOn.gameObject.GetComponent<CanvasRenderer>().SetColor(Color.white);
+        }
     }
 }

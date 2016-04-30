@@ -9,6 +9,7 @@ public class K
     public const int LAYER_PLAYER = 10;
     public const int LAYER_NODE = 11;
     public const int LAYER_IA = 12;
+    public const int LAYER_ENEMY = 13;
 
     // ===== Ground Check =====
     public const float IS_GROUNDED_RAYCAST_DISTANCE = 2;

@@ -46,7 +46,6 @@ public class VehicleController : MonoBehaviour
         GetInput();
         if (Input.GetKeyUp(KeyCode.R)) ResetCar();
 
-        Debug.Log(currentSpeed);
         //CheckCarFlipped();
         CheckIfGrounded();
     }
@@ -81,7 +80,6 @@ public class VehicleController : MonoBehaviour
         //     wheelColliders[1].steerAngle = finalAngle;
 
         if (_isGrounded) for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = throttle * maxTorque;
-        else Debug.Log("SKDJAKLJDAS");
 
         if (currentSpeed > maxSpeed && throttle > 0)
         {

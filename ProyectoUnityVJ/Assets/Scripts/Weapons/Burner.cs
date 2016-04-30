@@ -39,7 +39,6 @@ public class Burner : Weapon
         {
             if (canShoot && cols.gameObject.layer == K.LAYER_IA)
             {
-                print("asdasd");
                 Shoot();
                 cols.gameObject.GetComponent<IAController>().Damage(damage);
             }
