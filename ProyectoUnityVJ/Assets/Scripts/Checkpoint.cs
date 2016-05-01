@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Checkpoint : MonoBehaviour
 {
     public List<GameObject> checkpointNodes { get; private set; }
+    public Checkpoint nextCheckpoint { get; private set; }
 
     private void Start()
     {
@@ -38,6 +39,11 @@ public class Checkpoint : MonoBehaviour
         }
     }
 
+    public void SetNextCheckpoint(Checkpoint chk)
+    {
+        nextCheckpoint = chk;
+    }
+
     public Vector3 GetRespawnPoint(Vector3 vehiclePos)
     {
         float aux = float.MaxValue;
@@ -65,5 +71,6 @@ public class Checkpoint : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position + transform.right * transform.localScale.x / 2, transform.position - transform.right * transform.localScale.x / 2);
+        Gizmos.DrawLine(transform.position, nextCheckpoint.transform.position);
     }
 }

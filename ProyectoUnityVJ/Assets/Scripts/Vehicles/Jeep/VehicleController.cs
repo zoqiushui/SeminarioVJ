@@ -227,7 +227,6 @@ public class VehicleController : MonoBehaviour, IVehicle
     public void SetCheckpoint(Checkpoint chk)
     {
         _lastCheckpoint = chk;
-        print(_lastCheckpoint.gameObject);
         lapCount += CheckpointManager.instance.checkpointValue;
     }
 

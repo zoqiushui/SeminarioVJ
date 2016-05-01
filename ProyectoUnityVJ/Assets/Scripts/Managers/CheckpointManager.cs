@@ -12,7 +12,7 @@ public class CheckpointManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null) instance = new CheckpointManager();
+        if (instance == null) instance = this;
     }
 
     private void Start()
@@ -25,22 +25,23 @@ public class CheckpointManager : MonoBehaviour
         }
         _vehiclesDictionary.Add(GameObject.FindGameObjectWithTag("Player"), 0);
         checkpointValue = (float)1/_checkpointsList.Count;
-    }
-
-    private void Update()
-    {
-        foreach (var item in _checkpointsList)
+        int aux = 1;
+        foreach (var chk in _checkpointsList)
         {
-            print(item.gameObject);
+            chk.SetNextCheckpoint(_checkpointsList[aux]);
+            if (aux == _checkpointsList.Count-1)
+            {
+                aux = 0;
+            }
+            else
+            {
+                aux++;
+            }
         }
     }
 
     public bool CheckVehicleCheckpoint(GameObject vehicle, Checkpoint chk)
     {
-        foreach (var item in _checkpointsList)  //mismo codigo que en Update pero aca tira null reference exception
-        {
-            print(item.gameObject);
-        }
         if (_vehiclesDictionary[vehicle] == _checkpointsList.IndexOf(chk))
         {
             if (_vehiclesDictionary[vehicle] == _checkpointsList.Count - 1)
