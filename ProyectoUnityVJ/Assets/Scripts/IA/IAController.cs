@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class IAController : MonoBehaviour
+public class IAController : MonoBehaviour, IVehicle
 {
     public Node node;
     public GameObject hpBarContainer;

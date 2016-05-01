@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class VehicleController : MonoBehaviour
+public class VehicleController : MonoBehaviour, IVehicle
 {
     public float maxTorque;
     public Transform centerOfMass;
@@ -10,6 +10,8 @@ public class VehicleController : MonoBehaviour
     public GameObject trailRenderModel;
     public WheelCollider[] wheelColliders;
     public Transform[] tiresCar;
+    public float lapCount { get; private set; }
+
     private Rigidbody _rb;
     private float currentSpeed;
     private float acceleration;
@@ -29,6 +31,7 @@ public class VehicleController : MonoBehaviour
     public GameObject carModel;
     private float finalAngle;
     private bool _isGrounded;
+    private Checkpoint _lastCheckpoint;
 
     void Awake()
     {
@@ -57,7 +60,7 @@ public class VehicleController : MonoBehaviour
 
         acceleration = _rb.transform.InverseTransformDirection(_rb.velocity).z;
 
-     //   Debug.Log(acceleration);
+        //   Debug.Log(acceleration);
 
         //Maniobrabilidad
         ApplySteering(relativeVelocity);
@@ -107,7 +110,7 @@ public class VehicleController : MonoBehaviour
             dragMultiplier.z += 10 * Time.deltaTime;
             handbrake = true;
         }
-        else if( Input.GetKey(KeyCode.S) && acceleration > 0)
+        else if (Input.GetKey(KeyCode.S) && acceleration > 0)
         {
             for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 1000;
             //    dragMultiplier.z += 10 * Time.deltaTime;
@@ -164,9 +167,25 @@ public class VehicleController : MonoBehaviour
         resetTimer = 0;
     }
     */
+
+    /// <summary>
+    /// Obtengo el ultimo checkpoint por el que pase.
+    /// </summary>
+    /// <param name="chk">Checkpoint</param>
+    public void SetCheckpoint(Checkpoint chk)
+    {
+        _lastCheckpoint = chk;
+        print(_lastCheckpoint.gameObject);
+        lapCount += CheckpointManager.instance.checkpointValue;
+    }
+
     private void ResetCar()
     {
-        RaycastHit hit;
+        _rb.velocity = Vector3.zero;
+        transform.position = _lastCheckpoint.GetRespawnPoint(transform.position) + Vector3.up;
+        transform.rotation = _lastCheckpoint.transform.rotation;
+
+        /*RaycastHit hit;
         if (Physics.Raycast(transform.position, -transform.up, out hit, layer))
         {
             if (hit.distance < 5f)
@@ -188,9 +207,9 @@ public class VehicleController : MonoBehaviour
                 _rb.velocity = Vector3.zero;
                 _rb.angularVelocity = Vector3.zero;
             }
-        }
-
+        }*/
     }
+
     private void UpdateTiresPosition()
     {
         for (int i = 0; i < tiresCar.Length; i++)
@@ -280,6 +299,7 @@ public class VehicleController : MonoBehaviour
     {
         //_localVelocity = transform.InverseTransformDirection(_rb.velocity);
         //speedText.text = "Speed: " + (int)currentSpeed;
-        IngameUIManager.instance.SetPlayerSpeed(currentSpeed / K.SPEEDOMETER_MAX_SPEED);
+        IngameUIManager.instance.GetPlayerSpeed(currentSpeed / K.SPEEDOMETER_MAX_SPEED);
+        IngameUIManager.instance.GetPlayerLapCount(Mathf.FloorToInt(lapCount));
     }
 }
