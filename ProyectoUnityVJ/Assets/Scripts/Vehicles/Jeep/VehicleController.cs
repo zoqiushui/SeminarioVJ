@@ -33,6 +33,11 @@ public class VehicleController : MonoBehaviour, IVehicle
     private bool _isGrounded;
     private Checkpoint _lastCheckpoint;
 
+    public float antiRoll = 1000f;
+    private bool impulseForceLeft;
+    private bool impulseForceRight;
+    private float antiRollForceRight;
+    private float antiRollForceLeft;
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -46,10 +51,12 @@ public class VehicleController : MonoBehaviour, IVehicle
         UpdateTiresPosition();
         UIText();
         currentSpeed = _rb.velocity.magnitude * 3f;
+
         GetInput();
         if (Input.GetKeyUp(KeyCode.R)) ResetCar();
 
-        //CheckCarFlipped();
+        CheckCarFlipped();
+
         CheckIfGrounded();
     }
 
@@ -68,8 +75,11 @@ public class VehicleController : MonoBehaviour, IVehicle
         //ADDFORCE de Deslizamiento calculando dirección.
         UpdateDrag(relativeVelocity);
 
-        FallSpeed();
-        BlockCarRotation();
+      //  FallSpeed();
+      //  BlockCarRotation();
+
+        //Anti vuelco del vehículo
+        AntiRollBars();
 
     }
 
@@ -101,7 +111,51 @@ public class VehicleController : MonoBehaviour, IVehicle
         else _rb.drag = 0f;
         CheckHandbrake();
     }
+    public void AntiRollBars()
+    {
+        WheelHit leftWheelHit;
+        WheelHit rightWheelHit;
+        float travelLeft = 1f;
+        float travelRight = 1f;
 
+        for (int i = 0; i < wheelColliders.Length; i++)
+        {
+            if (i == 1|| i== 3)
+            {
+                bool groundedLeft = wheelColliders[i].GetGroundHit(out leftWheelHit);
+                if (groundedLeft)
+                {
+                    travelLeft = (-wheelColliders[i].transform.InverseTransformPoint(leftWheelHit.point).y - wheelColliders[i].radius) / wheelColliders[i].suspensionDistance;
+                    antiRollForceLeft = (travelLeft - travelRight) * antiRoll;
+                    impulseForceLeft = false;
+                }
+
+                if (!groundedLeft && !impulseForceLeft)
+                {
+                    _rb.AddForceAtPosition(wheelColliders[i].transform.up * -antiRollForceLeft, wheelColliders[i].transform.position);
+                    impulseForceLeft = true;
+                    Debug.Log("ANTIROLL BAR LEFT");
+                }
+            }
+            if(i== 0 || i ==2)
+            {
+                bool groundedRight = wheelColliders[i].GetGroundHit(out rightWheelHit);
+                if (groundedRight)
+                {
+                    travelRight = (-wheelColliders[i].transform.InverseTransformPoint(rightWheelHit.point).y - wheelColliders[i].radius) / wheelColliders[i].suspensionDistance;
+                    antiRollForceRight = (travelLeft - travelRight) * antiRoll;
+                    impulseForceRight = false;                
+                }
+
+                if (!groundedRight && !impulseForceRight)
+                {
+                    _rb.AddForceAtPosition(wheelColliders[i].transform.up * antiRollForceRight, wheelColliders[i].transform.position);
+                    impulseForceRight = true;
+                    Debug.Log("ANTIROLL BAR RIGHT");
+                }
+            }
+        }
+    }
     private void CheckHandbrake()
     {
         if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.S) && acceleration > 0)
@@ -150,10 +204,9 @@ public class VehicleController : MonoBehaviour, IVehicle
 
         return minimumTurn + speedIndex * (maximumTurn - minimumTurn);
     }
-
-    /*private void CheckCarFlipped()
+    private void CheckCarFlipped()
     {
-        if (transform.localEulerAngles.z > 80 && transform.localEulerAngles.z < 280) resetTimer += Time.deltaTime;
+        if (transform.localEulerAngles.z > 90 && transform.localEulerAngles.z < 270 && currentSpeed < 1 && currentSpeed > -1) resetTimer += Time.deltaTime;
         else resetTimer = 0;
         if (resetTimer > resetTime) FlipCar();
     }
