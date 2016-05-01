@@ -1360,7 +1360,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 136132}
-  m_LocalRotation: {x: 0.09074578, y: 0.72925246, z: 0.6738108, w: -0.07704067}
+  m_LocalRotation: {x: 0.09074577, y: 0.7292524, z: 0.6738107, w: -0.077040665}
   m_LocalPosition: {x: 0.0025065783, y: 0.038258396, z: 0.2060594}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2119,7 +2119,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180746}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: -68.9, y: 28.98, z: 346.85}
+  m_LocalPosition: {x: -68.95, y: 28.66, z: 349.5379}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 430938}
@@ -3959,13 +3959,14 @@ MonoBehaviour:
   maximumTurn: 15
   minimumTurn: 10
   dragMultiplier: {x: 2, y: 0, z: 0}
-  resetTime: 15
+  resetTime: 0.5
   stuckMaxDist: 10
   layer:
     serializedVersion: 2
     m_Bits: 256
   fallForce: 20000
   carModel: {fileID: 152712}
+  antiRoll: 1000
 --- !u!114 &11474106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4061,7 +4062,7 @@ WheelCollider:
     m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 0.001
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
@@ -4090,7 +4091,7 @@ WheelCollider:
     m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 0.001
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
@@ -4119,7 +4120,7 @@ WheelCollider:
     m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 0.001
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
@@ -4148,7 +4149,7 @@ WheelCollider:
     m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 0.001
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75

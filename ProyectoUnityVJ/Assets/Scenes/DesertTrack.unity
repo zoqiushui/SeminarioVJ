@@ -3858,15 +3858,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 490692, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -68.9
+      value: -68.95
       objectReference: {fileID: 0}
     - target: {fileID: 490692, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 28.98
+      value: 28.66
       objectReference: {fileID: 0}
     - target: {fileID: 490692, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 346.85
+      value: 349.5379
       objectReference: {fileID: 0}
     - target: {fileID: 490692, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
       propertyPath: m_LocalRotation.x
@@ -3888,14 +3888,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 11488928, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: _mainCam
+    - target: {fileID: 415048, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.09074577
+      objectReference: {fileID: 0}
+    - target: {fileID: 415048, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.7292524
+      objectReference: {fileID: 0}
+    - target: {fileID: 415048, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.6738107
+      objectReference: {fileID: 0}
+    - target: {fileID: 415048, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: -0.077040665
+      objectReference: {fileID: 0}
+    - target: {fileID: 11454812, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: speedText
       value: 
-      objectReference: {fileID: 1213899684}
-    - target: {fileID: 11488928, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: lockOn
-      value: 
-      objectReference: {fileID: 2016792}
+      objectReference: {fileID: 281608733}
     - target: {fileID: 11474106, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
       propertyPath: _mainCam
       value: 
@@ -3904,25 +3916,17 @@ Prefab:
       propertyPath: lockOn
       value: 
       objectReference: {fileID: 1735283006}
-    - target: {fileID: 11454812, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: speedText
+    - target: {fileID: 11488928, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: _mainCam
       value: 
-      objectReference: {fileID: 281608733}
-    - target: {fileID: 415048, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0.09074578
-      objectReference: {fileID: 0}
-    - target: {fileID: 415048, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0.72925246
-      objectReference: {fileID: 0}
-    - target: {fileID: 415048, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0.6738108
-      objectReference: {fileID: 0}
-    - target: {fileID: 415048, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: -0.07704067
+      objectReference: {fileID: 1213899684}
+    - target: {fileID: 11488928, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: lockOn
+      value: 
+      objectReference: {fileID: 2016792}
+    - target: {fileID: 11454812, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
+      propertyPath: resetTime
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
