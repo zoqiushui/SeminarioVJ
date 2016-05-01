@@ -219,7 +219,6 @@ public class VehicleController : MonoBehaviour, IVehicle
         _rb.angularVelocity = Vector3.zero;
         resetTimer = 0;
     }
-    */
 
     /// <summary>
     /// Obtengo el ultimo checkpoint por el que pase.
