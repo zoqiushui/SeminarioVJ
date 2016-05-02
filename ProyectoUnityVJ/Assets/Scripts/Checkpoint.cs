@@ -69,6 +69,7 @@ public class Checkpoint : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (nextCheckpoint == null) return;
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position + transform.right * transform.localScale.x / 2, transform.position - transform.right * transform.localScale.x / 2);
         Gizmos.DrawLine(transform.position, nextCheckpoint.transform.position);

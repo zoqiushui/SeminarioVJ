@@ -75,7 +75,7 @@ public class VehicleController : MonoBehaviour, IVehicle
         //ADDFORCE de Deslizamiento calculando dirección.
         UpdateDrag(relativeVelocity);
 
-      //  FallSpeed();
+        FallSpeed();
       //  BlockCarRotation();
 
         //Anti vuelco del vehículo
@@ -107,7 +107,7 @@ public class VehicleController : MonoBehaviour, IVehicle
             for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 0;
         }
 
-        if (throttle == 0) _rb.drag = _rb.velocity.magnitude / 100f;
+        if (throttle == 0 || !_isGrounded) _rb.drag = _rb.velocity.magnitude / 100f;
         else _rb.drag = 0f;
         CheckHandbrake();
     }
@@ -158,7 +158,7 @@ public class VehicleController : MonoBehaviour, IVehicle
     }
     private void CheckHandbrake()
     {
-        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.S) && acceleration > 0)
+        if (Input.GetKey(KeyCode.Space))
         {
             for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 7000;
             dragMultiplier.z += 10 * Time.deltaTime;
@@ -304,7 +304,7 @@ public class VehicleController : MonoBehaviour, IVehicle
     {
         if (!_isGrounded)
         {
-            _rb.AddForce(-transform.up * fallForce);
+            _rb.AddRelativeForce(-centerOfMass.transform.up * fallForce);
         }
     }
 
@@ -352,5 +352,11 @@ public class VehicleController : MonoBehaviour, IVehicle
         //speedText.text = "Speed: " + (int)currentSpeed;
         IngameUIManager.instance.GetPlayerSpeed(currentSpeed / K.SPEEDOMETER_MAX_SPEED);
         IngameUIManager.instance.GetPlayerLapCount(Mathf.FloorToInt(lapCount));
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.black;
+        Gizmos.DrawRay(centerOfMass.position, -centerOfMass.transform.up * 5f);    
     }
 }
