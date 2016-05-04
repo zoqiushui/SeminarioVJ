@@ -12,6 +12,7 @@ public class IngameUIManager : MonoBehaviour
     private float _playerSpeed;
     private Vector3 _playerSpeedometerRotation;
     private int _playerLaps;
+    public int _totalLaps;
 
     private void Awake()
     {
@@ -20,7 +21,7 @@ public class IngameUIManager : MonoBehaviour
 
     private void Update()
     {
-        lapsText.text = "Laps " + _playerLaps + "/MAX";
+        lapsText.text = "Laps " + _playerLaps + "/" + _totalLaps;
         _playerSpeedometerRotation.z = (_playerSpeed * K.SPEEDOMETER_MAX_ANGLE) + K.SPEEDOMETER_MIN_ANGLE;
         speedpmeterNeedleImage.transform.eulerAngles = _playerSpeedometerRotation;
     }

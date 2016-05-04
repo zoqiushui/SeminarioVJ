@@ -304,7 +304,8 @@ public class VehicleController : MonoBehaviour, IVehicle
     {
         if (!_isGrounded)
         {
-            _rb.AddRelativeForce(-centerOfMass.transform.up * fallForce);
+      //      _rb.AddRelativeForce(-centerOfMass.transform.up * fallForce);
+            _rb.AddForce(centerOfMass.TransformDirection(-centerOfMass.transform.up) * fallForce);
         }
     }
 
