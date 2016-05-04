@@ -7,8 +7,9 @@ public class IAController : MonoBehaviour
     public GameObject hpBarContainer;
     public RawImage hpBarImage;
     public GameObject remains;
+    public float lapCount { get; private set; }
 
-    private float _maxHp, _currentHp, _speed, _laps;
+    private float _maxHp, _currentHp, _speed;
     private Checkpoint _nextCheckpoint;
     private Vector3 _aux, _nextDestinationPoint;
 
@@ -18,7 +19,7 @@ public class IAController : MonoBehaviour
         _currentHp = _maxHp;
         _aux = hpBarImage.transform.localScale;
         _speed = K.IA_MAX_SPEED;
-        _laps = 0;
+        lapCount = 0;
         _nextCheckpoint = CheckpointManager.instance.checkpointsList[0];
         CalculateNextPoint(_nextCheckpoint);
     }
@@ -29,7 +30,7 @@ public class IAController : MonoBehaviour
 
         if (Vector3.Distance(transform.position, _nextDestinationPoint) < 20)
         {
-            _laps += CheckpointManager.instance.checkpointValue;
+            lapCount += CheckpointManager.instance.checkpointValue;
             CalculateNextPoint(_nextCheckpoint);
         }
         transform.forward = Vector3.Slerp(transform.forward, _nextDestinationPoint - transform.position, 5 * Time.deltaTime);
@@ -73,6 +74,7 @@ public class IAController : MonoBehaviour
 
         if (_currentHp <= 0)
         {
+            GameManager.instance.RemoveEnemy(this);
             Destroy(this.gameObject);
             Instantiate(remains, transform.position, transform.rotation);
 

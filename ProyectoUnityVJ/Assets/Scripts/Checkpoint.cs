@@ -24,6 +24,7 @@ public class Checkpoint : MonoBehaviour
 
         RaycastHit hit;
         Ray ray;
+        List<GameObject> nodesToRemove = new List<GameObject>() ;
         foreach (var item in checkpointNodes)
         {
             item.transform.parent = transform;
@@ -37,10 +38,14 @@ public class Checkpoint : MonoBehaviour
                 }
                 else
                 {
-                    checkpointNodes.Remove(item);
-                    Destroy(item);
+                    nodesToRemove.Add(item);
                 }
             }
+        }
+        foreach (var item in nodesToRemove)
+        {
+            checkpointNodes.Remove(item);
+            Destroy(item);
         }
     }
 
