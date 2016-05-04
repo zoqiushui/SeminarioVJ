@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class VehicleController : MonoBehaviour, IVehicle
+public class VehicleController : MonoBehaviour
 {
     public float maxTorque;
     public Transform centerOfMass;

@@ -6,30 +6,26 @@ public class CheckpointManager : MonoBehaviour
 {
     public static CheckpointManager instance;
     public float checkpointValue { get; private set; }
+    public List<Checkpoint> checkpointsList { get; private set; }
 
-    private List<Checkpoint> _checkpointsList;
-    private Dictionary<GameObject,int> _vehiclesDictionary; // <Vehiculo, proximo checkpoint>
+    private Dictionary<GameObject, int> _vehiclesDictionary; // <Vehiculo, proximo checkpoint>
 
     private void Awake()
     {
         if (instance == null) instance = this;
-    }
-
-    private void Start()
-    {
-        _checkpointsList = new List<Checkpoint>();
-        _vehiclesDictionary = new Dictionary<GameObject,int>();
+        checkpointsList = new List<Checkpoint>();
+        _vehiclesDictionary = new Dictionary<GameObject, int>();
         foreach (var checkpoint in GameObject.Find("CHECKPOINTS").GetComponentsInChildren<Checkpoint>())
         {
-            _checkpointsList.Add(checkpoint);
+            checkpointsList.Add(checkpoint);
         }
         _vehiclesDictionary.Add(GameObject.FindGameObjectWithTag("Player"), 0);
-        checkpointValue = (float)1/_checkpointsList.Count;
+        checkpointValue = (float)1 / checkpointsList.Count;
         int aux = 1;
-        foreach (var chk in _checkpointsList)
+        foreach (var chk in checkpointsList)
         {
-            chk.SetNextCheckpoint(_checkpointsList[aux]);
-            if (aux == _checkpointsList.Count-1)
+            chk.SetNextCheckpoint(checkpointsList[aux]);
+            if (aux == checkpointsList.Count - 1)
             {
                 aux = 0;
             }
@@ -42,9 +38,9 @@ public class CheckpointManager : MonoBehaviour
 
     public bool CheckVehicleCheckpoint(GameObject vehicle, Checkpoint chk)
     {
-        if (_vehiclesDictionary[vehicle] == _checkpointsList.IndexOf(chk))
+        if (_vehiclesDictionary[vehicle] == checkpointsList.IndexOf(chk))
         {
-            if (_vehiclesDictionary[vehicle] == _checkpointsList.Count - 1)
+            if (_vehiclesDictionary[vehicle] == checkpointsList.Count - 1)
             {
                 _vehiclesDictionary[vehicle] = 0;
                 return true;

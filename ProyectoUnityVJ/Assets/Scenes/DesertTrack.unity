@@ -63169,18 +63169,6 @@ Prefab:
       propertyPath: m_Name
       value: IA_CAR (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 19509560, guid: 8eb7f4e0cf979934d846a06dfa7db4cf, type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11404266, guid: 8eb7f4e0cf979934d846a06dfa7db4cf, type: 2}
-      propertyPath: remains
-      value: 
-      objectReference: {fileID: 100556, guid: f6e664d70d146c740a2c0733e1c4f717, type: 2}
-    - target: {fileID: 11404266, guid: 8eb7f4e0cf979934d846a06dfa7db4cf, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8eb7f4e0cf979934d846a06dfa7db4cf, type: 2}
   m_IsPrefabParent: 0
@@ -69311,7 +69299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1192352026
 Transform:
   m_ObjectHideFlags: 0
@@ -69458,7 +69446,7 @@ Transform:
   - {fileID: 1254552846}
   - {fileID: 305010567}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!1 &1195084193 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100042, guid: 4e9e557ddd8fe024aa77317f88608b77, type: 3}
@@ -77241,7 +77229,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
 --- !u!114 &1329840853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77898,7 +77886,7 @@ Prefab:
       propertyPath: node
       value: 
       objectReference: {fileID: 965076707}
-    - target: {fileID: 19509560, guid: 8eb7f4e0cf979934d846a06dfa7db4cf, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
@@ -115672,7 +115660,7 @@ Prefab:
       propertyPath: m_Name
       value: IA_CAR (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 19509560, guid: 8eb7f4e0cf979934d846a06dfa7db4cf, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}

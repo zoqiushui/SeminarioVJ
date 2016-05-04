@@ -7,7 +7,7 @@ public class Checkpoint : MonoBehaviour
     public List<GameObject> checkpointNodes { get; private set; }
     public Checkpoint nextCheckpoint { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
         checkpointNodes = new List<GameObject>();
         GameObject go = new GameObject("LeftNode");
@@ -33,7 +33,12 @@ public class Checkpoint : MonoBehaviour
             {
                 if (hit.collider.gameObject.layer == K.LAYER_GROUND)
                 {
-                    item.transform.position = hit.point;
+                    item.transform.position = hit.point + Vector3.up;
+                }
+                else
+                {
+                    checkpointNodes.Remove(item);
+                    Destroy(item);
                 }
             }
         }
@@ -59,10 +64,17 @@ public class Checkpoint : MonoBehaviour
         return selectedNode;
     }
 
+    public Vector3 GetRandomPositionFromNode()
+    {
+        int rnd = Random.Range(0, checkpointNodes.Count);
+        return checkpointNodes[rnd].transform.position;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<VehicleController>() != null)
         {
+            print(other.gameObject);
             if (CheckpointManager.instance.CheckVehicleCheckpoint(other.gameObject, this)) other.gameObject.GetComponent<VehicleController>().SetCheckpoint(this);
         }
     }
