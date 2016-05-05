@@ -32,6 +32,7 @@ public class IAController : MonoBehaviour
         {
             lapCount += CheckpointManager.instance.checkpointValue;
             CalculateNextPoint(_nextCheckpoint);
+           // print(lapCount);
         }
         transform.forward = Vector3.Slerp(transform.forward, _nextDestinationPoint - transform.position, 5 * Time.deltaTime);
         transform.position += transform.forward * _speed * Time.deltaTime;

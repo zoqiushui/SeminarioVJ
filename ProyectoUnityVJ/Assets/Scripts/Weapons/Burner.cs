@@ -12,6 +12,7 @@ public class Burner : Weapon
     // Use this for initialization
     void Start ()
     {
+        isCrosshair = false;
         cooldown = CooldownTime;
         shootButtom = InputKey;
         flames.SetActive(false);

@@ -16,7 +16,7 @@ public class PressMine : Trap
 
     public void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.layer != K.LAYER_GROUND)
+        if (col.gameObject.layer == K.LAYER_PLAYER)
         {
             if (col.gameObject != null && !touched)
                 touched = true;

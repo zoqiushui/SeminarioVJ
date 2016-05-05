@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class Weapon : MonoBehaviour
 {
@@ -8,7 +8,9 @@ public class Weapon : MonoBehaviour
     protected short shootButtom;
     protected bool canShoot;
     private float _timeCoolDown;
-
+    public bool isCrosshair;
+    public Sprite crosshair;
+    
     public virtual void ShootDownButtom()
     {
         _timeCoolDown += Time.deltaTime;

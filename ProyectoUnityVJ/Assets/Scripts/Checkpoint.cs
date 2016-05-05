@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Checkpoint : MonoBehaviour
 {
     public List<GameObject> checkpointNodes { get; private set; }
-    public Checkpoint nextCheckpoint { get; private set; }
+    public Checkpoint nextCheckpoint;// { get; private set; }
 
     private void Awake()
     {

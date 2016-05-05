@@ -17,6 +17,7 @@ public class MiniGun : Weapon
     // Use this for initialization
     void Start ()
     {
+        isCrosshair = false;
         shootButtom = InputKey;
         cooldown = CooldownTime;
         particleEffect.SetActive(false);

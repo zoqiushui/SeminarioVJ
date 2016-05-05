@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class VehicleCamera : MonoBehaviour
 {
+    //public RawImage crosshair;
     public Transform target = null;
     private float _height;
     private float _distanceHeight;
@@ -12,6 +14,7 @@ public class VehicleCamera : MonoBehaviour
     public float maxFOV = 70f;
     private float _minDistance;
     private float _maxDistance;
+    //private Vector3 _crosshairFixedZPostion;
 
 	void Awake()
     {
@@ -21,7 +24,15 @@ public class VehicleCamera : MonoBehaviour
         _distanceHeight = _height - target.position.y;
         _minDistance = Vector3.Distance(transform.position, target.transform.position + Vector3.up * 3f);
         _maxDistance = _minDistance - 2f;
+       // _crosshairFixedZPostion = new Vector3(Input.mousePosition.x,Input.mousePosition.y,0);
     }
+
+    /*private void Update()
+    {
+        _crosshairFixedZPostion.x = Input.mousePosition.x;
+        _crosshairFixedZPostion.y = Input.mousePosition.y;
+        crosshair.transform.position = _crosshairFixedZPostion;
+    }*/
     void LateUpdate()
 	{
         if (!target || !_rbTarget) return;

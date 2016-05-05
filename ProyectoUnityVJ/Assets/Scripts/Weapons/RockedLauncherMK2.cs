@@ -20,6 +20,7 @@ public class RockedLauncherMK2 : Weapon
 
     void Start ()
     {
+        isCrosshair = true;
         lockOn.SetActive(true);
         _lockOn = lockOn.GetComponent<RawImage>();
         shootButtom = InputKey;
@@ -40,6 +41,8 @@ public class RockedLauncherMK2 : Weapon
 
         }
 
+
+
         if (canShoot)
         {
             ray = _mainCam.ScreenPointToRay(Input.mousePosition);
@@ -47,11 +50,12 @@ public class RockedLauncherMK2 : Weapon
             {
                 _pointAttack = hit.point;
                 Shoot();
+
+                print("ROCKET TARGET: " + hit.collider.gameObject.name);
             }
         }
 
     }
-
     public override void Shoot()
     {
         base.Shoot();

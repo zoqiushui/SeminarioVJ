@@ -27,7 +27,6 @@ public class RocketLauncher : Weapon
     private List<GameObject> targets;
     private bool _enemyFound;
     public Camera _mainCam;
-    
 
     public GameObject lockOn;
     private Image _lockOn;
@@ -35,6 +34,7 @@ public class RocketLauncher : Weapon
     // Use this for initialization
     void Start ()
     {
+        isCrosshair = false;
         lockOn.SetActive(false);
         _lockOn = lockOn.GetComponent<Image>();
         targets = new List<GameObject>();
@@ -146,6 +146,4 @@ public class RocketLauncher : Weapon
         lockOn.SetActive(false);
 
     }
-
-
 }
