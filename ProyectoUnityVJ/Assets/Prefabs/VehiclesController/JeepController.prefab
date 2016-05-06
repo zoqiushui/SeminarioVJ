@@ -1124,6 +1124,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 411758}
+  - 114: {fileID: 11479092}
   m_Layer: 10
   m_Name: Weapons
   m_TagString: Untagged
@@ -2119,7 +2120,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180746}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: -68.95, y: 35.66, z: 346.66}
+  m_LocalPosition: {x: -68.95, y: 29.17, z: 346.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 430938}
@@ -3907,6 +3908,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d48ad581787fea4ebb20d55d724b3bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCrosshair: 0
+  crosshair: {fileID: 0}
   CooldownTime: 0.1
   InputKey: 0
   particleEffect: {fileID: 128978}
@@ -3925,6 +3928,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9e363ca86afcb44db54a878c34c5d34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCrosshair: 0
+  crosshair: {fileID: 0}
   CooldownTime: 0.001
   InputKey: 0
   damage: 2
@@ -3940,7 +3945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e56fbff6b9450c408943b78752201b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTorque: 800
+  maxTorque: 3000
   centerOfMass: {fileID: 474270}
   speedText: {fileID: 0}
   trailRenderModel: {fileID: 0}
@@ -3978,6 +3983,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c463b7a8bab021e4ca874d4b62544221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCrosshair: 0
+  crosshair: {fileID: 0}
   CooldownTime: 1
   InputKey: 1
   angleView: 90
@@ -3986,6 +3993,23 @@ MonoBehaviour:
   rocket: {fileID: 188932, guid: c7ae7c08a2a93cf4daac21aa2c6ae70b, type: 2}
   _mainCam: {fileID: 0}
   lockOn: {fileID: 0}
+--- !u!114 &11479092
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 192162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf94d9e92a67d9749a2ab37ecca84f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponsSet1:
+  - {fileID: 170102}
+  - {fileID: 100864}
+  weaponsSet2:
+  - {fileID: 178388}
+  - {fileID: 142588}
 --- !u!114 &11488928
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3997,7 +4021,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7419a2a0289077d47a4b89067d9c91ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CooldownTime: 1
+  isCrosshair: 0
+  crosshair: {fileID: 0}
+  CooldownTime: 3
   InputKey: 1
   angleView: 90
   maxDistance: 80

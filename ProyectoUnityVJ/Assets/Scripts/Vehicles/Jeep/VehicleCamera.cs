@@ -48,7 +48,7 @@ public class VehicleCamera : MonoBehaviour
         float currentRotationAngle = transform.eulerAngles.y;
 
         // Rotación de camara en marcha atrás.
-        if (speed < -2) targetRotationAngle = target.eulerAngles.y + 180;
+   //     if (speed < -2) targetRotationAngle = target.eulerAngles.y + 180;
 
         //Damp de la rotación en el eje Y.
         currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, targetRotationAngle, rotationDamping * Time.deltaTime);

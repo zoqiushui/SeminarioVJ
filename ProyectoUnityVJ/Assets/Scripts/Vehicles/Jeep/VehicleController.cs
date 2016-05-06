@@ -17,8 +17,8 @@ public class VehicleController : MonoBehaviour
     private float acceleration;
     public float maxSpeed;
     public float maxReverseSpeed;
-    private float steer = 0;
-    private float throttle = 0;
+    private float steerInput;
+    private float motorInput;
     public int maximumTurn = 15;
     public int minimumTurn = 10;
     public Vector3 dragMultiplier;
@@ -34,10 +34,12 @@ public class VehicleController : MonoBehaviour
     private Checkpoint _lastCheckpoint;
 
     public float antiRoll = 1000f;
+    public float brake;
     private bool impulseForceLeft;
     private bool impulseForceRight;
     private float antiRollForceRight;
     private float antiRollForceLeft;
+    private bool _reversing;
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -51,6 +53,7 @@ public class VehicleController : MonoBehaviour
         UpdateTiresPosition();
         UIText();
         currentSpeed = _rb.velocity.magnitude * 3f;
+      //  Debug.Log(currentSpeed);
 
         GetInput();
         if (Input.GetKeyUp(KeyCode.R)) ResetCar();
@@ -67,8 +70,7 @@ public class VehicleController : MonoBehaviour
 
         acceleration = _rb.transform.InverseTransformDirection(_rb.velocity).z;
 
-        //   Debug.Log(acceleration);
-
+     //   Debug.Log(acceleration);
         //Maniobrabilidad
         ApplySteering(relativeVelocity);
 
@@ -80,25 +82,21 @@ public class VehicleController : MonoBehaviour
 
         //Anti vuelco del vehículo
         AntiRollBars();
-
     }
 
     private void GetInput()
     {
-        throttle = Input.GetAxis("Vertical");
-        steer = Input.GetAxis("Horizontal");
-        finalAngle = steer * K.JEEP_MAX_STEERING_ANGLE;
+        motorInput = Input.GetAxis("Vertical");
+        steerInput = Input.GetAxis("Horizontal");
+        finalAngle = steerInput * K.JEEP_MAX_STEERING_ANGLE;
 
-        //   wheelColliders[0].steerAngle = finalAngle;
-        //     wheelColliders[1].steerAngle = finalAngle;
+        if (_isGrounded && currentSpeed < 180) for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = motorInput * maxTorque;
 
-        if (_isGrounded) for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = throttle * maxTorque;
-
-        if (currentSpeed > maxSpeed && throttle > 0)
+        if (currentSpeed > maxSpeed && motorInput > 0)
         {
             for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 1000;
         }
-        else if (currentSpeed > maxReverseSpeed && throttle < 0)
+        else if (currentSpeed > maxReverseSpeed && motorInput < 0)
         {
             for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 1000;
         }
@@ -107,7 +105,11 @@ public class VehicleController : MonoBehaviour
             for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 0;
         }
 
-        if (throttle == 0 || !_isGrounded) _rb.drag = _rb.velocity.magnitude / 100f;
+        if (motorInput == 0 || !_isGrounded)
+        {
+            _rb.drag = _rb.velocity.magnitude / 100f;
+            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = 0;
+        }
         else _rb.drag = 0f;
         CheckHandbrake();
     }
@@ -164,11 +166,10 @@ public class VehicleController : MonoBehaviour
             dragMultiplier.z += 10 * Time.deltaTime;
             handbrake = true;
         }
-        else if (Input.GetKey(KeyCode.S) && acceleration > 0)
+        else if (motorInput < 0 && acceleration > 0 || motorInput > 0 && acceleration < 0)
         {
-            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 1000;
-            //    dragMultiplier.z += 10 * Time.deltaTime;
-            dragMultiplier.z += 2 * Time.deltaTime;
+            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 7000;
+            dragMultiplier.z += 100 * Time.deltaTime;
             handbrake = true;
         }
         else
@@ -191,11 +192,11 @@ public class VehicleController : MonoBehaviour
     }
     private void ApplySteering(Vector3 relativeVelocity)
     {
-        float turnRadius = 3f / Mathf.Sin((90 - (steer * 30)) * Mathf.Deg2Rad);
+        float turnRadius = 3f / Mathf.Sin((90 - (steerInput * 30)) * Mathf.Deg2Rad);
         float minMaxTurn = EvaluateSpeedToTurn(_rb.velocity.magnitude);
         float turnSpeed = Mathf.Clamp(relativeVelocity.z / turnRadius, -minMaxTurn / 10, minMaxTurn / 10);
-        transform.RotateAround(transform.position + transform.right * turnRadius * steer, transform.up,
-                                turnSpeed * Mathf.Rad2Deg * Time.deltaTime * steer);
+        transform.RotateAround(transform.position + transform.right * turnRadius * steerInput, transform.up,
+                                turnSpeed * Mathf.Rad2Deg * Time.deltaTime * steerInput);
     }
     private float EvaluateSpeedToTurn(float speed)
     {
@@ -304,49 +305,9 @@ public class VehicleController : MonoBehaviour
     {
         if (!_isGrounded)
         {
-      //      _rb.AddRelativeForce(-centerOfMass.transform.up * fallForce);
-            _rb.AddForce(centerOfMass.TransformDirection(-centerOfMass.transform.up) * fallForce);
+            _rb.AddForce(-Vector3.up * fallForce);
         }
     }
-
-    /// <summary>
-    /// Impide que el auto se de vuelta.
-    /// </summary>
-    protected void BlockCarRotation()
-    {
-
-        if (transform.eulerAngles.z > 20 && transform.eulerAngles.z <= 180)
-        {
-            //Debug.Log("rotar a dcha");
-            _rb.constraints = RigidbodyConstraints.FreezeRotationZ;
-            _rb.constraints = RigidbodyConstraints.None;
-            _rb.AddTorque(carModel.transform.forward * K.JEEP_ROTATION_FORCE);
-        }
-        else if (transform.eulerAngles.z < 340 && transform.eulerAngles.z > 180)
-        {
-            //Debug.Log("rotar a izq");
-            _rb.constraints = RigidbodyConstraints.FreezeRotationZ;
-            _rb.constraints = RigidbodyConstraints.None;
-            _rb.AddTorque(-carModel.transform.forward * K.JEEP_ROTATION_FORCE);
-        }
-
-        if (transform.eulerAngles.x > 20 && transform.eulerAngles.x <= 180)
-        {
-            //Debug.Log("rotar a arriba");
-            _rb.constraints = RigidbodyConstraints.FreezeRotationX;
-            _rb.constraints = RigidbodyConstraints.None;
-            _rb.AddTorque(carModel.transform.forward * K.JEEP_ROTATION_FORCE);
-        }
-        else if (transform.eulerAngles.x < 340 && transform.eulerAngles.x > 180)
-        {
-            //Debug.Log("rotar a abajo");
-            _rb.constraints = RigidbodyConstraints.FreezeRotationX;
-            _rb.constraints = RigidbodyConstraints.None;
-            _rb.AddTorque(-carModel.transform.forward * K.JEEP_ROTATION_FORCE);
-        }
-
-    }
-
     protected void UIText()
     {
         //_localVelocity = transform.InverseTransformDirection(_rb.velocity);
@@ -357,7 +318,6 @@ public class VehicleController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.black;
-        Gizmos.DrawRay(centerOfMass.position, -centerOfMass.transform.up * 5f);    
+
     }
 }
