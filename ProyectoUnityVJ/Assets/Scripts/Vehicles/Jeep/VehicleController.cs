@@ -70,7 +70,6 @@ public class VehicleController : MonoBehaviour
 
         acceleration = _rb.transform.InverseTransformDirection(_rb.velocity).z;
 
-     //   Debug.Log(acceleration);
         //Maniobrabilidad
         ApplySteering(relativeVelocity);
 
@@ -78,40 +77,42 @@ public class VehicleController : MonoBehaviour
         UpdateDrag(relativeVelocity);
 
         FallSpeed();
-      //  BlockCarRotation();
 
         //Anti vuelco del vehículo
         AntiRollBars();
-    }
 
+      //  Debug.Log(acceleration);
+
+
+    }
     private void GetInput()
     {
         motorInput = Input.GetAxis("Vertical");
         steerInput = Input.GetAxis("Horizontal");
         finalAngle = steerInput * K.JEEP_MAX_STEERING_ANGLE;
 
-        if (_isGrounded && currentSpeed < 180) for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = motorInput * maxTorque;
-
-        if (currentSpeed > maxSpeed && motorInput > 0)
+        if (currentSpeed < maxSpeed && _isGrounded) for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = motorInput * maxTorque;
+        else if (currentSpeed > maxSpeed && motorInput > 0 || currentSpeed > maxReverseSpeed && motorInput < 0)
         {
-            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 1000;
+            for (int i = 0; i < wheelColliders.Length; i++)
+            {
+                wheelColliders[i].brakeTorque = 1000;
+                wheelColliders[i].motorTorque = 0;
+            }
         }
-        else if (currentSpeed > maxReverseSpeed && motorInput < 0)
-        {
-            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 1000;
-        }
-        else if (!Input.GetKey(KeyCode.Space))
-        {
-            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 0;
-        }
-
         if (motorInput == 0 || !_isGrounded)
         {
             _rb.drag = _rb.velocity.magnitude / 100f;
             for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = 0;
         }
         else _rb.drag = 0f;
+
         CheckHandbrake();
+    }
+
+    private void OnCollisionEnter(Collision asd)
+    {
+    //    if (asd.gameObject.layer == 16) _rb.velocity = Vector3.zero;
     }
     public void AntiRollBars()
     {
@@ -128,6 +129,7 @@ public class VehicleController : MonoBehaviour
                 if (groundedLeft)
                 {
                     travelLeft = (-wheelColliders[i].transform.InverseTransformPoint(leftWheelHit.point).y - wheelColliders[i].radius) / wheelColliders[i].suspensionDistance;
+
                     antiRollForceLeft = (travelLeft - travelRight) * antiRoll;
                     impulseForceLeft = false;
                 }
@@ -159,7 +161,7 @@ public class VehicleController : MonoBehaviour
         }
     }
     private void CheckHandbrake()
-    {
+    {     
         if (Input.GetKey(KeyCode.Space))
         {
             for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 7000;
@@ -169,12 +171,14 @@ public class VehicleController : MonoBehaviour
         else if (motorInput < 0 && acceleration > 0 || motorInput > 0 && acceleration < 0)
         {
             for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 7000;
-            dragMultiplier.z += 100 * Time.deltaTime;
+            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = 0;
+            dragMultiplier.z += 2 * Time.deltaTime;
             handbrake = true;
         }
         else
         {
             dragMultiplier.z = 0;
+            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 0;
             handbrake = false;
         }
     }
