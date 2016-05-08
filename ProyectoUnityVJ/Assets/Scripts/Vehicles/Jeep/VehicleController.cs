@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityStandardAssets.ImageEffects;
 
 public class VehicleController : Vehicle
 {
@@ -45,6 +46,16 @@ public class VehicleController : Vehicle
     private float antiRollForceRear;
     private bool _reversing;
     private int _checkpointNumber;
+
+    private bool modeNitro = false;
+    public float nitroPower;
+    public float nitroTimer;
+    private float _nitroTimer;
+    public float rechargeNitro;
+    private bool nitroEnd;
+    public Image visualHealth;
+    private float lapsEnded;
+    private bool canRechargeNitro;
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -54,6 +65,8 @@ public class VehicleController : Vehicle
         lapCount = 0;
         positionWeight = -Vector3.Distance(transform.position, CheckpointManager.instance.checkpointsList[0].transform.position);
         _checkpointNumber = 0;
+        _nitroTimer = nitroTimer;
+        lapsEnded = 1;
     }
 
     void Update()
@@ -71,8 +84,8 @@ public class VehicleController : Vehicle
         CheckCarFlipped();
 
         CheckIfGrounded();
+        CheckBars();
     }
-
     void FixedUpdate()
     {
         //Transforma una dirección de world space a local space.
@@ -91,8 +104,8 @@ public class VehicleController : Vehicle
         //Anti vuelco del vehículo
         AntiRollBars();
 
+        NitroInput();
       //  Debug.Log(acceleration);
-
 
     }
     private void GetInput()
@@ -110,14 +123,61 @@ public class VehicleController : Vehicle
                 wheelColliders[i].motorTorque = 0;
             }
         }
-        if (motorInput == 0 || !_isGrounded)
+        if (motorInput == 0 || !_isGrounded || nitroEnd)
         {
             _rb.drag = _rb.velocity.magnitude / 100f;
             for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = 0;
+            if (currentSpeed < maxSpeed) nitroEnd = false;
         }
         else _rb.drag = 0f;
 
         CheckHandbrake();
+    }
+    private void RechargeNitro()
+    {
+        if (Mathf.FloorToInt(lapCount) == lapsEnded)
+        {
+            canRechargeNitro = true;
+            lapsEnded++;
+        }
+
+        if (!modeNitro && _nitroTimer < nitroTimer && canRechargeNitro) _nitroTimer += Time.deltaTime / rechargeNitro;
+        if (visualHealth.fillAmount == 1) canRechargeNitro = false;
+    }
+
+    private void CheckBars()
+    {
+        CheckNitroBar();
+        RechargeNitro();
+    }
+    private void CheckNitroBar()
+    {
+        float calc_nitro = _nitroTimer / nitroTimer;
+        visualHealth.fillAmount = calc_nitro;
+    }
+    private void NitroInput()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _isGrounded && visualHealth.fillAmount == 1)
+        {
+            modeNitro = true;
+            Camera.main.GetComponent<Bloom>().enabled = true;
+            Camera.main.GetComponent<VignetteAndChromaticAberration>().enabled = true;
+            Camera.main.GetComponent<MotionBlur>().enabled = true;
+        }
+        if (modeNitro)
+        {
+            if (motorInput < 0) _rb.AddForce(transform.forward * -nitroPower);
+            else _rb.AddForce(transform.forward * nitroPower);
+            _nitroTimer -= Time.deltaTime;
+            if (_nitroTimer < 0)
+            {
+                modeNitro = false;
+                nitroEnd = true;
+                Camera.main.GetComponent<Bloom>().enabled = false;
+                Camera.main.GetComponent<VignetteAndChromaticAberration>().enabled = false;
+                Camera.main.GetComponent<MotionBlur>().enabled = false;
+            }
+        }
     }
     public void AntiRollBars()
     {
@@ -132,7 +192,7 @@ public class VehicleController : Vehicle
 
         for (int i = 0; i < wheelColliders.Length; i++)
         {
-      /*      if (i == 1|| i== 3)
+            if (i == 1|| i== 3)
             {
                 bool groundedLeft = wheelColliders[i].GetGroundHit(out leftWheelHit);
                 if (groundedLeft)
@@ -165,9 +225,9 @@ public class VehicleController : Vehicle
                     impulseForceRight = true;
                     Debug.Log("ANTIROLL BAR RIGHT");
                 }
-            }*/
+            }
 
-        /*    if (i == 0 || i == 1)
+            if (i == 0 || i == 1)
             {
                 bool groundedFront = wheelColliders[i].GetGroundHit(out frontWheelHit);
                 if (groundedFront)
@@ -200,30 +260,7 @@ public class VehicleController : Vehicle
                     impulseForceRear = true;
                     Debug.Log("ANTIROLL BAR REAR");
                 }
-            }*/
-          /*  if (i == 0 || i == 1)
-            {
-                bool groundedFront = wheelColliders[i].GetGroundHit(out frontWheelHit);
-                if (groundedFront) impulseForceFront = false;
-                if (!groundedFront && !impulseForceFront)
-                {
-                    _rb.AddForceAtPosition(wheelColliders[i].transform.up * -50000, wheelColliders[i].transform.position);
-                    impulseForceFront = true;
-                    Debug.Log("ANTIROLL BAR FRONT");
-                }
-            }*/
-         /*   if (i == 2 || i == 3)
-            {
-                bool groundedRear = wheelColliders[i].GetGroundHit(out rearWheelHit);
-                if (groundedRear) impulseForceRear = false;
-                if (!groundedRear && !impulseForceRear)
-                {
-                    
-                    _rb.AddForceAtPosition(wheelColliders[i].transform.up *-20000 , wheelColliders[i].transform.position);
-                    impulseForceRear = true;
-                    Debug.Log("ANTIROLL BAR REAR " + wheelColliders[i].transform.position);
-                }
-            }*/
+            }
 
                if (_isGrounded) _rb.AddForceAtPosition(wheelColliders[i].transform.up * -5000, wheelColliders[i].transform.position);
             
@@ -233,13 +270,13 @@ public class VehicleController : Vehicle
     {     
         if (Input.GetKey(KeyCode.Space))
         {
-            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 7000;
+            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = brake;
             dragMultiplier.z += 10 * Time.deltaTime;
             handbrake = true;
         }
         else if (motorInput < 0 && acceleration > 0 || motorInput > 0 && acceleration < 0)
         {
-            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 7000;
+            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = brake;
             for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = 0;
             dragMultiplier.z += 2 * Time.deltaTime;
             handbrake = true;
@@ -371,7 +408,7 @@ public class VehicleController : Vehicle
         _isGroundedRamp = false;
         if (Physics.Raycast(ray, out hit, 1))
         {
-            if (hit.collider.gameObject.layer == K.LAYER_GROUND || hit.collider.gameObject.layer == K.LAYER_RAMP || hit.collider.gameObject.layer == K.LAYER_OBSTACLE)
+            if (hit.collider.gameObject.layer == K.LAYER_GROUND || hit.collider.gameObject.layer == K.LAYER_RAMP)
             {
                 _isGrounded = true;
                 if (hit.collider.gameObject.layer == K.LAYER_RAMP) _isGroundedRamp = true;

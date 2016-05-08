@@ -1365,7 +1365,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 136132}
-  m_LocalRotation: {x: 0.09074578, y: 0.72925246, z: 0.6738108, w: -0.07704067}
+  m_LocalRotation: {x: 0.09074577, y: 0.7292524, z: 0.6738107, w: -0.077040665}
   m_LocalPosition: {x: 0.0025065783, y: 0.038258396, z: 0.2060594}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2029,7 +2029,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131658}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.032348655, y: 0.4375, z: 0.21984862}
+  m_LocalPosition: {x: -0.032, y: 0.4375, z: 0.2198486}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 490692}
@@ -2629,7 +2629,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 68f70af6e3a35d14fb27b0dbdbb76160, type: 2}
+  - {fileID: 2100000, guid: 7057281fa7f961b42b4743ac2476dd5e, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -2785,7 +2785,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 49b168fcab85b7b45961bcdc916b2d2c, type: 2}
+  - {fileID: 2100000, guid: 7057281fa7f961b42b4743ac2476dd5e, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -3974,6 +3974,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e56fbff6b9450c408943b78752201b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vehicleName: Player
   maxTorque: 800
   centerOfMass: {fileID: 474270}
   speedText: {fileID: 0}
@@ -4000,8 +4001,10 @@ MonoBehaviour:
     m_Bits: 256
   fallForce: 30000
   carModel: {fileID: 152712}
-  antiRoll: 1000
-  brake: 0
+  antiRoll: 1500
+  brake: 7000
+  nitroPower: 50000
+  nitroTimer: 1.5
 --- !u!114 &11474106
 MonoBehaviour:
   m_ObjectHideFlags: 1
