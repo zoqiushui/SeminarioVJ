@@ -5,4 +5,5 @@ public abstract class Vehicle : MonoBehaviour
 {
     public float positionWeight { get; protected set; }
     public float lapCount { get; protected set; }
+    public string vehicleName;
 }

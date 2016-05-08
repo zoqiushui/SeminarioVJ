@@ -39,11 +39,11 @@ public class IngameUIManager : MonoBehaviour
                 _racerList.Remove(racer);
                 break;
             }
-            _positionsTextString += count + "." + " " + racer.gameObject.name+"\n";
+            _positionsTextString += count + "." + " " + racer.vehicleName+"\n";
             count++;
         }
         positionsText.text = _positionsTextString;
-        lapsText.text = "Laps " + _playerLaps + "/" + K.MAX_LAPS;
+        if(_playerLaps < K.MAX_LAPS) lapsText.text = "Laps " + (_playerLaps +1) + "/" + K.MAX_LAPS;
         _playerSpeedometerRotation.z = (_playerSpeed * K.SPEEDOMETER_MAX_ANGLE) + K.SPEEDOMETER_MIN_ANGLE;
         speedpmeterNeedleImage.transform.eulerAngles = _playerSpeedometerRotation;
     }

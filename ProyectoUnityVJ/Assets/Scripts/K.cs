@@ -35,7 +35,7 @@ public class K
 
     // ===== IA =====
     public const float IA_MAX_HP = 100;
-    public const float IA_MAX_SPEED = 20;
+    public const float IA_MAX_SPEED = 40;
 
     // ===== MINIMAP =====
     public const string MNINIMAP_VEHICLES_CONTAINER_NAME = "VEHICLES";

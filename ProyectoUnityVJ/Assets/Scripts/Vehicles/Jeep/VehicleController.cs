@@ -30,6 +30,7 @@ public class VehicleController : Vehicle
     public GameObject carModel;
     private float finalAngle;
     private bool _isGrounded;
+    private bool _isGroundedRamp;
     private Checkpoint _lastCheckpoint;
 
     public float antiRoll = 1000f;
@@ -44,14 +45,13 @@ public class VehicleController : Vehicle
     private float antiRollForceRear;
     private bool _reversing;
     private int _checkpointNumber;
-
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _rb.centerOfMass = centerOfMass.localPosition;
         handbrake = false;
         Cursor.visible = false;
-        lapCount = 1;
+        lapCount = 0;
         positionWeight = -Vector3.Distance(transform.position, CheckpointManager.instance.checkpointsList[0].transform.position);
         _checkpointNumber = 0;
     }
@@ -119,11 +119,6 @@ public class VehicleController : Vehicle
 
         CheckHandbrake();
     }
-
-    private void OnCollisionEnter(Collision asd)
-    {
-        //    if (asd.gameObject.layer == 16) _rb.velocity = Vector3.zero;
-    }
     public void AntiRollBars()
     {
         WheelHit leftWheelHit;
@@ -171,8 +166,8 @@ public class VehicleController : Vehicle
                     Debug.Log("ANTIROLL BAR RIGHT");
                 }
             }*/
-/*
-            if (i == 0 || i == 1)
+
+        /*    if (i == 0 || i == 1)
             {
                 bool groundedFront = wheelColliders[i].GetGroundHit(out frontWheelHit);
                 if (groundedFront)
@@ -203,10 +198,35 @@ public class VehicleController : Vehicle
                 {
                     _rb.AddForceAtPosition(wheelColliders[i].transform.up * antiRollForceRear, wheelColliders[i].transform.position);
                     impulseForceRear = true;
-                    Debug.Log(wheelColliders[i].gameObject.name);
-                  //  Debug.Log("ANTIROLL BAR REAR");
+                    Debug.Log("ANTIROLL BAR REAR");
                 }
             }*/
+          /*  if (i == 0 || i == 1)
+            {
+                bool groundedFront = wheelColliders[i].GetGroundHit(out frontWheelHit);
+                if (groundedFront) impulseForceFront = false;
+                if (!groundedFront && !impulseForceFront)
+                {
+                    _rb.AddForceAtPosition(wheelColliders[i].transform.up * -50000, wheelColliders[i].transform.position);
+                    impulseForceFront = true;
+                    Debug.Log("ANTIROLL BAR FRONT");
+                }
+            }*/
+         /*   if (i == 2 || i == 3)
+            {
+                bool groundedRear = wheelColliders[i].GetGroundHit(out rearWheelHit);
+                if (groundedRear) impulseForceRear = false;
+                if (!groundedRear && !impulseForceRear)
+                {
+                    
+                    _rb.AddForceAtPosition(wheelColliders[i].transform.up *-20000 , wheelColliders[i].transform.position);
+                    impulseForceRear = true;
+                    Debug.Log("ANTIROLL BAR REAR " + wheelColliders[i].transform.position);
+                }
+            }*/
+
+               if (_isGrounded) _rb.AddForceAtPosition(wheelColliders[i].transform.up * -5000, wheelColliders[i].transform.position);
+            
         }
     }
     private void CheckHandbrake()
@@ -348,14 +368,19 @@ public class VehicleController : Vehicle
         Debug.DrawRay(ray.origin, ray.direction, Color.red);
         RaycastHit hit;
         _isGrounded = false;
+        _isGroundedRamp = false;
         if (Physics.Raycast(ray, out hit, 1))
         {
-            if (hit.collider.gameObject.layer == K.LAYER_GROUND || hit.collider.gameObject.layer == K.LAYER_RAMP)
+            if (hit.collider.gameObject.layer == K.LAYER_GROUND || hit.collider.gameObject.layer == K.LAYER_RAMP || hit.collider.gameObject.layer == K.LAYER_OBSTACLE)
             {
                 _isGrounded = true;
-                if (hit.collider.gameObject.layer == K.LAYER_RAMP) _rb.AddForce(transform.forward * 8000f);
+                if (hit.collider.gameObject.layer == K.LAYER_RAMP) _isGroundedRamp = true;
             }
         }
+    }
+    public void PushRamp(float amount)
+    {
+        if (_isGroundedRamp) _rb.AddForce(transform.forward * amount);
     }
 
     /// <summary>
@@ -375,9 +400,9 @@ public class VehicleController : Vehicle
         IngameUIManager.instance.GetPlayerSpeed(currentSpeed / K.SPEEDOMETER_MAX_SPEED);
         IngameUIManager.instance.GetPlayerLapCount(Mathf.FloorToInt(lapCount));
     }
-
     private void OnDrawGizmos()
     {
 
     }
+
 }

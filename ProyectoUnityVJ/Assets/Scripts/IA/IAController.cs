@@ -11,14 +11,13 @@ public class IAController : Vehicle
     private float _maxHp, _currentHp, _speed;
     private Checkpoint _nextCheckpoint;
     private Vector3 _aux, _nextDestinationPoint;
-
     private void Start()
     {
         _maxHp = K.IA_MAX_HP;
         _currentHp = _maxHp;
         _aux = hpBarImage.transform.localScale;
         _speed = K.IA_MAX_SPEED;
-        lapCount = 1;
+        lapCount = 0;
         _nextCheckpoint = CheckpointManager.instance.checkpointsList[0];
         positionWeight = -Vector3.Distance(transform.position, _nextCheckpoint.transform.position);
         CalculateNextPoint(_nextCheckpoint);
