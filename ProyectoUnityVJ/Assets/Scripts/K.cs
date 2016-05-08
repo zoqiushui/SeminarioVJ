@@ -10,6 +10,10 @@ public class K
     public const int LAYER_NODE = 11;
     public const int LAYER_IA = 12;
     public const int LAYER_ENEMY = 13;
+    public const int LAYER_MISSILE = 14;
+    public const int LAYER_CHECKPOINT = 15;
+    public const int LAYER_OBSTACLE = 16;
+    public const int LAYER_RAMP = 17;
 
     // ===== GROUND CHECK =====
     public const float IS_GROUNDED_RAYCAST_DISTANCE = 2;
