@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public Text youWin;
     public Text youLose;
 
+
     private VehicleController _playerReference;
     private List<IAController> _enemiesReferences, _destroyedEnemies;
 

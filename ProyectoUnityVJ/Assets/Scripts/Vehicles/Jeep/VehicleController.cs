@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class VehicleController : MonoBehaviour
+public class VehicleController : Vehicle
 {
     public float maxTorque;
     public Transform centerOfMass;
@@ -10,7 +10,6 @@ public class VehicleController : MonoBehaviour
     public GameObject trailRenderModel;
     public WheelCollider[] wheelColliders;
     public Transform[] tiresCar;
-    public float lapCount { get; private set; }
 
     private Rigidbody _rb;
     private float currentSpeed;
@@ -40,16 +39,23 @@ public class VehicleController : MonoBehaviour
     private float antiRollForceRight;
     private float antiRollForceLeft;
     private bool _reversing;
-    void Awake()
+    private int _checkpointNumber;
+
+    private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _rb.centerOfMass = centerOfMass.localPosition;
         handbrake = false;
         Cursor.visible = false;
+        lapCount = 1;
+        positionWeight = -Vector3.Distance(transform.position, CheckpointManager.instance.checkpointsList[0].transform.position);
+        _checkpointNumber = 0;
     }
 
     void Update()
     {
+        positionWeight = Vector3.Distance(transform.position, CheckpointManager.instance.checkpointsList[_checkpointNumber].transform.position);
+
         UpdateTiresPosition();
         UIText();
         currentSpeed = _rb.velocity.magnitude * 3f;
@@ -231,10 +237,14 @@ public class VehicleController : MonoBehaviour
     /// <param name="chk">Checkpoint</param>
     public void SetCheckpoint(Checkpoint chk)
     {
+        _checkpointNumber = CheckpointManager.instance.checkpointsList.Count - 1 == _checkpointNumber ? 0 : _checkpointNumber + 1;
         _lastCheckpoint = chk;
         lapCount += CheckpointManager.instance.checkpointValue;
     }
 
+    /// <summary>
+    /// El auto regresa a un punto del ultimo checkpoint.
+    /// </summary>
     private void ResetCar()
     {
         _rb.velocity = Vector3.zero;
