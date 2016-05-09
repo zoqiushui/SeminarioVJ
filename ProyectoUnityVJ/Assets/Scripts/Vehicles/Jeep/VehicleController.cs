@@ -56,6 +56,7 @@ public class VehicleController : Vehicle
     public Image visualNitro;
     private float lapsEnded;
     private bool canRechargeNitro;
+    private bool nitroEmpty;
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -67,6 +68,7 @@ public class VehicleController : Vehicle
         _checkpointNumber = 0;
         _nitroTimer = nitroTimer;
         lapsEnded = 1;
+        nitroEmpty = false;
     }
 
     void Update()
@@ -142,7 +144,11 @@ public class VehicleController : Vehicle
         }
 
         if (!modeNitro && _nitroTimer < nitroTimer && canRechargeNitro) _nitroTimer += Time.deltaTime / rechargeNitro;
-        if (visualNitro.fillAmount == 1) canRechargeNitro = false;
+        if (visualNitro.fillAmount == 1)
+        {
+            canRechargeNitro = false;
+            nitroEmpty = false;
+        }
     }
 
     private void CheckBars()
@@ -158,13 +164,21 @@ public class VehicleController : Vehicle
     }
     private void NitroInput()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && _isGrounded && visualNitro.fillAmount == 1)
+        if (Input.GetKey(KeyCode.LeftShift) && _isGrounded && !nitroEmpty)
         {
             modeNitro = true;
             Camera.main.GetComponent<Bloom>().enabled = true;
             Camera.main.GetComponent<VignetteAndChromaticAberration>().enabled = true;
             Camera.main.GetComponent<MotionBlur>().enabled = true;
         }
+        else 
+        {
+            modeNitro = false;
+            Camera.main.GetComponent<Bloom>().enabled = false;
+            Camera.main.GetComponent<VignetteAndChromaticAberration>().enabled = false;
+            Camera.main.GetComponent<MotionBlur>().enabled = false;
+        }
+
         if (modeNitro)
         {
             if (motorInput < 0) _rb.AddForce(transform.forward * -nitroPower);
@@ -174,6 +188,7 @@ public class VehicleController : Vehicle
             {
                 modeNitro = false;
                 nitroEnd = true;
+                nitroEmpty = true;
                 Camera.main.GetComponent<Bloom>().enabled = false;
                 Camera.main.GetComponent<VignetteAndChromaticAberration>().enabled = false;
                 Camera.main.GetComponent<MotionBlur>().enabled = false;
