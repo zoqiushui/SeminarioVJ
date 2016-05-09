@@ -36113,7 +36113,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 192566, guid: 8eb7f4e0cf979934d846a06dfa7db4cf, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11404266, guid: 8eb7f4e0cf979934d846a06dfa7db4cf, type: 2}
       propertyPath: vehicleName
@@ -67089,6 +67089,10 @@ Prefab:
     - target: {fileID: 6561984, guid: 8eb7f4e0cf979934d846a06dfa7db4cf, type: 2}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 192566, guid: 8eb7f4e0cf979934d846a06dfa7db4cf, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8eb7f4e0cf979934d846a06dfa7db4cf, type: 2}

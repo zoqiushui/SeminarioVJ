@@ -51,26 +51,28 @@ public class IAController : Vehicle
         hpBarImage.transform.localScale = _aux;
     }
 
+    /// <summary>
+    /// Tomo el proximo checkpoint y calculo un punto aleatorio dentro del mismo, si hay un obstaculo vuelvo a calcular. 
+    /// </summary>
+    /// <param name="chk">Proximo Checkpoint</param>
     private void CalculateNextPoint(Checkpoint chk)
     {
-        _nextDestinationPoint = chk.GetRandomPositionFromNode();
-        /*_nextDestinationPoint = Vector3.zero;
-        Ray ray = new Ray(new Vector3(chk.transform.position.x - Random.Range(chk.transform.localScale.x / 2, -(chk.transform.localScale.x / 2)), chk.transform.position.y * 200, chk.transform.position.z - Random.Range(chk.transform.localScale.z / 2, -(chk.transform.localScale.z / 2))), -Vector3.up);
-        var raycastHits = Physics.RaycastAll(ray, Mathf.Infinity);
-        foreach (var item in raycastHits)
+        //_nextDestinationPoint = chk.GetRandomPositionFromNode();
+        _nextDestinationPoint = Vector3.zero;
+        var randomPoint = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+        randomPoint = chk.transform.TransformPoint(randomPoint * 0.5f);
+        randomPoint.y = 200;
+        Ray ray = new Ray(randomPoint, -Vector3.up);
+        RaycastHit hit;
+        if (Physics.Raycast(ray,out hit,Mathf.Infinity))
         {
-            if (item.collider.gameObject.layer == K.LAYER_GROUND)
+            if (hit.collider.gameObject.layer == K.LAYER_GROUND)
             {
-                chk = chk.nextCheckpoint;
-                _nextDestinationPoint = item.point + Vector3.up;
-                break;
+                _nextDestinationPoint = hit.point + Vector3.up;
+                return;
             }
         }
-        print(_nextDestinationPoint);
-        if (_nextDestinationPoint == Vector3.zero)
-        {
-            CalculateNextPoint(chk);
-        }*/
+        CalculateNextPoint(chk);        
     }
 
     public void Damage(float d)
