@@ -170,7 +170,6 @@ MonoBehaviour:
   powerDamage: 5
   destroyTime: 3
   spark: {fileID: 168502, guid: 824ce576afdebab4885607a6f69cfa78, type: 2}
-  col: {fileID: 0}
 --- !u!136 &13600326
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -219,6 +218,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: powerDamage
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

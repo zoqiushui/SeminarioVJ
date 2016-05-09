@@ -25,6 +25,7 @@ public class RockedLauncherMK2 : Weapon
         _lockOn = lockOn.GetComponent<RawImage>();
         shootButtom = InputKey;
         cooldown = CooldownTime;
+        currentAmmo = maxAmmo = 100;
     }
 
     void Update()
@@ -32,7 +33,7 @@ public class RockedLauncherMK2 : Weapon
         _lockOn.transform.position = Input.mousePosition;
         AimCollision();
         OneShoot();
-
+        CheckAmmoBar();
         if(Input.GetMouseButtonDown(shootButtom) && canShoot)
         {
          //   lockOn.SetActive(true);
@@ -49,7 +50,7 @@ public class RockedLauncherMK2 : Weapon
             if(Physics.Raycast(ray, out hit))
             {
                 _pointAttack = hit.point;
-                Shoot();
+                if (visualAmmo.fillAmount > 0 && !ammoEmpty) Shoot();
 
                 print("ROCKET TARGET: " + hit.collider.gameObject.name);
             }
@@ -62,6 +63,7 @@ public class RockedLauncherMK2 : Weapon
         GameObject rock = (GameObject)GameObject.Instantiate(rocket, launchPoint.position, Quaternion.identity);
         rock.GetComponent<Rocket>().SetTarget(_pointAttack);
      //   lockOn.SetActive(false);
+        currentAmmo -= maxAmmo / missileCountAmmo;
     }
 
     private void AimCollision()
@@ -73,6 +75,27 @@ public class RockedLauncherMK2 : Weapon
         {
             if (hit.collider.gameObject.layer == K.LAYER_ENEMY)_lockOn.gameObject.GetComponent<CanvasRenderer>().SetColor(Color.red);
             else _lockOn.gameObject.GetComponent<CanvasRenderer>().SetColor(Color.white);
+        }
+    }
+
+    private void CheckAmmoBar()
+    {
+        visualAmmo.GetComponentInParent<Canvas>().transform.LookAt(Camera.main.transform.position);
+        float calc_ammo = currentAmmo / maxAmmo;
+        visualAmmo.fillAmount = calc_ammo;
+        ReloadAmmo();
+
+        if (visualAmmo.fillAmount == 0) ammoEmpty = true;
+    }
+
+    private void ReloadAmmo()
+    {
+        if (currentAmmo < maxAmmo && ammoEmpty) currentAmmo += Time.deltaTime * reloadSpeed;
+
+        if (visualAmmo.fillAmount == 1)
+        {
+            ammoEmpty = false;
+            currentAmmo = maxAmmo;
         }
     }
 }

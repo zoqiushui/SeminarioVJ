@@ -53,7 +53,7 @@ public class VehicleController : Vehicle
     private float _nitroTimer;
     public float rechargeNitro;
     private bool nitroEnd;
-    public Image visualHealth;
+    public Image visualNitro;
     private float lapsEnded;
     private bool canRechargeNitro;
     private void Start()
@@ -142,7 +142,7 @@ public class VehicleController : Vehicle
         }
 
         if (!modeNitro && _nitroTimer < nitroTimer && canRechargeNitro) _nitroTimer += Time.deltaTime / rechargeNitro;
-        if (visualHealth.fillAmount == 1) canRechargeNitro = false;
+        if (visualNitro.fillAmount == 1) canRechargeNitro = false;
     }
 
     private void CheckBars()
@@ -152,12 +152,13 @@ public class VehicleController : Vehicle
     }
     private void CheckNitroBar()
     {
+        visualNitro.GetComponentInParent<Canvas>().transform.LookAt(Camera.main.transform.position);
         float calc_nitro = _nitroTimer / nitroTimer;
-        visualHealth.fillAmount = calc_nitro;
+        visualNitro.fillAmount = calc_nitro;
     }
     private void NitroInput()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && _isGrounded && visualHealth.fillAmount == 1)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _isGrounded && visualNitro.fillAmount == 1)
         {
             modeNitro = true;
             Camera.main.GetComponent<Bloom>().enabled = true;

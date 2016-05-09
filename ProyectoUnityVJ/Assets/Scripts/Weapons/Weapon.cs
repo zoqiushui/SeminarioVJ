@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour
 {
@@ -10,7 +11,15 @@ public class Weapon : MonoBehaviour
     private float _timeCoolDown;
     public bool isCrosshair;
     public Sprite crosshair;
-    
+
+    public Image visualAmmo;
+    protected float maxAmmo;
+    protected float currentAmmo;
+    protected bool ammoEmpty;
+    public float missileCountAmmo;
+    public float reloadSpeed;
+    public float ammoTimer;
+    protected float _ammoTimer;
     public virtual void ShootDownButtom()
     {
         _timeCoolDown += Time.deltaTime;

@@ -32,9 +32,9 @@ public class Bullet : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
 		print (col.gameObject.layer);
-       if (col.gameObject.layer == 13)
+       if (col.gameObject.layer == 12)
         {
-			col.gameObject.transform.parent.gameObject.GetComponent<IAController>().Damage(powerDamage);
+            col.gameObject.GetComponent<IAController>().Damage(powerDamage);
             Vector3 cont = col.contacts[0].point;
             Instantiate(spark, cont + -transform.forward , Quaternion.identity);
             DestroyThis();

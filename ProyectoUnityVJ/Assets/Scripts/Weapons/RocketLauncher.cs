@@ -30,7 +30,6 @@ public class RocketLauncher : Weapon
 
     public GameObject lockOn;
     private Image _lockOn;
-
     // Use this for initialization
     void Start ()
     {
@@ -40,11 +39,13 @@ public class RocketLauncher : Weapon
         targets = new List<GameObject>();
         shootButtom = InputKey;
         cooldown = CooldownTime;
+        currentAmmo = maxAmmo = 100;
     }
 
     void Update()
     {
         ShootDownButtom();
+        CheckAmmoBar();
 
         if (canShoot && !_enemyFound) LockEnemy();
         if (_enemyFound && targets.Count > 1)
@@ -54,9 +55,9 @@ public class RocketLauncher : Weapon
         else if (_enemyFound)
             _finalTarget = targets[0];
 
-        if (Input.GetMouseButtonUp(InputKey) && _finalTarget!=null && canShoot)
+        if (Input.GetMouseButtonUp(InputKey) && _finalTarget != null && canShoot)
         {
-            Shoot();
+            if (visualAmmo.fillAmount > 0 && !ammoEmpty) Shoot();
         }
 
         if (_finalTarget != null && _enemyFound)    LockTarget();
@@ -73,7 +74,7 @@ public class RocketLauncher : Weapon
         if (temp.z < 10)
         {
             _finalTarget = null;
-            Shoot();
+            if (visualAmmo.fillAmount > 0 && !ammoEmpty) Shoot();
         }
         else
         {
@@ -134,6 +135,9 @@ public class RocketLauncher : Weapon
     public override void Shoot()
     {
         base.Shoot();
+
+        currentAmmo -= maxAmmo / missileCountAmmo;
+
         _enemyFound = false;
         if (_finalTarget != null)
         {
@@ -145,5 +149,25 @@ public class RocketLauncher : Weapon
         targets.Clear();
         lockOn.SetActive(false);
 
+    }
+    private void CheckAmmoBar()
+    {
+        visualAmmo.GetComponentInParent<Canvas>().transform.LookAt(Camera.main.transform.position);
+        float calc_ammo = currentAmmo / maxAmmo;
+        visualAmmo.fillAmount = calc_ammo;
+        ReloadAmmo();
+
+        if (visualAmmo.fillAmount == 0) ammoEmpty = true;
+    }
+
+    private void ReloadAmmo()
+    {
+        if (currentAmmo < maxAmmo && ammoEmpty) currentAmmo += Time.deltaTime * reloadSpeed;
+
+        if (visualAmmo.fillAmount == 1)
+        {
+            ammoEmpty = false;
+            currentAmmo = maxAmmo;
+        }
     }
 }

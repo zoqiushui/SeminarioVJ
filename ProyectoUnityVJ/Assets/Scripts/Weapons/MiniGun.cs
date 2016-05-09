@@ -21,29 +21,61 @@ public class MiniGun : Weapon
         shootButtom = InputKey;
         cooldown = CooldownTime;
         particleEffect.SetActive(false);
+        _ammoTimer = ammoTimer;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetMouseButton(shootButtom))
-            particleEffect.SetActive(true);
-        else if (particleEffect.activeInHierarchy)
-            particleEffect.SetActive(false);
+    /*    if (Input.GetMouseButton(shootButtom)) particleEffect.SetActive(true);
+        else if (particleEffect.activeInHierarchy) particleEffect.SetActive(false);*/
 
         ShootDownButtom();
 
-        if (canShoot) Shoot();
+        if (canShoot && visualAmmo.fillAmount > 0 && !ammoEmpty) Shoot();
+        else particleEffect.SetActive(false);
+        CheckAmmoBar();
 	}
 
+    private void CheckAmmoBar()
+    {
+        visualAmmo.GetComponentInParent<Canvas>().transform.LookAt(Camera.main.transform.position);
+        float calc_ammo = _ammoTimer / ammoTimer;
+        visualAmmo.fillAmount = calc_ammo;
+        ReloadAmmo();
+
+        if (visualAmmo.fillAmount == 0) ammoEmpty = true;
+    }
+
+    private void ReloadAmmo()
+    {
+        if (_ammoTimer < ammoTimer && ammoEmpty) _ammoTimer += Time.deltaTime / reloadSpeed;
+
+        if (visualAmmo.fillAmount == 1)
+        {
+            ammoEmpty = false;
+            _ammoTimer = ammoTimer;
+        }
+    }
+    private void ammoInput()
+    {
+        _ammoTimer -= Time.deltaTime;
+        if (_ammoTimer < 0)
+        {
+            ammoEmpty = true;
+        }
+    }
     public override void Shoot()
     {
-
+        ammoEmpty = false;
         canShoot = false;
+        particleEffect.SetActive(true);
         base.Shoot();
        // direction = shootPoint.TransformDirection(Vector3.forward);
         Instantiate(bulletPref, shootPoint.position + shootPoint.forward, shootPoint.rotation);
-        
+
+        ammoInput();
+
         /*
         Debug.DrawRay(shootPoint.position, direction * maxDistance, Color.blue);
 
