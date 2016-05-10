@@ -138,6 +138,7 @@ MonoBehaviour:
   layersDamege:
     serializedVersion: 2
     m_Bits: 5120
+  feedback: {fileID: 100000, guid: f600b4a5a289d0548842df7f27d883ea, type: 2}
 --- !u!135 &13591224
 SphereCollider:
   m_ObjectHideFlags: 1

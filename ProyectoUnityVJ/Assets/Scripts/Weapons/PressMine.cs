@@ -6,7 +6,7 @@ public class PressMine : Trap
     public float expPower;
     public float expRadius;
     public LayerMask layersDamege;
-
+    public GameObject feedback;
     
 
     public override void Update()
@@ -51,7 +51,7 @@ public class PressMine : Trap
                 cols[i].GetComponent<Rigidbody>().AddExplosionForce(expPower, transform.position,expRadius,0.5f,ForceMode.Impulse);
             }// colis[i].rigidbody.AddForce(direction * expPower * (1 - (dist / expRadius)));
         }
-
+        Instantiate(feedback, transform.position + transform.up, Quaternion.identity);
         GameObject.Destroy(this.gameObject);
     }
     void OnDrawGizmos()
