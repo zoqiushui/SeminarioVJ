@@ -42,3 +42,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Head
+    uniqueID: 2795241691
+    locked: 0
+  - name: Face
+    uniqueID: 3759794959
+    locked: 0
+  - name: Facial Hair
+    uniqueID: 492446671
+    locked: 0
+  - name: Accesories
+    uniqueID: 2379348095
+    locked: 0
+  - name: Hair
+    uniqueID: 3382723979
+    locked: 0
