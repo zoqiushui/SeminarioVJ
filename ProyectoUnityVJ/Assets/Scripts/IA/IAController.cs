@@ -8,35 +8,62 @@ public class IAController : Vehicle
     public RawImage hpBarImage;
     public GameObject remains;
 
-    private float _maxHp, _currentHp, _speed;
+    private float _maxHp, _currentHp, _maxSpeed, _currentSpeed;
     private Checkpoint _nextCheckpoint;
     private Vector3 _aux, _nextDestinationPoint;
+
     private void Start()
     {
         _maxHp = K.IA_MAX_HP;
         _currentHp = _maxHp;
         _aux = hpBarImage.transform.localScale;
-        _speed = K.IA_MAX_SPEED;
+        _maxSpeed = K.IA_MAX_SPEED;
         lapCount = 0;
         _nextCheckpoint = CheckpointManager.instance.checkpointsList[0];
         positionWeight = -Vector3.Distance(transform.position, _nextCheckpoint.transform.position);
         CalculateNextPoint(_nextCheckpoint);
+        _currentSpeed = 1;
     }
 
     private void Update()
     {
         positionWeight = Vector3.Distance(transform.position, _nextCheckpoint.transform.position);
-
         UpdateHpBar();
-
         if (Vector3.Distance(transform.position, _nextDestinationPoint) < 20)
         {
             lapCount += CheckpointManager.instance.checkpointValue;
             CalculateNextCheckpoint(_nextCheckpoint);
             CalculateNextPoint(_nextCheckpoint);
         }
-        transform.forward = Vector3.Slerp(transform.forward, _nextDestinationPoint - transform.position, 5 * Time.deltaTime);
-        transform.position += transform.forward * _speed * Time.deltaTime;
+        ApplyDrive();
+    }
+
+    private void ApplyDrive()
+    {
+        CalculateSpeed();
+        transform.forward = Vector3.Slerp(transform.forward, _nextDestinationPoint - transform.position, K.IA_TURN_SPEED * Time.deltaTime);
+        transform.position += transform.forward * _currentSpeed * Time.deltaTime;
+    }
+
+    private void CalculateSpeed()
+    {
+        if (lapCount + (CheckpointManager.instance.checkpointValue) < GameManager.instance.playerReference.lapCount)
+        {
+            _currentSpeed += 0.2f;
+            _currentSpeed = Mathf.Clamp(_currentSpeed, 1, K.IA_MAX_SPEED);
+
+        }
+        else if (lapCount - (CheckpointManager.instance.checkpointValue) > GameManager.instance.playerReference.lapCount)
+        {
+            _currentSpeed -= 0.5f;
+            _currentSpeed = Mathf.Clamp(_currentSpeed, K.IA_MAX_SPEED/3, K.IA_MAX_SPEED);
+        }
+        else
+        {
+            _currentSpeed += 0.1f;
+            _currentSpeed = Mathf.Clamp(_currentSpeed, 1, K.IA_MAX_SPEED);
+
+        }
     }
 
     private void CalculateNextCheckpoint(Checkpoint chk)
@@ -64,7 +91,7 @@ public class IAController : Vehicle
         randomPoint.y = 200;
         Ray ray = new Ray(randomPoint, -Vector3.up);
         RaycastHit hit;
-        if (Physics.Raycast(ray,out hit,Mathf.Infinity))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             if (hit.collider.gameObject.layer == K.LAYER_GROUND)
             {
@@ -72,7 +99,7 @@ public class IAController : Vehicle
                 return;
             }
         }
-        CalculateNextPoint(chk);        
+        CalculateNextPoint(chk);
     }
 
     public void Damage(float d)

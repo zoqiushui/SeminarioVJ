@@ -79,7 +79,6 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.gameObject.GetComponent<VehicleController>() != null)
         {
-            print(other.gameObject);
             if (CheckpointManager.instance.CheckVehicleCheckpoint(other.gameObject, this)) other.gameObject.GetComponent<VehicleController>().SetCheckpoint(this);
         }
     }
