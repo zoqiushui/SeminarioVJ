@@ -19,7 +19,7 @@ public class CheckpointManager : MonoBehaviour
         {
             checkpointsList.Add(checkpoint);
         }
-        _vehiclesDictionary.Add(GameObject.FindGameObjectWithTag("Player"), 0);
+        _vehiclesDictionary.Add(GameObject.FindGameObjectWithTag(K.TAG_PLAYER), 0);
         checkpointValue = (float)1 / checkpointsList.Count;
         int aux = 1;
         foreach (var chk in checkpointsList)

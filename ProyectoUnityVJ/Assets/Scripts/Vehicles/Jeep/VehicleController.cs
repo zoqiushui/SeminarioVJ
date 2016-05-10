@@ -333,7 +333,7 @@ public class VehicleController : Vehicle
     }
     private void CheckCarFlipped()
     {
-        if (transform.localEulerAngles.z > 90 && transform.localEulerAngles.z < 300 && currentSpeed < 1 && currentSpeed > -1 && !_isGrounded) resetTimer += Time.deltaTime;
+        if (transform.localEulerAngles.z > 90 && transform.localEulerAngles.z < 270 && currentSpeed < 1 && currentSpeed > -1) resetTimer += Time.deltaTime;
         else resetTimer = 0;
         if (resetTimer > resetTime) FlipCar();
     }

@@ -8,22 +8,21 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public Text youWin;
     public Text youLose;
+    public VehicleController playerReference { get; private set; }
 
-
-    private VehicleController _playerReference;
     private List<IAController> _enemiesReferences, _destroyedEnemies;
 
     private void Awake()
     {
         if (instance == null) instance = this;
-        _playerReference = GameObject.FindGameObjectWithTag("Player").GetComponent<VehicleController>();
+        playerReference = GameObject.FindGameObjectWithTag(K.TAG_PLAYER).GetComponent<VehicleController>();
         _enemiesReferences = new List<IAController>();
         _enemiesReferences.AddRange(GameObject.Find("VEHICLES").GetComponentsInChildren<IAController>());
     }
 
     private void Update()
     {
-        if (Mathf.FloorToInt(_playerReference.lapCount) == K.MAX_LAPS)
+        if (Mathf.FloorToInt(playerReference.lapCount) == K.MAX_LAPS)
         {
             GameOver("You Win");
         }

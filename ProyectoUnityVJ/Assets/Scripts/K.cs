@@ -15,6 +15,9 @@ public class K
     public const int LAYER_OBSTACLE = 16;
     public const int LAYER_RAMP = 17;
 
+    // ===== TAG =====
+    public const string TAG_PLAYER = "Player";
+
     // ===== GROUND CHECK =====
     public const float IS_GROUNDED_RAYCAST_DISTANCE = 2;
 
@@ -35,7 +38,8 @@ public class K
 
     // ===== IA =====
     public const float IA_MAX_HP = 100;
-    public const float IA_MAX_SPEED = 40;
+    public const float IA_MAX_SPEED = JEEP_MAX_SPEED;
+    public const float IA_TURN_SPEED = 5;
 
     // ===== MINIMAP =====
     public const string MNINIMAP_VEHICLES_CONTAINER_NAME = "VEHICLES";
