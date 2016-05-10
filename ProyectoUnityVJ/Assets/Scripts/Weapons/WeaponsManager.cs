@@ -8,7 +8,7 @@ public class WeaponsManager : MonoBehaviour {
     public List<GameObject> weaponsSet2;
 
     private bool _activeCrosshair;
-    private short activeSet = 1;
+    public short activeSet;
 
 
     // Use this for initialization

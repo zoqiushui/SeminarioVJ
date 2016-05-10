@@ -34,13 +34,13 @@ public class RockedLauncherMK2 : Weapon
         AimCollision();
         OneShoot();
         CheckAmmoBar();
-        if(Input.GetMouseButtonDown(shootButtom) && canShoot)
+       /* if(Input.GetMouseButtonDown(shootButtom) && canShoot)
         {
          //   lockOn.SetActive(true);
             Vector3 temp = _mainCam.WorldToScreenPoint(Input.mousePosition);
         //    _lockOn.rectTransform.position = temp;
 
-        }
+        }*/
 
 
 

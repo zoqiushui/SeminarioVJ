@@ -33,6 +33,7 @@ public class Rocket : MonoBehaviour
         if (_life > lifeTime)
             Explote();
 
+        transform.LookAt(targetVector);
 
 	
 	}
@@ -43,8 +44,8 @@ public class Rocket : MonoBehaviour
         {
             myBody.velocity = transform.forward * velocity;
 
-            rotationTarget = Quaternion.LookRotation(targetVector - transform.position);
-            myBody.MoveRotation(Quaternion.RotateTowards(transform.rotation , rotationTarget, turnSpeed));
+            /*rotationTarget = Quaternion.LookRotation(targetVector - transform.position);
+            myBody.MoveRotation(Quaternion.RotateTowards(transform.rotation , rotationTarget, turnSpeed));*/
         }
 	}
 

@@ -45,4 +45,8 @@ public class Burner : Weapon
             }
         }
     }
+    /*
+    GameObject granade = (GameObject)GameObject.Instantiate(granadePrefab, transform.position + transform.forward * 3, Quaternion.identity);
+    granade.transform.forward = transform.forward;
+			granade.GetComponent<Rigidbody>().AddForce(transform.forward* 100, ForceMode.Force);*/
 }
