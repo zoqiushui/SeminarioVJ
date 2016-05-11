@@ -78,6 +78,7 @@ public class IngameUIManager : MonoBehaviour
     public void OnRestartButtonClicked()
     {
         SceneManager.LoadScene(1);
+    
     }
 
     /// <summary>

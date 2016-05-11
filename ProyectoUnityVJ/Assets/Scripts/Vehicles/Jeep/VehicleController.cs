@@ -208,14 +208,19 @@ public class VehicleController : Vehicle
     }
     public void AntiRollBars()
     {
-        WheelHit leftWheelHit;
+        WheelHit wheelHit;
+
+        for (int i = 0; i < wheelColliders.Length; i++)
+        {
+            bool grounded = wheelColliders[i].GetGroundHit(out wheelHit);
+            if (i == 0 || i == 1) if (!grounded) _rb.AddForceAtPosition(wheelColliders[i].transform.up * -300f, wheelColliders[i].transform.position);
+            else if (!grounded) _rb.AddForceAtPosition(wheelColliders[i].transform.up * -500f, wheelColliders[i].transform.position);
+        }
+        
+        /*  WheelHit leftWheelHit;
         WheelHit rightWheelHit;
-        WheelHit frontWheelHit;
-        WheelHit rearWheelHit;
         float travelLeft = 1f;
         float travelRight = 1f;
-        float travelFront= 1f;
-        float travelRear = 1f;
 
         for (int i = 0; i < wheelColliders.Length; i++)
         {
@@ -252,52 +257,8 @@ public class VehicleController : Vehicle
                     impulseForceRight = true;
                     Debug.Log("ANTIROLL BAR RIGHT");
                 }
-            }
-
-     /*       if (i == 0 || i == 1)
-            {
-                bool groundedFront = wheelColliders[i].GetGroundHit(out frontWheelHit);
-                if (groundedFront)
-                {
-                    travelFront = (-wheelColliders[i].transform.InverseTransformPoint(frontWheelHit.point).y - wheelColliders[i].radius) / wheelColliders[i].suspensionDistance;
-                    antiRollForceFront = (travelFront - travelRear) * 10000f;
-                    impulseForceFront = false;
-                }
-
-                if (!groundedFront && !impulseForceFront)
-                {
-                    _rb.AddForceAtPosition(wheelColliders[i].transform.up * antiRollForceFront, wheelColliders[i].transform.position);
-                    impulseForceFront = true;
-                    Debug.Log("ANTIROLL BAR FRONT");
-                }
-            }
-             else if (i == 2 || i == 3)
-            {
-                bool groundedRear = wheelColliders[i].GetGroundHit(out rearWheelHit);
-                if (groundedRear)
-                {
-                    travelRear = (-wheelColliders[i].transform.InverseTransformPoint(rearWheelHit.point).y - wheelColliders[i].radius) / wheelColliders[i].suspensionDistance;
-                    antiRollForceRear = (travelRear - travelFront) * 10000f;
-                    impulseForceRear = false;
-                }
-
-                if (!groundedRear && !impulseForceRear)
-                {
-                    _rb.AddForceAtPosition(wheelColliders[i].transform.up * antiRollForceRear, wheelColliders[i].transform.position);
-                    impulseForceRear = true;
-                    Debug.Log("ANTIROLL BAR REAR");
-                }
-            }*/
-
-            if (!_isGrounded && !countInAir)
-            {
-                Debug.Log("ETRN");
-                countInAir = true;
-                _rb.AddForceAtPosition(wheelColliders[i].transform.up * -5000, wheelColliders[i].transform.position);
-            }
-            if (_isGrounded) countInAir = false;
-            
-        }
+            }        
+        }*/
     }
     private void CheckHandbrake()
     {     
@@ -461,6 +422,14 @@ public class VehicleController : Vehicle
         if (!_isGrounded)
         {
             _rb.AddForce(-Vector3.up * fallForce);
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.layer == K.LAYER_IA)
+        {
+     //       other.gameObject.GetComponent<Rigidbody>().AddForce(other.transform.position);
         }
     }
     protected void UIText()
