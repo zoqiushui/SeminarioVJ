@@ -57,6 +57,7 @@ public class VehicleController : Vehicle
     private float lapsEnded;
     private bool canRechargeNitro;
     private bool nitroEmpty;
+    private bool countInAir;
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -243,7 +244,7 @@ public class VehicleController : Vehicle
                 }
             }
 
-            if (i == 0 || i == 1)
+     /*       if (i == 0 || i == 1)
             {
                 bool groundedFront = wheelColliders[i].GetGroundHit(out frontWheelHit);
                 if (groundedFront)
@@ -276,9 +277,15 @@ public class VehicleController : Vehicle
                     impulseForceRear = true;
                     Debug.Log("ANTIROLL BAR REAR");
                 }
-            }
+            }*/
 
-               if (_isGrounded) _rb.AddForceAtPosition(wheelColliders[i].transform.up * -5000, wheelColliders[i].transform.position);
+            if (!_isGrounded && !countInAir)
+            {
+                Debug.Log("ETRN");
+                countInAir = true;
+                _rb.AddForceAtPosition(wheelColliders[i].transform.up * -5000, wheelColliders[i].transform.position);
+            }
+            if (_isGrounded) countInAir = false;
             
         }
     }
