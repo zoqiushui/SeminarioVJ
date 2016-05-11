@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 414144}
   - 33: {fileID: 3313518}
   - 23: {fileID: 2332360}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Object004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ GameObject:
   - 4: {fileID: 418790}
   - 33: {fileID: 3320512}
   - 23: {fileID: 2328900}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Object007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   - 4: {fileID: 410312}
   - 33: {fileID: 3302656}
   - 23: {fileID: 2382892}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Object005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - 4: {fileID: 457142}
   - 33: {fileID: 3368360}
   - 23: {fileID: 2306076}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Object008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - 4: {fileID: 477752}
   - 33: {fileID: 3348820}
   - 23: {fileID: 2309272}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Object001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   - 4: {fileID: 481112}
   - 33: {fileID: 3392138}
   - 23: {fileID: 2321690}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Object006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - 4: {fileID: 483164}
   - 33: {fileID: 3325658}
   - 23: {fileID: 2316704}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Object003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   - 4: {fileID: 485544}
   - 33: {fileID: 3364552}
   - 23: {fileID: 2369590}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Object002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,9 +229,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 413100}
   - 65: {fileID: 6587540}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Auto
-  m_TagString: Target
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -246,7 +246,7 @@ GameObject:
   - 4: {fileID: 465362}
   - 33: {fileID: 3316146}
   - 23: {fileID: 2317106}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Box001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -266,7 +266,7 @@ GameObject:
   - 54: {fileID: 5445268}
   m_Layer: 12
   m_Name: IA_CAR CAR
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -279,7 +279,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 446402}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -787,7 +787,7 @@ BoxCollider:
   m_GameObject: {fileID: 189494}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 4, y: 2.16, z: 8.27}
   m_Center: {x: -0.12, y: -0.31, z: 0.83}
@@ -917,10 +917,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa3db5d3b2b448c4589121d35ed7be0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vehicleName: Chile (IA)
+  vehicleName: Brando (IA)
   hpBarContainer: {fileID: 171006}
   hpBarImage: {fileID: 11486088}
   remains: {fileID: 100556, guid: f6e664d70d146c740a2c0733e1c4f717, type: 2}
+  fallForce: 30000
 --- !u!222 &22202218
 CanvasRenderer:
   m_ObjectHideFlags: 1

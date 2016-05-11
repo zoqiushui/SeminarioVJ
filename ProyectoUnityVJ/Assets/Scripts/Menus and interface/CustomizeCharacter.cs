@@ -60,8 +60,6 @@ public class CustomizeCharacter : MonoBehaviour {
 
     void Awake()
     {
-
-
         currentColorSkin = 0;
         currentFace = 0;
         currentHair = 0;
@@ -74,8 +72,6 @@ public class CustomizeCharacter : MonoBehaviour {
         spritesAccesory = Resources.LoadAll<Sprite>("Sprites/Accesory");
         spritesFacialHair = Resources.LoadAll<Sprite>("Sprites/FacialHair");
         spritesFlag = Resources.LoadAll<Sprite>("Sprites/Flags");
-
-
 
         UpdatePortrait();
 
@@ -234,7 +230,7 @@ public class CustomizeCharacter : MonoBehaviour {
 
     public void Done()
     {
-        if (currentPilotName != null)
+        if (currentPilotName != null && currentPilotName!="")
         {
             //varManager.pilotName = currentPilotName;
             //varManager.country = currentFace;

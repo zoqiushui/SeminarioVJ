@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
         playerReference = GameObject.FindGameObjectWithTag(K.TAG_PLAYER).GetComponent<VehicleController>();
         _enemiesReferences = new List<IAController>();
         _enemiesReferences.AddRange(GameObject.Find("VEHICLES").GetComponentsInChildren<IAController>());
+        Time.timeScale = 1;
     }
 
     private void Update()

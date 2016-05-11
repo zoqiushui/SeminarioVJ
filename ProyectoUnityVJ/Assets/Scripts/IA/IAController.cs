@@ -8,7 +8,8 @@ public class IAController : Vehicle
     public RawImage hpBarImage;
     public GameObject remains;
 
-    private float _maxHp, _currentHp, _maxSpeed, _currentSpeed;
+    private float _maxHp, _currentHp, _currentSpeed;
+    public float _maxSpeed;
     private Checkpoint _nextCheckpoint;
     private Vector3 _aux, _nextDestinationPoint;
 
@@ -20,7 +21,7 @@ public class IAController : Vehicle
         _maxHp = K.IA_MAX_HP;
         _currentHp = _maxHp;
         _aux = hpBarImage.transform.localScale;
-        _maxSpeed = K.IA_MAX_SPEED;
+//        _maxSpeed = K.IA_MAX_SPEED;
         lapCount = 0;
         _nextCheckpoint = CheckpointManager.instance.checkpointsList[0];
         positionWeight = -Vector3.Distance(transform.position, _nextCheckpoint.transform.position);
@@ -32,7 +33,7 @@ public class IAController : Vehicle
     {
         positionWeight = Vector3.Distance(transform.position, _nextCheckpoint.transform.position);
         UpdateHpBar();
-        if (Vector3.Distance(transform.position, _nextDestinationPoint) < 20)
+        if (Vector3.Distance(transform.position, _nextDestinationPoint) < 15)
         {
             lapCount += CheckpointManager.instance.checkpointValue;
             CalculateNextCheckpoint(_nextCheckpoint);
@@ -55,19 +56,19 @@ public class IAController : Vehicle
     {
         if (lapCount + (CheckpointManager.instance.checkpointValue) < GameManager.instance.playerReference.lapCount)
         {
-            _currentSpeed += 0.2f;
-            _currentSpeed = Mathf.Clamp(_currentSpeed, 1, K.IA_MAX_SPEED);
+            _currentSpeed += 0.15f;
+            _currentSpeed = Mathf.Clamp(_currentSpeed, 1, _maxSpeed);
 
         }
         else if (lapCount - (CheckpointManager.instance.checkpointValue) > GameManager.instance.playerReference.lapCount)
         {
             _currentSpeed -= 0.5f;
-            _currentSpeed = Mathf.Clamp(_currentSpeed, K.IA_MAX_SPEED/3, K.IA_MAX_SPEED);
+            _currentSpeed = Mathf.Clamp(_currentSpeed, _maxSpeed / 3, _maxSpeed);
         }
         else
         {
             _currentSpeed += 0.1f;
-            _currentSpeed = Mathf.Clamp(_currentSpeed, 1, K.IA_MAX_SPEED);
+            _currentSpeed = Mathf.Clamp(_currentSpeed, 1, _maxSpeed);
 
         }
     }
@@ -144,7 +145,7 @@ public class IAController : Vehicle
     {
         if (!_isGrounded)
         {
-            GetComponent<Rigidbody>().AddForce(-Vector3.up * fallForce);
+            GetComponent<Rigidbody>().AddForce(-Vector3.up * K.IA_FALLFORCE);
         }
     }
 

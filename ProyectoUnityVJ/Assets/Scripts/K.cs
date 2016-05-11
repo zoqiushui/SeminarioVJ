@@ -38,8 +38,9 @@ public class K
 
     // ===== IA =====
     public const float IA_MAX_HP = 100;
-    public const float IA_MAX_SPEED = JEEP_MAX_SPEED;
+    public const float IA_MAX_SPEED = JEEP_MAX_SPEED - 30;
     public const float IA_TURN_SPEED = 5;
+    public const float IA_FALLFORCE = 30000f;
 
     // ===== MINIMAP =====
     public const string MNINIMAP_VEHICLES_CONTAINER_NAME = "VEHICLES";

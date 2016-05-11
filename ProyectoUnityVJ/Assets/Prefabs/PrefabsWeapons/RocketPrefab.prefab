@@ -216,7 +216,7 @@ MonoBehaviour:
   velocity: 150
   turnSpeed: 40
   radio: 5
-  damage: 15
+  damage: 10
   layersDamage:
     serializedVersion: 2
     m_Bits: 4096
@@ -1789,7 +1789,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: damage
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: radio
