@@ -28618,7 +28618,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 5445268, guid: 7b49fc26ecc84214e853be8837c11a5b, type: 2}
       propertyPath: m_Mass
-      value: 1000
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 189494, guid: 7b49fc26ecc84214e853be8837c11a5b, type: 2}
       propertyPath: m_TagString
@@ -28676,7 +28676,40 @@ Prefab:
       propertyPath: vehicleName
       value: Brando (IA)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6587540, guid: 7b49fc26ecc84214e853be8837c11a5b, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6515158, guid: 7b49fc26ecc84214e853be8837c11a5b, type: 2}
+      propertyPath: m_Size.x
+      value: 3.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 6515158, guid: 7b49fc26ecc84214e853be8837c11a5b, type: 2}
+      propertyPath: m_Size.z
+      value: 7.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 6515158, guid: 7b49fc26ecc84214e853be8837c11a5b, type: 2}
+      propertyPath: m_Center.z
+      value: 0.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 6515158, guid: 7b49fc26ecc84214e853be8837c11a5b, type: 2}
+      propertyPath: m_Size.y
+      value: 2.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 6515158, guid: 7b49fc26ecc84214e853be8837c11a5b, type: 2}
+      propertyPath: m_Center.y
+      value: -0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 11495352, guid: 7b49fc26ecc84214e853be8837c11a5b, type: 2}
+      propertyPath: fallForce
+      value: 30000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5445268, guid: 7b49fc26ecc84214e853be8837c11a5b, type: 2}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6587540, guid: 7b49fc26ecc84214e853be8837c11a5b, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 7b49fc26ecc84214e853be8837c11a5b, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &804684973
@@ -41455,7 +41488,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 5471332, guid: 44ae71ce6cad3fc4b88584623d6b45a2, type: 2}
       propertyPath: m_Mass
-      value: 1000
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 138160, guid: 44ae71ce6cad3fc4b88584623d6b45a2, type: 2}
       propertyPath: m_TagString
@@ -41481,7 +41514,16 @@ Prefab:
       propertyPath: vehicleName
       value: Jake (IA)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 11484170, guid: 44ae71ce6cad3fc4b88584623d6b45a2, type: 2}
+      propertyPath: fallForce
+      value: 30000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471332, guid: 44ae71ce6cad3fc4b88584623d6b45a2, type: 2}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6512034, guid: 44ae71ce6cad3fc4b88584623d6b45a2, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 44ae71ce6cad3fc4b88584623d6b45a2, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1243324890
@@ -49107,7 +49149,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 5487772, guid: 126cd84451d00ac438fb4b94d8078a3c, type: 2}
       propertyPath: m_Mass
-      value: 1000
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 192168, guid: 126cd84451d00ac438fb4b94d8078a3c, type: 2}
       propertyPath: m_TagString
@@ -49409,7 +49451,16 @@ Prefab:
       propertyPath: vehicleName
       value: Carlos (IA)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 11442280, guid: 126cd84451d00ac438fb4b94d8078a3c, type: 2}
+      propertyPath: fallForce
+      value: 30000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5487772, guid: 126cd84451d00ac438fb4b94d8078a3c, type: 2}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6597794, guid: 126cd84451d00ac438fb4b94d8078a3c, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 126cd84451d00ac438fb4b94d8078a3c, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1447232617
@@ -69204,7 +69255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!154 &2006794737
 TerrainCollider:
   m_ObjectHideFlags: 0

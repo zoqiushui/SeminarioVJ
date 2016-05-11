@@ -12,6 +12,9 @@ public class IAController : Vehicle
     private Checkpoint _nextCheckpoint;
     private Vector3 _aux, _nextDestinationPoint;
 
+    private bool _isGrounded;
+    private bool _isGroundedRamp;
+    public float fallForce;
     private void Start()
     {
         _maxHp = K.IA_MAX_HP;
@@ -36,6 +39,9 @@ public class IAController : Vehicle
             CalculateNextPoint(_nextCheckpoint);
         }
         ApplyDrive();
+
+        CheckIfGrounded();
+        FallSpeed();
     }
 
     private void ApplyDrive()
@@ -113,6 +119,32 @@ public class IAController : Vehicle
             Destroy(this.gameObject);
             Instantiate(remains, transform.position, transform.rotation);
 
+        }
+    }
+
+
+    protected void CheckIfGrounded()
+    {
+        Ray ray = new Ray(transform.position, -transform.up);
+        Debug.DrawRay(ray.origin, ray.direction, Color.red);
+        RaycastHit hit;
+        _isGrounded = false;
+        _isGroundedRamp = false;
+        if (Physics.Raycast(ray, out hit, 1))
+        {
+            if (hit.collider.gameObject.layer == K.LAYER_GROUND || hit.collider.gameObject.layer == K.LAYER_RAMP)
+            {
+                _isGrounded = true;
+                if (hit.collider.gameObject.layer == K.LAYER_RAMP) _isGroundedRamp = true;
+            }
+        }
+    }
+
+    protected void FallSpeed()
+    {
+        if (!_isGrounded)
+        {
+            GetComponent<Rigidbody>().AddForce(-Vector3.up * fallForce);
         }
     }
 

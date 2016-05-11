@@ -71,7 +71,7 @@ public class WeaponsManager : MonoBehaviour {
 
     private void AimCollision()
     {
-        ray = _mainCam.ScreenPointToRay(Input.mousePosition);
+        ray = _mainCam.ScreenPointToRay(_lockOn.transform.position);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, 1 << K.LAYER_IA))
@@ -80,7 +80,6 @@ public class WeaponsManager : MonoBehaviour {
             else _lockOn.gameObject.GetComponent<CanvasRenderer>().SetColor(Color.white);
         }
     }
-
 
     private void Activate(List<GameObject> t)
     {

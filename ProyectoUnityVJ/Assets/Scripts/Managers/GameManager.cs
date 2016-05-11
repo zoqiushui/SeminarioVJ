@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 
     private void RestardGame()
     {
-        //Application.LoadLevel(1);
+      //  Application.LoadLevel(1);
     }
 
     public void RemoveEnemy(IAController ene)
