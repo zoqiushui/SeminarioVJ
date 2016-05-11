@@ -21,8 +21,8 @@ public class RockedLauncherMK2 : Weapon
     void Start ()
     {
         isCrosshair = true;
-        lockOn.SetActive(true);
-        _lockOn = lockOn.GetComponent<RawImage>();
+       // lockOn.SetActive(false);
+       // _lockOn = lockOn.GetComponent<RawImage>();
         shootButtom = InputKey;
         cooldown = CooldownTime;
         currentAmmo = maxAmmo = 100;
@@ -30,17 +30,9 @@ public class RockedLauncherMK2 : Weapon
 
     void Update()
     {
-        _lockOn.transform.position = Input.mousePosition;
-        AimCollision();
         OneShoot();
         CheckAmmoBar();
-       /* if(Input.GetMouseButtonDown(shootButtom) && canShoot)
-        {
-         //   lockOn.SetActive(true);
-            Vector3 temp = _mainCam.WorldToScreenPoint(Input.mousePosition);
-        //    _lockOn.rectTransform.position = temp;
-
-        }*/
+     
 
 
 
@@ -64,18 +56,6 @@ public class RockedLauncherMK2 : Weapon
         rock.GetComponent<Rocket>().SetTarget(_pointAttack);
      //   lockOn.SetActive(false);
         currentAmmo -= maxAmmo / missileCountAmmo;
-    }
-
-    private void AimCollision()
-    {
-        ray = _mainCam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, 1 << K.LAYER_ENEMY))
-        {
-            if (hit.collider.gameObject.layer == K.LAYER_ENEMY)_lockOn.gameObject.GetComponent<CanvasRenderer>().SetColor(Color.red);
-            else _lockOn.gameObject.GetComponent<CanvasRenderer>().SetColor(Color.white);
-        }
     }
 
     private void CheckAmmoBar()

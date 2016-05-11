@@ -26,18 +26,26 @@ public class GameManager : MonoBehaviour
         if (Mathf.FloorToInt(playerReference.lapCount) == K.MAX_LAPS)
         {
             GameOver("You Win");
+            RestardGame();
         }
         foreach (var enemy in _enemiesReferences)
         {
             if (Mathf.FloorToInt(enemy.lapCount) == K.MAX_LAPS)
             {
                 GameOver("You Lose");
+                RestardGame();
             }
         }
         if (_enemiesReferences.Count == 0)
         {
             GameOver("You Win");
+            RestardGame();
         }
+    }
+
+    private void RestardGame()
+    {
+        //Application.LoadLevel(1);
     }
 
     public void RemoveEnemy(IAController ene)

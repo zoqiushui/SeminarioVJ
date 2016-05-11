@@ -47,7 +47,7 @@ public class RocketLauncher : Weapon
         ShootDownButtom();
         CheckAmmoBar();
 
-        if (canShoot && !_enemyFound) LockEnemy();
+        if (canShoot) LockEnemy();
         if (_enemyFound && targets.Count > 1)
         {
             SearchClose(targets);
