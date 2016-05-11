@@ -28672,6 +28672,10 @@ Prefab:
       propertyPath: m_TagString
       value: Target
       objectReference: {fileID: 0}
+    - target: {fileID: 11495352, guid: 7b49fc26ecc84214e853be8837c11a5b, type: 2}
+      propertyPath: vehicleName
+      value: Brando (IA)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7b49fc26ecc84214e853be8837c11a5b, type: 2}
   m_IsPrefabParent: 0
@@ -41473,6 +41477,10 @@ Prefab:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11484170, guid: 44ae71ce6cad3fc4b88584623d6b45a2, type: 2}
+      propertyPath: vehicleName
+      value: Jake (IA)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 44ae71ce6cad3fc4b88584623d6b45a2, type: 2}
   m_IsPrefabParent: 0
@@ -49396,6 +49404,10 @@ Prefab:
     - target: {fileID: 6597794, guid: 126cd84451d00ac438fb4b94d8078a3c, type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11442280, guid: 126cd84451d00ac438fb4b94d8078a3c, type: 2}
+      propertyPath: vehicleName
+      value: Carlos (IA)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 126cd84451d00ac438fb4b94d8078a3c, type: 2}
@@ -63441,7 +63453,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 490692, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -68.95
+      value: -71.02
       objectReference: {fileID: 0}
     - target: {fileID: 490692, guid: dde4eb973fedfc44e864fc43129a542a, type: 2}
       propertyPath: m_LocalPosition.y

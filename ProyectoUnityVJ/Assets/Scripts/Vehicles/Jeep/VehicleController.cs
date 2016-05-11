@@ -58,8 +58,18 @@ public class VehicleController : Vehicle
     private bool canRechargeNitro;
     private bool nitroEmpty;
     private bool countInAir;
+
+    public GameObject varManager;
+
     private void Start()
     {
+        varManager = GameObject.FindGameObjectWithTag("VarManager");
+        if (varManager!=null)
+        {
+            vehicleName = varManager.GetComponent<VarManager>().pilotName;
+        }
+
+
         _rb = GetComponent<Rigidbody>();
         _rb.centerOfMass = centerOfMass.localPosition;
         handbrake = false;

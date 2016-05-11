@@ -8,13 +8,15 @@ using UnityEngine.SceneManagement;
 public class CustomizeCharacter : MonoBehaviour {
 
     public InputField pilotNameField;
-    public string pilotName;
+    public string currentPilotName;
     private int currentColorSkin;
     private int currentFace;
     private int currentHair;
     private int currentColorHair;
     private int currentAccesory;
     public int currentFaceHair;
+
+    public int currentFlag;
 
 
     //Colores de pelo
@@ -35,11 +37,21 @@ public class CustomizeCharacter : MonoBehaviour {
 
     public GameObject warning;
 
+    public GameObject gameObjectFlag;
+
+    public VarManager varManager;
+
     //Sprites
     Sprite[] spritesFace;
     Sprite[] spritesHair;
     Sprite[] spritesAccesory;
     Sprite[] spritesFacialHair;
+    Sprite[] spritesFlag;
+
+    //Statics
+
+
+   
 
     void Start ()
     {
@@ -47,6 +59,8 @@ public class CustomizeCharacter : MonoBehaviour {
 
     void Awake()
     {
+
+
         currentColorSkin = 0;
         currentFace = 0;
         currentHair = 0;
@@ -58,12 +72,13 @@ public class CustomizeCharacter : MonoBehaviour {
         spritesHair = Resources.LoadAll<Sprite>("Sprites/Hair");
         spritesAccesory = Resources.LoadAll<Sprite>("Sprites/Accesory");
         spritesFacialHair = Resources.LoadAll<Sprite>("Sprites/FacialHair");
+        spritesFlag = Resources.LoadAll<Sprite>("Sprites/Flags");
 
 
 
         UpdatePortrait();
 
-        pilotName = null;
+        currentPilotName = null;
     }
 
     // Update is called once per frame
@@ -74,8 +89,8 @@ public class CustomizeCharacter : MonoBehaviour {
 
     public void UpdateName()
     {
-        pilotName = pilotNameField.text;
-        Debug.Log("Pilot's name: " + pilotName);
+        currentPilotName = pilotNameField.text;
+        Debug.Log("Pilot's name: " + currentPilotName);
     }
 
     public void UpdatePortrait()
@@ -88,9 +103,14 @@ public class CustomizeCharacter : MonoBehaviour {
 
         gameObjectFaceHair.GetComponent<SpriteRenderer>().sprite = spritesFacialHair[currentFaceHair];
 
+        gameObjectAccesory.GetComponent<SpriteRenderer>().sprite = spritesAccesory[currentAccesory];
+
         gameObjectFaceHair.GetComponent<SpriteRenderer>().color = arrayColorHair[currentColorHair];
 
         gameObjectHair.GetComponent<SpriteRenderer>().color = arrayColorHair[currentColorHair];
+
+        gameObjectFlag.GetComponent<SpriteRenderer>().sprite = spritesFlag[currentFlag];
+
     }
 
     public void NextColorSkin()
@@ -167,11 +187,61 @@ public class CustomizeCharacter : MonoBehaviour {
         gameObjectFaceHair.GetComponent<SpriteRenderer>().sprite = spritesFacialHair[currentFaceHair];
     }
 
+    public void NextAccesory()
+    {
+        if (currentAccesory != spritesAccesory.Length - 1)
+        {
+            currentAccesory++;
+        }
+        else
+        {
+            currentAccesory = 0;
+        }
+
+        gameObjectAccesory.GetComponent<SpriteRenderer>().sprite = spritesAccesory[currentAccesory];
+    }
+
+    public void NextFlag()
+    {
+        if (currentFlag != spritesFlag.Length - 1)
+        {
+            currentFlag++;
+        }
+        else
+        {
+            currentFlag = 0;
+        }
+
+        gameObjectFlag.GetComponent<SpriteRenderer>().sprite = spritesFlag[currentFlag];
+    }
+
+
+    public void PrevFlag()
+    {
+        if (currentFlag != 0)
+        {
+            currentFlag--;
+        }
+        else
+        {
+            currentFlag = spritesFlag.Length-1;
+        }
+
+        gameObjectFlag.GetComponent<SpriteRenderer>().sprite = spritesFlag[currentFlag];
+    }
+
+
     public void Done()
     {
-        if (pilotName!=null)
+        if (currentPilotName != null)
         {
+            //varManager.pilotName = currentPilotName;
+            //varManager.country = currentFace;
+
+            varManager.UpdateVars(currentFlag, currentPilotName);
+
             SceneManager.LoadScene(1);
+
         }
         else
         {
