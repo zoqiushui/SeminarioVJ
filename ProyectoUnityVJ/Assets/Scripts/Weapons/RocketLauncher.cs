@@ -44,8 +44,8 @@ public class RocketLauncher : Weapon
 
     void Update()
     {
-        ShootDownButtom();
         CheckAmmoBar();
+        ShootDownButtom();
 
         if (canShoot) LockEnemy();
         if (_enemyFound && targets.Count > 1)

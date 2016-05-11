@@ -27,14 +27,14 @@ public class MiniGun : Weapon
 	// Update is called once per frame
 	void Update ()
     {
-    /*    if (Input.GetMouseButton(shootButtom)) particleEffect.SetActive(true);
-        else if (particleEffect.activeInHierarchy) particleEffect.SetActive(false);*/
+        /*    if (Input.GetMouseButton(shootButtom)) particleEffect.SetActive(true);
+            else if (particleEffect.activeInHierarchy) particleEffect.SetActive(false);*/
 
+        CheckAmmoBar();
         ShootDownButtom();
 
         if (canShoot && visualAmmo.fillAmount > 0 && !ammoEmpty) Shoot();
         else particleEffect.SetActive(false);
-        CheckAmmoBar();
 	}
 
     private void CheckAmmoBar()

@@ -15019,7 +15019,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: RESTART
+  m_Text: EXIT
 --- !u!222 &391418516
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -27441,7 +27441,7 @@ Camera:
   m_GameObject: {fileID: 768493896}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 3
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -28675,6 +28675,10 @@ Prefab:
     - target: {fileID: 11495352, guid: 7b49fc26ecc84214e853be8837c11a5b, type: 2}
       propertyPath: vehicleName
       value: Brando (IA)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6587540, guid: 7b49fc26ecc84214e853be8837c11a5b, type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7b49fc26ecc84214e853be8837c11a5b, type: 2}

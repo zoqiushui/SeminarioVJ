@@ -25,7 +25,7 @@ public class Weapon : MonoBehaviour
         _timeCoolDown += Time.deltaTime;
         
 
-        if (Input.GetMouseButton(shootButtom) && _timeCoolDown > cooldown && !canShoot)
+        if (Input.GetMouseButton(shootButtom) && _timeCoolDown > cooldown && !canShoot && !ammoEmpty)
         {
             _timeCoolDown = 0;
             canShoot = true;
@@ -36,7 +36,7 @@ public class Weapon : MonoBehaviour
     {
         _timeCoolDown += Time.deltaTime;
 
-        if (Input.GetMouseButtonUp(shootButtom) && _timeCoolDown > cooldown && !canShoot)
+        if (Input.GetMouseButtonUp(shootButtom) && _timeCoolDown > cooldown && !canShoot && !ammoEmpty)
         {
             _timeCoolDown = 0;
             canShoot = true;

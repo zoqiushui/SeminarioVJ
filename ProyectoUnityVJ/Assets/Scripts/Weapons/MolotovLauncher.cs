@@ -22,8 +22,8 @@ public class MolotovLauncher : Weapon
 	// Update is called once per frame
 	void Update ()
     {
-        OneShoot();
         CheckAmmoBar();
+        OneShoot();
         if (canShoot && !ammoEmpty) Shoot();
 
     }
@@ -31,7 +31,7 @@ public class MolotovLauncher : Weapon
     public override void Shoot()
     {
         base.Shoot();
-        GameObject granade = (GameObject)GameObject.Instantiate(bomb, launchPoint.position + launchPoint.forward * 5, Quaternion.identity);
+        GameObject granade = (GameObject)GameObject.Instantiate(bomb, launchPoint.position + launchPoint.forward *2, Quaternion.identity);
         granade.transform.forward = launchPoint.forward;
         granade.GetComponent<Rigidbody>().AddForce(transform.forward * 500, ForceMode.Impulse);
         currentAmmo -= maxAmmo / missileCountAmmo;

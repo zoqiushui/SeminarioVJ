@@ -36,7 +36,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 168502}
   serializedVersion: 2
-  lengthInSec: 0.28
+  lengthInSec: 0.2
   startDelay:
     scalar: 0
     maxCurve:
@@ -1579,7 +1579,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: lengthInSec
-      value: 0.1
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

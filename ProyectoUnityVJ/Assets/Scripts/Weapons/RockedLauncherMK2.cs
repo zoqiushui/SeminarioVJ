@@ -30,12 +30,8 @@ public class RockedLauncherMK2 : Weapon
 
     void Update()
     {
-        OneShoot();
         CheckAmmoBar();
-     
-
-
-
+        OneShoot();
         if (canShoot)
         {
             ray = _mainCam.ScreenPointToRay(Input.mousePosition);
