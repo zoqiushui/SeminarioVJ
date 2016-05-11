@@ -55,6 +55,7 @@ public class CustomizeCharacter : MonoBehaviour {
 
     void Start ()
     {
+        Cursor.visible = true;
     }
 
     void Awake()
