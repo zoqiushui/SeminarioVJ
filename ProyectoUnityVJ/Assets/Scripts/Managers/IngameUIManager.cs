@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class IngameUIManager : MonoBehaviour
 {
@@ -72,6 +73,11 @@ public class IngameUIManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void OnRestartButtonClicked()
+    {
+        SceneManager.LoadScene(0);
     }
 
     /// <summary>

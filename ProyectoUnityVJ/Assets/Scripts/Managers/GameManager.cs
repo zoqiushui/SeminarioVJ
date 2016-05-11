@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public Text youWin;
     public Text youLose;
+    public Button restartButton;
     public VehicleController playerReference { get; private set; }
 
     private List<IAController> _enemiesReferences, _destroyedEnemies;
@@ -55,6 +56,7 @@ public class GameManager : MonoBehaviour
             default:
                 break;
         }
+        restartButton.gameObject.SetActive(true);
         Time.timeScale = 0;
     }
 }
