@@ -2,12 +2,14 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityStandardAssets.ImageEffects;
+using System;
 
 public class VehicleController : Vehicle
 {
     public float maxTorque;
     public Transform centerOfMass;
     public Text speedText;
+    public Text wrongDirectionText;
     public GameObject trailRenderModel;
     public WheelCollider[] wheelColliders;
     public Transform[] tiresCar;
@@ -58,11 +60,13 @@ public class VehicleController : Vehicle
     private bool canRechargeNitro;
     private bool nitroEmpty;
     private bool countInAir;
+    private float _timerWrongDirection;
 
     public GameObject varManager;
 
     private void Start()
     {
+        wrongDirectionText.gameObject.SetActive(false);
         varManager = GameObject.FindGameObjectWithTag("VarManager");
         if (varManager!=null)
         {
@@ -98,7 +102,30 @@ public class VehicleController : Vehicle
 
         CheckIfGrounded();
         CheckBars();
+        CheckDirection();
     }
+
+    private void CheckDirection()
+    {
+        if (_lastCheckpoint)
+        {
+            var currentDirection = _lastCheckpoint.nextCheckpoint.transform.position - transform.position;
+            if (Vector3.Angle(transform.forward, currentDirection) > 70)
+            {
+                _timerWrongDirection += Time.deltaTime;
+            }
+            else
+            {
+                wrongDirectionText.gameObject.SetActive(false);
+                _timerWrongDirection = 0;
+            }
+        }
+        if (_timerWrongDirection > 2)
+        {
+            wrongDirectionText.gameObject.SetActive(true);
+        }   
+    }
+
     void FixedUpdate()
     {
         //Transforma una dirección de world space a local space.
