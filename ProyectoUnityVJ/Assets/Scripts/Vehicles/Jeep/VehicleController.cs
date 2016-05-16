@@ -318,8 +318,11 @@ public class VehicleController : Vehicle
 
     private void FlipCar()
     {
-        transform.rotation = Quaternion.LookRotation(transform.forward);
+        //transform.rotation = Quaternion.LookRotation(transform.forward);
         transform.position += Vector3.up * 0.5f;
+        Vector3 forwardDirection = _lastCheckpoint.nextCheckpoint.transform.position - transform.position;
+        forwardDirection.y = transform.position.y;
+        transform.forward = forwardDirection;
         _rb.velocity = Vector3.zero;
         _rb.angularVelocity = Vector3.zero;
         resetTimer = 0;
