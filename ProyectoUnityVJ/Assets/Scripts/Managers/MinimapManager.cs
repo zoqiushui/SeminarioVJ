@@ -16,10 +16,10 @@ public class MinimapManager : MonoBehaviour
     private void Start()
     {
         GameObject go;
-        _playerReference = GameObject.Find(K.MNINIMAP_VEHICLES_CONTAINER_NAME).GetComponentInChildren<VehicleController>();
+        _playerReference = GameObject.Find(K.CONTAINER_VEHICLES_NAME).GetComponentInChildren<VehicleController>();
         _fixedYPosition = _playerReference.transform.position + Vector3.up * K.MINIMAP_HEIGHT;
         _enemiesReferences = new Dictionary<IAController, GameObject>();
-        var aux = GameObject.Find(K.MNINIMAP_VEHICLES_CONTAINER_NAME).GetComponentsInChildren<IAController>();
+        var aux = GameObject.Find(K.CONTAINER_VEHICLES_NAME).GetComponentsInChildren<IAController>();
         foreach (var item in aux)
         {
             go = (GameObject)Instantiate(minimapPointPrefab, _fixedYPosition, Quaternion.identity);

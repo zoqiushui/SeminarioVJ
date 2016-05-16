@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public Text youWin;
-    public Text youLose;
+    public Text raceFinishedText;
     public Button restartButton;
     public VehicleController playerReference { get; private set; }
 
@@ -18,21 +18,23 @@ public class GameManager : MonoBehaviour
         if (instance == null) instance = this;
         playerReference = GameObject.FindGameObjectWithTag(K.TAG_PLAYER).GetComponent<VehicleController>();
         _enemiesReferences = new List<IAController>();
-        _enemiesReferences.AddRange(GameObject.Find("VEHICLES").GetComponentsInChildren<IAController>());
-        Time.timeScale = 1;
+        _enemiesReferences.AddRange(GameObject.Find(K.CONTAINER_VEHICLES_NAME).GetComponentsInChildren<IAController>());
     }
 
     private void Update()
     {
         if (Mathf.FloorToInt(playerReference.lapCount) == K.MAX_LAPS)
         {
-            GameOver("You Win");
+            //GameOver("You Win");
+            IngameUIManager.instance.AddEndRacer(playerReference.vehicleName);
+            GameOver("Race Finished");
         }
         foreach (var enemy in _enemiesReferences)
         {
             if (Mathf.FloorToInt(enemy.lapCount) == K.MAX_LAPS)
             {
-                GameOver("You Lose");
+                //GameOver("You Lose");
+                IngameUIManager.instance.AddEndRacer(enemy.vehicleName);
             }
         }
         if (_enemiesReferences.Count == 0)
@@ -43,6 +45,7 @@ public class GameManager : MonoBehaviour
 
     public void RemoveEnemy(IAController ene)
     {
+        IngameUIManager.instance.AddDestroyedEnemy(ene.vehicleName);
         _enemiesReferences.Remove(ene);
     }
 
@@ -52,12 +55,11 @@ public class GameManager : MonoBehaviour
         {
             case "You Win": youWin.gameObject.SetActive(true);
                 break;
-            case "You Lose": youLose.gameObject.SetActive(true);
+            case "Race Finished": raceFinishedText.gameObject.SetActive(true);
                 break;
             default:
                 break;
         }
         restartButton.gameObject.SetActive(true);
-        Time.timeScale = 0;
     }
 }

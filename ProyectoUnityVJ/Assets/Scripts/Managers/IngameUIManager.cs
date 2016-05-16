@@ -15,6 +15,7 @@ public class IngameUIManager : MonoBehaviour
     private Vector3 _playerSpeedometerRotation;
     private int _playerLaps;
     private List<Vehicle> _racerList;
+    private List<string> _endRacerList, _destroyedRacers;
     private string _positionsTextString;
 
     private void Awake()
@@ -25,13 +26,20 @@ public class IngameUIManager : MonoBehaviour
     private void Start()
     {
         _racerList = new List<Vehicle>();
-        _racerList.AddRange(GameObject.Find("VEHICLES").GetComponentsInChildren<Vehicle>());
+        _racerList.AddRange(GameObject.Find(K.CONTAINER_VEHICLES_NAME).GetComponentsInChildren<Vehicle>());
+        _endRacerList = new List<string>();
+        _destroyedRacers = new List<string>();
     }
 
     private void Update()
     {
         int count = 1;
         _positionsTextString = "";
+        foreach (var racerSurvivedName in _endRacerList)
+        {
+            _positionsTextString += "<color=#008000ff>" + count + "." + " " + racerSurvivedName + "</color>\n";
+            count++;
+        }
         SortRacerList(_racerList);
         foreach (var racer in _racerList)
         {
@@ -40,11 +48,29 @@ public class IngameUIManager : MonoBehaviour
                 _racerList.Remove(racer);
                 break;
             }
-            _positionsTextString += count + "." + " " + racer.vehicleName+"\n";
+            if (!_endRacerList.Contains(racer.vehicleName) && !_destroyedRacers.Contains(racer.vehicleName))
+            {
+                if (racer.GetComponent<VehicleController>())
+                {
+                    _positionsTextString += "<color=#ffa500ff>" + count + "." + " " + racer.vehicleName + "</color>\n";
+
+                } else {
+                    _positionsTextString += "<color=#ffff00ff>" + count + "." + " " + racer.vehicleName + "</color>\n";
+                }
+                
+                count++;
+            }
+            
+        }
+        _destroyedRacers.Reverse();
+        foreach (var destroyedRacerName in _destroyedRacers)
+        {
+            _positionsTextString += "<color=#ff0000ff>" + count + "." + " " + destroyedRacerName + "</color>\n";
             count++;
         }
+        _destroyedRacers.Reverse();
         positionsText.text = _positionsTextString;
-        if(_playerLaps < K.MAX_LAPS) lapsText.text = "Laps " + (_playerLaps +1) + "/" + K.MAX_LAPS;
+        if (_playerLaps < K.MAX_LAPS) lapsText.text = "Laps " + (_playerLaps + 1) + "/" + K.MAX_LAPS;
         _playerSpeedometerRotation.z = (_playerSpeed * K.SPEEDOMETER_MAX_ANGLE) + K.SPEEDOMETER_MIN_ANGLE;
         speedpmeterNeedleImage.transform.eulerAngles = _playerSpeedometerRotation;
     }
@@ -78,20 +104,40 @@ public class IngameUIManager : MonoBehaviour
     public void OnRestartButtonClicked()
     {
         SceneManager.LoadScene(0);
-    
+
     }
 
     /// <summary>
     /// Recibe la velocidad actual del jugador dividido la velocidad maxima que puede mostrar el velocimetro.
     /// </summary>
     /// <param name="speed">Velocidad actual / Velocidad maxima del velocimetro</param>
-    public void GetPlayerSpeed(float speed)
+    public void SetPlayerSpeed(float speed)
     {
         _playerSpeed = speed;
     }
 
-    public void GetPlayerLapCount(int laps)
+    public void SetPlayerLapCount(int laps)
     {
         _playerLaps = laps;
+    }
+
+    public void AddDestroyedEnemy(string s)
+    {
+        if ( !_destroyedRacers.Contains(s))
+        {
+            if (_endRacerList.Contains(s))
+            {
+                _endRacerList.Remove(s);
+            }
+            _destroyedRacers.Add(s);
+        }       
+    }
+
+    public void AddEndRacer(string s) // TODO: CAMBIAR NOMBRE
+    {
+        if (!_endRacerList.Contains(s))
+        {
+            _endRacerList.Add(s);
+        }
     }
 }

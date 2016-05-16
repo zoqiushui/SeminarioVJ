@@ -45360,7 +45360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   youWin: {fileID: 914436794}
-  youLose: {fileID: 1638990605}
+  raceFinishedText: {fileID: 1638990605}
   restartButton: {fileID: 1970233413}
 --- !u!1 &1331442976
 GameObject:
@@ -56914,7 +56914,7 @@ GameObject:
   - 222: {fileID: 1638990606}
   - 114: {fileID: 1638990605}
   m_Layer: 5
-  m_Name: TextYouLose
+  m_Name: TextRaceFinished
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56969,7 +56969,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: YOU LOSE
+  m_Text: RACE FINISHED
 --- !u!222 &1638990606
 CanvasRenderer:
   m_ObjectHideFlags: 0

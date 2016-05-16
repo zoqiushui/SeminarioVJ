@@ -43,11 +43,14 @@ public class K
     public const float IA_FALLFORCE = 30000f;
 
     // ===== MINIMAP =====
-    public const string MNINIMAP_VEHICLES_CONTAINER_NAME = "VEHICLES";
     public const float MINIMAP_HEIGHT = 50;
 
     // ===== GAME PRESETS =====
     public const int MAX_LAPS = 3;
+
+    // ===== SCENE CONTAINERS =====
+    public const string CONTAINER_VEHICLES_NAME = "VEHICLES";
+    public const string CONTAINER_CHECKPOINTS_NAME = "CHECKPOINTS";
 
 
     public const float GRAVITY = 9.8f;

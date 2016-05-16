@@ -110,7 +110,7 @@ public class VehicleController : Vehicle
         if (_lastCheckpoint)
         {
             var currentDirection = _lastCheckpoint.nextCheckpoint.transform.position - transform.position;
-            if (Vector3.Angle(transform.forward, currentDirection) > 70)
+            if (Vector3.Angle(transform.forward, currentDirection) > 80)
             {
                 _timerWrongDirection += Time.deltaTime;
             }
@@ -466,8 +466,8 @@ public class VehicleController : Vehicle
     {
         //_localVelocity = transform.InverseTransformDirection(_rb.velocity);
         //speedText.text = "Speed: " + (int)currentSpeed;
-        IngameUIManager.instance.GetPlayerSpeed(currentSpeed / K.SPEEDOMETER_MAX_SPEED);
-        IngameUIManager.instance.GetPlayerLapCount(Mathf.FloorToInt(lapCount));
+        IngameUIManager.instance.SetPlayerSpeed(currentSpeed / K.SPEEDOMETER_MAX_SPEED);
+        IngameUIManager.instance.SetPlayerLapCount(Mathf.FloorToInt(lapCount));
     }
     private void OnDrawGizmos()
     {
