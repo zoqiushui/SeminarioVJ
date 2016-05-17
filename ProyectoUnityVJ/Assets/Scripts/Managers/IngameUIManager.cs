@@ -10,6 +10,7 @@ public class IngameUIManager : MonoBehaviour
 
     public RawImage speedpmeterNeedleImage;
     public Text lapsText, positionsText;
+    public Color endRaceColor, enemiesColor, playerColor, destroyedColor;
 
     private float _playerSpeed;
     private Vector3 _playerSpeedometerRotation;
@@ -37,7 +38,7 @@ public class IngameUIManager : MonoBehaviour
         _positionsTextString = "";
         foreach (var racerSurvivedName in _endRacerList)
         {
-            _positionsTextString += "<color=#008000ff>" + count + "." + " " + racerSurvivedName + "</color>\n";
+            _positionsTextString += "<color="+ColorTypeConverter.ToRGBHex(endRaceColor)+">" + count + "." + " " + racerSurvivedName + "</color>\n";
             count++;
         }
         SortRacerList(_racerList);
@@ -52,10 +53,10 @@ public class IngameUIManager : MonoBehaviour
             {
                 if (racer.GetComponent<VehicleController>())
                 {
-                    _positionsTextString += "<color=#ffa500ff>" + count + "." + " " + racer.vehicleName + "</color>\n";
+                    _positionsTextString += "<color=" + ColorTypeConverter.ToRGBHex(playerColor) + ">" + count + "." + " " + racer.vehicleName + "</color>\n";
 
                 } else {
-                    _positionsTextString += "<color=#ffff00ff>" + count + "." + " " + racer.vehicleName + "</color>\n";
+                    _positionsTextString += "<color=" + ColorTypeConverter.ToRGBHex(enemiesColor) + ">" + count + "." + " " + racer.vehicleName + "</color>\n";
                 }
                 
                 count++;
@@ -65,7 +66,7 @@ public class IngameUIManager : MonoBehaviour
         _destroyedRacers.Reverse();
         foreach (var destroyedRacerName in _destroyedRacers)
         {
-            _positionsTextString += "<color=#ff0000ff>" + count + "." + " " + destroyedRacerName + "</color>\n";
+            _positionsTextString += "<color=" + ColorTypeConverter.ToRGBHex(destroyedColor) + ">" + count + "." + " " + destroyedRacerName + "</color>\n";
             count++;
         }
         _destroyedRacers.Reverse();
