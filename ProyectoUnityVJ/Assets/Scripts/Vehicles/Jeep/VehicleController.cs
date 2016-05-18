@@ -287,6 +287,12 @@ public class VehicleController : Vehicle
             }        
         }*/
     }
+    public void EndRaceHandbrake()
+    {
+        for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = brake;
+        dragMultiplier.z += 10 * Time.deltaTime;
+        handbrake = true;
+    }
     private void CheckHandbrake()
     {     
         if (Input.GetKey(KeyCode.Space))

@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
         {
             //GameOver("You Win");
             IngameUIManager.instance.AddEndRacer(playerReference.vehicleName);
+            playerReference.EndRaceHandbrake();
+            playerReference.enabled = false;
             GameOver("Race Finished");
         }
         foreach (var enemy in _enemiesReferences)
@@ -35,6 +37,7 @@ public class GameManager : MonoBehaviour
             {
                 //GameOver("You Lose");
                 IngameUIManager.instance.AddEndRacer(enemy.vehicleName);
+                enemy.enabled = false;
             }
         }
         if (_enemiesReferences.Count == 0)
