@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public Text youWin;
     public Text raceFinishedText;
+    public Text youLoseText;
     public Button restartButton;
     public VehicleController playerReference { get; private set; }
 
@@ -42,7 +43,16 @@ public class GameManager : MonoBehaviour
         }
         if (_enemiesReferences.Count == 0)
         {
+            playerReference.EndRaceHandbrake();
+            playerReference.enabled = false;
             GameOver("You Win");
+        }
+
+        if (playerReference.gameObject.GetComponent<VehicleData>().currentLife <= 0)
+        {
+            playerReference.EndRaceHandbrake();
+            playerReference.enabled = false;
+            GameOver("You Lose");
         }
     }
 
@@ -59,6 +69,8 @@ public class GameManager : MonoBehaviour
             case "You Win": youWin.gameObject.SetActive(true);
                 break;
             case "Race Finished": raceFinishedText.gameObject.SetActive(true);
+                break;
+            case "You Lose": youLoseText.gameObject.SetActive(true);
                 break;
             default:
                 break;
