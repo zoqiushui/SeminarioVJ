@@ -17,6 +17,7 @@ public class RocketLauncher : Weapon
 {
     public float angleView;
     public float maxDistance;
+    public float damage;
     public Transform launchPoint;
     public Transform myTransf;
     public GameObject rocket;
@@ -136,8 +137,9 @@ public class RocketLauncher : Weapon
         _enemyFound = false;
         if (_finalTarget != null)
         {
+            SoundManager.instance.PlaySound(K.SOUND_MISIL_LAUNCH);
             GameObject rock = (GameObject)GameObject.Instantiate(rocket, launchPoint.position, Quaternion.identity);
-            rock.GetComponent<Rocket>().SetTarget(_finalTarget);
+            rock.GetComponent<Rocket>().SetTarget(_finalTarget,damage);
         }
 
         _finalTarget = null;

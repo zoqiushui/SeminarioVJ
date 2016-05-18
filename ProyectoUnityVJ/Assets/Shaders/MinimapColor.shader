@@ -7,11 +7,10 @@
 	}
 	SubShader
 		{
-			Tags{ "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent" }
+			Tags{ "Queue" = "Transparent"}
 
-			Lighting Off
-			Fog{ Mode Off }
 			ZWrite Off
+			Blend SrcAlpha OneMinusSrcAlpha
 
 			Pass
 			{
@@ -45,8 +44,7 @@
 					return  _Color;
 				else
 				{
-					base.a = 0;
-					return (base / 2);
+					return base / 2;
 				}
 			}
 				ENDCG

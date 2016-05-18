@@ -116,6 +116,7 @@ public class IAController : Vehicle
 
         if (_currentHp <= 0)
         {
+            SoundManager.instance.PlaySound(K.SOUND_CAR_DESTROY);
             GameManager.instance.RemoveEnemy(this);
             Destroy(this.gameObject);
             Instantiate(remains, transform.position, transform.rotation);

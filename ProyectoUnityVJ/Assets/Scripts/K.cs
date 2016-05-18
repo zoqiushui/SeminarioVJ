@@ -54,4 +54,15 @@ public class K
 
 
     public const float GRAVITY = 9.8f;
+
+
+    // ====== SOUNDS IDS =======
+    public const int SOUND_MACHINE_GUN = 0;
+    public const int SOUND_MINE_EXPLOSION = 1;
+    public const int SOUND_CAR_DESTROY = 2;
+    public const int SOUND_MISSILE_HEAVY = 3;
+    public const int SOUND_MISSILE = 4;
+    public const int SOUND_MOLOTOV_LAUNCH = 5;
+    public const int SOUND_MISIL_LAUNCH = 6;
+
 }

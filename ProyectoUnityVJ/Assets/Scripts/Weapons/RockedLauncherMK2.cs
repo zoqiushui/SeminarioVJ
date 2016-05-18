@@ -6,6 +6,7 @@ public class RockedLauncherMK2 : Weapon
 {
     public float angleView;
     public float maxDistance;
+    public float damage;
     public Transform launchPoint;
     public GameObject rocket;
     private Vector3 _pointAttack;
@@ -44,8 +45,9 @@ public class RockedLauncherMK2 : Weapon
     public override void Shoot()
     {
         base.Shoot();
+        SoundManager.instance.PlaySound(K.SOUND_MISIL_LAUNCH);
         GameObject rock = (GameObject)GameObject.Instantiate(rocket, launchPoint.position, Quaternion.identity);
-        rock.GetComponent<Rocket>().SetTarget(_pointAttack);
+        rock.GetComponent<Rocket>().SetTarget(_pointAttack,damage);
      //   lockOn.SetActive(false);
         currentAmmo -= maxAmmo / missileCountAmmo;
     }

@@ -18,9 +18,9 @@ public class MiniGun : Weapon
         particleEffect.SetActive(false);
         _ammoTimer = ammoTimer;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         /*    if (Input.GetMouseButton(shootButtom)) particleEffect.SetActive(true);
             else if (particleEffect.activeInHierarchy) particleEffect.SetActive(false);*/
@@ -28,9 +28,11 @@ public class MiniGun : Weapon
         CheckAmmoBar();
         ShootDownButtom();
 
-        if (canShoot && visualAmmo.fillAmount > 0 && !ammoEmpty) Shoot();
-        else particleEffect.SetActive(false);
-	}
+        if (canShoot && visualAmmo.fillAmount > 0 && !ammoEmpty)   Shoot();
+        else
+            particleEffect.SetActive(false);
+        
+    }
 
     private void CheckAmmoBar()
     {
@@ -66,6 +68,7 @@ public class MiniGun : Weapon
         canShoot = false;
         particleEffect.SetActive(true);
         base.Shoot();
+        SoundManager.instance.PlaySound(K.SOUND_MACHINE_GUN);
        // direction = shootPoint.TransformDirection(Vector3.forward);
         Instantiate(bulletPref, shootPoint.position + shootPoint.forward, shootPoint.rotation);
 

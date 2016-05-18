@@ -55,6 +55,7 @@ public class PressMine : Trap
             }
         }
         Instantiate(feedback, transform.position + transform.up, Quaternion.identity);
+        SoundManager.instance.PlaySound(K.SOUND_MINE_EXPLOSION);
         GameObject.Destroy(this.gameObject);
     }
     void OnDrawGizmos()

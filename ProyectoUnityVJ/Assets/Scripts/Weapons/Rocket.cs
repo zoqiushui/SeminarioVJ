@@ -8,7 +8,7 @@ public class Rocket : MonoBehaviour
     public float velocity;
     public float turnSpeed;
     public float radio;
-    public float damage;
+    private float damage;
     public LayerMask layersDamage;
     public Rigidbody myBody;
     public GameObject expFeed;
@@ -49,15 +49,17 @@ public class Rocket : MonoBehaviour
         }
 	}
 
-    public void SetTarget(GameObject v)
+    public void SetTarget(GameObject v, float damageDone)
     {
+        damage = damageDone;
         target = v;
         tipe = 1;
     }
-    public void SetTarget(Vector3 v)
+    public void SetTarget(Vector3 v, float damageDone)
     {
         targetVector = v;
         tipe = 2;
+        damage = damageDone;
     }
 
     private void Explote()
@@ -71,6 +73,7 @@ public class Rocket : MonoBehaviour
                 Destroy(this);
             }
         }
+        SoundManager.instance.PlaySound(K.SOUND_MISSILE);
         CreateParticle();
     }
 
@@ -97,7 +100,7 @@ public class Rocket : MonoBehaviour
             {
                 cols[i].GetComponent<IAController>().Damage(damage);
 
-
+                SoundManager.instance.PlaySound(K.SOUND_MISSILE_HEAVY);
                 //cols[i].gameObject.transform.parent.gameObject.GetComponent<IAController>().Damage(damage);
                 CreateParticle();
             }
