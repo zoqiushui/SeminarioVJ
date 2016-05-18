@@ -62,17 +62,21 @@ public class VehicleController : Vehicle
     private bool countInAir;
     private float _timerWrongDirection;
 
-    public GameObject varManager;
+    //public GameObject varManager;
 
     private void Start()
     {
         wrongDirectionText.gameObject.SetActive(false);
+
+        /*
         varManager = GameObject.FindGameObjectWithTag("VarManager");
         if (varManager!=null)
         {
             vehicleName = varManager.GetComponent<VarManager>().pilotName;
         }
+        */
 
+        vehicleName = PlayerPrefs.GetString("PilotName");
 
         _rb = GetComponent<Rigidbody>();
         _rb.centerOfMass = centerOfMass.localPosition;

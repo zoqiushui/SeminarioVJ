@@ -2,10 +2,12 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 
 
-public class CustomizeCharacter : MonoBehaviour {
+public class CustomizeCharacter : MonoBehaviour
+{
 
     public InputField pilotNameField;
     public string currentPilotName;
@@ -39,7 +41,6 @@ public class CustomizeCharacter : MonoBehaviour {
 
     public GameObject gameObjectFlag;
 
-    public VarManager varManager;
 
     //Sprites
     Sprite[] spritesFace;
@@ -48,18 +49,28 @@ public class CustomizeCharacter : MonoBehaviour {
     Sprite[] spritesFacialHair;
     Sprite[] spritesFlag;
 
-    //Statics
+    //Names
+    List<string> names= new List<string>();
 
 
-   
 
-    void Start ()
+    void Start()
     {
         Cursor.visible = true;
+        ListNames();
     }
 
     void Awake()
     {
+
+        /*
+        if (resources==0)
+        {
+            PlayerPrefs.SetInt("Resources", 10);
+            Debug.Log(resources);
+        }
+        */
+
         currentColorSkin = 0;
         currentFace = 0;
         currentHair = 0;
@@ -78,15 +89,35 @@ public class CustomizeCharacter : MonoBehaviour {
         currentPilotName = null;
     }
 
-    // Update is called once per frame
-    void Update ()
+    public void RandomFace()
     {
-	
-	}
+        currentColorSkin = Random.Range(0, arrayColorSkin.Length);
+        currentFace = Random.Range(0, spritesFace.Length);
+        currentHair = Random.Range(0, spritesHair.Length);
+        currentColorHair = Random.Range(0, arrayColorHair.Length);
+        currentAccesory = Random.Range(0, spritesAccesory.Length);
+        currentFaceHair = Random.Range(0, spritesFacialHair.Length);
+        UpdatePortrait();
+    }
+
+
+    public void RandomName()
+    {
+        int random = Random.Range(0, names.Count);
+        currentPilotName = names[random];
+        Debug.Log(random);
+        UpdateRandomName();
+    }
 
     public void UpdateName()
     {
         currentPilotName = pilotNameField.text;
+        Debug.Log("Pilot's name: " + currentPilotName);
+    }
+
+    void UpdateRandomName()
+    {
+        pilotNameField.text = currentPilotName; 
         Debug.Log("Pilot's name: " + currentPilotName);
     }
 
@@ -112,7 +143,7 @@ public class CustomizeCharacter : MonoBehaviour {
 
     public void NextColorSkin()
     {
-        if(currentColorSkin!= arrayColorSkin.Length-1)
+        if (currentColorSkin != arrayColorSkin.Length - 1)
         {
             currentColorSkin++;
         }
@@ -221,7 +252,7 @@ public class CustomizeCharacter : MonoBehaviour {
         }
         else
         {
-            currentFlag = spritesFlag.Length-1;
+            currentFlag = spritesFlag.Length - 1;
         }
 
         gameObjectFlag.GetComponent<SpriteRenderer>().sprite = spritesFlag[currentFlag];
@@ -230,20 +261,66 @@ public class CustomizeCharacter : MonoBehaviour {
 
     public void Done()
     {
-        if (currentPilotName != null && currentPilotName!="")
+        if (currentPilotName != null && currentPilotName != "")
         {
             //varManager.pilotName = currentPilotName;
             //varManager.country = currentFace;
 
-            varManager.UpdateVars(currentFlag, currentPilotName);
+            //varManager.UpdateVars(currentFlag, currentPilotName);
+            PlayerPrefs.SetInt("Country", currentFlag);
+            PlayerPrefs.SetString("PilotName", currentPilotName);
 
-            SceneManager.LoadScene(1);
+
+            PlayerPrefs.SetInt("ColorSkin", currentColorSkin);
+            PlayerPrefs.SetInt("Face", currentFace);
+            PlayerPrefs.SetInt("Hair", currentHair);
+            PlayerPrefs.SetInt("ColorHair", currentColorHair);
+            PlayerPrefs.SetInt("Accesory", currentAccesory);
+            PlayerPrefs.SetInt("FaceHair", currentFaceHair);
+
+            SceneManager.LoadScene(2);
 
         }
         else
         {
             warning.SetActive(true);
         }
+    }
+
+
+    private void ListNames()
+    {
+        names.Add("Noah");
+        names.Add("Alejandro");
+        names.Add("Ezequiel");
+        names.Add("Micheal");
+        names.Add("Jackson");
+        names.Add("Jacob");
+        names.Add("Cristian");
+        names.Add("Mauricio");
+        names.Add("Martin");
+        names.Add("Marcos");
+        names.Add("Joseph");
+        names.Add("Walter");
+        names.Add("Pablo");
+        names.Add("Rex");
+        names.Add("David");
+        names.Add("Oliver");
+        names.Add("Gabriel");
+        names.Add("Samuel");
+        names.Add("John");
+        names.Add("Luck");
+        names.Add("Henry");
+        names.Add("Isaac");
+        names.Add("Owen");
+        names.Add("Nathan");
+        names.Add("Caleb");
+        names.Add("Jack");
+        names.Add("Jason");
+        names.Add("Noah");
+        names.Add("Julian");
+        names.Add("Bruce");
+        names.Add("Alfred");
     }
 
 }
