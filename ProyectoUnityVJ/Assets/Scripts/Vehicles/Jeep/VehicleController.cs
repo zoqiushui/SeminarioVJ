@@ -442,7 +442,7 @@ public class VehicleController : Vehicle
         _isGroundedRamp = false;
         if (Physics.Raycast(ray, out hit, 1))
         {
-            if (hit.collider.gameObject.layer == K.LAYER_GROUND || hit.collider.gameObject.layer == K.LAYER_RAMP)
+            if (hit.collider.gameObject.layer == K.LAYER_GROUND || hit.collider.gameObject.layer == K.LAYER_SIDEGROUND || hit.collider.gameObject.layer == K.LAYER_RAMP)
             {
                 _isGrounded = true;
                 if (hit.collider.gameObject.layer == K.LAYER_RAMP) _isGroundedRamp = true;

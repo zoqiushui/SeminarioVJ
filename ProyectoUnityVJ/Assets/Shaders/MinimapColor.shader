@@ -7,10 +7,10 @@
 	}
 	SubShader
 		{
-			Tags{ "Queue" = "Transparent"}
+			//Tags{ "Queue" = "Transparent"}
 
-			ZWrite Off
-			Blend SrcAlpha OneMinusSrcAlpha
+			//ZWrite Off
+			//Blend SrcAlpha OneMinusSrcAlpha
 
 			Pass
 			{
@@ -39,13 +39,8 @@
 
 			float4 frag(v2f IN) : COLOR
 			{
-				float4 base = tex2D(_MainTex, IN.uv_MainTex);
-				if (base.a == 1)
-					return  _Color;
-				else
-				{
-					return base / 2;
-				}
+				//float4 base = tex2D(_MainTex, IN.uv_MainTex);
+				return (1,0,0,0.5);
 			}
 				ENDCG
 		}

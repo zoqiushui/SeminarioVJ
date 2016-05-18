@@ -1352,6 +1352,7 @@ GameObject:
   - 54: {fileID: 5410656}
   - 114: {fileID: 11454812}
   - 65: {fileID: 6524272}
+  - 114: {fileID: 11417908}
   m_Layer: 10
   m_Name: JeepController
   m_TagString: Player
@@ -2680,7 +2681,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180746}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: -68.95, y: 27.04, z: 346.66}
+  m_LocalPosition: {x: -78.03, y: 27.04, z: 349.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 430938}
@@ -4648,14 +4649,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d48ad581787fea4ebb20d55d724b3bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldown: 0.1
+  shootButtom: 0
   isCrosshair: 0
   crosshair: {fileID: 0}
   visualAmmo: {fileID: 11437090}
   missileCountAmmo: 0
   reloadSpeed: 5
   ammoTimer: 1
-  CooldownTime: 0.1
-  InputKey: 0
   particleEffect: {fileID: 128978}
   bulletPref: {fileID: 179808, guid: 8ce189ac209b3b84eb19fedeadf411d5, type: 2}
   forceImpact: 30
@@ -4704,6 +4705,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11417908
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce56955e1027f3543b48e9a7c4406b56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 100
+  currentLife: 100
+  visualHealth: {fileID: 0}
 --- !u!114 &11418940
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4742,14 +4757,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9e363ca86afcb44db54a878c34c5d34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldown: 0
+  shootButtom: 0
   isCrosshair: 0
   crosshair: {fileID: 0}
   visualAmmo: {fileID: 0}
   missileCountAmmo: 0
   reloadSpeed: 0
   ammoTimer: 0
-  CooldownTime: 0.001
-  InputKey: 0
   damage: 2
   flames: {fileID: 138136}
 --- !u!114 &11430038
@@ -4937,6 +4952,7 @@ MonoBehaviour:
   maxTorque: 800
   centerOfMass: {fileID: 474270}
   speedText: {fileID: 0}
+  wrongDirectionText: {fileID: 0}
   trailRenderModel: {fileID: 0}
   wheelColliders:
   - {fileID: 14650940}
@@ -4977,14 +4993,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a5beab796949964ab57d85323d957eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldown: 1
+  shootButtom: 0
   isCrosshair: 0
   crosshair: {fileID: 0}
   visualAmmo: {fileID: 11441902}
-  missileCountAmmo: 8
-  reloadSpeed: 25
+  missileCountAmmo: 3
+  reloadSpeed: 15
   ammoTimer: 0
-  CooldownTime: 0
-  InputKey: 0
   angleView: 90
   bomb: {fileID: 107168, guid: 21da40b739db98d429b479f8c35936fd, type: 2}
   launchPoint: {fileID: 489850}
@@ -5091,16 +5107,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c463b7a8bab021e4ca874d4b62544221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldown: 4
+  shootButtom: 1
   isCrosshair: 0
   crosshair: {fileID: 0}
   visualAmmo: {fileID: 11497476}
   missileCountAmmo: 10
   reloadSpeed: 30
   ammoTimer: 0
-  CooldownTime: 1
-  InputKey: 1
   angleView: 90
   maxDistance: 90
+  damage: 20
   launchPoint: {fileID: 450644}
   rocket: {fileID: 188932, guid: c7ae7c08a2a93cf4daac21aa2c6ae70b, type: 2}
   _mainCam: {fileID: 0}
@@ -5143,6 +5160,9 @@ MonoBehaviour:
   weaponsSet2:
   - {fileID: 166852}
   - {fileID: 142588}
+  crosshair: {fileID: 0}
+  _mainCam: {fileID: 0}
+  distance: 20
   activeSet: 1
 --- !u!114 &11479132
 MonoBehaviour:
@@ -5269,16 +5289,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7419a2a0289077d47a4b89067d9c91ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldown: 4
+  shootButtom: 1
   isCrosshair: 0
   crosshair: {fileID: 0}
   visualAmmo: {fileID: 11482600}
   missileCountAmmo: 5
   reloadSpeed: 30
   ammoTimer: 0
-  CooldownTime: 3
-  InputKey: 1
   angleView: 90
   maxDistance: 80
+  damage: 15
   launchPoint: {fileID: 459636}
   myTransf: {fileID: 459636}
   rocket: {fileID: 188932, guid: 999fe62e95ad83644a0afdb91818bc2c, type: 2}

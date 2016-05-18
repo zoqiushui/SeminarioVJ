@@ -8,11 +8,23 @@ public class PressMine : Trap
     public float expDamage;
     public LayerMask layersDamege;
     public GameObject feedback;
-    
+    public GameObject feedLight;
+    private float coolLig = 0.5f;
+    private float currentCool;
 
     public override void Update()
     {
         base.Update();
+        if (currentCool < coolLig)
+        {
+            feedLight.SetActive(false);
+            currentCool += Time.deltaTime;
+        }
+        else
+        {
+            feedLight.SetActive(true);
+            currentCool = 0;
+        }
     }
 
     public void OnTriggerEnter(Collider col)

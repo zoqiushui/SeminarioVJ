@@ -19,7 +19,7 @@ public class MinimapShader : MonoBehaviour
     void OnRenderImage(RenderTexture src, RenderTexture dest)
     {
         postprocessMaterial.SetTexture("_MainTex", src);
-        postprocessMaterial.SetVector("_Color", colorSet);
+        //postprocessMaterial.SetVector("_Color", colorSet);
         //BLIT: Agarra la textura source, la procesa en el material
         //y la agrega al destination. 
         //http://docs.unity3d.com/ScriptReference/Graphics.Blit.html

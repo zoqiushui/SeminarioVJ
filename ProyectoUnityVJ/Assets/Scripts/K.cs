@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-
 public class K
 {
     // ===== LAYERS =====
@@ -14,6 +13,7 @@ public class K
     public const int LAYER_CHECKPOINT = 15;
     public const int LAYER_OBSTACLE = 16;
     public const int LAYER_RAMP = 17;
+    public const int LAYER_SIDEGROUND = 18;
 
     // ===== TAG =====
     public const string TAG_PLAYER = "Player";

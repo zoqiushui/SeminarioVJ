@@ -28,7 +28,9 @@ public class Molotov : MonoBehaviour {
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.layer == K.LAYER_GROUND)
+        {
             Instantiate(fire, col.contacts[0].point + transform.up, fire.transform.localRotation);
+        }
         else
         {
             print("abajo");

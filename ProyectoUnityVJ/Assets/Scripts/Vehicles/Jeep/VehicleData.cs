@@ -3,14 +3,17 @@ using System.Collections;
 using UnityEngine.UI;
 public class VehicleData : MonoBehaviour
 {
-    private float maxLife = 100f;
+    public float maxLife = 100f;
     public float currentLife;
     public Image visualHealth;
+
 	void Start ()
     {
         maxLife = 100;
-        currentLife = maxLife;
-	}
+        //currentLife = maxLife;
+
+        currentLife = PlayerPrefs.GetInt("CurrentLife") > 0 ? PlayerPrefs.GetInt("CurrentLife") : maxLife;
+    }
 
     void Update()
     {

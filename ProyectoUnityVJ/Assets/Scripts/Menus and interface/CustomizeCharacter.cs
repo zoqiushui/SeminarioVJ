@@ -105,7 +105,6 @@ public class CustomizeCharacter : MonoBehaviour
     {
         int random = Random.Range(0, names.Count);
         currentPilotName = names[random];
-        Debug.Log(random);
         UpdateRandomName();
     }
 

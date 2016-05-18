@@ -7,10 +7,10 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: MinimapColor
-  m_Shader: {fileID: 4800000, guid: 14e2bb04d6970c746b3e6493caad8ce2, type: 3}
+  m_Shader: {fileID: 4800000, guid: 8387bdc3d595a6244a0c3a71f668bb4a, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
@@ -27,4 +27,8 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 0.8308824, g: 0.8308824, b: 0.8308824, a: 1}
+        second: {r: 0, g: 1, b: 0.048275948, a: 1}
+      data:
+        first:
+          name: _ColorMask
+        second: {r: 1, g: 0, b: 0.8862745, a: 1}

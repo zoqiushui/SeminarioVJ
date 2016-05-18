@@ -24,11 +24,14 @@ public class MolotovLauncher : Weapon
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public override void Shoot()
     {
         base.Shoot();
         SoundManager.instance.PlaySound(K.SOUND_MOLOTOV_LAUNCH);
-        GameObject granade = (GameObject)GameObject.Instantiate(bomb, launchPoint.position + launchPoint.forward *2, Quaternion.identity);
+        GameObject granade = (GameObject)GameObject.Instantiate(bomb, launchPoint.position + launchPoint.forward * 2, Quaternion.identity);
         granade.transform.forward = launchPoint.forward;
         granade.GetComponent<Rigidbody>().AddForce(transform.forward * 500, ForceMode.Impulse);
         currentAmmo -= maxAmmo / missileCountAmmo;

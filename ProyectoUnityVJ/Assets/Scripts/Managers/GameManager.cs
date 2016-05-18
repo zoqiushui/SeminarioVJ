@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,7 +12,6 @@ public class GameManager : MonoBehaviour
     public Text youLoseText;
     public Button restartButton;
     public VehicleController playerReference { get; private set; }
-
     private List<IAController> _enemiesReferences, _destroyedEnemies;
 
     private void Awake()
@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
 
         if (playerReference.gameObject.GetComponent<VehicleData>().currentLife <= 0)
         {
+            print(playerReference.gameObject.GetComponent<VehicleData>().currentLife);
             playerReference.EndRaceHandbrake();
             playerReference.enabled = false;
             GameOver("You Lose");
@@ -66,15 +67,46 @@ public class GameManager : MonoBehaviour
     {
         switch (s)
         {
-            case "You Win": youWin.gameObject.SetActive(true);
+            case "You Win":
+                {
+                    youWin.gameObject.SetActive(true);
+                    PlayerPrefs.SetInt("Resources", 20);
+                    SaveDamageInfo();
+                }
                 break;
-            case "Race Finished": raceFinishedText.gameObject.SetActive(true);
+            case "Race Finished":
+                {
+                    raceFinishedText.gameObject.SetActive(true);
+                    PlayerPrefs.SetInt("Resources", 10);
+                    SaveDamageInfo();
+                }
                 break;
-            case "You Lose": youLoseText.gameObject.SetActive(true);
+            case "You Lose":
+                {
+                    DeletePlayer();
+                    //SceneManager.LoadScene(1);
+                } 
                 break;
             default:
                 break;
         }
         restartButton.gameObject.SetActive(true);
+    }
+
+    void DeletePlayer()
+    {
+        PlayerPrefs.SetString("PilotName", "");
+        PlayerPrefs.SetInt("Face", 0);
+        PlayerPrefs.SetInt("Hair", 0);
+        PlayerPrefs.SetInt("FaceHair", 0);
+        PlayerPrefs.SetInt("Accesory", 0);
+        PlayerPrefs.SetInt("HairColor", 0);
+        PlayerPrefs.SetInt("SkinColor", 0);
+    }
+
+    void SaveDamageInfo()
+    {
+        PlayerPrefs.SetInt("MaxLife", (int) playerReference.gameObject.GetComponent<VehicleData>().maxLife);
+        PlayerPrefs.SetInt("CurrentLife", (int)playerReference.gameObject.GetComponent<VehicleData>().currentLife);
     }
 }

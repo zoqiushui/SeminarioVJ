@@ -62,7 +62,7 @@ public class IAController : Vehicle
         }
         else if (lapCount - (CheckpointManager.instance.checkpointValue) > GameManager.instance.playerReference.lapCount)
         {
-            _currentSpeed -= 0.5f;
+            _currentSpeed -= 0.3f;
             _currentSpeed = Mathf.Clamp(_currentSpeed, _maxSpeed / 3, _maxSpeed);
         }
         else

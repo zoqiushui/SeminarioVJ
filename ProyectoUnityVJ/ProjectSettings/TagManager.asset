@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - VarManager
+  - Target
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - Checkpoint
   - Obstacle
   - Ramp
-  - 
+  - SideGround
   - 
   - 
   - 
