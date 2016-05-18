@@ -15,9 +15,6 @@ public class LifeGuiData
 
 public class RocketLauncher : Weapon
 {
-
-    public float CooldownTime;
-    public short InputKey;
     public float angleView;
     public float maxDistance;
     public Transform launchPoint;
@@ -37,8 +34,6 @@ public class RocketLauncher : Weapon
         lockOn.SetActive(false);
         _lockOn = lockOn.GetComponent<Image>();
         targets = new List<GameObject>();
-        shootButtom = InputKey;
-        cooldown = CooldownTime;
         currentAmmo = maxAmmo = 100;
     }
 
@@ -55,14 +50,14 @@ public class RocketLauncher : Weapon
         else if (_enemyFound)
             _finalTarget = targets[0];
 
-        if (Input.GetMouseButtonUp(InputKey) && _finalTarget != null && canShoot)
+        if (Input.GetMouseButtonUp(shootButtom) && _finalTarget != null && canShoot)
         {
             if (visualAmmo.fillAmount > 0 && !ammoEmpty) Shoot();
         }
 
         if (_finalTarget != null && _enemyFound)    LockTarget();
 
-        if (!Input.GetMouseButton(InputKey) && lockOn.activeSelf) lockOn.SetActive(false);
+        if (!Input.GetMouseButton(shootButtom) && lockOn.activeSelf) lockOn.SetActive(false);
 
 
     }

@@ -4,8 +4,6 @@ using System.Collections;
 
 public class RockedLauncherMK2 : Weapon
 {
-    public float CooldownTime;
-    public short InputKey;
     public float angleView;
     public float maxDistance;
     public Transform launchPoint;
@@ -23,8 +21,6 @@ public class RockedLauncherMK2 : Weapon
         isCrosshair = true;
        // lockOn.SetActive(false);
        // _lockOn = lockOn.GetComponent<RawImage>();
-        shootButtom = InputKey;
-        cooldown = CooldownTime;
         currentAmmo = maxAmmo = 100;
     }
 

@@ -3,9 +3,6 @@ using System.Collections;
 
 public class MiniGun : Weapon
 {
-
-    public float CooldownTime;
-    public short InputKey;
     public GameObject particleEffect;
     public GameObject bulletPref;
     public float forceImpact;
@@ -18,8 +15,6 @@ public class MiniGun : Weapon
     void Start ()
     {
         isCrosshair = false;
-        shootButtom = InputKey;
-        cooldown = CooldownTime;
         particleEffect.SetActive(false);
         _ammoTimer = ammoTimer;
     }

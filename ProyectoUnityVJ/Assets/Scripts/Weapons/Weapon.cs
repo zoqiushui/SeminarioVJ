@@ -5,8 +5,8 @@ using UnityEngine.UI;
 public class Weapon : MonoBehaviour
 {
 
-    protected float cooldown;
-    protected short shootButtom;
+    public float cooldown;
+    public short shootButtom;
     protected bool canShoot;
     private float _timeCoolDown;
     public bool isCrosshair;

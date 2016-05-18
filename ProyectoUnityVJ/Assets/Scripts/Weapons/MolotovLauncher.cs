@@ -3,8 +3,6 @@ using System.Collections;
 
 public class MolotovLauncher : Weapon
 {
-    public float CooldownTime;
-    public short InputKey;
     public float angleView;
     public GameObject bomb;
     public Transform launchPoint;
@@ -14,8 +12,6 @@ public class MolotovLauncher : Weapon
     void Start ()
     {
         isCrosshair = true;
-        shootButtom = InputKey;
-        cooldown = CooldownTime;
         currentAmmo = maxAmmo = 100;
     }
 	

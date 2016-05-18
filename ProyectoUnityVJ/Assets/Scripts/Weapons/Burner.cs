@@ -3,8 +3,6 @@ using System.Collections;
 
 public class Burner : Weapon
 {
-    public float CooldownTime;
-    public short InputKey;
     public float damage = 0.1f;
     public GameObject flames;
 
@@ -13,8 +11,6 @@ public class Burner : Weapon
     void Start ()
     {
         isCrosshair = false;
-        cooldown = CooldownTime;
-        shootButtom = InputKey;
         flames.SetActive(false);
 	}
 	

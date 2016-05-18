@@ -5,6 +5,7 @@ public class PressMine : Trap
 {
     public float expPower;
     public float expRadius;
+    public float expDamage;
     public LayerMask layersDamege;
     public GameObject feedback;
     
@@ -49,7 +50,9 @@ public class PressMine : Trap
                // print("impact");
                 print(cols[i].gameObject);
                 cols[i].GetComponent<Rigidbody>().AddExplosionForce(expPower, transform.position,expRadius,0.5f,ForceMode.Impulse);
-            }// colis[i].rigidbody.AddForce(direction * expPower * (1 - (dist / expRadius)));
+                if (cols[i].gameObject.layer == K.LAYER_PLAYER)
+                    cols[i].gameObject.GetComponent<VehicleData>().Damage(expDamage);
+            }
         }
         Instantiate(feedback, transform.position + transform.up, Quaternion.identity);
         GameObject.Destroy(this.gameObject);
