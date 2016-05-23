@@ -8,8 +8,9 @@ public class Burner : Weapon
 
     private bool activeFeed;
     // Use this for initialization
-    void Start ()
+    protected override void Start ()
     {
+        base.Start();
         isCrosshair = false;
         flames.SetActive(false);
 	}

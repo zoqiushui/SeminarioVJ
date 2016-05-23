@@ -41565,7 +41565,7 @@ GameObject:
   - 4: {fileID: 1194693394}
   m_Layer: 0
   m_Name: VEHICLES
-  m_TagString: Untagged
+  m_TagString: Vehicles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45935,9 +45935,10 @@ GameObject:
   - 114: {fileID: 1329840854}
   - 114: {fileID: 1329840855}
   - 114: {fileID: 1329840856}
+  - 114: {fileID: 1329840857}
   m_Layer: 0
   m_Name: Managers
-  m_TagString: Untagged
+  m_TagString: Managers
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46034,6 +46035,17 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 36aafc8974309b447816ebdbd50ca98d, type: 3}
   mainCamera: {fileID: 1213899684}
   channelCount: 10
+--- !u!114 &1329840857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1329840850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13559520c23e95547b7c50305e60463c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1331442976
 GameObject:
   m_ObjectHideFlags: 0
@@ -63203,7 +63215,7 @@ GameObject:
   - 4: {fileID: 1801478798}
   m_Layer: 2
   m_Name: CHECKPOINTS
-  m_TagString: Untagged
+  m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

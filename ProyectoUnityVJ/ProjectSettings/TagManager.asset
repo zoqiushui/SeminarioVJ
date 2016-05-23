@@ -6,6 +6,9 @@ TagManager:
   tags:
   - VarManager
   - Target
+  - Managers
+  - Vehicles
+  - Checkpoints
   layers:
   - Default
   - TransparentFX

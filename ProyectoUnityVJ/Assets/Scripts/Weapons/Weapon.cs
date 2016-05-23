@@ -20,6 +20,13 @@ public class Weapon : MonoBehaviour
     public float reloadSpeed;
     public float ammoTimer;
     protected float _ammoTimer;
+    protected ReferencesManager _refManager;
+
+    protected virtual void Start()
+    {
+        _refManager = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<ReferencesManager>();
+    }
+
     public virtual void ShootDownButtom()
     {
         _timeCoolDown += Time.deltaTime;

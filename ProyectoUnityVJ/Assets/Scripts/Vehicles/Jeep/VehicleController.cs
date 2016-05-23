@@ -64,8 +64,9 @@ public class VehicleController : Vehicle
 
     //public GameObject varManager;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         wrongDirectionText.gameObject.SetActive(false);
 
         /*
@@ -83,7 +84,7 @@ public class VehicleController : Vehicle
         handbrake = false;
         Cursor.visible = false;
         lapCount = 0;
-        positionWeight = -Vector3.Distance(transform.position, CheckpointManager.instance.checkpointsList[0].transform.position);
+        positionWeight = -Vector3.Distance(transform.position, _refManager.chkPointManagerReference.checkpointsList[0].transform.position);
         _checkpointNumber = 0;
         _nitroTimer = nitroTimer;
         lapsEnded = 1;
@@ -92,7 +93,7 @@ public class VehicleController : Vehicle
 
     void Update()
     {
-        positionWeight = Vector3.Distance(transform.position, CheckpointManager.instance.checkpointsList[_checkpointNumber].transform.position);
+        positionWeight = Vector3.Distance(transform.position, _refManager.chkPointManagerReference.checkpointsList[_checkpointNumber].transform.position);
 
         UpdateTiresPosition();
         UIText();
@@ -371,9 +372,9 @@ public class VehicleController : Vehicle
     /// <param name="chk">Checkpoint</param>
     public void SetCheckpoint(Checkpoint chk)
     {
-        _checkpointNumber = CheckpointManager.instance.checkpointsList.Count - 1 == _checkpointNumber ? 0 : _checkpointNumber + 1;
+        _checkpointNumber = _refManager.chkPointManagerReference.checkpointsList.Count - 1 == _checkpointNumber ? 0 : _checkpointNumber + 1;
         _lastCheckpoint = chk;
-        lapCount += CheckpointManager.instance.checkpointValue;
+        lapCount += _refManager.chkPointManagerReference.checkpointValue;
     }
 
     /// <summary>
@@ -476,8 +477,8 @@ public class VehicleController : Vehicle
     {
         //_localVelocity = transform.InverseTransformDirection(_rb.velocity);
         //speedText.text = "Speed: " + (int)currentSpeed;
-        IngameUIManager.instance.SetPlayerSpeed(currentSpeed / K.SPEEDOMETER_MAX_SPEED);
-        IngameUIManager.instance.SetPlayerLapCount(Mathf.FloorToInt(lapCount));
+        _refManager.ingameUIManagerReference.SetPlayerSpeed(currentSpeed / K.SPEEDOMETER_MAX_SPEED);
+        _refManager.ingameUIManagerReference.SetPlayerLapCount(Mathf.FloorToInt(lapCount));
     }
     private void OnDrawGizmos()
     {

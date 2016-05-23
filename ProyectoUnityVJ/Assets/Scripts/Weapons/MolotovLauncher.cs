@@ -9,8 +9,9 @@ public class MolotovLauncher : Weapon
     public Camera mainCamera;
 
     // Use this for initialization
-    void Start ()
+    protected override void Start ()
     {
+        base.Start();
         isCrosshair = true;
         currentAmmo = maxAmmo = 100;
     }
@@ -30,7 +31,7 @@ public class MolotovLauncher : Weapon
     public override void Shoot()
     {
         base.Shoot();
-        SoundManager.instance.PlaySound(K.SOUND_MOLOTOV_LAUNCH);
+        _refManager.soundManagerReference.PlaySound(K.SOUND_MOLOTOV_LAUNCH);
         GameObject granade = (GameObject)GameObject.Instantiate(bomb, launchPoint.position + launchPoint.forward * 2, Quaternion.identity);
         granade.transform.forward = launchPoint.forward;
         granade.GetComponent<Rigidbody>().AddForce(transform.forward * 500, ForceMode.Impulse);

@@ -17,6 +17,12 @@ public class Rocket : MonoBehaviour
     private Vector3 targetVector;
     private Quaternion rotationTarget;
     private float _life;
+    protected ReferencesManager _refManager;
+
+    protected void Start()
+    {
+        _refManager = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<ReferencesManager>();
+    }
     
     void Update ()
     {
@@ -73,7 +79,7 @@ public class Rocket : MonoBehaviour
                 Destroy(this);
             }
         }
-        SoundManager.instance.PlaySound(K.SOUND_MISSILE);
+        _refManager.soundManagerReference.PlaySound(K.SOUND_MISSILE);
         CreateParticle();
     }
 
@@ -100,7 +106,7 @@ public class Rocket : MonoBehaviour
             {
                 cols[i].GetComponent<IAController>().Damage(damage);
 
-                SoundManager.instance.PlaySound(K.SOUND_MISSILE_HEAVY);
+                _refManager.soundManagerReference.PlaySound(K.SOUND_MISSILE_HEAVY);
                 //cols[i].gameObject.transform.parent.gameObject.GetComponent<IAController>().Damage(damage);
                 CreateParticle();
             }

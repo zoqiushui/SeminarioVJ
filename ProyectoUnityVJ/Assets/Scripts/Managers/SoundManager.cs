@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class SoundManager : MonoBehaviour {
 
-    public static SoundManager instance;
+    //public static SoundManager instance;
 
     public AudioClip[] clips;
     public Camera mainCamera;
@@ -15,7 +15,7 @@ public class SoundManager : MonoBehaviour {
     void Awake()
     {
 
-        if (instance == null)
+        /*if (instance == null)
         {
             instance = this;
         }
@@ -23,7 +23,7 @@ public class SoundManager : MonoBehaviour {
         {
             //Component.Destroy(this);
             Debug.LogError("SoundManager ERROR: hay dos instancias de la clase en la escena");
-        }
+        }*/
     }
     // Use this for initialization
     void Start()

@@ -16,14 +16,16 @@ public class IAController : Vehicle
     private bool _isGrounded;
     private bool _isGroundedRamp;
     public float fallForce;
-    private void Start()
+
+    protected override void Start()
     {
+        base.Start();
         _maxHp = K.IA_MAX_HP;
         _currentHp = _maxHp;
         _aux = hpBarImage.transform.localScale;
 //        _maxSpeed = K.IA_MAX_SPEED;
         lapCount = 0;
-        _nextCheckpoint = CheckpointManager.instance.checkpointsList[0];
+        _nextCheckpoint = _refManager.chkPointManagerReference.checkpointsList[0];
         positionWeight = -Vector3.Distance(transform.position, _nextCheckpoint.transform.position);
         CalculateNextPoint(_nextCheckpoint);
         _currentSpeed = 1;
@@ -35,7 +37,7 @@ public class IAController : Vehicle
         UpdateHpBar();
         if (Vector3.Distance(transform.position, _nextDestinationPoint) < 15)
         {
-            lapCount += CheckpointManager.instance.checkpointValue;
+            lapCount += _refManager.chkPointManagerReference.checkpointValue;
             CalculateNextCheckpoint(_nextCheckpoint);
             CalculateNextPoint(_nextCheckpoint);
         }
@@ -54,13 +56,13 @@ public class IAController : Vehicle
 
     private void CalculateSpeed()
     {
-        if (lapCount + (CheckpointManager.instance.checkpointValue) < GameManager.instance.playerReference.lapCount)
+        if (lapCount + (_refManager.chkPointManagerReference.checkpointValue) < _refManager.gameManagerReference.playerReference.lapCount)
         {
             _currentSpeed += 0.15f;
             _currentSpeed = Mathf.Clamp(_currentSpeed, 1, _maxSpeed);
 
         }
-        else if (lapCount - (CheckpointManager.instance.checkpointValue) > GameManager.instance.playerReference.lapCount)
+        else if (lapCount - (_refManager.chkPointManagerReference.checkpointValue) > _refManager.gameManagerReference.playerReference.lapCount)
         {
             _currentSpeed -= 0.3f;
             _currentSpeed = Mathf.Clamp(_currentSpeed, _maxSpeed / 3, _maxSpeed);
@@ -116,8 +118,8 @@ public class IAController : Vehicle
 
         if (_currentHp <= 0)
         {
-            SoundManager.instance.PlaySound(K.SOUND_CAR_DESTROY);
-            GameManager.instance.RemoveEnemy(this);
+            _refManager.soundManagerReference.PlaySound(K.SOUND_CAR_DESTROY);
+            _refManager.gameManagerReference.RemoveEnemy(this);
             Destroy(this.gameObject);
             Instantiate(remains, transform.position, transform.rotation);
 

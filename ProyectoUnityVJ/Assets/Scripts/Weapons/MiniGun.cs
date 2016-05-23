@@ -12,8 +12,9 @@ public class MiniGun : Weapon
     private RaycastHit hit;
 
     // Use this for initialization
-    void Start ()
+    protected override void Start ()
     {
+        base.Start();
         isCrosshair = false;
         particleEffect.SetActive(false);
         _ammoTimer = ammoTimer;
@@ -68,7 +69,7 @@ public class MiniGun : Weapon
         canShoot = false;
         particleEffect.SetActive(true);
         base.Shoot();
-        SoundManager.instance.PlaySound(K.SOUND_MACHINE_GUN);
+        _refManager.soundManagerReference.PlaySound(K.SOUND_MACHINE_GUN);
        // direction = shootPoint.TransformDirection(Vector3.forward);
         Instantiate(bulletPref, shootPoint.position + shootPoint.forward, shootPoint.rotation);
 

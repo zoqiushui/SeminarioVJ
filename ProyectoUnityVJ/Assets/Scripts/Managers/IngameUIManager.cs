@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class IngameUIManager : MonoBehaviour
 {
-    public static IngameUIManager instance;
+    //public static IngameUIManager instance;
 
     public RawImage speedpmeterNeedleImage;
     public Text lapsText, positionsText;
@@ -21,7 +21,7 @@ public class IngameUIManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null) instance = this;
+        //if (instance == null) instance = this;
     }
 
     private void Start()

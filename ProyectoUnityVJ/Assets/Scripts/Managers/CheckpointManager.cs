@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class CheckpointManager : MonoBehaviour
 {
-    public static CheckpointManager instance;
+    //public static CheckpointManager instance;
     public float checkpointValue { get; private set; }
     public List<Checkpoint> checkpointsList { get; private set; }
 
@@ -12,10 +12,10 @@ public class CheckpointManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null) instance = this;
+        //if (instance == null) instance = this;
         checkpointsList = new List<Checkpoint>();
         _vehiclesDictionary = new Dictionary<GameObject, int>();
-        foreach (var checkpoint in GameObject.Find("CHECKPOINTS").GetComponentsInChildren<Checkpoint>())
+        foreach (var checkpoint in GameObject.FindGameObjectWithTag(K.TAG_CHECKPOINTS).GetComponentsInChildren<Checkpoint>())
         {
             checkpointsList.Add(checkpoint);
         }

@@ -7,6 +7,8 @@ public class Checkpoint : MonoBehaviour
     public List<GameObject> checkpointNodes { get; private set; }
     public Checkpoint nextCheckpoint;// { get; private set; }
 
+    private ReferencesManager _refManager;
+
     private void Awake()
     {
         checkpointNodes = new List<GameObject>();
@@ -49,6 +51,11 @@ public class Checkpoint : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        _refManager = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<ReferencesManager>();
+    }
+
     public void SetNextCheckpoint(Checkpoint chk)
     {
         nextCheckpoint = chk;
@@ -79,7 +86,7 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.gameObject.GetComponent<VehicleController>() != null)
         {
-            if (CheckpointManager.instance.CheckVehicleCheckpoint(other.gameObject, this)) other.gameObject.GetComponent<VehicleController>().SetCheckpoint(this);
+            if (_refManager.chkPointManagerReference.CheckVehicleCheckpoint(other.gameObject, this)) other.gameObject.GetComponent<VehicleController>().SetCheckpoint(this);
         }
     }
 

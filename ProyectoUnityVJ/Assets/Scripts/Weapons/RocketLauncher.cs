@@ -29,8 +29,9 @@ public class RocketLauncher : Weapon
     public GameObject lockOn;
     private Image _lockOn;
     // Use this for initialization
-    void Start ()
+    protected override void Start ()
     {
+        base.Start();
         isCrosshair = false;
         lockOn.SetActive(false);
         _lockOn = lockOn.GetComponent<Image>();
@@ -137,7 +138,7 @@ public class RocketLauncher : Weapon
         _enemyFound = false;
         if (_finalTarget != null)
         {
-            SoundManager.instance.PlaySound(K.SOUND_MISIL_LAUNCH);
+            _refManager.soundManagerReference.PlaySound(K.SOUND_MISIL_LAUNCH);
             GameObject rock = (GameObject)GameObject.Instantiate(rocket, launchPoint.position, Quaternion.identity);
             rock.GetComponent<Rocket>().SetTarget(_finalTarget,damage);
         }

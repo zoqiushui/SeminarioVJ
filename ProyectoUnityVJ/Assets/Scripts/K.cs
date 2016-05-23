@@ -17,6 +17,9 @@ public class K
 
     // ===== TAG =====
     public const string TAG_PLAYER = "Player";
+    public const string TAG_MANAGERS = "Managers";
+    public const string TAG_VEHICLES = "Vehicles";
+    public const string TAG_CHECKPOINTS = "Checkpoints";
 
     // ===== GROUND CHECK =====
     public const float IS_GROUNDED_RAYCAST_DISTANCE = 2;

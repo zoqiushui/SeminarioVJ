@@ -17,8 +17,9 @@ public class RockedLauncherMK2 : Weapon
     private Ray ray;
     private RaycastHit hit;
 
-    void Start ()
+    protected override void Start ()
     {
+        base.Start();
         isCrosshair = true;
        // lockOn.SetActive(false);
        // _lockOn = lockOn.GetComponent<RawImage>();
@@ -45,7 +46,7 @@ public class RockedLauncherMK2 : Weapon
     public override void Shoot()
     {
         base.Shoot();
-        SoundManager.instance.PlaySound(K.SOUND_MISIL_LAUNCH);
+        _refManager.soundManagerReference.PlaySound(K.SOUND_MISIL_LAUNCH);
         GameObject rock = (GameObject)GameObject.Instantiate(rocket, launchPoint.position, Quaternion.identity);
         rock.GetComponent<Rocket>().SetTarget(_pointAttack,damage);
      //   lockOn.SetActive(false);
