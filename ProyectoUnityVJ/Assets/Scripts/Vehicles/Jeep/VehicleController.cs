@@ -110,6 +110,46 @@ public class VehicleController : Vehicle
         CheckDirection();
     }
 
+    public override void Move(float accel, float brake, float steer, float handbrake, float nitro)
+    {
+        print(accel);
+        if (accel > 0)
+        {
+            motorInput = accel;
+        }
+        if (brake < 0)
+        {
+            motorInput = brake;
+        }
+        steerInput = steer;
+    }
+
+    private void GetInput()
+    {
+        //motorInput = Input.GetAxis("Vertical");
+        //steerInput = Input.GetAxis("Horizontal");
+        finalAngle = steerInput * K.JEEP_MAX_STEERING_ANGLE;
+
+        if (currentSpeed < maxSpeed && _isGrounded) for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = motorInput * maxTorque;
+        else if (currentSpeed > maxSpeed && motorInput > 0 || currentSpeed > maxReverseSpeed && motorInput < 0)
+        {
+            for (int i = 0; i < wheelColliders.Length; i++)
+            {
+                wheelColliders[i].brakeTorque = 1000;
+                wheelColliders[i].motorTorque = 0;
+            }
+        }
+        if (motorInput == 0 || !_isGrounded || nitroEnd)
+        {
+            _rb.drag = _rb.velocity.magnitude / 100f;
+            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = 0;
+            if (currentSpeed < maxSpeed) nitroEnd = false;
+        }
+        else _rb.drag = 0f;
+
+        CheckHandbrake();
+    }
+
     private void CheckDirection()
     {
         if (_lastCheckpoint)
@@ -153,31 +193,7 @@ public class VehicleController : Vehicle
       //  Debug.Log(acceleration);
 
     }
-    private void GetInput()
-    {
-        motorInput = Input.GetAxis("Vertical");
-        steerInput = Input.GetAxis("Horizontal");
-        finalAngle = steerInput * K.JEEP_MAX_STEERING_ANGLE;
-
-        if (currentSpeed < maxSpeed && _isGrounded) for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = motorInput * maxTorque;
-        else if (currentSpeed > maxSpeed && motorInput > 0 || currentSpeed > maxReverseSpeed && motorInput < 0)
-        {
-            for (int i = 0; i < wheelColliders.Length; i++)
-            {
-                wheelColliders[i].brakeTorque = 1000;
-                wheelColliders[i].motorTorque = 0;
-            }
-        }
-        if (motorInput == 0 || !_isGrounded || nitroEnd)
-        {
-            _rb.drag = _rb.velocity.magnitude / 100f;
-            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = 0;
-            if (currentSpeed < maxSpeed) nitroEnd = false;
-        }
-        else _rb.drag = 0f;
-
-        CheckHandbrake();
-    }
+    
     private void RechargeNitro()
     {
         if (Mathf.FloorToInt(lapCount) == lapsEnded)
@@ -483,6 +499,5 @@ public class VehicleController : Vehicle
     private void OnDrawGizmos()
     {
 
-    }
-
+    }    
 }

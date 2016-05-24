@@ -19,6 +19,8 @@ public class ReferencesManager : MonoBehaviour, IObservable
         gameManagerReference = GetComponent<GameManager>();
         ingameUIManagerReference = GetComponent<IngameUIManager>();
         soundManagerReference = GetComponent<SoundManager>();
+        _racerList = new List<Vehicle>();
+        _obsList = new List<IObserver>();
         _racerList.AddRange(GameObject.FindGameObjectWithTag(K.TAG_VEHICLES).GetComponentsInChildren<Vehicle>());
     }
 

@@ -12,4 +12,6 @@ public abstract class Vehicle : MonoBehaviour
     {
         _refManager = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<ReferencesManager>();
     }
+
+    public abstract void Move(float accel, float brake, float steer, float handbrake, float nitro);
 }

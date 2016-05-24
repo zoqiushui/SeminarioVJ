@@ -2,6 +2,12 @@
 using System.Collections;
 public class K
 {
+    // ===== INPUT =====
+    public const string INPUT_HORIZONTAL = "Horizontal";
+    public const string INPUT_VERTICAL = "Vertical";
+    public const string INPUT_HANDBRAKE = "Handbrake";
+    public const string INPUT_NITRO = "Nitro";
+
     // ===== LAYERS =====
     public const int LAYER_GROUND = 8;
     public const int LAYER_MNINIMAP_PLAYER_CAR = 9;
@@ -55,9 +61,7 @@ public class K
     public const string CONTAINER_VEHICLES_NAME = "VEHICLES";
     public const string CONTAINER_CHECKPOINTS_NAME = "CHECKPOINTS";
 
-
     public const float GRAVITY = 9.8f;
-
 
     // ====== SOUNDS IDS =======
     public const int SOUND_MACHINE_GUN = 0;

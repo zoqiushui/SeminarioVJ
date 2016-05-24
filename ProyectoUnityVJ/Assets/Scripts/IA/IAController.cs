@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 
 public class IAController : Vehicle
@@ -45,6 +44,10 @@ public class IAController : Vehicle
 
         CheckIfGrounded();
         FallSpeed();
+    }
+
+    public override void Move(float accel, float brake, float steer, float handbrake, float nitro)
+    {
     }
 
     private void ApplyDrive()
@@ -156,5 +159,5 @@ public class IAController : Vehicle
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, _nextDestinationPoint);
-    }
+    }    
 }
