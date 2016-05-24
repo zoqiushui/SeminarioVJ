@@ -1,41 +1,36 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Manager
 {
-    //public static GameManager instance;
     public Text youWin;
     public Text raceFinishedText;
     public Text youLoseText;
     public Button restartButton;
-    public VehicleController playerReference { get; private set; }
-
-    private List<IAController> _enemiesReferences, _destroyedEnemies;
-    private ReferencesManager _refManager;
+    public Vehicle playerReference { get; private set; }
+    private List<Vehicle> _enemiesReferences;
+    private IngameUIManager _ingameUIManagerReference;
 
     private void Awake()
     {
         //if (instance == null) instance = this;
-        playerReference = GameObject.FindGameObjectWithTag(K.TAG_PLAYER).GetComponent<VehicleController>();
-        _enemiesReferences = new List<IAController>();
+        playerReference = GameObject.FindGameObjectWithTag(K.TAG_PLAYER).GetComponent<Vehicle>();
+        _enemiesReferences = new List<Vehicle>();
         _enemiesReferences.AddRange(GameObject.Find(K.CONTAINER_VEHICLES_NAME).GetComponentsInChildren<IAController>());
     }
 
     private void Start()
     {
-        _refManager = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<ReferencesManager>();
+        _ingameUIManagerReference = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<IngameUIManager>();
     }
 
     private void Update()
     {
         if (Mathf.FloorToInt(playerReference.lapCount) == K.MAX_LAPS)
         {
-            //GameOver("You Win");
-            _refManager.ingameUIManagerReference.AddEndRacer(playerReference.vehicleName);
-            playerReference.EndRaceHandbrake();
+            playerReference.NotifyObserver(K.OBS_MESSAGE_FINISHED);
+            ((JeepController)playerReference).EndRaceHandbrake();
             playerReference.enabled = false;
             GameOver("Race Finished");
         }
@@ -44,13 +39,13 @@ public class GameManager : MonoBehaviour
             if (Mathf.FloorToInt(enemy.lapCount) == K.MAX_LAPS)
             {
                 //GameOver("You Lose");
-                _refManager.ingameUIManagerReference.AddEndRacer(enemy.vehicleName);
+                enemy.NotifyObserver(K.OBS_MESSAGE_FINISHED);
                 enemy.enabled = false;
             }
         }
         if (_enemiesReferences.Count == 0)
         {
-            playerReference.EndRaceHandbrake();
+            ((JeepController)playerReference).EndRaceHandbrake();
             playerReference.enabled = false;
             GameOver("You Win");
         }
@@ -58,16 +53,10 @@ public class GameManager : MonoBehaviour
         if (playerReference.gameObject.GetComponent<VehicleData>().currentLife <= 0)
         {
             print(playerReference.gameObject.GetComponent<VehicleData>().currentLife);
-            playerReference.EndRaceHandbrake();
+            ((JeepController)playerReference).EndRaceHandbrake();
             playerReference.enabled = false;
             GameOver("You Lose");
         }
-    }
-
-    public void RemoveEnemy(IAController ene)
-    {
-        _refManager.ingameUIManagerReference.AddDestroyedEnemy(ene.vehicleName);
-        _enemiesReferences.Remove(ene);
     }
 
     private void GameOver(string s)
@@ -115,5 +104,22 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("MaxLife", (int) playerReference.gameObject.GetComponent<VehicleData>().maxLife);
         PlayerPrefs.SetInt("CurrentLife", (int)playerReference.gameObject.GetComponent<VehicleData>().currentLife);
+    }
+
+    public override void Notify(Vehicle caller, string msg)
+    {
+        switch (msg)
+        {
+            case K.OBS_MESSAGE_DESTROYED:
+                if (caller is IAController && !_enemiesReferences.Contains(caller))
+                {
+                    _enemiesReferences.Remove(caller);
+                }
+                break;
+
+            default:
+                break;
+        }
+
     }
 }

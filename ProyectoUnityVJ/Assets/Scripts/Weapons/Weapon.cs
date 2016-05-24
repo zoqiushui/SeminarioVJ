@@ -20,11 +20,11 @@ public class Weapon : MonoBehaviour
     public float reloadSpeed;
     public float ammoTimer;
     protected float _ammoTimer;
-    protected ReferencesManager _refManager;
+    protected SoundManager _soundManagerReference;
 
     protected virtual void Start()
     {
-        _refManager = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<ReferencesManager>();
+        _soundManagerReference = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<SoundManager>();
     }
 
     public virtual void ShootDownButtom()

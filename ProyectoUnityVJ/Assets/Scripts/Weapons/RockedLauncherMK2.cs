@@ -46,7 +46,7 @@ public class RockedLauncherMK2 : Weapon
     public override void Shoot()
     {
         base.Shoot();
-        _refManager.soundManagerReference.PlaySound(K.SOUND_MISIL_LAUNCH);
+        _soundManagerReference.PlaySound(K.SOUND_MISIL_LAUNCH);
         GameObject rock = (GameObject)GameObject.Instantiate(rocket, launchPoint.position, Quaternion.identity);
         rock.GetComponent<Rocket>().SetTarget(_pointAttack,damage);
      //   lockOn.SetActive(false);

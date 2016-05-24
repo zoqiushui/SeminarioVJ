@@ -12,11 +12,11 @@ public class PressMine : Trap
     private float coolLig = 0.5f;
     private float currentCool;
 
-    protected ReferencesManager _refManager;
+    protected SoundManager _soundManagerReference;
 
     private void Start()
     {
-        _refManager = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<ReferencesManager>();
+        _soundManagerReference = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<SoundManager>();
     }
 
     public override void Update()
@@ -74,7 +74,7 @@ public class PressMine : Trap
             }
         }
         Instantiate(feedback, transform.position + transform.up, Quaternion.identity);
-        _refManager.soundManagerReference.PlaySound(K.SOUND_MINE_EXPLOSION);
+        _soundManagerReference.PlaySound(K.SOUND_MINE_EXPLOSION);
         GameObject.Destroy(this.gameObject);
     }
     void OnDrawGizmos()

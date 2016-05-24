@@ -7,7 +7,7 @@ public class Checkpoint : MonoBehaviour
     public List<GameObject> checkpointNodes { get; private set; }
     public Checkpoint nextCheckpoint;// { get; private set; }
 
-    private ReferencesManager _refManager;
+    private CheckpointManager _checkpointMananagerReference;
 
     private void Awake()
     {
@@ -53,7 +53,7 @@ public class Checkpoint : MonoBehaviour
 
     void Start()
     {
-        _refManager = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<ReferencesManager>();
+        _checkpointMananagerReference = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<CheckpointManager>();
     }
 
     public void SetNextCheckpoint(Checkpoint chk)
@@ -84,9 +84,9 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<VehicleController>() != null)
+        if (other.gameObject.GetComponent<JeepController>() != null)
         {
-            if (_refManager.chkPointManagerReference.CheckVehicleCheckpoint(other.gameObject, this)) other.gameObject.GetComponent<VehicleController>().SetCheckpoint(this);
+            if (_checkpointMananagerReference.CheckVehicleCheckpoint(other.GetComponent<Vehicle>(), this)) other.gameObject.GetComponent<JeepController>().SetCheckpoint(this);
         }
     }
 

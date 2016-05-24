@@ -4,10 +4,8 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
-public class IngameUIManager : MonoBehaviour
+public class IngameUIManager : Manager
 {
-    //public static IngameUIManager instance;
-
     public RawImage speedpmeterNeedleImage;
     public Text lapsText, positionsText;
     public Color endRaceColor, enemiesColor, playerColor, destroyedColor;
@@ -18,11 +16,6 @@ public class IngameUIManager : MonoBehaviour
     private List<Vehicle> _racerList;
     private List<string> _endRacerList, _destroyedRacers;
     private string _positionsTextString;
-
-    private void Awake()
-    {
-        //if (instance == null) instance = this;
-    }
 
     private void Start()
     {
@@ -38,7 +31,7 @@ public class IngameUIManager : MonoBehaviour
         _positionsTextString = "";
         foreach (var racerSurvivedName in _endRacerList)
         {
-            _positionsTextString += "<color="+ColorTypeConverter.ToRGBHex(endRaceColor)+">" + count + "." + " " + racerSurvivedName + "</color>\n";
+            _positionsTextString += "<color=" + ColorTypeConverter.ToRGBHex(endRaceColor) + ">" + count + "." + " " + racerSurvivedName + "</color>\n";
             count++;
         }
         SortRacerList(_racerList);
@@ -51,17 +44,18 @@ public class IngameUIManager : MonoBehaviour
             }
             if (!_endRacerList.Contains(racer.vehicleName) && !_destroyedRacers.Contains(racer.vehicleName))
             {
-                if (racer.GetComponent<VehicleController>())
+                if (racer.GetComponent<JeepController>())
                 {
                     _positionsTextString += "<color=" + ColorTypeConverter.ToRGBHex(playerColor) + ">" + count + "." + " " + racer.vehicleName + "</color>\n";
 
-                } else {
+                }
+                else {
                     _positionsTextString += "<color=" + ColorTypeConverter.ToRGBHex(enemiesColor) + ">" + count + "." + " " + racer.vehicleName + "</color>\n";
                 }
-                
+
                 count++;
             }
-            
+
         }
         _destroyedRacers.Reverse();
         foreach (var destroyedRacerName in _destroyedRacers)
@@ -105,40 +99,36 @@ public class IngameUIManager : MonoBehaviour
     public void OnRestartButtonClicked()
     {
         SceneManager.LoadScene(2);
-
     }
 
-    /// <summary>
-    /// Recibe la velocidad actual del jugador dividido la velocidad maxima que puede mostrar el velocimetro.
-    /// </summary>
-    /// <param name="speed">Velocidad actual / Velocidad maxima del velocimetro</param>
-    public void SetPlayerSpeed(float speed)
+    public override void Notify(Vehicle caller, string msg)
     {
-        _playerSpeed = speed;
-    }
-
-    public void SetPlayerLapCount(int laps)
-    {
-        _playerLaps = laps;
-    }
-
-    public void AddDestroyedEnemy(string s)
-    {
-        if ( !_destroyedRacers.Contains(s))
+        switch (msg)
         {
-            if (_endRacerList.Contains(s))
-            {
-                _endRacerList.Remove(s);
-            }
-            _destroyedRacers.Add(s);
-        }       
-    }
+            case K.OBS_MESSAGE_DESTROYED:
+                if (!_destroyedRacers.Contains(caller.vehicleName))
+                {
+                    _destroyedRacers.Add(caller.vehicleName);
+                }
+                break;
 
-    public void AddEndRacer(string s) // TODO: CAMBIAR NOMBRE
-    {
-        if (!_endRacerList.Contains(s))
-        {
-            _endRacerList.Add(s);
+            case K.OBS_MESSAGE_FINISHED:
+                if (!_endRacerList.Contains(caller.vehicleName))
+                {
+                    _endRacerList.Add(caller.vehicleName);
+                }
+                break;
+
+            case K.OBS_MESSAGE_SPEED:
+                _playerSpeed = ((JeepController)caller).currentSpeed/K.SPEEDOMETER_MAX_SPEED;
+                break;
+
+            case K.OBS_MESSAGE_LAPCOUNT:
+                _playerLaps = Mathf.FloorToInt(caller.lapCount);
+                break;
+
+            default:
+                break;
         }
     }
 }

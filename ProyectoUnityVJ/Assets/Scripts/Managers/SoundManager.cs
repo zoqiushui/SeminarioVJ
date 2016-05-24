@@ -1,16 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class SoundManager : MonoBehaviour {
-
-    //public static SoundManager instance;
-
+public class SoundManager : MonoBehaviour
+{
     public AudioClip[] clips;
     public Camera mainCamera;
     public int channelCount;
     private List<AudioSource> channels;
     public const int NO_CHANNEL = -1;
-
 
     void Awake()
     {

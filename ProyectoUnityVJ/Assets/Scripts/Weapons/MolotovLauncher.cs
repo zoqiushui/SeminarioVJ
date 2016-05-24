@@ -31,7 +31,7 @@ public class MolotovLauncher : Weapon
     public override void Shoot()
     {
         base.Shoot();
-        _refManager.soundManagerReference.PlaySound(K.SOUND_MOLOTOV_LAUNCH);
+        _soundManagerReference.PlaySound(K.SOUND_MOLOTOV_LAUNCH);
         GameObject granade = (GameObject)GameObject.Instantiate(bomb, launchPoint.position + launchPoint.forward * 2, Quaternion.identity);
         granade.transform.forward = launchPoint.forward;
         granade.GetComponent<Rigidbody>().AddForce(transform.forward * 500, ForceMode.Impulse);

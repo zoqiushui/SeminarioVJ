@@ -7,7 +7,7 @@ public class MinimapManager : MonoBehaviour
     public GameObject minimapPointPrefab;
     public Material playerMinimapTexture, enemyMinimapTexture;
 
-    private VehicleController _playerReference;
+    private Vehicle _playerReference;
     private GameObject _playerGo;
     private Vector3 _fixedYPosition;
     private Dictionary<IAController, GameObject> _enemiesReferences;
@@ -16,7 +16,7 @@ public class MinimapManager : MonoBehaviour
     private void Start()
     {
         GameObject go;
-        _playerReference = GameObject.Find(K.CONTAINER_VEHICLES_NAME).GetComponentInChildren<VehicleController>();
+        _playerReference = GameObject.Find(K.CONTAINER_VEHICLES_NAME).GetComponentInChildren<JeepController>();
         _fixedYPosition = _playerReference.transform.position + Vector3.up * K.MINIMAP_HEIGHT;
         _enemiesReferences = new Dictionary<IAController, GameObject>();
         var aux = GameObject.Find(K.CONTAINER_VEHICLES_NAME).GetComponentsInChildren<IAController>();

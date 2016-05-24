@@ -8,6 +8,12 @@ public class K
     public const string INPUT_HANDBRAKE = "Handbrake";
     public const string INPUT_NITRO = "Nitro";
 
+    // ===== MESSAGES =====
+    public const string OBS_MESSAGE_DESTROYED = "Destroyed";
+    public const string OBS_MESSAGE_FINISHED = "Finished";
+    public const string OBS_MESSAGE_SPEED = "Speed";
+    public const string OBS_MESSAGE_LAPCOUNT = "Laps";
+
     // ===== LAYERS =====
     public const int LAYER_GROUND = 8;
     public const int LAYER_MNINIMAP_PLAYER_CAR = 9;

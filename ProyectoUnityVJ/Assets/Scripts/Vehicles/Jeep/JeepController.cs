@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityStandardAssets.ImageEffects;
 using System;
 
-public class VehicleController : Vehicle
+public class JeepController : Vehicle
 {
     public float maxTorque;
     public Transform centerOfMass;
@@ -12,10 +12,10 @@ public class VehicleController : Vehicle
     public Text wrongDirectionText;
     public GameObject trailRenderModel;
     public WheelCollider[] wheelColliders;
-    public Transform[] tiresCar;
+    public float currentSpeed { get; private set; }
 
+    public Transform[] tiresCar;
     private Rigidbody _rb;
-    private float currentSpeed;
     private float acceleration;
     public float maxSpeed;
     public float maxReverseSpeed;
@@ -84,7 +84,7 @@ public class VehicleController : Vehicle
         handbrake = false;
         Cursor.visible = false;
         lapCount = 0;
-        positionWeight = -Vector3.Distance(transform.position, _refManager.chkPointManagerReference.checkpointsList[0].transform.position);
+        positionWeight = -Vector3.Distance(transform.position, _checkpointMananagerReference.checkpointsList[0].transform.position);
         _checkpointNumber = 0;
         _nitroTimer = nitroTimer;
         lapsEnded = 1;
@@ -93,7 +93,7 @@ public class VehicleController : Vehicle
 
     void Update()
     {
-        positionWeight = Vector3.Distance(transform.position, _refManager.chkPointManagerReference.checkpointsList[_checkpointNumber].transform.position);
+        positionWeight = Vector3.Distance(transform.position, _checkpointMananagerReference.checkpointsList[_checkpointNumber].transform.position);
 
         UpdateTiresPosition();
         UIText();
@@ -112,7 +112,6 @@ public class VehicleController : Vehicle
 
     public override void Move(float accel, float brake, float steer, float handbrake, float nitro)
     {
-        print(accel);
         if (accel > 0)
         {
             motorInput = accel;
@@ -388,9 +387,9 @@ public class VehicleController : Vehicle
     /// <param name="chk">Checkpoint</param>
     public void SetCheckpoint(Checkpoint chk)
     {
-        _checkpointNumber = _refManager.chkPointManagerReference.checkpointsList.Count - 1 == _checkpointNumber ? 0 : _checkpointNumber + 1;
+        _checkpointNumber = _checkpointMananagerReference.checkpointsList.Count - 1 == _checkpointNumber ? 0 : _checkpointNumber + 1;
         _lastCheckpoint = chk;
-        lapCount += _refManager.chkPointManagerReference.checkpointValue;
+        lapCount += _checkpointMananagerReference.checkpointValue;
     }
 
     /// <summary>
@@ -491,10 +490,8 @@ public class VehicleController : Vehicle
     }
     protected void UIText()
     {
-        //_localVelocity = transform.InverseTransformDirection(_rb.velocity);
-        //speedText.text = "Speed: " + (int)currentSpeed;
-        _refManager.ingameUIManagerReference.SetPlayerSpeed(currentSpeed / K.SPEEDOMETER_MAX_SPEED);
-        _refManager.ingameUIManagerReference.SetPlayerLapCount(Mathf.FloorToInt(lapCount));
+        NotifyObserver(K.OBS_MESSAGE_SPEED);
+        NotifyObserver(K.OBS_MESSAGE_LAPCOUNT);
     }
     private void OnDrawGizmos()
     {

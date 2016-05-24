@@ -69,7 +69,7 @@ public class MiniGun : Weapon
         canShoot = false;
         particleEffect.SetActive(true);
         base.Shoot();
-        _refManager.soundManagerReference.PlaySound(K.SOUND_MACHINE_GUN);
+        _soundManagerReference.PlaySound(K.SOUND_MACHINE_GUN);
        // direction = shootPoint.TransformDirection(Vector3.forward);
         Instantiate(bulletPref, shootPoint.position + shootPoint.forward, shootPoint.rotation);
 

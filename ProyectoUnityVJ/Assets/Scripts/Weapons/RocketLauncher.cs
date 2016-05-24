@@ -138,7 +138,7 @@ public class RocketLauncher : Weapon
         _enemyFound = false;
         if (_finalTarget != null)
         {
-            _refManager.soundManagerReference.PlaySound(K.SOUND_MISIL_LAUNCH);
+            _soundManagerReference.PlaySound(K.SOUND_MISIL_LAUNCH);
             GameObject rock = (GameObject)GameObject.Instantiate(rocket, launchPoint.position, Quaternion.identity);
             rock.GetComponent<Rocket>().SetTarget(_finalTarget,damage);
         }

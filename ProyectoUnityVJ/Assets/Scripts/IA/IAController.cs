@@ -24,7 +24,7 @@ public class IAController : Vehicle
         _aux = hpBarImage.transform.localScale;
 //        _maxSpeed = K.IA_MAX_SPEED;
         lapCount = 0;
-        _nextCheckpoint = _refManager.chkPointManagerReference.checkpointsList[0];
+        _nextCheckpoint = _checkpointMananagerReference.checkpointsList[0];
         positionWeight = -Vector3.Distance(transform.position, _nextCheckpoint.transform.position);
         CalculateNextPoint(_nextCheckpoint);
         _currentSpeed = 1;
@@ -36,7 +36,7 @@ public class IAController : Vehicle
         UpdateHpBar();
         if (Vector3.Distance(transform.position, _nextDestinationPoint) < 15)
         {
-            lapCount += _refManager.chkPointManagerReference.checkpointValue;
+            lapCount += _checkpointMananagerReference.checkpointValue;
             CalculateNextCheckpoint(_nextCheckpoint);
             CalculateNextPoint(_nextCheckpoint);
         }
@@ -59,13 +59,13 @@ public class IAController : Vehicle
 
     private void CalculateSpeed()
     {
-        if (lapCount + (_refManager.chkPointManagerReference.checkpointValue) < _refManager.gameManagerReference.playerReference.lapCount)
+        if (lapCount + (_checkpointMananagerReference.checkpointValue) < ((JeepController)_gameManagerReference.playerReference).lapCount)
         {
             _currentSpeed += 0.15f;
             _currentSpeed = Mathf.Clamp(_currentSpeed, 1, _maxSpeed);
 
         }
-        else if (lapCount - (_refManager.chkPointManagerReference.checkpointValue) > _refManager.gameManagerReference.playerReference.lapCount)
+        else if (lapCount - (_checkpointMananagerReference.checkpointValue) > ((JeepController)_gameManagerReference.playerReference).lapCount)
         {
             _currentSpeed -= 0.3f;
             _currentSpeed = Mathf.Clamp(_currentSpeed, _maxSpeed / 3, _maxSpeed);
@@ -121,8 +121,8 @@ public class IAController : Vehicle
 
         if (_currentHp <= 0)
         {
-            _refManager.soundManagerReference.PlaySound(K.SOUND_CAR_DESTROY);
-            _refManager.gameManagerReference.RemoveEnemy(this);
+            _soundManagerReference.PlaySound(K.SOUND_CAR_DESTROY);
+            NotifyObserver(K.OBS_MESSAGE_DESTROYED);
             Destroy(this.gameObject);
             Instantiate(remains, transform.position, transform.rotation);
 
