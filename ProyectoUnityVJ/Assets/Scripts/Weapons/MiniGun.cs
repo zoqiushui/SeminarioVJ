@@ -25,13 +25,16 @@ public class MiniGun : Weapon
     {
         /*    if (Input.GetMouseButton(shootButtom)) particleEffect.SetActive(true);
             else if (particleEffect.activeInHierarchy) particleEffect.SetActive(false);*/
+        if (GameManager.disableShoot == false)
+        {
 
-        CheckAmmoBar();
-        ShootDownButtom();
+            CheckAmmoBar();
+            ShootDownButtom();
 
-        if (canShoot && visualAmmo.fillAmount > 0 && !ammoEmpty)   Shoot();
-        else
-            particleEffect.SetActive(false);
+            if (canShoot && visualAmmo.fillAmount > 0 && !ammoEmpty) Shoot();
+            else
+                particleEffect.SetActive(false);
+        }
         
     }
 

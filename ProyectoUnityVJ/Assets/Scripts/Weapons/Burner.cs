@@ -18,17 +18,20 @@ public class Burner : Weapon
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetMouseButton(shootButtom))
+        if (GameManager.disableShoot == false)
         {
-            activeFeed = true;
-            flames.SetActive(true);
+            if (Input.GetMouseButton(shootButtom))
+            {
+                activeFeed = true;
+                flames.SetActive(true);
+            }
+            if (Input.GetMouseButtonUp(shootButtom))
+            {
+                activeFeed = false;
+                flames.SetActive(false);
+            }
+            ShootDownButtom();
         }
-        if (Input.GetMouseButtonUp(shootButtom))
-        {
-            activeFeed = false;
-            flames.SetActive(false);
-        }
-        ShootDownButtom();
 
 	}
     void OnTriggerStay(Collider cols)

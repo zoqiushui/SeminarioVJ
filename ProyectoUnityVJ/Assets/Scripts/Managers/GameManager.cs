@@ -12,6 +12,10 @@ public class GameManager : Manager
     private List<Vehicle> _enemiesReferences;
     private IngameUIManager _ingameUIManagerReference;
 
+    private bool paused = false;
+    public GameObject pauseCanvas;
+
+    public static bool disableShoot;
     private void Awake()
     {
         //if (instance == null) instance = this;
@@ -57,8 +61,45 @@ public class GameManager : Manager
             playerReference.enabled = false;
             GameOver("You Lose");
         }
+
+        PauseInput();
     }
 
+    private void PauseInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (paused)
+            {
+                Time.timeScale = 1;
+                Time.fixedDeltaTime = 0.02f;
+                playerReference.gameObject.GetComponentInChildren<WeaponsManager>().enabled = true;
+                disableShoot = false;
+            }
+            else
+            {
+                Time.timeScale = 0;
+                Time.fixedDeltaTime = 0f;
+                Cursor.lockState = CursorLockMode.None;
+                playerReference.gameObject.GetComponentInChildren<WeaponsManager>().enabled = false;
+                disableShoot = true;
+            }
+            Debug.Log(Time.fixedDeltaTime);
+            pauseCanvas.SetActive(!paused);
+            Cursor.visible = !paused;
+            paused = !paused;
+        }
+    }
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        Time.fixedDeltaTime = 0.02f;
+        pauseCanvas.SetActive(!paused);
+        Cursor.visible = !paused;
+        paused = !paused;
+        playerReference.gameObject.GetComponentInChildren<WeaponsManager>().enabled = true;
+        disableShoot = false;
+    }
     private void GameOver(string s)
     {
         switch (s)
@@ -68,6 +109,10 @@ public class GameManager : Manager
                     youWin.gameObject.SetActive(true);
                     PlayerPrefs.SetInt("Resources", 20);
                     SaveDamageInfo();
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+                    playerReference.gameObject.GetComponentInChildren<WeaponsManager>().enabled = false;
+                    disableShoot = true;
                 }
                 break;
             case "Race Finished":
@@ -75,12 +120,20 @@ public class GameManager : Manager
                     raceFinishedText.gameObject.SetActive(true);
                     PlayerPrefs.SetInt("Resources", 10);
                     SaveDamageInfo();
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+                    playerReference.gameObject.GetComponentInChildren<WeaponsManager>().enabled = false;
+                    disableShoot = true;
                 }
                 break;
             case "You Lose":
                 {
                     DeletePlayer();
                     //SceneManager.LoadScene(1);
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+                    playerReference.gameObject.GetComponentInChildren<WeaponsManager>().enabled = false;
+                    disableShoot = true;
                 } 
                 break;
             default:

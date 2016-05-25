@@ -19,10 +19,12 @@ public class MolotovLauncher : Weapon
 	// Update is called once per frame
 	void Update ()
     {
-        CheckAmmoBar();
-        OneShoot();
-        if (canShoot && !ammoEmpty) Shoot();
-
+        if (GameManager.disableShoot == false)
+        {
+            CheckAmmoBar();
+            OneShoot();
+            if (canShoot && !ammoEmpty) Shoot();
+        }
     }
 
     /// <summary>

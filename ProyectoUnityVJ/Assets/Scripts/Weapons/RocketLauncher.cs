@@ -41,25 +41,28 @@ public class RocketLauncher : Weapon
 
     void Update()
     {
-        CheckAmmoBar();
-        ShootDownButtom();
-
-        if (canShoot) LockEnemy();
-        if (_enemyFound && targets.Count > 1)
+        if (GameManager.disableShoot == false)
         {
-            SearchClose(targets);
+            CheckAmmoBar();
+            ShootDownButtom();
+
+            if (canShoot) LockEnemy();
+            if (_enemyFound && targets.Count > 1)
+            {
+                SearchClose(targets);
+            }
+            else if (_enemyFound)
+                _finalTarget = targets[0];
+
+            if (Input.GetMouseButtonUp(shootButtom) && _finalTarget != null && canShoot)
+            {
+                if (visualAmmo.fillAmount > 0 && !ammoEmpty) Shoot();
+            }
+
+            if (_finalTarget != null && _enemyFound) LockTarget();
+
+            if (!Input.GetMouseButton(shootButtom) && lockOn.activeSelf) lockOn.SetActive(false);
         }
-        else if (_enemyFound)
-            _finalTarget = targets[0];
-
-        if (Input.GetMouseButtonUp(shootButtom) && _finalTarget != null && canShoot)
-        {
-            if (visualAmmo.fillAmount > 0 && !ammoEmpty) Shoot();
-        }
-
-        if (_finalTarget != null && _enemyFound)    LockTarget();
-
-        if (!Input.GetMouseButton(shootButtom) && lockOn.activeSelf) lockOn.SetActive(false);
 
 
     }

@@ -28,17 +28,20 @@ public class RockedLauncherMK2 : Weapon
 
     void Update()
     {
-        CheckAmmoBar();
-        OneShoot();
-        if (canShoot)
+        if (GameManager.disableShoot == false)
         {
-            ray = _mainCam.ScreenPointToRay(Input.mousePosition);
-            if(Physics.Raycast(ray, out hit))
+            CheckAmmoBar();
+            OneShoot();
+            if (canShoot)
             {
-                _pointAttack = hit.point;
-                if (visualAmmo.fillAmount > 0 && !ammoEmpty) Shoot();
+                ray = _mainCam.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit))
+                {
+                    _pointAttack = hit.point;
+                    if (visualAmmo.fillAmount > 0 && !ammoEmpty) Shoot();
 
-                print("ROCKET TARGET: " + hit.collider.gameObject.name);
+                    print("ROCKET TARGET: " + hit.collider.gameObject.name);
+                }
             }
         }
 
