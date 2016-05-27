@@ -84,7 +84,7 @@ public class GameManager : Manager
                 playerReference.gameObject.GetComponentInChildren<WeaponsManager>().enabled = false;
                 disableShoot = true;
             }
-            Debug.Log(Time.fixedDeltaTime);
+
             pauseCanvas.SetActive(!paused);
             Cursor.visible = !paused;
             paused = !paused;
