@@ -88,6 +88,9 @@ public class Checkpoint : MonoBehaviour
         {
             if (_checkpointMananagerReference.CheckVehicleCheckpoint(other.GetComponent<Vehicle>(), this)) other.gameObject.GetComponent<JeepController>().SetCheckpoint(this);
         }
+
+        if (other.gameObject.layer == K.LAYER_IA && other.GetComponent<IAControlMovement>() != null)
+            other.GetComponent<IAControlMovement>().ChangeTargetMovement(nextCheckpoint.transform);
     }
 
     private void OnDrawGizmos()

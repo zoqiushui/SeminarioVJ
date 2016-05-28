@@ -9,6 +9,7 @@ TagManager:
   - Managers
   - Vehicles
   - Checkpoints
+  - Track
   layers:
   - Default
   - TransparentFX
