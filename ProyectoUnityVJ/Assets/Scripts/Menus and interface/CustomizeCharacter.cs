@@ -71,6 +71,8 @@ public class CustomizeCharacter : MonoBehaviour
         }
         */
 
+
+        
         currentColorSkin = 0;
         currentFace = 0;
         currentHair = 0;
@@ -85,6 +87,7 @@ public class CustomizeCharacter : MonoBehaviour
         spritesFlag = Resources.LoadAll<Sprite>("Sprites/Flags");
 
         UpdatePortrait();
+        RandomFace();
 
         currentPilotName = null;
     }
