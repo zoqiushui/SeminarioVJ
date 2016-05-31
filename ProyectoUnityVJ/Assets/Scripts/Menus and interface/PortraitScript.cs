@@ -3,6 +3,9 @@ using System.Collections;
 
 public class PortraitScript : MonoBehaviour {
 
+    public bool playerPortrait;
+
+
     //public string currentPilotName;
     private int currentColorSkin;
     private int currentFace;
@@ -12,16 +15,8 @@ public class PortraitScript : MonoBehaviour {
     private int currentFaceHair;
 
     //public int currentFlag;
+    
 
-
-    //Colores de pelo
-    //private Color[] arrayColorHair = new Color[] { new Color(28f, 20f, 12f), new Color(255, 230, 124), new Color(111, 67, 11) };
-    private Color[] arrayColorHair = new Color[] { new Color(0.10980392156f, 0.07843137254f, 0.04705882352f), new Color(1, 0.90196078431f, 0.4862745098f), new Color(0.30196078431f, 0.26666666666f, 0.20784313725f) };
-
-
-    //Colores de piel
-    //private Color[] arrayColorSkin = new Color[] { new Color(242f, 232f, 217f), new Color(221, 183, 125), new Color(124, 90, 40) };
-    private Color[] arrayColorSkin = new Color[] { new Color(0.94901960784f, 0.90980392156f, 0.85098039215f), new Color(0.86666666666f, 0.71764705882f, 0.49019607843f), new Color(0.43529411764f, 0.26274509803f, 0.0431372549f) };
 
     //Referencias a sus hijos
     public GameObject gameObjectHead;
@@ -31,15 +26,6 @@ public class PortraitScript : MonoBehaviour {
     public GameObject gameObjectAccesory;
 
 
-
-    //Sprites
-    Sprite[] spritesFace;
-    Sprite[] spritesHair;
-    Sprite[] spritesAccesory;
-    Sprite[] spritesFacialHair;
-    Sprite[] spritesFlag;
-
-    //Statics
 
 
 
@@ -51,27 +37,27 @@ public class PortraitScript : MonoBehaviour {
 
     void Awake()
     {
-
-        /*
-        if (resources==0)
+        if(playerPortrait==true)
         {
-            PlayerPrefs.SetInt("Resources", 10);
-            Debug.Log(resources);
+            currentColorSkin = PlayerPrefs.GetInt("ColorSkin");
+            currentFace = PlayerPrefs.GetInt("Face");
+            currentHair = PlayerPrefs.GetInt("Hair");
+            currentColorHair = PlayerPrefs.GetInt("ColorHair");
+            currentAccesory = PlayerPrefs.GetInt("Accesory");
+            currentFaceHair = PlayerPrefs.GetInt("FaceHair");
+
         }
-        */
+        else
+        {
+            currentColorSkin = Random.Range(0, K.arrayColorSkin.Length);
+            currentFace = Random.Range(0, K.spritesFace.Length);
+            currentHair = Random.Range(0, K.spritesHair.Length);
+            currentColorHair = Random.Range(0, K.arrayColorHair.Length);
+            currentAccesory = Random.Range(0, K.spritesAccesory.Length);
+            currentFaceHair = Random.Range(0, K.spritesFacialHair.Length);
+        }
 
-        currentColorSkin = PlayerPrefs.GetInt("ColorSkin");
-        currentFace = PlayerPrefs.GetInt("Face"); 
-        currentHair = PlayerPrefs.GetInt("Hair");
-        currentColorHair = PlayerPrefs.GetInt("ColorHair");
-        currentAccesory = PlayerPrefs.GetInt("Accesory");
-        currentFaceHair = PlayerPrefs.GetInt("FaceHair");
-
-        spritesFace = Resources.LoadAll<Sprite>("Sprites/Face");
-        spritesHair = Resources.LoadAll<Sprite>("Sprites/Hair");
-        spritesAccesory = Resources.LoadAll<Sprite>("Sprites/Accesory");
-        spritesFacialHair = Resources.LoadAll<Sprite>("Sprites/FacialHair");
-        spritesFlag = Resources.LoadAll<Sprite>("Sprites/Flags");
+        
 
         UpdatePortrait();
 
@@ -81,19 +67,19 @@ public class PortraitScript : MonoBehaviour {
 
     public void UpdatePortrait()
     {
-        gameObjectHead.GetComponent<SpriteRenderer>().color = arrayColorSkin[currentColorSkin];
+        gameObjectHead.GetComponent<SpriteRenderer>().color = K.arrayColorSkin[currentColorSkin];
 
-        gameObjectFace.GetComponent<SpriteRenderer>().sprite = spritesFace[currentFace];
+        gameObjectFace.GetComponent<SpriteRenderer>().sprite = K.spritesFace[currentFace];
 
-        gameObjectHair.GetComponent<SpriteRenderer>().sprite = spritesHair[currentHair];
+        gameObjectHair.GetComponent<SpriteRenderer>().sprite = K.spritesHair[currentHair];
 
-        gameObjectFaceHair.GetComponent<SpriteRenderer>().sprite = spritesFacialHair[currentFaceHair];
+        gameObjectFaceHair.GetComponent<SpriteRenderer>().sprite = K.spritesFacialHair[currentFaceHair];
 
-        gameObjectAccesory.GetComponent<SpriteRenderer>().sprite = spritesAccesory[currentAccesory];
+        gameObjectAccesory.GetComponent<SpriteRenderer>().sprite = K.spritesAccesory[currentAccesory];
 
-        gameObjectFaceHair.GetComponent<SpriteRenderer>().color = arrayColorHair[currentColorHair];
+        gameObjectFaceHair.GetComponent<SpriteRenderer>().color = K.arrayColorHair[currentColorHair];
 
-        gameObjectHair.GetComponent<SpriteRenderer>().color = arrayColorHair[currentColorHair];
+        gameObjectHair.GetComponent<SpriteRenderer>().color = K.arrayColorHair[currentColorHair];
 
         //gameObjectFlag.GetComponent<SpriteRenderer>().sprite = spritesFlag[currentFlag];
 

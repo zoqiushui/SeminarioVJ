@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 public class K
 {
     // ===== INPUT =====
@@ -78,4 +79,19 @@ public class K
     public const int SOUND_MOLOTOV_LAUNCH = 5;
     public const int SOUND_MISIL_LAUNCH = 6;
 
+    // ======  PORTRAIT =======
+    public static Color[] arrayColorHair = new Color[] { new Color(0.10980392156f, 0.07843137254f, 0.04705882352f), new Color(1, 0.90196078431f, 0.4862745098f), new Color(0.30196078431f, 0.26666666666f, 0.20784313725f) };
+    public static Color[] arrayColorSkin = new Color[] { new Color(0.94901960784f, 0.90980392156f, 0.85098039215f), new Color(0.86666666666f, 0.71764705882f, 0.49019607843f), new Color(0.43529411764f, 0.26274509803f, 0.0431372549f) };
+    //Sprites
+    public static Sprite[] spritesFace=Resources.LoadAll<Sprite>("Sprites/Face");
+    public static Sprite[] spritesHair = Resources.LoadAll<Sprite>("Sprites/Hair");
+    public static Sprite[] spritesAccesory = Resources.LoadAll<Sprite>("Sprites/Accesory");
+    public static Sprite[] spritesFacialHair = Resources.LoadAll<Sprite>("Sprites/FacialHair");
+    public static Sprite[] spritesFlag = Resources.LoadAll<Sprite>("Sprites/Flags");
+    //Names
+    public static List<string> names = new List<string>();
+    
+
+    
 }
+

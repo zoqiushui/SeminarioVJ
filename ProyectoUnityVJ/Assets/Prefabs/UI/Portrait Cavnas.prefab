@@ -219,6 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06d3d46bf4d1b13459a8de273d31e68e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPortrait: 1
   gameObjectHead: {fileID: 102512}
   gameObjectFace: {fileID: 189586}
   gameObjectHair: {fileID: 135992}
@@ -451,16 +452,16 @@ RectTransform:
   m_GameObject: {fileID: 186736}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.26875}
   m_Children:
   - {fileID: 471594}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 535.5, y: 275.2}
+  m_SizeDelta: {x: 799.99994, y: 2396.279}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
