@@ -120,7 +120,12 @@ public class IngameUIManager : Manager
                 break;
 
             case K.OBS_MESSAGE_SPEED:
-                _playerSpeed = ((JeepController)caller).currentSpeed/K.SPEEDOMETER_MAX_SPEED;
+                if (GameObject.Find(K.CONTAINER_VEHICLES_NAME).GetComponentInChildren<JeepController>() != null)
+                {
+                    if ((JeepController)caller != null) _playerSpeed = ((JeepController)caller).currentSpeed / K.SPEEDOMETER_MAX_SPEED;
+                }
+                
+                else _playerSpeed = ((VehicleController)caller).currentSpeed / K.SPEEDOMETER_MAX_SPEED;
                 break;
 
             case K.OBS_MESSAGE_LAPCOUNT:

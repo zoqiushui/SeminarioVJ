@@ -35,7 +35,7 @@ public class IAControlMovement : Vehicle
     private bool _reverse;
     private Rigidbody _rb;
 
-    public override void Move(float accel, float brake, float steer, float handbrake, float nitro)
+    public override void GetInput(float _accel, float _brake,float _handbrake, float _steer, float _nitro)
     {
     }
 

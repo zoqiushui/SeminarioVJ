@@ -14,6 +14,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     protected IngameUIManager _ingameUIMananagerReference;
     protected SoundManager _soundManagerReference;
     protected GameManager _gameManagerReference;
+    public float wheelRadius;
 
     protected virtual void Start()
     {
@@ -28,8 +29,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         _isDestroyed = false;
     }
 
-    public abstract void Move(float accel, float brake, float steer, float handbrake, float nitro);
-
+    public abstract void GetInput(float _accel, float _brake,float _handbrake, float _steer, float _nitro);
     public void AddObserver(IObserver obs)
     {
         if (!_obsList.Contains(obs)) _obsList.Add(obs);

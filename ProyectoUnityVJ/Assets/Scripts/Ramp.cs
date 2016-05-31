@@ -15,6 +15,13 @@ public class Ramp : MonoBehaviour
 	}
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == K.LAYER_PLAYER) other.gameObject.GetComponent<JeepController>().PushRamp(forceRamp);
+        if (other.gameObject.layer == K.LAYER_PLAYER)
+        {
+            if (other.gameObject.GetComponent<JeepController>() != null) other.gameObject.GetComponent<JeepController>().PushRamp(forceRamp);
+            else other.gameObject.GetComponentInParent<VehicleController>().PushRamp(forceRamp);
+
+        }
+
+
     }
 }
