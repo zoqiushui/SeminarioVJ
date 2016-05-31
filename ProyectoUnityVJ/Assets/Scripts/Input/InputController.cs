@@ -13,6 +13,6 @@ public abstract class InputController : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        _vehicle.Move(_accel, _brake, _steer, _handbrake, _nitro);
+        _vehicle.GetInput(_accel, _brake, _handbrake, _steer, _nitro);
     }
 }

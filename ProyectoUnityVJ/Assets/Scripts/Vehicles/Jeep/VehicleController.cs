@@ -4,66 +4,70 @@ using UnityEngine.UI;
 using UnityStandardAssets.ImageEffects;
 using System;
 
-public class JeepController : Vehicle
+public class VehicleController : Vehicle
 {
     public float maxTorque;
     public Transform centerOfMass;
     public Text speedText;
     public Text wrongDirectionText;
     public GameObject trailRenderModel;
-    public WheelCollider[] wheelColliders;
     public float currentSpeed { get; private set; }
 
-    public Transform[] tiresCar;
+    public Transform[] wheelMeshList;
     private Rigidbody _rb;
-    private float acceleration;
-    public float maxSpeed;
+    private float _acceleration;
+    public float topSpeed;
     public float maxReverseSpeed;
-    private float steerInput;
-    private float motorInput;
+    private float _steerInput;
+    private float _motorInput;
+    private float _handbrakeInput;
     public int maximumTurn = 15;
     public int minimumTurn = 10;
     public Vector3 dragMultiplier;
-    private bool handbrake;
-    private float resetTimer;
+    private bool _handbrake;
+    private float _resetTimer;
     public float resetTime;
     public float stuckMaxDist;
     public LayerMask layer;
     public float fallForce = 10000;
     public GameObject carModel;
-    private float finalAngle;
+    private float _finalAngle;
     private bool _isGrounded;
     private bool _isGroundedRamp;
     private Checkpoint _lastCheckpoint;
 
     public float antiRoll = 1000f;
-    public float brake;
-    private bool impulseForceLeft;
-    private bool impulseForceRight;
-    private bool impulseForceFront;
-    private bool impulseForceRear;
-    private float antiRollForceRight;
-    private float antiRollForceLeft;
-    private float antiRollForceFront;
-    private float antiRollForceRear;
+    public float brakeForce;
+    private bool _impulseForceLeft;
+    private bool _impulseForceRight;
+    private bool _impulseForceFront;
+    private bool _impulseForceRear;
+    private float _antiRollForceRight;
+    private float _antiRollForceLeft;
+    private float _antiRollForceFront;
+    private float _antiRollForceRear;
     private bool _reversing;
     private int _checkpointNumber;
 
-    private bool modeNitro = false;
+    private bool _modeNitro = false;
     public float nitroPower;
     public float nitroTimer;
     private float _nitroTimer;
     public float rechargeNitro;
-    private bool nitroEnd;
+    private bool _nitroEnd;
     public Image visualNitro;
-    private float lapsEnded;
-    private bool canRechargeNitro;
-    private bool nitroEmpty;
-    private bool countInAir;
+    private float _lapsEnded;
+    private bool _canRechargeNitro;
+    private bool _nitroEmpty;
+    private bool _countInAir;
     private float _timerWrongDirection;
 
     //public GameObject varManager;
 
+    private bool _limitSpeed;
+    private bool resetVelocity;
+    private float _prevAcc;
+    private float _acce;
     protected override void Start()
     {
         base.Start();
@@ -81,74 +85,104 @@ public class JeepController : Vehicle
 
         _rb = GetComponent<Rigidbody>();
         _rb.centerOfMass = centerOfMass.localPosition;
-        handbrake = false;
+        _handbrake = false;
         Cursor.visible = false;
         lapCount = 0;
         positionWeight = -Vector3.Distance(transform.position, _checkpointMananagerReference.checkpointsList[0].transform.position);
         _checkpointNumber = 0;
         _nitroTimer = nitroTimer;
-        lapsEnded = 1;
-        nitroEmpty = false;
+        _lapsEnded = 1;
+        _nitroEmpty = false;
     }
-
     void Update()
     {
         positionWeight = Vector3.Distance(transform.position, _checkpointMananagerReference.checkpointsList[_checkpointNumber].transform.position);
-
         UpdateTiresPosition();
-        UIText();
-        currentSpeed = _rb.velocity.magnitude * 3f;
-      //  Debug.Log(currentSpeed);
 
-        GetInput();
+        currentSpeed = _rb.velocity.magnitude * 3f;
+        //  Debug.Log(currentSpeed);
         if (Input.GetKeyUp(KeyCode.R)) ResetCar();
 
-        CheckCarFlipped();
 
+        CheckCarFlipped();
         CheckIfGrounded();
         CheckBars();
         CheckDirection();
+
+        UIText();
     }
-
-    public override void GetInput(float _accel, float _brake,float _handbrake, float _steer, float _nitro)
+    void FixedUpdate()
     {
-        if (_accel > 0)
-        {
-            motorInput = _accel;
-        }
-        if (brake < 0)
-        {
-            motorInput = brake;
-        }
-        steerInput = _steer;
+        //Transforma una dirección de world space a local space.
+        var relativeVelocity = transform.InverseTransformDirection(_rb.velocity);
+
+        _acceleration = _rb.transform.InverseTransformDirection(_rb.velocity).z;
+
+        //Maniobrabilidad
+        ApplySteering(relativeVelocity);
+
+        //Evitar Deslizamiento calculando dirección.
+        UpdateDrag(relativeVelocity);
+
+        FallSpeed();
+
+        //Anti vuelco del vehículo
+        AntiRollBars();
+
+        NitroInput();
+        //  Debug.Log(acceleration);
+
     }
-
-    private void GetInput()
+    public override void GetInput(float accelInput, float brakeInput, float handbrakeInput, float steerInput, float nitro)
     {
-        //motorInput = Input.GetAxis("Vertical");
-        //steerInput = Input.GetAxis("Horizontal");
-        finalAngle = steerInput * K.JEEP_MAX_STEERING_ANGLE;
+        _steerInput = steerInput;
+        var forwardForce = accelInput * maxTorque;
 
-        if (currentSpeed < maxSpeed && _isGrounded) for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = motorInput * maxTorque;
-        else if (currentSpeed > maxSpeed && motorInput > 0 || currentSpeed > maxReverseSpeed && motorInput < 0)
-        {
-            for (int i = 0; i < wheelColliders.Length; i++)
-            {
-                wheelColliders[i].brakeTorque = 1000;
-                wheelColliders[i].motorTorque = 0;
-            }
-        }
-        if (motorInput == 0 || !_isGrounded || nitroEnd)
-        {
-            _rb.drag = _rb.velocity.magnitude / 100f;
-            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = 0;
-            if (currentSpeed < maxSpeed) nitroEnd = false;
-        }
-        else _rb.drag = 0f;
+        var brake = brakeInput;
 
+        //Aplica Fuerza
+        ApplyThrottle(forwardForce, brake);
+        //Limite de velocidad
+        CapSpeed();
+
+        _motorInput = accelInput;
+        _handbrakeInput = handbrakeInput;
+
+        //Freno de mano
         CheckHandbrake();
     }
 
+    protected void ApplyThrottle(float forwardForce, float brake)
+    {
+        if (Input.GetAxis(K.INPUT_HORIZONTAL) == 0 && _isGrounded && !_isGroundedRamp) _prevAcc = _acceleration;
+        else if (_isGrounded && !_isGroundedRamp)
+        {
+            _rb.velocity = Vector3.zero;
+            _rb.velocity = new Vector3(transform.forward.x * _prevAcc, transform.forward.y * _prevAcc, transform.forward.z * _prevAcc);
+        }
+        else if (!_isGrounded) _prevAcc = 0f;
+
+        /*    if (_motorInput > 0) _acce += Time.deltaTime / 10;
+            else _acce -= Time.deltaTime / 10;
+            var time = Mathf.Clamp(_acce, 0, 1);*/
+
+        if (!_limitSpeed && _isGrounded) _rb.AddRelativeForce(0, 0, (forwardForce * Time.deltaTime));
+
+        //  if (!_limitSpeed) _rb.AddForce(transform.forward * forwardForce);
+
+        if (_motorInput == 0 || _nitroEnd)
+        {
+            _rb.drag = _rb.velocity.magnitude / 30f;
+            if (currentSpeed < topSpeed) _nitroEnd = false;
+        }
+        else if (!_isGrounded) _rb.drag = _rb.velocity.magnitude / 100f;
+        else _rb.drag = 0f;
+    }
+    protected void CapSpeed()
+    {
+        if (currentSpeed > topSpeed) _limitSpeed = true;
+        else _limitSpeed = false;
+    }
     private void CheckDirection()
     {
         if (_lastCheckpoint)
@@ -167,45 +201,21 @@ public class JeepController : Vehicle
         if (_timerWrongDirection > 2)
         {
             wrongDirectionText.gameObject.SetActive(true);
-        }   
+        }
     }
-
-    void FixedUpdate()
-    {
-        //Transforma una dirección de world space a local space.
-        var relativeVelocity = _rb.transform.InverseTransformDirection(_rb.velocity);
-
-        acceleration = _rb.transform.InverseTransformDirection(_rb.velocity).z;
-
-        //Maniobrabilidad
-        ApplySteering(relativeVelocity);
-
-        //ADDFORCE de Deslizamiento calculando dirección.
-        UpdateDrag(relativeVelocity);
-
-        FallSpeed();
-
-        //Anti vuelco del vehículo
-        AntiRollBars();
-
-        NitroInput();
-      //  Debug.Log(acceleration);
-
-    }
-    
     private void RechargeNitro()
     {
-        if (Mathf.FloorToInt(lapCount) == lapsEnded)
+        if (Mathf.FloorToInt(lapCount) == _lapsEnded)
         {
-            canRechargeNitro = true;
-            lapsEnded++;
+            _canRechargeNitro = true;
+            _lapsEnded++;
         }
 
-        if (!modeNitro && _nitroTimer < nitroTimer && canRechargeNitro) _nitroTimer += Time.deltaTime / rechargeNitro;
+        if (!_modeNitro && _nitroTimer < nitroTimer && _canRechargeNitro) _nitroTimer += Time.deltaTime / rechargeNitro;
         if (visualNitro.fillAmount == 1)
         {
-            canRechargeNitro = false;
-            nitroEmpty = false;
+            _canRechargeNitro = false;
+            _nitroEmpty = false;
         }
     }
 
@@ -222,31 +232,31 @@ public class JeepController : Vehicle
     }
     private void NitroInput()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && _isGrounded && !nitroEmpty)
+        if (Input.GetKey(KeyCode.LeftShift) && _isGrounded && !_nitroEmpty)
         {
-            modeNitro = true;
+            _modeNitro = true;
             Camera.main.GetComponent<Bloom>().enabled = true;
             Camera.main.GetComponent<VignetteAndChromaticAberration>().enabled = true;
             Camera.main.GetComponent<MotionBlur>().enabled = true;
         }
-        else 
+        else
         {
-            modeNitro = false;
+            _modeNitro = false;
             Camera.main.GetComponent<Bloom>().enabled = false;
             Camera.main.GetComponent<VignetteAndChromaticAberration>().enabled = false;
             Camera.main.GetComponent<MotionBlur>().enabled = false;
         }
 
-        if (modeNitro)
+        if (_modeNitro)
         {
-            if (motorInput < 0) _rb.AddForce(transform.forward * -nitroPower);
+            if (_motorInput < 0) _rb.AddForce(transform.forward * -nitroPower);
             else _rb.AddForce(transform.forward * nitroPower);
             _nitroTimer -= Time.deltaTime;
             if (_nitroTimer < 0)
             {
-                modeNitro = false;
-                nitroEnd = true;
-                nitroEmpty = true;
+                _modeNitro = false;
+                _nitroEnd = true;
+                _nitroEmpty = true;
                 Camera.main.GetComponent<Bloom>().enabled = false;
                 Camera.main.GetComponent<VignetteAndChromaticAberration>().enabled = false;
                 Camera.main.GetComponent<MotionBlur>().enabled = false;
@@ -255,84 +265,75 @@ public class JeepController : Vehicle
     }
     public void AntiRollBars()
     {
-        WheelHit wheelHit;
+        /*     WheelHit wheelHit;
 
-        for (int i = 0; i < wheelColliders.Length; i++)
-        {
-            bool grounded = wheelColliders[i].GetGroundHit(out wheelHit);
-            if (i == 0 || i == 1) if (!grounded) _rb.AddForceAtPosition(wheelColliders[i].transform.up * -300f, wheelColliders[i].transform.position);
-            else if (!grounded) _rb.AddForceAtPosition(wheelColliders[i].transform.up * -500f, wheelColliders[i].transform.position);
-        }
-        
-        /*  WheelHit leftWheelHit;
-        WheelHit rightWheelHit;
-        float travelLeft = 1f;
-        float travelRight = 1f;
+             for (int i = 0; i < wheelMeshList.Length; i++)
+             {
+        //         bool grounded = wheelMeshList[i].GetGroundHit(out wheelHit);
+                 if (i == 0 || i == 1) if (!grounded) _rb.AddForceAtPosition(wheelMeshList[i].transform.up * -300f, wheelMeshList[i].transform.position);
+                     else if (!grounded) _rb.AddForceAtPosition(wheelMeshList[i].transform.up * -500f, wheelMeshList[i].transform.position);
+             }*/
 
-        for (int i = 0; i < wheelColliders.Length; i++)
-        {
-            if (i == 1|| i== 3)
-            {
-                bool groundedLeft = wheelColliders[i].GetGroundHit(out leftWheelHit);
-                if (groundedLeft)
-                {
-                    travelLeft = (-wheelColliders[i].transform.InverseTransformPoint(leftWheelHit.point).y - wheelColliders[i].radius) / wheelColliders[i].suspensionDistance;
-                    antiRollForceLeft = (travelLeft - travelRight) * antiRoll;
-                    impulseForceLeft = false;
-                }
+        /*     float travelLeft = 1f;
+             float travelRight = 1f;
 
-                if (!groundedLeft && !impulseForceLeft)
-                {
-                    _rb.AddForceAtPosition(wheelColliders[i].transform.up * -antiRollForceLeft, wheelColliders[i].transform.position);
-                    impulseForceLeft = true;
-                    Debug.Log("ANTIROLL BAR LEFT");
-                }
-            }
-            else if(i== 0 || i ==2)
-            {
-                bool groundedRight = wheelColliders[i].GetGroundHit(out rightWheelHit);
-                if (groundedRight)
-                {
-                    travelRight = (-wheelColliders[i].transform.InverseTransformPoint(rightWheelHit.point).y - wheelColliders[i].radius) / wheelColliders[i].suspensionDistance;
-                    antiRollForceRight = (travelLeft - travelRight) * antiRoll;
-                    impulseForceRight = false;                
-                }
+             for (int i = 0; i < wheelMeshList.Length; i++)
+             {
+                 if (i == 1|| i== 3)
+                 {
+                     if (wheelMeshList[i].gameObject.GetComponentInParent<Suspension>().isGrounded)
+                     {
+                         travelLeft = (-wheelMeshList[i].transform.InverseTransformPoint(transform.position).y - wheelRadius) / wheelMeshList[i].GetComponentInParent<Suspension>().restLenght;
+                         _antiRollForceLeft = (travelLeft - travelRight) * antiRoll;
+                         _impulseForceLeft = false;
+                     }
 
-                if (!groundedRight && !impulseForceRight)
-                {
-                    _rb.AddForceAtPosition(wheelColliders[i].transform.up * antiRollForceRight, wheelColliders[i].transform.position);
-                    impulseForceRight = true;
-                    Debug.Log("ANTIROLL BAR RIGHT");
-                }
-            }        
-        }*/
+                     if (!wheelMeshList[i].gameObject.GetComponentInParent<Suspension>().isGrounded && !_impulseForceLeft)
+                     {
+                         _rb.AddForceAtPosition(wheelMeshList[i].transform.up * -_antiRollForceLeft, wheelMeshList[i].transform.position);
+                         _impulseForceLeft = true;
+                         Debug.Log("ANTIROLL BAR LEFT");
+                     }
+                 }
+                 else if(i== 0 || i ==2)
+                 {
+                     if (wheelMeshList[i].gameObject.GetComponentInParent<Suspension>().isGrounded)
+                     {
+                         travelRight = (-wheelMeshList[i].transform.InverseTransformPoint(transform.position).y - wheelRadius) / wheelMeshList[i].GetComponentInParent<Suspension>().restLenght;
+                         _antiRollForceRight = (travelLeft - travelRight) * antiRoll;
+                         _impulseForceRight = false;                
+                     }
+
+                     if (!wheelMeshList[i].gameObject.GetComponentInParent<Suspension>().isGrounded && !_impulseForceRight)
+                     {
+                         _rb.AddForceAtPosition(wheelMeshList[i].transform.up * _antiRollForceRight, wheelMeshList[i].transform.position);
+                         _impulseForceRight = true;
+                         Debug.Log("ANTIROLL BAR RIGHT");
+                     }
+                 }        
+             }*/
     }
     public void EndRaceHandbrake()
     {
-        for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = brake;
         dragMultiplier.z += 10 * Time.deltaTime;
-        handbrake = true;
+        _handbrake = true;
     }
     private void CheckHandbrake()
-    {     
-        if (Input.GetKey(KeyCode.Space))
+    {
+        if (_handbrakeInput > 0)
         {
-            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = brake;
             dragMultiplier.z += 10 * Time.deltaTime;
-            handbrake = true;
+            _handbrake = true;
         }
-        else if (motorInput < 0 && acceleration > 0 || motorInput > 0 && acceleration < 0)
+        else if (_motorInput < 0 && _acceleration > 0 || _motorInput > 0 && _acceleration < 0)
         {
-            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = brake;
-            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = 0;
             dragMultiplier.z += 2 * Time.deltaTime;
-            handbrake = true;
+            _handbrake = true;
         }
         else
         {
             dragMultiplier.z = 0;
-            for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = 0;
-            handbrake = false;
+            _handbrake = false;
         }
     }
     private void UpdateDrag(Vector3 relativeVelocity)
@@ -342,31 +343,31 @@ public class JeepController : Vehicle
 
         var drag = Vector3.Scale(dragMultiplier, relativeDrag);
 
-        if (!handbrake) drag.x *= maxSpeed / relativeVelocity.magnitude;
+        if (!_handbrake) drag.x *= topSpeed / relativeVelocity.magnitude;
 
-        if (Mathf.Abs(relativeVelocity.x) < 5 && !handbrake) drag.x = -relativeVelocity.x * dragMultiplier.x;
+        if (Mathf.Abs(relativeVelocity.x) < 5 && !_handbrake) drag.x = -relativeVelocity.x * dragMultiplier.x;
         _rb.AddForce(transform.TransformDirection(drag) * _rb.mass * Time.deltaTime);
     }
     private void ApplySteering(Vector3 relativeVelocity)
     {
-        float turnRadius = 3f / Mathf.Sin((90 - (steerInput * 30)) * Mathf.Deg2Rad);
+        float turnRadius = 3f / Mathf.Sin((90 - (_steerInput * 30)) * Mathf.Deg2Rad);
         float minMaxTurn = EvaluateSpeedToTurn(_rb.velocity.magnitude);
         float turnSpeed = Mathf.Clamp(relativeVelocity.z / turnRadius, -minMaxTurn / 10, minMaxTurn / 10);
-        transform.RotateAround(transform.position + transform.right * turnRadius * steerInput, transform.up,
-                                turnSpeed * Mathf.Rad2Deg * Time.deltaTime * steerInput);
+        transform.RotateAround(transform.position + transform.right * turnRadius * _steerInput, transform.up,
+                                turnSpeed * Mathf.Rad2Deg * Time.deltaTime * _steerInput);
     }
     private float EvaluateSpeedToTurn(float speed)
     {
-        if (speed > maxSpeed / 2) return minimumTurn;
-        var speedIndex = 1 - (speed / (maxSpeed / 2));
+        if (speed > topSpeed / 2) return minimumTurn;
+        var speedIndex = 1 - (speed / (topSpeed / 2));
 
         return minimumTurn + speedIndex * (maximumTurn - minimumTurn);
     }
     private void CheckCarFlipped()
     {
-        if (transform.localEulerAngles.z > 90 && transform.localEulerAngles.z < 270 && currentSpeed < 1 && currentSpeed > -1) resetTimer += Time.deltaTime;
-        else resetTimer = 0;
-        if (resetTimer > resetTime) FlipCar();
+        if (transform.localEulerAngles.z > 90 && transform.localEulerAngles.z < 270 && currentSpeed < 1 && currentSpeed > -1) _resetTimer += Time.deltaTime;
+        else _resetTimer = 0;
+        if (_resetTimer > resetTime) FlipCar();
     }
 
     private void FlipCar()
@@ -378,7 +379,7 @@ public class JeepController : Vehicle
         transform.forward = forwardDirection;
         _rb.velocity = Vector3.zero;
         _rb.angularVelocity = Vector3.zero;
-        resetTimer = 0;
+        _resetTimer = 0;
     }
 
     /// <summary>
@@ -398,7 +399,7 @@ public class JeepController : Vehicle
     private void ResetCar()
     {
         if (_lastCheckpoint == null) return;
-        
+
         _rb.velocity = Vector3.zero;
         transform.position = _lastCheckpoint.GetRespawnPoint(transform.position) + Vector3.up;
         transform.rotation = _lastCheckpoint.transform.rotation;
@@ -430,18 +431,14 @@ public class JeepController : Vehicle
 
     private void UpdateTiresPosition()
     {
-        for (int i = 0; i < tiresCar.Length; i++)
+        _finalAngle = _steerInput * K.JEEP_MAX_STEERING_ANGLE;
+        for (int i = 0; i < wheelMeshList.Length; i++)
         {
-            Quaternion quat;
-            Vector3 pos;
-            wheelColliders[i].GetWorldPose(out pos, out quat);
-            tiresCar[i].position = pos;
-            tiresCar[i].rotation = quat;
             if (i < 2f)
             {
-                Vector3 steerAngle = tiresCar[i].localEulerAngles;
-                steerAngle.y = finalAngle;
-                tiresCar[i].localEulerAngles = steerAngle;
+                Vector3 steerAngle = wheelMeshList[i].localEulerAngles;
+                steerAngle.y = _finalAngle;
+                wheelMeshList[i].localEulerAngles = steerAngle;
             }
         }
     }
@@ -477,7 +474,7 @@ public class JeepController : Vehicle
     {
         if (!_isGrounded)
         {
-            _rb.AddForce(-Vector3.up * fallForce);
+            _rb.AddForce(-Vector3.up * fallForce * _rb.velocity.magnitude);
         }
     }
 
@@ -485,7 +482,7 @@ public class JeepController : Vehicle
     {
         if (other.gameObject.layer == K.LAYER_IA)
         {
-     //       other.gameObject.GetComponent<Rigidbody>().AddForce(other.transform.position);
+            //       other.gameObject.GetComponent<Rigidbody>().AddForce(other.transform.position);
         }
     }
     protected void UIText()
@@ -496,5 +493,5 @@ public class JeepController : Vehicle
     private void OnDrawGizmos()
     {
 
-    }    
+    }
 }
