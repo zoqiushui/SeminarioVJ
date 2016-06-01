@@ -3,6 +3,7 @@ using System.Collections;
 
 public class MiniGun : Weapon
 {
+    public short type;
     public GameObject particleEffect;
     public GameObject bulletPref;
     public float forceImpact;
@@ -25,17 +26,25 @@ public class MiniGun : Weapon
     {
         /*    if (Input.GetMouseButton(shootButtom)) particleEffect.SetActive(true);
             else if (particleEffect.activeInHierarchy) particleEffect.SetActive(false);*/
-        if (GameManager.disableShoot == false)
+        if (GameManager.disableShoot == false && type == 0)
         {
-
-            CheckAmmoBar();
+            if(type == 0)
+                CheckAmmoBar();
             ShootDownButtom();
 
             if (canShoot && visualAmmo.fillAmount > 0 && !ammoEmpty) Shoot();
             else
                 particleEffect.SetActive(false);
-        }
-        
+
+
+            
+
+        }else
+        if (canShoot && type == 1)
+            Shoot();
+        else
+            particleEffect.SetActive(false);
+
     }
 
     private void CheckAmmoBar()
@@ -75,8 +84,8 @@ public class MiniGun : Weapon
         _soundManagerReference.PlaySound(K.SOUND_MACHINE_GUN);
        // direction = shootPoint.TransformDirection(Vector3.forward);
         Instantiate(bulletPref, shootPoint.position + shootPoint.forward, shootPoint.rotation);
-
-        ammoInput();
+        if(type == 0)
+            ammoInput();
 
         /*
         Debug.DrawRay(shootPoint.position, direction * maxDistance, Color.blue);

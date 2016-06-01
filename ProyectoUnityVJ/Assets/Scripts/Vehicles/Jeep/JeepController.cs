@@ -98,7 +98,7 @@ public class JeepController : Vehicle
         UpdateTiresPosition();
         UIText();
         currentSpeed = _rb.velocity.magnitude * 3f;
-      //  Debug.Log(currentSpeed);
+        //  Debug.Log(currentSpeed);
 
         GetInput();
         if (Input.GetKeyUp(KeyCode.R)) ResetCar();
@@ -128,6 +128,7 @@ public class JeepController : Vehicle
     {
         //motorInput = Input.GetAxis("Vertical");
         //steerInput = Input.GetAxis("Horizontal");
+
         finalAngle = steerInput * K.JEEP_MAX_STEERING_ANGLE;
 
         if (currentSpeed < maxSpeed && _isGrounded) for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].motorTorque = motorInput * maxTorque;

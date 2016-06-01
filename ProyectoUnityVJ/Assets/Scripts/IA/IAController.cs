@@ -1,51 +1,109 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class IAController : Vehicle
+public class IAController : MonoBehaviour
 {
     public GameObject hpBarContainer;
     public RawImage hpBarImage;
     public GameObject remains;
+    public Weapon myWeapon;
+    public GameObject eyes;
 
-    private float _maxHp, _currentHp, _currentSpeed;
-    public float _maxSpeed;
-    private Checkpoint _nextCheckpoint;
-    private Vector3 _aux, _nextDestinationPoint;
+    public float clip;
+    private float _usedBullets;
+    public float cooldownShoot;
+    private float _currentCool;
+    private bool _activeShoot;
+    private bool _enemyInSight;
 
-    private bool _isGrounded;
-    private bool _isGroundedRamp;
-    public float fallForce;
+    public float _maxHp, _currentHp;
+    private SoundManager _soundManagerReference;
+    //private float _currentHp;
+    private Vector3 _aux;
 
-    protected override void Start()
+    void Awake()
     {
-        base.Start();
+        _soundManagerReference = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<SoundManager>();
+    }
+    
+    void Start()
+    {
+        eyes.SetActive(false);
         _maxHp = K.IA_MAX_HP;
         _currentHp = _maxHp;
         _aux = hpBarImage.transform.localScale;
-//        _maxSpeed = K.IA_MAX_SPEED;
-        lapCount = 0;
-        _nextCheckpoint = _checkpointMananagerReference.checkpointsList[0];
-        positionWeight = -Vector3.Distance(transform.position, _nextCheckpoint.transform.position);
-        CalculateNextPoint(_nextCheckpoint);
-        _currentSpeed = 1;
+       
     }
 
     private void Update()
     {
-        positionWeight = Vector3.Distance(transform.position, _nextCheckpoint.transform.position);
         UpdateHpBar();
-        if (Vector3.Distance(transform.position, _nextDestinationPoint) < 15)
-        {
-            lapCount += _checkpointMananagerReference.checkpointValue;
-            CalculateNextCheckpoint(_nextCheckpoint);
-            CalculateNextPoint(_nextCheckpoint);
-        }
-        ApplyDrive();
 
-        CheckIfGrounded();
-        FallSpeed();
+        if (!_activeShoot)
+        {
+            _currentCool += Time.deltaTime;
+            if (_currentCool >= cooldownShoot)
+            {
+                eyes.SetActive(true);
+                _activeShoot = true;
+            }
+        }
+
+        if (_activeShoot && _enemyInSight)
+            Attack();
+            
     }
 
+    void Attack()
+    {
+        myWeapon.Shoot();
+        eyes.SetActive(false);
+        if (clip > _usedBullets)
+        {
+            _usedBullets++;
+            Invoke("Attack", 0.25f);
+        }
+        else
+        {
+            _currentCool = 0;
+            _enemyInSight = false;
+            _activeShoot = false;
+            _usedBullets = 0;
+        }
+
+    }
+
+    private void UpdateHpBar()
+    {
+        hpBarContainer.transform.LookAt(Camera.main.transform.position);
+        _aux.x = _currentHp / _maxHp;
+        hpBarImage.transform.localScale = _aux;
+    }
+
+
+    public void Damage(float d)
+    {
+        print("entre " + d + " current era de " + _currentHp);
+        _currentHp -= d;
+
+        if (_currentHp <= 0)
+        {
+            _soundManagerReference.PlaySound(K.SOUND_CAR_DESTROY);
+            //NotifyObserver(K.OBS_MESSAGE_DESTROYED);
+            Destroy(this.gameObject);
+            Instantiate(remains, transform.position, transform.rotation);
+
+        }
+    }
+
+    public void EnemySee()
+    {
+        _enemyInSight = true;
+    }
+
+
+    /*
     public override void GetInput(float _accel, float _brake,float _handbrake, float _steer, float _nitro)
     {
     }
@@ -82,14 +140,8 @@ public class IAController : Vehicle
     {
         _nextCheckpoint = chk.nextCheckpoint;
     }
-
-    private void UpdateHpBar()
-    {
-        hpBarContainer.transform.LookAt(Camera.main.transform.position);
-        _aux.x = _currentHp / _maxHp;
-        hpBarImage.transform.localScale = _aux;
-    }
-
+    
+    
     /// <summary>
     /// Tomo el proximo checkpoint y calculo un punto aleatorio dentro del mismo, si hay un obstaculo vuelvo a calcular. 
     /// </summary>
@@ -113,23 +165,7 @@ public class IAController : Vehicle
         }
         CalculateNextPoint(chk);
     }
-
-    public void Damage(float d)
-    {
-        print("entre");
-        _currentHp -= d;
-
-        if (_currentHp <= 0)
-        {
-            _soundManagerReference.PlaySound(K.SOUND_CAR_DESTROY);
-            NotifyObserver(K.OBS_MESSAGE_DESTROYED);
-            Destroy(this.gameObject);
-            Instantiate(remains, transform.position, transform.rotation);
-
-        }
-    }
-
-
+    
     protected void CheckIfGrounded()
     {
         Ray ray = new Ray(transform.position, -transform.up);
@@ -153,11 +189,6 @@ public class IAController : Vehicle
         {
             GetComponent<Rigidbody>().AddForce(-Vector3.up * K.IA_FALLFORCE);
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, _nextDestinationPoint);
-    }    
+    }*/
+ 
 }

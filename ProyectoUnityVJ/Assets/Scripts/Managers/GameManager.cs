@@ -21,7 +21,7 @@ public class GameManager : Manager
         //if (instance == null) instance = this;
         playerReference = GameObject.FindGameObjectWithTag(K.TAG_PLAYER).GetComponent<Vehicle>();
         _enemiesReferences = new List<Vehicle>();
-        _enemiesReferences.AddRange(GameObject.Find(K.CONTAINER_VEHICLES_NAME).GetComponentsInChildren<IAController>());
+        _enemiesReferences.AddRange(GameObject.Find(K.CONTAINER_VEHICLES_NAME).GetComponentsInChildren<IAVehicle>());
     }
 
     private void Start()

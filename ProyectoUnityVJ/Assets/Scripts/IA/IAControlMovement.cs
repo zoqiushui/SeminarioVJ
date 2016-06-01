@@ -87,7 +87,9 @@ public class IAControlMovement : Vehicle
     private void GetSteering()
     {
         Vector3 steerVector = transform.InverseTransformPoint(currentTarget.position.x, transform.position.y, currentTarget.position.z);
-        float steer = (steerVector.x / steerVector.magnitude) * maxSteer;
+        float steer = (steerVector.x / steerVector.magnitude);
+
+        steer *= maxSteer;
         wheelFL.steerAngle = steer;
         wheelFR.steerAngle = steer;
 
@@ -123,6 +125,7 @@ public class IAControlMovement : Vehicle
             {
                 _evade++;
                 evadeSensitivity -= 1;
+                print(hit.normal.x);
 
                 Debug.DrawLine(frontRightSensor.position, hit.point, Color.white);
             }
@@ -133,6 +136,7 @@ public class IAControlMovement : Vehicle
             {
                 _evade++;
                 evadeSensitivity -= 0.5f;
+                print(hit.normal.x);
                 Debug.DrawLine(angleRightSensor.position, hit.point, Color.white);
             }
         }
@@ -146,6 +150,7 @@ public class IAControlMovement : Vehicle
                 _evade++;
                 evadeSensitivity += 1;
 
+                print(hit.normal.x);
                 Debug.DrawLine(frontLeftSensor.position, hit.point, Color.white);
             }
         }
@@ -155,6 +160,7 @@ public class IAControlMovement : Vehicle
             {
                 _evade++;
                 evadeSensitivity += 0.5f;
+                print(hit.normal.x);
                 Debug.DrawLine(angleLeftSensor.position, hit.point, Color.white);
             }
         }
@@ -167,6 +173,7 @@ public class IAControlMovement : Vehicle
             {
                 _evade++;
                 evadeSensitivity -= 0.5f;
+               // print(hit.normal.x);
 
                 Debug.DrawLine(rightSensor.position, hit.point, Color.green);
             }
@@ -180,6 +187,7 @@ public class IAControlMovement : Vehicle
                 _evade++;
                 evadeSensitivity += 0.5f;
 
+                //print(hit.normal.x);
                 Debug.DrawLine(leftSensor.position, hit.point, Color.green);
             }
         }
@@ -228,7 +236,7 @@ public class IAControlMovement : Vehicle
 
     private void EvadeSteering(float sensitivity)
     {
-        print("evadeSteer " + sensitivity * evadeSpeed);
+       // print("evadeSteer " + sensitivity * evadeSpeed);
 
         wheelFL.steerAngle = sensitivity * evadeSpeed;
         wheelFR.steerAngle = sensitivity * evadeSpeed;

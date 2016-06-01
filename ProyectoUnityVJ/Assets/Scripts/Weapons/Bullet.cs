@@ -41,7 +41,11 @@ public class Bullet : MonoBehaviour
         }
         else if (col.gameObject.layer == K.LAYER_PLAYER)
         {
-            print(col.gameObject);
+
+            col.gameObject.GetComponent<VehicleData>().Damage(powerDamage);
+            Vector3 cont = col.contacts[0].point;
+            Instantiate(spark, cont + -transform.forward, Quaternion.identity);
+            DestroyThis();
 
         }else
         {
