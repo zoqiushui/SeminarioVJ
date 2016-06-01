@@ -112,15 +112,16 @@ public class JeepController : Vehicle
 
     public override void GetInput(float _accel, float _brake,float _handbrake, float _steer, float _nitro)
     {
-        if (_accel > 0)
+    /*    if (_accel > 0)
         {
             motorInput = _accel;
         }
         if (brake < 0)
         {
             motorInput = brake;
-        }
+        }*/
         steerInput = _steer;
+        motorInput = _accel;
     }
 
     private void GetInput()
