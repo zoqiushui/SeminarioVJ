@@ -50,6 +50,9 @@ TagManager:
   - name: Head
     uniqueID: 2795241691
     locked: 0
+  - name: Damage
+    uniqueID: 2923552637
+    locked: 0
   - name: Face
     uniqueID: 3759794959
     locked: 0

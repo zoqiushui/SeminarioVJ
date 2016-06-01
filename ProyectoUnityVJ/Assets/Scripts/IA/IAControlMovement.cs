@@ -46,6 +46,10 @@ public class IAControlMovement : Vehicle
 
         _rb = GetComponent<Rigidbody>();
         _rb.centerOfMass = centerOfMass;
+
+        //Dar nombre aleatorio
+        int randomName = UnityEngine.Random.Range(0, K.names.Count);
+        vehicleName = K.names[randomName];
     }
 
     void FixedUpdate()

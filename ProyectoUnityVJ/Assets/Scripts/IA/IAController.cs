@@ -33,7 +33,20 @@ public class IAController : MonoBehaviour
         _maxHp = K.IA_MAX_HP;
         _currentHp = _maxHp;
         _aux = hpBarImage.transform.localScale;
+<<<<<<< HEAD
        
+=======
+//        _maxSpeed = K.IA_MAX_SPEED;
+        lapCount = 0;
+        _nextCheckpoint = _checkpointMananagerReference.checkpointsList[0];
+        positionWeight = -Vector3.Distance(transform.position, _nextCheckpoint.transform.position);
+        CalculateNextPoint(_nextCheckpoint);
+        _currentSpeed = 1;
+
+        //Dar nombre aleatorio
+        int randomName = Random.Range(0, K.names.Count);
+        vehicleName = K.names[randomName];
+>>>>>>> origin/master
     }
 
     private void Update()
