@@ -28,6 +28,10 @@ public class IAController : Vehicle
         positionWeight = -Vector3.Distance(transform.position, _nextCheckpoint.transform.position);
         CalculateNextPoint(_nextCheckpoint);
         _currentSpeed = 1;
+
+        //Dar nombre aleatorio
+        int randomName = Random.Range(0, K.names.Count);
+        vehicleName = K.names[randomName];
     }
 
     private void Update()
