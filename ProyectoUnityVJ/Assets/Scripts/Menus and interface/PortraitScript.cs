@@ -24,6 +24,7 @@ public class PortraitScript : MonoBehaviour {
     public GameObject gameObjectHair;
     public GameObject gameObjectFaceHair;
     public GameObject gameObjectAccesory;
+    public GameObject gameObjectDamage;
 
 
 
