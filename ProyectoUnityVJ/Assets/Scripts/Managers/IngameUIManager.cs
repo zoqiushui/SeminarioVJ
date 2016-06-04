@@ -23,6 +23,9 @@ public class IngameUIManager : Manager
         _racerList.AddRange(GameObject.Find(K.CONTAINER_VEHICLES_NAME).GetComponentsInChildren<Vehicle>());
         _endRacerList = new List<string>();
         _destroyedRacers = new List<string>();
+
+
+        InfoIAPosition();
     }
 
     private void Update()
@@ -68,6 +71,39 @@ public class IngameUIManager : Manager
         if (_playerLaps < K.MAX_LAPS) lapsText.text = "Laps " + (_playerLaps + 1) + "/" + K.MAX_LAPS;
         _playerSpeedometerRotation.z = (_playerSpeed * K.SPEEDOMETER_MAX_ANGLE) + K.SPEEDOMETER_MIN_ANGLE;
         speedpmeterNeedleImage.transform.eulerAngles = _playerSpeedometerRotation;
+
+    }
+
+    private void InfoIAPosition()
+    {
+        if (_racerList != null)
+        {
+            List<Vehicle> _temp = _racerList;
+
+            if (_temp[0].gameObject.layer == K.LAYER_PLAYER)
+            {
+                for (int i = 1; i < _temp.Count; i++)
+                {
+                    if (i == _temp.Count - 1)
+                        _temp[i].gameObject.GetComponent<IAVehicle>().ChangeGear("high");
+                    else
+                        _temp[i].gameObject.GetComponent<IAVehicle>().ChangeGear("normal");
+                }
+            }
+            else if (_temp[_temp.Count - 1].gameObject.layer == K.LAYER_PLAYER)
+            {
+                for (int i = 0; i < _temp.Count - 1; i++)
+                {
+                    if (i == 0)
+                        _temp[i].gameObject.GetComponent<IAVehicle>().ChangeGear("low");
+                    else
+                        _temp[i].gameObject.GetComponent<IAVehicle>().ChangeGear("normal");
+                }
+            }
+
+            Invoke("InfoIAPosition", 2f);
+        }
+
     }
 
     /// <summary>
@@ -108,6 +144,7 @@ public class IngameUIManager : Manager
             case K.OBS_MESSAGE_DESTROYED:
                 if (!_destroyedRacers.Contains(caller.vehicleName))
                 {
+                    print("caller " + caller.vehicleName);
                     _destroyedRacers.Add(caller.vehicleName);
                 }
                 break;

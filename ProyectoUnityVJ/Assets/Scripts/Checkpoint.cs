@@ -93,8 +93,8 @@ public class Checkpoint : MonoBehaviour
             if (_checkpointMananagerReference.CheckVehicleCheckpoint(other.GetComponent<Vehicle>(), this))
             {
                 other.gameObject.GetComponent<IAVehicle>().SetCheckpoint(this);
-                print("enter");
-                other.gameObject.GetComponent<IAVehicle>()._nextCheckpoint = nextCheckpoint;
+
+                other.gameObject.GetComponent<IAVehicle>().SetNextCheckpoint(nextCheckpoint);
             }
     }
 

@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Desert
-  m_Shader: {fileID: 10, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 1
   m_CustomRenderQueue: 2000
@@ -104,6 +104,10 @@ Material:
         second: 0.02
       data:
         first:
+          name: _Emission
+        second: 1
+      data:
+        first:
           name: _ZWrite
         second: 1
       data:
@@ -134,10 +138,6 @@ Material:
         first:
           name: _Metallic
         second: 0
-      data:
-        first:
-          name: _Emission
-        second: 1
     m_Colors:
       data:
         first:

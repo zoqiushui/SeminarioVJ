@@ -41,7 +41,7 @@ public class Burner : Weapon
             if (canShoot && cols.gameObject.layer == K.LAYER_IA)
             {
                 Shoot();
-                cols.gameObject.GetComponent<IAController>().Damage(damage);
+                cols.gameObject.GetComponent<IAVehicle>().Damage(damage);
             }
         }
     }

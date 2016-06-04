@@ -6,6 +6,7 @@ public class VehicleData : MonoBehaviour
     public float maxLife = 100f;
     public float currentLife;
     public Image visualHealth;
+    public GameObject DamagePortrait;
 
 	void Start ()
     {
@@ -17,11 +18,12 @@ public class VehicleData : MonoBehaviour
 
     void Update()
     {
-        CheckHealthBar();
+        //CheckHealthBar();
     }
     public void Damage(float damageTaken)
     {
         currentLife -= damageTaken;
+        CheckHealthBar();
         if (currentLife <= 0)
             print("Car Destroy"); 
     }
@@ -30,9 +32,27 @@ public class VehicleData : MonoBehaviour
         float calc_health = currentLife / maxLife;
         visualHealth.fillAmount = calc_health;
 
-        if (currentLife >= 70) visualHealth.color = Color.green;
-        else if (currentLife >= 40) visualHealth.color = Color.yellow;
-        else if (currentLife >= 0) visualHealth.color = Color.red;
+        if (currentLife >= 80)
+        {
+            visualHealth.color = Color.green;
+            
+        }
+        else if (currentLife >= 50)
+        {
+            visualHealth.color = Color.yellow;
+            DamagePortrait.GetComponent<SpriteRenderer>().sprite = K.spritesDamage[0];
+        }
+        else if (currentLife >= 30)
+        {
+            visualHealth.color = Color.red;
+            DamagePortrait.GetComponent<SpriteRenderer>().sprite = K.spritesDamage[1];
+        }
+
+        else if (currentLife >= 0)
+        {
+            visualHealth.color = Color.red;
+            DamagePortrait.GetComponent<SpriteRenderer>().sprite = K.spritesDamage[2];
+        }
     }
 
 }

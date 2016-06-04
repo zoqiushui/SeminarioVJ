@@ -1,8 +1,19 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class IAVehicle : Vehicle
 {
+
+
+    public GameObject hpBarContainer;
+    public RawImage hpBarImage;
+    public GameObject remains;
+    public float _maxHp, _currentHp;
+    private Vector3 _aux;
+
+
+
     public float maxTorque;
     public Transform centerOfMass;
     public WheelCollider[] wheelColliders;
@@ -76,6 +87,7 @@ public class IAVehicle : Vehicle
     protected override void Start ()
     {
         base.Start();
+        print(_obsList.Count);
         _rb = GetComponent<Rigidbody>();
         _rb.centerOfMass = centerOfMass.localPosition;
         lapCount = 0;
@@ -84,12 +96,17 @@ public class IAVehicle : Vehicle
         _nitroTimer = nitroTimer;
         lapsEnded = 1;
         nitroEmpty = false;
+        CalculateNextPoint(_nextCheckpoint);
+        _maxHp = K.IA_MAX_HP;
+        _currentHp = _maxHp;
+        _aux = hpBarImage.transform.localScale;
 
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update ()
     {
+        UpdateHpBar();
 
         positionWeight = Vector3.Distance(transform.position, _checkpointMananagerReference.checkpointsList[_checkpointNumber].transform.position);
 
@@ -111,6 +128,28 @@ public class IAVehicle : Vehicle
     }
 
 
+    private void UpdateHpBar()
+    {
+        hpBarContainer.transform.LookAt(Camera.main.transform.position);
+        _aux.x = _currentHp / _maxHp;
+        hpBarImage.transform.localScale = _aux;
+    }
+
+
+    public void Damage(float d)
+    {
+        _currentHp -= d;
+
+        if (_currentHp <= 0)
+        {
+            _soundManagerReference.PlaySound(K.SOUND_CAR_DESTROY);
+            NotifyObserver(K.OBS_MESSAGE_DESTROYED);
+            Destroy(this.gameObject);
+            Instantiate(remains, transform.position, transform.rotation);
+
+        }
+    }
+
     private void Sensors()
     {
         _torque = 1;
@@ -128,13 +167,12 @@ public class IAVehicle : Vehicle
         }
 
         //FrontRightSensor
-        if (Physics.Raycast(frontRightSensor.position, angleRightSensor.forward, out hit, sensorsDistance))
+        if (Physics.Raycast(frontRightSensor.position, angleRightSensor.forward, out hit, sensorsDistance*2))
         {
             if (hit.transform.tag != "Track")
             {
                 _torque /= 2;
-                _steer -= 1;
-                print("steer right " + _steer);
+                _steer -= 0.5f;
                 Debug.DrawLine(frontRightSensor.position, hit.point, Color.white);
             }
         }
@@ -144,20 +182,19 @@ public class IAVehicle : Vehicle
             {
                 _torque /= 2;
                 _steer -= 0.5f;
-                print("Steer angle "+ _steer);
                 Debug.DrawLine(angleRightSensor.position, hit.point, Color.white);
             }
         }
 
 
         //FrontLeftSensor
-        if (Physics.Raycast(frontLeftSensor.position, frontLeftSensor.forward, out hit, sensorsDistance))
+        if (Physics.Raycast(frontLeftSensor.position, frontLeftSensor.forward, out hit, sensorsDistance*2))
         {
             if (hit.transform.tag != "Track")
             {
                 _torque /= 2;
-                _steer += 1;
-                print("steer left right " + _steer);
+                _steer += 0.5f;
+
                 Debug.DrawLine(frontLeftSensor.position, hit.point, Color.white);
             }
         }
@@ -184,8 +221,8 @@ public class IAVehicle : Vehicle
         {
             if (hit.transform.tag != "Track")
             {
-                _torque++;
-                _steer -= 0.5f;
+                _torque /= 4;
+                _steer -= 1f;
 
                 Debug.DrawLine(rightSensor.position, hit.point, Color.green);
             }
@@ -196,8 +233,8 @@ public class IAVehicle : Vehicle
         {
             if (hit.transform.tag != "Track")
             {
-                _torque++;
-                _steer += 0.5f;
+                _torque /= 4;
+                _steer += 1f;
 
                 Debug.DrawLine(leftSensor.position, hit.point, Color.green);
             }
@@ -206,8 +243,7 @@ public class IAVehicle : Vehicle
 
     private void SteeringToTarget()
     {
-        Transform trans = _nextCheckpoint.gameObject.transform;
-        Vector3 steerVector = transform.InverseTransformPoint(trans.position.x, transform.position.y, trans.position.z);
+        Vector3 steerVector = transform.InverseTransformPoint(_nextDestinationPoint.x, transform.position.y, _nextDestinationPoint.z);
         steerInput = (steerVector.x / steerVector.magnitude) ;
     }
 
@@ -245,27 +281,23 @@ public class IAVehicle : Vehicle
     /// <param name="chk">Proximo Checkpoint</param>
     private void CalculateNextPoint(Checkpoint chk)
     {
-        _nextDestinationPoint = Vector3.zero;
-        var randomPoint = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+        Vector3 randomPoint = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
         randomPoint = chk.transform.TransformPoint(randomPoint * 0.5f);
-        randomPoint.y = 200;
-        Ray ray = new Ray(randomPoint, -Vector3.up);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-        {
-            if (hit.collider.gameObject.layer == K.LAYER_GROUND)
-            {
-                _nextDestinationPoint = hit.point + Vector3.up;
-                return;
-            }
-        }
-        CalculateNextPoint(chk);
+        _nextDestinationPoint = randomPoint;
+
+
     }
     public void SetCheckpoint(Checkpoint chk)
     {
         _checkpointNumber = _checkpointMananagerReference.checkpointsList.Count - 1 == _checkpointNumber ? 0 : _checkpointNumber + 1;
         _lastCheckpoint = chk;
         lapCount += _checkpointMananagerReference.checkpointValue;
+    }
+
+    public void SetNextCheckpoint(Checkpoint chk)
+    {
+        _nextCheckpoint = chk;
+        CalculateNextPoint(chk);
     }
 
 
@@ -415,7 +447,7 @@ public class IAVehicle : Vehicle
                 maxTorque = 1250f;
                 break;
             case "high":
-                maxSpeed = 350f;
+                maxSpeed = 600f;
                 maxTorque = 1500f;
                 break;
             case "low":

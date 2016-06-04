@@ -84,13 +84,13 @@ public class CustomizeCharacter : MonoBehaviour
     public void UpdateName()
     {
         currentPilotName = pilotNameField.text;
-        Debug.Log("Pilot's name: " + currentPilotName);
+        print("Pilot's name: " + currentPilotName);
     }
 
     void UpdateRandomName()
     {
         pilotNameField.text = currentPilotName; 
-        Debug.Log("Pilot's name: " + currentPilotName);
+        print("Pilot's name: " + currentPilotName);
     }
 
     public void UpdatePortrait()

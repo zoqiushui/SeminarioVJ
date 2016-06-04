@@ -87,8 +87,9 @@ public class K
     public static Sprite[] spritesHair = Resources.LoadAll<Sprite>("Sprites/Hair");
     public static Sprite[] spritesAccesory = Resources.LoadAll<Sprite>("Sprites/Accesory");
     public static Sprite[] spritesFacialHair = Resources.LoadAll<Sprite>("Sprites/FacialHair");
-    public static Sprite[] spritesFlag = Resources.LoadAll<Sprite>("Sprites/Flags");
     public static Sprite[] spritesDamage = Resources.LoadAll<Sprite>("Sprites/Damage");
+    public static Sprite[] spritesFlag = Resources.LoadAll<Sprite>("Sprites/Flags");
+    //Names
     public static List<string> names = new List<string>();
     
 

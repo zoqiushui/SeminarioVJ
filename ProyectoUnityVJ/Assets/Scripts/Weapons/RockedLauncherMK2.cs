@@ -40,7 +40,6 @@ public class RockedLauncherMK2 : Weapon
                     _pointAttack = hit.point;
                     if (visualAmmo.fillAmount > 0 && !ammoEmpty) Shoot();
 
-                    print("ROCKET TARGET: " + hit.collider.gameObject.name);
                 }
             }
         }

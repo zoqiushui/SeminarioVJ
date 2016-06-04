@@ -21,12 +21,15 @@ public class ScreenManager : MonoBehaviour {
 
     public void Repair()
     {
-        resourcesCurrent -= 10;
-        PlayerPrefs.SetInt("Resources", resourcesCurrent);
-        resourcesText.text = "Resources: " + resourcesCurrent;
+        if (PlayerPrefs.GetInt("CurrentLife") == PlayerPrefs.GetInt("MaxLife"))
+        {
+            resourcesCurrent -= 10;
+            PlayerPrefs.SetInt("Resources", resourcesCurrent);
+            resourcesText.text = "Resources: " + resourcesCurrent;
 
-        PlayerPrefs.SetInt("CurrentLife", PlayerPrefs.GetInt("MaxLife"));
-        repairAmount.text = "Vehicle's state: " + PlayerPrefs.GetInt("CurrentLife") + "/" + PlayerPrefs.GetInt("MaxLife");
+            PlayerPrefs.SetInt("CurrentLife", PlayerPrefs.GetInt("MaxLife"));
+            repairAmount.text = "Vehicle's state: " + PlayerPrefs.GetInt("CurrentLife") + "/" + PlayerPrefs.GetInt("MaxLife");
+        }
     }
 
 	public void SearchForRace()

@@ -1,11 +1,12 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class IAController : MonoBehaviour
 {
-    public GameObject hpBarContainer;
-    public RawImage hpBarImage;
+    //public GameObject hpBarContainer;
+    //public RawImage hpBarImage;
     public GameObject remains;
     public Weapon myWeapon;
     public GameObject eyes;
@@ -16,6 +17,8 @@ public class IAController : MonoBehaviour
     private float _currentCool;
     private bool _activeShoot;
     private bool _enemyInSight;
+
+  //  private List<IObserver> _observers;
 
     public float _maxHp, _currentHp;
     private SoundManager _soundManagerReference;
@@ -29,29 +32,17 @@ public class IAController : MonoBehaviour
     
     void Start()
     {
+        //_observers = new List<IObserver>();
         eyes.SetActive(false);
-        _maxHp = K.IA_MAX_HP;
-        _currentHp = _maxHp;
-        _aux = hpBarImage.transform.localScale;
-<<<<<<< HEAD
+        //_maxHp = K.IA_MAX_HP;
+        //_currentHp = _maxHp;
+        //_aux = hpBarImage.transform.localScale;
        
-=======
-//        _maxSpeed = K.IA_MAX_SPEED;
-        lapCount = 0;
-        _nextCheckpoint = _checkpointMananagerReference.checkpointsList[0];
-        positionWeight = -Vector3.Distance(transform.position, _nextCheckpoint.transform.position);
-        CalculateNextPoint(_nextCheckpoint);
-        _currentSpeed = 1;
-
-        //Dar nombre aleatorio
-        int randomName = Random.Range(0, K.names.Count);
-        vehicleName = K.names[randomName];
->>>>>>> origin/master
     }
 
     private void Update()
     {
-        UpdateHpBar();
+       // UpdateHpBar();
 
         if (!_activeShoot)
         {
@@ -87,35 +78,52 @@ public class IAController : MonoBehaviour
 
     }
 
-    private void UpdateHpBar()
-    {
-        hpBarContainer.transform.LookAt(Camera.main.transform.position);
-        _aux.x = _currentHp / _maxHp;
-        hpBarImage.transform.localScale = _aux;
-    }
+    //private void UpdateHpBar()
+    //{
+    //    hpBarContainer.transform.LookAt(Camera.main.transform.position);
+    //    _aux.x = _currentHp / _maxHp;
+    //    hpBarImage.transform.localScale = _aux;
+    //}
 
 
-    public void Damage(float d)
-    {
-        print("entre " + d + " current era de " + _currentHp);
-        _currentHp -= d;
+    //public void Damage(float d)
+    //{
+    //    _currentHp -= d;
 
-        if (_currentHp <= 0)
-        {
-            _soundManagerReference.PlaySound(K.SOUND_CAR_DESTROY);
-            //NotifyObserver(K.OBS_MESSAGE_DESTROYED);
-            Destroy(this.gameObject);
-            Instantiate(remains, transform.position, transform.rotation);
+    //    if (_currentHp <= 0)
+    //    {
+    //        _soundManagerReference.PlaySound(K.SOUND_CAR_DESTROY);
+    //        NotifyObserver(K.OBS_MESSAGE_DESTROYED);
+    //        Destroy(this.gameObject);
+    //        Instantiate(remains, transform.position, transform.rotation);
 
-        }
-    }
+    //    }
+    //}
 
     public void EnemySee()
     {
         _enemyInSight = true;
     }
+    /*
+    public void AddObserver(IObserver obs)
+    {
+        if (!_observers.Contains(obs)) _observers.Add(obs);
+    }
 
+    public void NotifyObserver(string msg)
+    {
+        foreach (var obs in _observers)
+        {
+            obs.Notify(this.gameObject.GetComponent<Vehicle>(), msg);
+        }
+    }
 
+    public void RemoveObserver(IObserver obs)
+    {
+        if (_observers.Contains(obs)) _observers.Remove(obs);
+    }
+
+    */
     /*
     public override void GetInput(float _accel, float _brake,float _handbrake, float _steer, float _nitro)
     {
@@ -203,5 +211,5 @@ public class IAController : MonoBehaviour
             GetComponent<Rigidbody>().AddForce(-Vector3.up * K.IA_FALLFORCE);
         }
     }*/
- 
+
 }

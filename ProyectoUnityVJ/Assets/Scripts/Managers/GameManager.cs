@@ -15,13 +15,14 @@ public class GameManager : Manager
     private bool paused = false;
     public GameObject pauseCanvas;
 
-    public static bool disableShoot;
+    public static bool disableShoot = false;
     private void Awake()
     {
         //if (instance == null) instance = this;
         playerReference = GameObject.FindGameObjectWithTag(K.TAG_PLAYER).GetComponent<Vehicle>();
         _enemiesReferences = new List<Vehicle>();
         _enemiesReferences.AddRange(GameObject.Find(K.CONTAINER_VEHICLES_NAME).GetComponentsInChildren<IAVehicle>());
+        disableShoot = false;
     }
 
     private void Start()
@@ -31,6 +32,7 @@ public class GameManager : Manager
 
     private void Update()
     {
+        print(_enemiesReferences.Count);
         if (Mathf.FloorToInt(playerReference.lapCount) == K.MAX_LAPS)
         {
             playerReference.NotifyObserver(K.OBS_MESSAGE_FINISHED);
@@ -155,8 +157,8 @@ public class GameManager : Manager
 
     void SaveDamageInfo()
     {
-        PlayerPrefs.SetInt("MaxLife", (int) playerReference.gameObject.GetComponent<VehicleData>().maxLife);
-        PlayerPrefs.SetInt("CurrentLife", (int)playerReference.gameObject.GetComponent<VehicleData>().currentLife);
+        PlayerPrefs.SetInt("MaxLife", (int) playerReference.gameObject.GetComponent<IAVehicle>()._maxHp);
+        PlayerPrefs.SetInt("CurrentLife", (int)playerReference.gameObject.GetComponent<IAVehicle>()._currentHp);
     }
 
     public override void Notify(Vehicle caller, string msg)
@@ -164,9 +166,10 @@ public class GameManager : Manager
         switch (msg)
         {
             case K.OBS_MESSAGE_DESTROYED:
-                if (caller is IAController && !_enemiesReferences.Contains(caller))
+                if (caller is IAVehicle && _enemiesReferences.Contains(caller))
                 {
                     _enemiesReferences.Remove(caller);
+                    print(caller.gameObject.name);
                 }
                 break;
 

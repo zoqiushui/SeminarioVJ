@@ -1096,8 +1096,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 115304}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: 3.9, y: 0, z: 19}
-  m_LocalScale: {x: 8.863582, y: 1.2516227, z: 4.5893984}
+  m_LocalPosition: {x: 6.8, y: 0, z: 20.1}
+  m_LocalScale: {x: 9.941915, y: 1.2516227, z: 7.9380536}
   m_Children: []
   m_Father: {fileID: 445686}
   m_RootOrder: 3
@@ -2113,13 +2113,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa3db5d3b2b448c4589121d35ed7be0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpBarContainer: {fileID: 183774}
-  hpBarImage: {fileID: 11493134}
   remains: {fileID: 100556, guid: f6e664d70d146c740a2c0733e1c4f717, type: 2}
   myWeapon: {fileID: 11416760}
   eyes: {fileID: 115304}
-  clip: 2
-  cooldownShoot: 25
+  clip: 4
+  cooldownShoot: 5
   _maxHp: 100
   _currentHp: 0
 --- !u!114 &11493134
@@ -2161,6 +2159,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vehicleName: Robert
   wheelRadius: 0
+  hpBarContainer: {fileID: 183774}
+  hpBarImage: {fileID: 11493134}
+  remains: {fileID: 100556, guid: f6e664d70d146c740a2c0733e1c4f717, type: 2}
+  _maxHp: 100
+  _currentHp: 0
   maxTorque: 1500
   centerOfMass: {fileID: 409940}
   wheelColliders:

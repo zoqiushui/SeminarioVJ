@@ -20,7 +20,7 @@ public class CheckpointManager : Manager
         }
         _vehiclesDictionary.Add(GameObject.FindGameObjectWithTag(K.TAG_PLAYER).GetComponent<Vehicle>(), 0);
         var temp = GameObject.FindGameObjectsWithTag("Target");
-        print(temp.Length);
+
         for (int i = 0; i < temp.Length; i++)
         {
             _vehiclesDictionary.Add(temp[i].GetComponent<Vehicle>(), 0);

@@ -18,7 +18,7 @@ public class FireFloor : MonoBehaviour {
         if (col.gameObject.layer == K.LAYER_IA)
         {
             print(col.gameObject);
-            col.GetComponent<IAController>().Damage(staydamage * 20);
+            col.GetComponent<IAVehicle>().Damage(staydamage * 20);
         }
     }
 
@@ -27,7 +27,7 @@ public class FireFloor : MonoBehaviour {
         if(col.gameObject.layer == K.LAYER_IA)
         {
             print(col.gameObject);
-            col.GetComponent<IAController>().Damage(staydamage);
+            col.GetComponent<IAVehicle>().Damage(staydamage);
         }
     }
 }

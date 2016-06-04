@@ -34,7 +34,7 @@ public class Bullet : MonoBehaviour
 		print (col.gameObject.layer);
        if (col.gameObject.layer == 12)
         {
-            col.gameObject.GetComponent<IAController>().Damage(powerDamage);
+            col.gameObject.GetComponent<IAVehicle>().Damage(powerDamage);
             Vector3 cont = col.contacts[0].point;
             Instantiate(spark, cont + -transform.forward , Quaternion.identity);
             DestroyThis();
