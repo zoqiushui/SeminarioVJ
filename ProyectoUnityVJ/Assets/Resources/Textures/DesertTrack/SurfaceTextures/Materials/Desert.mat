@@ -10,7 +10,7 @@ Material:
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
@@ -104,16 +104,12 @@ Material:
         second: 0.02
       data:
         first:
-          name: _Emission
-        second: 1
-      data:
-        first:
           name: _ZWrite
         second: 1
       data:
         first:
           name: _Glossiness
-        second: 0.5
+        second: 0
       data:
         first:
           name: _BumpScale
@@ -138,6 +134,10 @@ Material:
         first:
           name: _Metallic
         second: 0
+      data:
+        first:
+          name: _Emission
+        second: 1
     m_Colors:
       data:
         first:
@@ -146,4 +146,4 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 0.6764706, g: 0.6764706, b: 0.6764706, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}
