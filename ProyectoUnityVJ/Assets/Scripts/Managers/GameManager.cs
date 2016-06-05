@@ -91,7 +91,7 @@ public class GameManager : Manager
             Cursor.visible = !paused;
             paused = !paused;
         }
-
+        
         if (disableShoot)
         {
             playerReference.enabled = false;
