@@ -32,7 +32,7 @@ public class GameManager : Manager
 
     private void Update()
     {
-        print(_enemiesReferences.Count);
+      //  print(_enemiesReferences.Count);
         if (Mathf.FloorToInt(playerReference.lapCount) == K.MAX_LAPS)
         {
             playerReference.NotifyObserver(K.OBS_MESSAGE_FINISHED);
@@ -90,6 +90,17 @@ public class GameManager : Manager
             pauseCanvas.SetActive(!paused);
             Cursor.visible = !paused;
             paused = !paused;
+        }
+
+        if (disableShoot)
+        {
+            playerReference.enabled = false;
+            foreach (var enemy in _enemiesReferences) enemy.enabled = false;
+        }
+        else
+        {
+            playerReference.enabled = true;
+            foreach (var enemy in _enemiesReferences) enemy.enabled = true;
         }
     }
     public void ResumeGame()
