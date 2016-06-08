@@ -168,8 +168,8 @@ public class GameManager : Manager
 
     void SaveDamageInfo()
     {
-        PlayerPrefs.SetInt("MaxLife", (int) playerReference.gameObject.GetComponent<IAVehicle>()._maxHp);
-        PlayerPrefs.SetInt("CurrentLife", (int)playerReference.gameObject.GetComponent<IAVehicle>()._currentHp);
+        PlayerPrefs.SetInt("MaxLife", (int) playerReference.gameObject.GetComponent<VehicleData>().maxLife);
+        PlayerPrefs.SetInt("CurrentLife", (int)playerReference.gameObject.GetComponent<VehicleData>().currentLife);
     }
 
     public override void Notify(Vehicle caller, string msg)
