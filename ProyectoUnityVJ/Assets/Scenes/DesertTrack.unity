@@ -18158,6 +18158,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 11497692, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
+      propertyPath: _nextCheckpoint
+      value: 
+      objectReference: {fileID: 2065678849}
     - target: {fileID: 413920, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0.09074577
@@ -18174,46 +18178,18 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: -0.077040665
       objectReference: {fileID: 0}
-    - target: {fileID: 11497692, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
-      propertyPath: _nextCheckpoint
-      value: 
-      objectReference: {fileID: 2065678849}
-    - target: {fileID: 445686, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 445686, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 147390, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
       propertyPath: m_Name
       value: IA_CAR_ENEMY (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 11497692, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
-      propertyPath: vehicleName
-      value: Marcos
-      objectReference: {fileID: 0}
-    - target: {fileID: 11497692, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
-      propertyPath: maxTorque
-      value: 1500
-      objectReference: {fileID: 0}
-    - target: {fileID: 11497692, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
-      propertyPath: maxSpeed
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 11474484, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
-      propertyPath: clip
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 11474484, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
       propertyPath: cooldownShoot
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 5455336, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
-      propertyPath: m_Constraints
-      value: 64
-      objectReference: {fileID: 0}
+    - target: {fileID: 11474484, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
+      propertyPath: remains
+      value: 
+      objectReference: {fileID: 196530, guid: 1425eb364f9265545aca87c101b43ab8, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
   m_IsPrefabParent: 0
@@ -23404,19 +23380,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 413920, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.09074577
+      value: 0.09074578
       objectReference: {fileID: 0}
     - target: {fileID: 413920, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.7292524
+      value: 0.72925246
       objectReference: {fileID: 0}
     - target: {fileID: 413920, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.6738107
+      value: 0.6738108
       objectReference: {fileID: 0}
     - target: {fileID: 413920, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.077040665
+      value: -0.07704067
       objectReference: {fileID: 0}
     - target: {fileID: 11497692, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
       propertyPath: _nextCheckpoint
@@ -23444,7 +23420,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11497692, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
       propertyPath: maxSpeed
-      value: 280
+      value: 340
       objectReference: {fileID: 0}
     - target: {fileID: 11474484, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
       propertyPath: clip
@@ -23458,6 +23434,14 @@ Prefab:
       propertyPath: m_Constraints
       value: 64
       objectReference: {fileID: 0}
+    - target: {fileID: 11497692, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
+      propertyPath: respawnTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474484, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
+      propertyPath: remains
+      value: 
+      objectReference: {fileID: 196530, guid: 1425eb364f9265545aca87c101b43ab8, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
   m_IsPrefabParent: 0
@@ -32088,6 +32072,14 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11414072, guid: 3a258922b286a574e9ab2de5ba1aa83a, type: 2}
+      propertyPath: remainsCar
+      value: 
+      objectReference: {fileID: 100556, guid: f6e664d70d146c740a2c0733e1c4f717, type: 2}
+    - target: {fileID: 11414072, guid: 3a258922b286a574e9ab2de5ba1aa83a, type: 2}
+      propertyPath: explosion
+      value: 
+      objectReference: {fileID: 177362, guid: dc93d4677be59f343b2402a2ddceaa05, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3a258922b286a574e9ab2de5ba1aa83a, type: 2}
   m_IsPrefabParent: 0
@@ -32184,7 +32176,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &800811277
 Transform:
   m_ObjectHideFlags: 0
@@ -41530,44 +41522,28 @@ Prefab:
       objectReference: {fileID: 2065678849}
     - target: {fileID: 413920, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.09074577
+      value: 0.09074578
       objectReference: {fileID: 0}
     - target: {fileID: 413920, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.7292524
+      value: 0.72925246
       objectReference: {fileID: 0}
     - target: {fileID: 413920, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.6738107
+      value: 0.6738108
       objectReference: {fileID: 0}
     - target: {fileID: 413920, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.077040665
-      objectReference: {fileID: 0}
-    - target: {fileID: 11497692, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
-      propertyPath: maxTorque
-      value: 1500
-      objectReference: {fileID: 0}
-    - target: {fileID: 11497692, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
-      propertyPath: maxSpeed
-      value: 350
-      objectReference: {fileID: 0}
-    - target: {fileID: 5455336, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
-      propertyPath: m_Constraints
-      value: 64
+      value: -0.07704067
       objectReference: {fileID: 0}
     - target: {fileID: 11474484, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
-      propertyPath: m_Enabled
-      value: 1
+      propertyPath: cooldownShoot
+      value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 11497692, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11464936, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 11474484, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
+      propertyPath: remains
+      value: 
+      objectReference: {fileID: 196530, guid: 1425eb364f9265545aca87c101b43ab8, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
   m_IsPrefabParent: 0
@@ -62842,7 +62818,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1663062972
 Transform:
   m_ObjectHideFlags: 0

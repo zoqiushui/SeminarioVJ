@@ -7,12 +7,18 @@ public class VehicleData : MonoBehaviour
     public float currentLife;
     public Image visualHealth;
     public GameObject DamagePortrait;
+    public GameObject remainsCar;
+    public GameObject explosion;
+    private SoundManager _soundManagerReference;
+    private bool _alive;
 
-	void Start ()
+
+    void Start ()
     {
         maxLife = 100;
         //currentLife = maxLife;
-
+        _alive = true;
+        _soundManagerReference = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<SoundManager>();
         currentLife = PlayerPrefs.GetInt("CurrentLife") > 0 ? PlayerPrefs.GetInt("CurrentLife") : maxLife;
     }
 
@@ -22,10 +28,19 @@ public class VehicleData : MonoBehaviour
     }
     public void Damage(float damageTaken)
     {
-        currentLife -= damageTaken;
-        CheckHealthBar();
-        if (currentLife <= 0)
-            print("Car Destroy"); 
+        if (_alive)
+        {
+            currentLife -= damageTaken;
+            CheckHealthBar();
+            if (currentLife <= 0)
+            {
+                _alive = false;
+                Instantiate(explosion, transform.position + transform.up, transform.rotation);
+                print("Car Destroy");
+                _soundManagerReference.PlaySound(K.SOUND_CAR_DESTROY);
+                Instantiate(remainsCar, transform.position + transform.up, transform.rotation);
+            }
+        }
     }
     private void CheckHealthBar()
     {

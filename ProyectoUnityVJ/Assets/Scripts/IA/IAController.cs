@@ -9,6 +9,7 @@ public class IAController : MonoBehaviour
     //public RawImage hpBarImage;
     public GameObject remains;
     public Weapon myWeapon;
+    public GameObject primaryWeaponSound;
     public GameObject eyes;
 
     public float clip;
@@ -17,10 +18,10 @@ public class IAController : MonoBehaviour
     private float _currentCool;
     private bool _activeShoot;
     private bool _enemyInSight;
+    private bool _attacking;
 
   //  private List<IObserver> _observers;
-
-    public float _maxHp, _currentHp;
+  
     private SoundManager _soundManagerReference;
     //private float _currentHp;
     private Vector3 _aux;
@@ -34,10 +35,11 @@ public class IAController : MonoBehaviour
     {
         //_observers = new List<IObserver>();
         eyes.SetActive(false);
+        primaryWeaponSound.SetActive(false);
         //_maxHp = K.IA_MAX_HP;
         //_currentHp = _maxHp;
         //_aux = hpBarImage.transform.localScale;
-       
+
     }
 
     private void Update()
@@ -55,7 +57,15 @@ public class IAController : MonoBehaviour
         }
 
         if (_activeShoot && _enemyInSight)
+        {
+
+            _attacking = true;
             Attack();
+        }
+
+
+        if (_attacking && primaryWeaponSound.activeSelf == false)
+            primaryWeaponSound.SetActive(true);
             
     }
 
@@ -71,6 +81,7 @@ public class IAController : MonoBehaviour
         else
         {
             _currentCool = 0;
+            _attacking = false;
             _enemyInSight = false;
             _activeShoot = false;
             _usedBullets = 0;

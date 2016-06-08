@@ -32,6 +32,8 @@ public class IAVehicle : Vehicle
     private bool handbrake;
     private float resetTimer;
     public float resetTime;
+    private float respawnTimer;
+    public float respawnTime;
     public float stuckMaxDist;
     public LayerMask layer;
     public float fallForce = 10000;
@@ -54,7 +56,7 @@ public class IAVehicle : Vehicle
     public float sensorsDistance;
 
     public float antiRoll = 1000f;
-    public float brake;
+    public float brake;/*
     private bool impulseForceLeft;
     private bool impulseForceRight;
     private bool impulseForceFront;
@@ -62,8 +64,9 @@ public class IAVehicle : Vehicle
     private float antiRollForceRight;
     private float antiRollForceLeft;
     private float antiRollForceFront;
-    private float antiRollForceRear;
+    private float antiRollForceRear;*/
     private bool _reversing;
+    private bool _speedForce;
     private int _checkpointNumber;
 
 
@@ -96,7 +99,7 @@ public class IAVehicle : Vehicle
         _nitroTimer = nitroTimer;
         lapsEnded = 1;
         nitroEmpty = false;
-        CalculateNextPoint(_nextCheckpoint);
+        _nextDestinationPoint = CalculateNextPoint(_nextCheckpoint);
         _maxHp = K.IA_MAX_HP;
         _currentHp = _maxHp;
         _aux = hpBarImage.transform.localScale;
@@ -114,7 +117,7 @@ public class IAVehicle : Vehicle
         {
             lapCount += _checkpointMananagerReference.checkpointValue;
             CalculateNextCheckpoint(_nextCheckpoint);
-            CalculateNextPoint(_nextCheckpoint);
+            _nextDestinationPoint = CalculateNextPoint(_nextCheckpoint);
         }
         currentSpeed = _rb.velocity.magnitude * 3f;
         //  Debug.Log(currentSpeed);
@@ -125,6 +128,11 @@ public class IAVehicle : Vehicle
         CheckCarFlipped();
 
         CheckIfGrounded();
+
+        if (!_speedForce && _rb.velocity.magnitude > 20f)
+            _speedForce = true;
+
+        CheckForReset();
     }
 
 
@@ -135,6 +143,32 @@ public class IAVehicle : Vehicle
         hpBarImage.transform.localScale = _aux;
     }
 
+    private void CheckForReset()
+    {
+        if (_rb.velocity.magnitude < 1f && _speedForce)
+        {
+            respawnTimer += Time.deltaTime;
+            if (respawnTimer >= respawnTime)
+                ResetCar();
+        }
+
+        if (!_isGrounded)
+        {
+            respawnTimer += Time.deltaTime;
+            if (respawnTimer >= respawnTime)
+                ResetCar();
+        }
+    }
+
+    private void ResetCar()
+    {
+        if (_lastCheckpoint == null) return;
+        print("reserting IA");
+        respawnTimer = 0;
+        _rb.velocity = Vector3.zero;
+        transform.position = CalculateNextPoint(_lastCheckpoint) - Vector3.up;
+        transform.rotation = _lastCheckpoint.transform.rotation;
+    }
 
     public void Damage(float d)
     {
@@ -279,11 +313,11 @@ public class IAVehicle : Vehicle
     /// Tomo el proximo checkpoint y calculo un punto aleatorio dentro del mismo, si hay un obstaculo vuelvo a calcular. 
     /// </summary>
     /// <param name="chk">Proximo Checkpoint</param>
-    private void CalculateNextPoint(Checkpoint chk)
+    private Vector3 CalculateNextPoint(Checkpoint chk)
     {
         Vector3 randomPoint = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
         randomPoint = chk.transform.TransformPoint(randomPoint * 0.5f);
-        _nextDestinationPoint = randomPoint;
+        return randomPoint;
 
 
     }
@@ -297,7 +331,7 @@ public class IAVehicle : Vehicle
     public void SetNextCheckpoint(Checkpoint chk)
     {
         _nextCheckpoint = chk;
-        CalculateNextPoint(chk);
+        _nextDestinationPoint = CalculateNextPoint(chk);
     }
 
 
@@ -436,6 +470,11 @@ public class IAVehicle : Vehicle
                 if (!grounded) _rb.AddForceAtPosition(wheelColliders[i].transform.up * -300f, wheelColliders[i].transform.position);
                 else if (!grounded) _rb.AddForceAtPosition(wheelColliders[i].transform.up * -500f, wheelColliders[i].transform.position);
         }
+    }
+
+    public void PushRamp(float amount)
+    {
+        if (_isGroundedRamp) _rb.AddForce(transform.forward * amount);
     }
 
     public void ChangeGear(string id)

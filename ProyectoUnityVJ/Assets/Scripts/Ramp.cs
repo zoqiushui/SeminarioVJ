@@ -18,7 +18,7 @@ public class Ramp : MonoBehaviour
         if (other.gameObject.layer == K.LAYER_PLAYER)
         {
             if (other.gameObject.GetComponent<JeepController>() != null) other.gameObject.GetComponent<JeepController>().PushRamp(forceRamp);
-            else other.gameObject.GetComponentInParent<VehicleController>().PushRamp(forceRamp);
+            else if (other.gameObject.GetComponent<IAVehicle>() != null) other.gameObject.GetComponent<IAVehicle>().PushRamp(forceRamp);
 
         }
 

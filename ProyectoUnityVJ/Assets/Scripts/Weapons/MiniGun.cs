@@ -81,11 +81,13 @@ public class MiniGun : Weapon
         canShoot = false;
         particleEffect.SetActive(true);
         base.Shoot();
-        _soundManagerReference.PlaySound(K.SOUND_MACHINE_GUN);
        // direction = shootPoint.TransformDirection(Vector3.forward);
         Instantiate(bulletPref, shootPoint.position + shootPoint.forward, shootPoint.rotation);
-        if(type == 0)
+        if (type == 0)
+        {
+            //_soundManagerReference.PlaySound(K.SOUND_MACHINE_GUN);
             ammoInput();
+        }
 
         /*
         Debug.DrawRay(shootPoint.position, direction * maxDistance, Color.blue);
