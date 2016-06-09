@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityStandardAssets.ImageEffects;
 
 [RequireComponent(typeof(VehicleData))]
 [RequireComponent(typeof(InputController))]
@@ -23,6 +24,24 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     public float groundFriction = 0.96f;
     public float currentVelZ { get; private set; }
 
+    private bool _modeNitro = false;
+    public float nitroPower;
+    public float nitroTimer;
+    private float _nitroTimer;
+    public float rechargeNitro;
+    private bool _nitroEnd;
+    public Image visualNitro;
+    private float _lapsEnded;
+    private bool _canRechargeNitro;
+    private bool _nitroEmpty;
+    private bool _countInAir;
+    private float _timerWrongDirection;
+
+    public Camera rearMirror;
+    protected float _steerInput, _motorInput;
+    public Text wrongDirectionText;
+    private float _finalAngle;
+
     protected int _checkpointNumber;
     protected Checkpoint _lastCheckpoint;
     protected List<IObserver> _obsList;
@@ -34,7 +53,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     protected Rigidbody _rb;
     protected bool _isGrounded;
     protected List<TrailRenderer> _wheelTrails;
-    protected float _localSteerInput;
+
     protected float friction
     {
         get
@@ -66,6 +85,16 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             trail.enabled = false;
             _wheelTrails.Add(trail);
         }*/
+
+        wrongDirectionText.gameObject.SetActive(false);
+        vehicleName = PlayerPrefs.GetString("PilotName");
+        Cursor.visible = false;
+        lapCount = 0;
+        positionWeight = -Vector3.Distance(transform.position, _checkpointMananagerReference.checkpointsList[0].transform.position);
+        _checkpointNumber = 0;
+        _nitroTimer = nitroTimer;
+        _lapsEnded = 1;
+        _nitroEmpty = false;
     }
 
     public void AddObserver(IObserver obs)
@@ -95,7 +124,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
 
     public void Move(float accelInput, float brakeInput, float handbrakeInput, float steerInput, float nitroInput)
     {
-        _localSteerInput = steerInput;
+        _steerInput = steerInput;
         currentVelZ = transform.InverseTransformDirection(_rb.velocity).z;
         var steerForce = steerInput * maxSteerForce;
         var forwardForce = accelInput * maxForce;
@@ -117,36 +146,51 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         Drag(accelInput, brakeInput);
         AddDownForce();
         CapSpeed();
+        NitroInput(nitroInput,brakeInput);
         NotifyObserver(K.OBS_MESSAGE_SPEED);
+
+        if (accelInput == 0 || _nitroEnd)
+        {
+            _rb.drag = _rb.velocity.magnitude / 30f;
+            if (currentVelZ < topSpeed) _nitroEnd = false;
+        }
     }
 
     protected void Update()
     {
+        positionWeight = Vector3.Distance(transform.position, _checkpointMananagerReference.checkpointsList[_checkpointNumber].transform.position);
+        
         UpdateTyres();
+        ChangeToRearView();
+        CheckBars();
+        CheckDirection();
+    }
+    private void ChangeToRearView()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            rearMirror.enabled = true;
+            Camera.main.depth = -1f;
+        }
+        else if (Input.GetKeyUp(KeyCode.Q))
+        {
+            rearMirror.enabled = false;
+            Camera.main.depth = 0f;
+        }
     }
 
     protected void UpdateTyres()
     {
-        /*var angularVelocity = _rb.angularVelocity.magnitude;
-        var rpm = angularVelocity / (2 * Mathf.PI);
-        foreach (var wheel in wheelMeshList)
+        _finalAngle = _steerInput * K.JEEP_MAX_STEERING_ANGLE;
+        for (int i = 0; i < wheelMeshList.Count; i++)
         {
-            wheel.localRotation = Quaternion.Euler(rpm*Time.deltaTime,0,0);
-        }
-        if (_isGrounded && currentVelZ * 3.6f > K.TRAIL_WHEEL_START_SPEED && _localSteerInput != 0)
-        {
-            foreach (var trail in _wheelTrails)
+            if (i < 2f)
             {
-                trail.enabled = true;
+                Vector3 steerAngle = wheelMeshList[i].localEulerAngles;
+                steerAngle.y = _finalAngle;
+                wheelMeshList[i].localEulerAngles = steerAngle;
             }
         }
-        else
-        {
-            foreach (var trail in _wheelTrails)
-            {
-                trail.enabled = false;
-            }
-        }*/
     }    
 
     protected void CalculateSteerForceWithVelocity(out float sf, float si)
@@ -212,6 +256,86 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             if (_isGrounded) _rb.AddRelativeForce(0, 0, tempForce, ForceMode.Acceleration);
             //else _rb.AddRelativeForce(0, 0, tempForce * 1.1f, ForceMode.Acceleration);
         }
+    }
+    private void CheckBars()
+    {
+        CheckNitroBar();
+        RechargeNitro();
+    }
+    private void CheckNitroBar()
+    {
+        visualNitro.GetComponentInParent<Canvas>().transform.LookAt(Camera.main.transform.position);
+        float calc_nitro = _nitroTimer / nitroTimer;
+        visualNitro.fillAmount = calc_nitro;
+    }
+    private void NitroInput(float nitroInput, float brakeInput)
+    {
+        if (nitroInput > 0 && _isGrounded && !_nitroEmpty)
+        {
+            _modeNitro = true;
+            Camera.main.GetComponent<Bloom>().enabled = true;
+            Camera.main.GetComponent<VignetteAndChromaticAberration>().enabled = true;
+            Camera.main.GetComponent<MotionBlur>().enabled = true;
+        }
+        else
+        {
+            _modeNitro = false;
+            Camera.main.GetComponent<Bloom>().enabled = false;
+            Camera.main.GetComponent<VignetteAndChromaticAberration>().enabled = false;
+            Camera.main.GetComponent<MotionBlur>().enabled = false;
+        }
+
+        if (_modeNitro)
+        {
+            if (brakeInput < 0) _rb.AddForce(transform.forward * -nitroPower);
+            else _rb.AddForce(transform.forward * nitroPower);
+            _nitroTimer -= Time.deltaTime;
+            if (_nitroTimer < 0)
+            {
+                _modeNitro = false;
+                _nitroEnd = true;
+                _nitroEmpty = true;
+                Camera.main.GetComponent<Bloom>().enabled = false;
+                Camera.main.GetComponent<VignetteAndChromaticAberration>().enabled = false;
+                Camera.main.GetComponent<MotionBlur>().enabled = false;
+            }
+        }
+    }
+    private void RechargeNitro()
+    {
+        if (Mathf.FloorToInt(lapCount) == _lapsEnded)
+        {
+            _canRechargeNitro = true;
+            _lapsEnded++;
+        }
+
+        if (!_modeNitro && _nitroTimer < nitroTimer && _canRechargeNitro) _nitroTimer += Time.deltaTime / rechargeNitro;
+        if (visualNitro.fillAmount == 1)
+        {
+            _canRechargeNitro = false;
+            _nitroEmpty = false;
+        }
+    }
+    private void CheckDirection()
+    {
+        if (_lastCheckpoint)
+        {
+            var currentDirection = _lastCheckpoint.nextCheckpoint.transform.position - transform.position;
+            if (Vector3.Angle(transform.forward, currentDirection) > 80)
+            {
+                _timerWrongDirection += Time.deltaTime;
+            }
+            else
+            {
+                wrongDirectionText.gameObject.SetActive(false);
+                _timerWrongDirection = 0;
+            }
+        }
+        if (_timerWrongDirection > 2)
+        {
+            wrongDirectionText.gameObject.SetActive(true);
+        }
+
     }
 
     protected void CapSpeed()
