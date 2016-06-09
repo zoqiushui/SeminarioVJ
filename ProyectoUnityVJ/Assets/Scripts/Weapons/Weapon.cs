@@ -22,6 +22,8 @@ public class Weapon : MonoBehaviour
     protected float _ammoTimer;
     protected SoundManager _soundManagerReference;
 
+    protected bool _isShooting;
+
     protected virtual void Start()
     {
         _soundManagerReference = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<SoundManager>();
@@ -37,6 +39,11 @@ public class Weapon : MonoBehaviour
             _timeCoolDown = 0;
             canShoot = true;
         }
+    }
+    protected void Update()
+    {
+        if (Input.GetMouseButton(shootButtom)) _isShooting = true;
+        else _isShooting = false;
     }
 
     public virtual void OneShoot()

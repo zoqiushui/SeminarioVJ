@@ -787,6 +787,10 @@ Prefab:
       propertyPath: m_Name
       value: Drone Counter
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: de34320095c1cb04fb837b79709b228d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de34320095c1cb04fb837b79709b228d, type: 3}
   m_IsPrefabParent: 0
@@ -32096,6 +32100,46 @@ Prefab:
       propertyPath: explosion
       value: 
       objectReference: {fileID: 177362, guid: dc93d4677be59f343b2402a2ddceaa05, type: 2}
+    - target: {fileID: 11473952, guid: 3a258922b286a574e9ab2de5ba1aa83a, type: 2}
+      propertyPath: missileCountAmmo
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473952, guid: 3a258922b286a574e9ab2de5ba1aa83a, type: 2}
+      propertyPath: reloadSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 132440, guid: 3a258922b286a574e9ab2de5ba1aa83a, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450640, guid: 3a258922b286a574e9ab2de5ba1aa83a, type: 2}
+      propertyPath: missileCountAmmo
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450640, guid: 3a258922b286a574e9ab2de5ba1aa83a, type: 2}
+      propertyPath: reloadSpeed
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450640, guid: 3a258922b286a574e9ab2de5ba1aa83a, type: 2}
+      propertyPath: cooldown
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11469262, guid: 3a258922b286a574e9ab2de5ba1aa83a, type: 2}
+      propertyPath: cooldown
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11469262, guid: 3a258922b286a574e9ab2de5ba1aa83a, type: 2}
+      propertyPath: reloadSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473952, guid: 3a258922b286a574e9ab2de5ba1aa83a, type: 2}
+      propertyPath: cooldown
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418936, guid: 3a258922b286a574e9ab2de5ba1aa83a, type: 2}
+      propertyPath: reloadSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3a258922b286a574e9ab2de5ba1aa83a, type: 2}
   m_IsPrefabParent: 0

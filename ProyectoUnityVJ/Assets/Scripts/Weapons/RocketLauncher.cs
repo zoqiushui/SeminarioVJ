@@ -36,7 +36,7 @@ public class RocketLauncher : Weapon
         lockOn.SetActive(false);
         _lockOn = lockOn.GetComponent<Image>();
         targets = new List<GameObject>();
-        currentAmmo = maxAmmo = 100;
+        currentAmmo = maxAmmo = visualAmmo.fillAmount;
     }
 
     void Update()
@@ -56,7 +56,7 @@ public class RocketLauncher : Weapon
 
             if (Input.GetMouseButtonUp(shootButtom) && _finalTarget != null && canShoot)
             {
-                if (visualAmmo.fillAmount > 0 && !ammoEmpty) Shoot();
+                if (visualAmmo.fillAmount > 0 && !ammoEmpty && currentAmmo >= maxAmmo / missileCountAmmo) Shoot();
             }
 
             if (_finalTarget != null && _enemyFound) LockTarget();
@@ -64,6 +64,7 @@ public class RocketLauncher : Weapon
             if (!Input.GetMouseButton(shootButtom) && lockOn.activeSelf) lockOn.SetActive(false);
         }
 
+        base.Update();
 
     }
 
@@ -74,7 +75,7 @@ public class RocketLauncher : Weapon
         if (temp.z < 10)
         {
             _finalTarget = null;
-            if (visualAmmo.fillAmount > 0 && !ammoEmpty) Shoot();
+            if (visualAmmo.fillAmount > 0 && !ammoEmpty && currentAmmo >= maxAmmo / missileCountAmmo) Shoot();
         }
         else
         {
@@ -158,12 +159,12 @@ public class RocketLauncher : Weapon
         visualAmmo.fillAmount = calc_ammo;
         ReloadAmmo();
 
-        if (visualAmmo.fillAmount == 0) ammoEmpty = true;
+    //    if (visualAmmo.fillAmount == 0) ammoEmpty = true;
     }
 
     private void ReloadAmmo()
     {
-        if (currentAmmo < maxAmmo && ammoEmpty) currentAmmo += Time.deltaTime * reloadSpeed;
+        if (currentAmmo < maxAmmo) currentAmmo += Time.deltaTime * reloadSpeed;
 
         if (visualAmmo.fillAmount == 1)
         {

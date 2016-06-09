@@ -13,7 +13,7 @@ public class MolotovLauncher : Weapon
     {
         base.Start();
         isCrosshair = true;
-        currentAmmo = maxAmmo = 100;
+        currentAmmo = maxAmmo = visualAmmo.fillAmount;
     }
 	
 	// Update is called once per frame
@@ -23,8 +23,10 @@ public class MolotovLauncher : Weapon
         {
             CheckAmmoBar();
             OneShoot();
-            if (canShoot && !ammoEmpty) Shoot();
+            if (canShoot && _isShooting && currentAmmo >= maxAmmo / missileCountAmmo) Shoot();
         }
+
+        base.Update();
     }
 
     /// <summary>
@@ -48,12 +50,12 @@ public class MolotovLauncher : Weapon
         visualAmmo.fillAmount = calc_ammo;
         ReloadAmmo();
 
-        if (visualAmmo.fillAmount == 0) ammoEmpty = true;
+      //  if (visualAmmo.fillAmount == 0) ammoEmpty = true;
     }
 
     private void ReloadAmmo()
     {
-        if (currentAmmo < maxAmmo && ammoEmpty) currentAmmo += Time.deltaTime * reloadSpeed;
+        if (currentAmmo < maxAmmo) currentAmmo += Time.deltaTime * reloadSpeed;
 
         if (visualAmmo.fillAmount == 1)
         {
