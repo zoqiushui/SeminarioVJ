@@ -23,9 +23,11 @@ public class RockedLauncherMK2 : Weapon
         isCrosshair = true;
        // lockOn.SetActive(false);
        // _lockOn = lockOn.GetComponent<RawImage>();
-        currentAmmo = maxAmmo = 100;
+        currentAmmo = maxAmmo = visualAmmo.fillAmount;
     }
 
+
+    //currentAmmo >= maxAmmo / missileCountAmmo: chequea mínimo requerido para lanzar misil.
     void Update()
     {
         if (GameManager.disableShoot == false)
@@ -38,16 +40,18 @@ public class RockedLauncherMK2 : Weapon
                 if (Physics.Raycast(ray, out hit))
                 {
                     _pointAttack = hit.point;
-                    if (visualAmmo.fillAmount > 0 && !ammoEmpty) Shoot();
+           //         Debug.Log(currentAmmo % 3  + " asdfa " + maxAmmo / missileCountAmmo);
+                    if (visualAmmo.fillAmount > 0 && currentAmmo >= maxAmmo / missileCountAmmo && _isShooting) Shoot();
 
                 }
             }
         }
-
+        base.Update();
     }
     public override void Shoot()
     {
         base.Shoot();
+        Debug.Log("asad");
         _soundManagerReference.PlaySound(K.SOUND_MISIL_LAUNCH);
         GameObject rock = (GameObject)GameObject.Instantiate(rocket, launchPoint.position, Quaternion.identity);
         rock.GetComponent<Rocket>().SetTarget(_pointAttack,damage);
@@ -62,12 +66,12 @@ public class RockedLauncherMK2 : Weapon
         visualAmmo.fillAmount = calc_ammo;
         ReloadAmmo();
 
-        if (visualAmmo.fillAmount == 0) ammoEmpty = true;
+    //    if (visualAmmo.fillAmount == 0) ammoEmpty = true;
     }
 
     private void ReloadAmmo()
     {
-        if (currentAmmo < maxAmmo && ammoEmpty) currentAmmo += Time.deltaTime * reloadSpeed;
+        if (currentAmmo < maxAmmo) currentAmmo += Time.deltaTime * reloadSpeed;
 
         if (visualAmmo.fillAmount == 1)
         {

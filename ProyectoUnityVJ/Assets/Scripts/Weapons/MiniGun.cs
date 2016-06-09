@@ -26,25 +26,27 @@ public class MiniGun : Weapon
     {
         /*    if (Input.GetMouseButton(shootButtom)) particleEffect.SetActive(true);
             else if (particleEffect.activeInHierarchy) particleEffect.SetActive(false);*/
+
         if (GameManager.disableShoot == false && type == 0)
         {
-            if(type == 0)
-                CheckAmmoBar();
+            CheckAmmoBar();
             ShootDownButtom();
 
-            if (canShoot && visualAmmo.fillAmount > 0 && !ammoEmpty) Shoot();
+            if (canShoot && visualAmmo.fillAmount > 0 && _isShooting) Shoot();
             else
                 particleEffect.SetActive(false);
-
-
             
 
-        }else
+        }
+        else
         if (canShoot && type == 1)
             Shoot();
         else
             particleEffect.SetActive(false);
 
+        base.Update();
+
+        if (!_isShooting) ReloadAmmo();
     }
 
     private void CheckAmmoBar()
@@ -52,29 +54,29 @@ public class MiniGun : Weapon
         visualAmmo.GetComponentInParent<Canvas>().transform.LookAt(Camera.main.transform.position);
         float calc_ammo = _ammoTimer / ammoTimer;
         visualAmmo.fillAmount = calc_ammo;
-        ReloadAmmo();
 
-        if (visualAmmo.fillAmount == 0) ammoEmpty = true;
+    //    if (visualAmmo.fillAmount == 0) ammoEmpty = true;
     }
 
     private void ReloadAmmo()
     {
-        if (_ammoTimer < ammoTimer && ammoEmpty) _ammoTimer += Time.deltaTime / reloadSpeed;
-
+        if (visualAmmo == null) return;
         if (visualAmmo.fillAmount == 1)
         {
             ammoEmpty = false;
             _ammoTimer = ammoTimer;
         }
+        else _ammoTimer += Time.deltaTime * reloadSpeed;
     }
     private void ammoInput()
     {
         _ammoTimer -= Time.deltaTime;
-        if (_ammoTimer < 0)
+      /*  if (_ammoTimer < 0)
         {
             ammoEmpty = true;
-        }
+        }*/
     }
+
     public override void Shoot()
     {
         ammoEmpty = false;
