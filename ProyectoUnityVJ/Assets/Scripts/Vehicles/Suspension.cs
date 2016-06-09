@@ -3,33 +3,49 @@ using System.Collections;
 
 public class Suspension : MonoBehaviour
 {
-    public float springForce, damperForce, springConstant, damperConstant, restLenght;
+    public float springConstant, damperConstant, restLenght;
 
-    private float previousLength, currentLength, springVelocity;
+    private float _previousLength, _currentLength, _springVelocity, _springForce, _damperForce;
     private Rigidbody _rb;
     private Vehicle _vehicleScript;
-    public bool isGrounded;
+    private bool _isGrounded;
+
     private void Start()
     {
-        _rb = transform.parent.parent.GetComponent<Rigidbody>();
-        _vehicleScript = transform.parent.parent.GetComponent<Vehicle>();
+        _isGrounded = false;
+        _rb = transform.parent.parent.parent.GetComponent<Rigidbody>();
+        _vehicleScript = transform.parent.parent.parent.GetComponent<Vehicle>();
     }
 
     private void FixedUpdate()
     {
-
         RaycastHit hit;
         if (Physics.Raycast(transform.position, -transform.up, out hit, restLenght + _vehicleScript.wheelRadius))
         {
-            previousLength = currentLength;
-            currentLength = restLenght - (hit.distance - _vehicleScript.wheelRadius);
-            springVelocity = (currentLength - previousLength) / Time.fixedDeltaTime;
-            springForce = springConstant * currentLength;
-            damperForce = damperConstant * springVelocity;
-            _rb.AddForceAtPosition(transform.up * (springForce + damperForce), transform.position);
-            isGrounded = true;
+            _previousLength = _currentLength;
+            _currentLength = restLenght - (hit.distance - _vehicleScript.wheelRadius);
+            _springVelocity = (_currentLength - _previousLength) / Time.fixedDeltaTime;
+            _springForce = springConstant * _currentLength;
+            _damperForce = damperConstant * _springVelocity;
+            _rb.AddForceAtPosition(transform.up * (_springForce + _damperForce), transform.position);
+            if (hit.collider.gameObject.layer == K.LAYER_GROUND || hit.collider.gameObject.layer == K.LAYER_RAMP)
+            {
+                _isGrounded = true;
+            }
+            else
+            {
+                _isGrounded = false;
+            }
         }
-        else isGrounded = false;
+        else
+        {
+            _isGrounded = false;
+        }
+    }
+
+    public bool IsGrounded()
+    {
+        return _isGrounded;
     }
 
     private void OnDrawGizmos()

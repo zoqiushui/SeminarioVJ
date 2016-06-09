@@ -84,9 +84,9 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<JeepController>() != null)
+        if (other.gameObject.GetComponent<BuggyController>() != null)
         {
-            if (_checkpointMananagerReference.CheckVehicleCheckpoint(other.GetComponent<Vehicle>(), this)) other.gameObject.GetComponent<JeepController>().SetCheckpoint(this);
+            if (_checkpointMananagerReference.CheckVehicleCheckpoint(other.GetComponent<Vehicle>(), this)) other.gameObject.GetComponent<BuggyController>().SetCheckpoint(this);
         }
 
         if (other.gameObject.layer == K.LAYER_IA && other.gameObject.GetComponent<IAVehicle>() != null)

@@ -73,7 +73,7 @@ public class PressMine : Trap
                     cols[i].gameObject.GetComponent<VehicleData>().Damage(expDamage);
 
                 if (cols[i].gameObject.layer == K.LAYER_IA)
-                    cols[i].gameObject.GetComponent<IAVehicle>().Damage(expDamage);
+                    cols[i].gameObject.GetComponent<VehicleData>().Damage(expDamage);
 
 
             }

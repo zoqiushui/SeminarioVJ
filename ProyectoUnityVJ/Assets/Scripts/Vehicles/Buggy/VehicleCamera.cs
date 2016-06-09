@@ -19,7 +19,7 @@ public class VehicleCamera : MonoBehaviour
 	void Awake()
     {
         if (!target) return;
-        _rbTarget = target.transform.parent.GetComponent<Rigidbody>();
+        _rbTarget = target.GetComponent<Rigidbody>();
         _height = transform.localPosition.y;
         _distanceHeight = _height - target.position.y;
         _minDistance = Vector3.Distance(transform.position, target.transform.position + Vector3.up * 3f);

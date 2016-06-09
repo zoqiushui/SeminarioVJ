@@ -32,11 +32,11 @@ public class GameManager : Manager
 
     private void Update()
     {
-      //  print(_enemiesReferences.Count);
+      /*  print(_enemiesReferences.Count);
         if (Mathf.FloorToInt(playerReference.lapCount) == K.MAX_LAPS)
         {
             playerReference.NotifyObserver(K.OBS_MESSAGE_FINISHED);
-            ((JeepController)playerReference).EndRaceHandbrake();
+            ((BuggyController)playerReference).EndRaceHandbrake();
             playerReference.enabled = false;
             GameOver("Race Finished");
         }
@@ -51,18 +51,17 @@ public class GameManager : Manager
         }
         if (_enemiesReferences.Count == 0)
         {
-            ((JeepController)playerReference).EndRaceHandbrake();
+            ((BuggyController)playerReference).EndRaceHandbrake();
             playerReference.enabled = false;
             GameOver("You Win");
         }
 
         if (playerReference.gameObject.GetComponent<VehicleData>().currentLife <= 0)
         {
-            print(playerReference.gameObject.GetComponent<VehicleData>().currentLife);
-            ((JeepController)playerReference).EndRaceHandbrake();
+            ((BuggyController)playerReference).EndRaceHandbrake();
             playerReference.enabled = false;
             GameOver("You Lose");
-        }
+        }*/
 
         PauseInput();
     }

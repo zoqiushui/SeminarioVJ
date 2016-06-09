@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Ramp : MonoBehaviour
 {
-    public float forceRamp;
+    /*public float forceRamp;
 	void Start ()
     {
 	
@@ -17,11 +17,11 @@ public class Ramp : MonoBehaviour
     {
         if (other.gameObject.layer == K.LAYER_PLAYER)
         {
-            if (other.gameObject.GetComponent<JeepController>() != null) other.gameObject.GetComponent<JeepController>().PushRamp(forceRamp);
+            if (other.gameObject.GetComponent<BuggyController>() != null) other.gameObject.GetComponent<BuggyController>().PushRamp(forceRamp);
             else if (other.gameObject.GetComponent<IAVehicle>() != null) other.gameObject.GetComponent<IAVehicle>().PushRamp(forceRamp);
 
         }
 
 
-    }
+    }*/
 }

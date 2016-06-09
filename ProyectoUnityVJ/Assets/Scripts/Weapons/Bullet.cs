@@ -10,51 +10,41 @@ public class Bullet : MonoBehaviour
     public GameObject spark;
     private Collider col;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
         col = this.GetComponent<Collider>();
         col.isTrigger = true;
-	
-	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    }
+
+    // Update is called once per frame
+    void Update()
     {
         _lifeTime += Time.deltaTime;
         if (_lifeTime > 0.020f && col.isTrigger) col.isTrigger = false;
         if (destroyTime <= _lifeTime) DestroyThis();
 
         transform.position += transform.forward * speed * Time.deltaTime;
-        
-	}
+
+    }
 
     void OnCollisionEnter(Collision col)
     {
-		print (col.gameObject.layer);
-       if (col.gameObject.layer == 12)
+        print(col.gameObject.layer);
+        if (col.gameObject.layer == K.LAYER_IA || col.gameObject.layer == K.LAYER_PLAYER)
         {
-            col.gameObject.GetComponent<IAVehicle>().Damage(powerDamage);
-            Vector3 cont = col.contacts[0].point;
-            Instantiate(spark, cont + -transform.forward , Quaternion.identity);
-            DestroyThis();
-        }
-        else if (col.gameObject.layer == K.LAYER_PLAYER)
-        {
-
             col.gameObject.GetComponent<VehicleData>().Damage(powerDamage);
             Vector3 cont = col.contacts[0].point;
             Instantiate(spark, cont + -transform.forward, Quaternion.identity);
             DestroyThis();
-
-        }else
+        }
+        else
         {
-            if(col.contacts.Length != 0)
+            if (col.contacts.Length != 0)
                 Instantiate(spark, col.contacts[0].point, Quaternion.identity);
             DestroyThis();
         }
-
-
     }
 
     void DestroyThis()

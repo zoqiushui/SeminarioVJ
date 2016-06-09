@@ -25,7 +25,7 @@ public class IngameUIManager : Manager
         _destroyedRacers = new List<string>();
 
 
-        InfoIAPosition();
+        //InfoIAPosition();
     }
 
     private void Update()
@@ -47,7 +47,7 @@ public class IngameUIManager : Manager
             }
             if (!_endRacerList.Contains(racer.vehicleName) && !_destroyedRacers.Contains(racer.vehicleName))
             {
-                if (racer.GetComponent<JeepController>())
+                if (racer.GetComponent<BuggyController>())
                 {
                     _positionsTextString += "<color=" + ColorTypeConverter.ToRGBHex(playerColor) + ">" + count + "." + " " + racer.vehicleName + "</color>\n";
 
@@ -74,7 +74,7 @@ public class IngameUIManager : Manager
 
     }
 
-    private void InfoIAPosition()
+    /*private void InfoIAPosition()
     {
         if (_racerList != null)
         {
@@ -100,11 +100,9 @@ public class IngameUIManager : Manager
                         _temp[i].gameObject.GetComponent<IAVehicle>().ChangeGear("normal");
                 }
             }
-
             Invoke("InfoIAPosition", 2f);
         }
-
-    }
+    }*/
 
     /// <summary>
     /// Ordeno de mayor a menor el valor de la posicion de cada corredor.
@@ -157,12 +155,10 @@ public class IngameUIManager : Manager
                 break;
 
             case K.OBS_MESSAGE_SPEED:
-                if (GameObject.Find(K.CONTAINER_VEHICLES_NAME).GetComponentInChildren<JeepController>() != null)
-                {
-                    if ((JeepController)caller != null) _playerSpeed = ((JeepController)caller).currentSpeed / K.SPEEDOMETER_MAX_SPEED;
-                }
-                
-                else _playerSpeed = ((VehicleController)caller).currentSpeed / K.SPEEDOMETER_MAX_SPEED;
+                _playerSpeed = (((Vehicle)caller).currentVelZ * K.KPH_TO_MPS_MULTIPLIER) / K.SPEEDOMETER_MAX_SPEED;
+
+
+                //else _playerSpeed = ((VehicleController)caller).currentSpeed / K.SPEEDOMETER_MAX_SPEED;
                 break;
 
             case K.OBS_MESSAGE_LAPCOUNT:

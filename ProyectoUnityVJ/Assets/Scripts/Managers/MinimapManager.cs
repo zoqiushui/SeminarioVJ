@@ -16,8 +16,7 @@ public class MinimapManager : MonoBehaviour
     private void Start()
     {
         GameObject go;
-        _playerReference = GameObject.Find(K.CONTAINER_VEHICLES_NAME).GetComponentInChildren<JeepController>();
-        if (_playerReference == null) _playerReference = GameObject.Find(K.CONTAINER_VEHICLES_NAME).GetComponentInChildren<VehicleController>();
+        _playerReference = GameObject.Find(K.CONTAINER_VEHICLES_NAME).GetComponentInChildren<InputControllerPlayer>().GetComponent<Vehicle>();
         _fixedYPosition = _playerReference.transform.position + Vector3.up * K.MINIMAP_HEIGHT;
         _enemiesReferences = new Dictionary<IAController, GameObject>();
         var aux = GameObject.Find(K.CONTAINER_VEHICLES_NAME).GetComponentsInChildren<IAController>();
