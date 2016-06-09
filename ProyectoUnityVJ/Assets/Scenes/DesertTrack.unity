@@ -18190,6 +18190,18 @@ Prefab:
       propertyPath: remains
       value: 
       objectReference: {fileID: 196530, guid: 1425eb364f9265545aca87c101b43ab8, type: 2}
+    - target: {fileID: 11497692, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
+      propertyPath: remains
+      value: 
+      objectReference: {fileID: 196530, guid: 1425eb364f9265545aca87c101b43ab8, type: 2}
+    - target: {fileID: 11497692, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
+      propertyPath: maxTorque
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 11497692, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
+      propertyPath: maxSpeed
+      value: 500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
   m_IsPrefabParent: 0
@@ -23416,11 +23428,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11497692, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
       propertyPath: maxTorque
-      value: 1400
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 11497692, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
       propertyPath: maxSpeed
-      value: 340
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 11474484, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
       propertyPath: clip
@@ -23439,6 +23451,10 @@ Prefab:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11474484, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
+      propertyPath: remains
+      value: 
+      objectReference: {fileID: 196530, guid: 1425eb364f9265545aca87c101b43ab8, type: 2}
+    - target: {fileID: 11497692, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
       propertyPath: remains
       value: 
       objectReference: {fileID: 196530, guid: 1425eb364f9265545aca87c101b43ab8, type: 2}
@@ -32176,7 +32192,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &800811277
 Transform:
   m_ObjectHideFlags: 0
@@ -41544,6 +41560,18 @@ Prefab:
       propertyPath: remains
       value: 
       objectReference: {fileID: 196530, guid: 1425eb364f9265545aca87c101b43ab8, type: 2}
+    - target: {fileID: 11497692, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
+      propertyPath: remains
+      value: 
+      objectReference: {fileID: 196530, guid: 1425eb364f9265545aca87c101b43ab8, type: 2}
+    - target: {fileID: 11497692, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
+      propertyPath: maxTorque
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 11497692, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
+      propertyPath: maxSpeed
+      value: 500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76ec957756be72048941d8a9e8b8ee76, type: 2}
   m_IsPrefabParent: 0

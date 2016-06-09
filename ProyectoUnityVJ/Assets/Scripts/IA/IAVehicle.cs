@@ -176,7 +176,7 @@ public class IAVehicle : Vehicle
 
         if (_currentHp <= 0)
         {
-            _soundManagerReference.PlaySound(K.SOUND_CAR_DESTROY);
+            //_soundManagerReference.PlaySound(K.SOUND_CAR_DESTROY);
             NotifyObserver(K.OBS_MESSAGE_DESTROYED);
             Destroy(this.gameObject);
             Instantiate(remains, transform.position, transform.rotation);

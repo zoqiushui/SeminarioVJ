@@ -36,7 +36,7 @@ public class PressMine : Trap
 
     public void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.layer == K.LAYER_PLAYER)
+        if (col.gameObject.layer == K.LAYER_PLAYER || col.gameObject.layer == K.LAYER_IA)
         {
             if (col.gameObject != null && !touched)
                 touched = true;
@@ -71,6 +71,11 @@ public class PressMine : Trap
                 cols[i].GetComponent<Rigidbody>().AddExplosionForce(expPower, transform.position,expRadius,0.5f,ForceMode.Impulse);
                 if (cols[i].gameObject.layer == K.LAYER_PLAYER)
                     cols[i].gameObject.GetComponent<VehicleData>().Damage(expDamage);
+
+                if (cols[i].gameObject.layer == K.LAYER_IA)
+                    cols[i].gameObject.GetComponent<IAVehicle>().Damage(expDamage);
+
+
             }
         }
         Instantiate(feedback, transform.position + transform.up, Quaternion.identity);
