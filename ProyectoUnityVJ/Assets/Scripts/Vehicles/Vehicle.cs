@@ -41,6 +41,9 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     protected float _steerInput, _motorInput;
     public Text wrongDirectionText;
     private float _finalAngle;
+    private float resetTimer;
+    public float resetTime;
+    public float maximumTurn, minimumTurn;
 
     protected int _checkpointNumber;
     protected Checkpoint _lastCheckpoint;
@@ -149,13 +152,11 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         NitroInput(nitroInput,brakeInput);
         NotifyObserver(K.OBS_MESSAGE_SPEED);
 
-        if (accelInput == 0 || _nitroEnd)
-        {
-            _rb.drag = _rb.velocity.magnitude / 30f;
-            if (currentVelZ < topSpeed) _nitroEnd = false;
-        }
+        //Transforma una dirección de world space a local space.
+        var relativeVelocity = transform.InverseTransformDirection(_rb.velocity);
+        //Maniobrabilidad
+     //   ApplySteering(relativeVelocity);
     }
-
     protected void Update()
     {
         positionWeight = Vector3.Distance(transform.position, _checkpointMananagerReference.checkpointsList[_checkpointNumber].transform.position);
@@ -164,6 +165,8 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         ChangeToRearView();
         CheckBars();
         CheckDirection();
+        if (Input.GetKeyUp(KeyCode.R)) ResetCar();
+        CheckCarFlipped();
     }
     private void ChangeToRearView()
     {
@@ -257,6 +260,31 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             //else _rb.AddRelativeForce(0, 0, tempForce * 1.1f, ForceMode.Acceleration);
         }
     }
+    private void ResetCar()
+    {
+        if (_lastCheckpoint == null) return;
+
+        _rb.velocity = Vector3.zero;
+        transform.position = _lastCheckpoint.GetRespawnPoint(transform.position) + Vector3.up;
+        transform.rotation = _lastCheckpoint.transform.rotation;
+    }
+    private void CheckCarFlipped()
+    {
+        if (transform.localEulerAngles.z > 90 && transform.localEulerAngles.z < 270 && currentVelZ < 1 && currentVelZ > -1) resetTimer += Time.deltaTime;
+        else resetTimer = 0;
+        if (resetTimer > resetTime) FlipCar();
+    }
+    private void FlipCar()
+    {
+        //transform.rotation = Quaternion.LookRotation(transform.forward);
+        transform.position += Vector3.up * 0.5f;
+        Vector3 forwardDirection = _lastCheckpoint.nextCheckpoint.transform.position - transform.position;
+        forwardDirection.y = transform.position.y;
+        transform.forward = forwardDirection;
+        _rb.velocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
+        resetTimer = 0;
+    }
     private void CheckBars()
     {
         CheckNitroBar();
@@ -345,5 +373,21 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             _rb.velocity = (topSpeed / K.KPH_TO_MPS_MULTIPLIER) * _rb.velocity.normalized;
             currentVelZ = transform.InverseTransformDirection(_rb.velocity).z;
         }
+    }
+
+    private void ApplySteering(Vector3 relativeVelocity)
+    {
+        float turnRadius = 3f / Mathf.Sin((90 - (_steerInput * 30)) * Mathf.Deg2Rad);
+        float minMaxTurn = EvaluateSpeedToTurn(_rb.velocity.magnitude);
+        float turnSpeed = Mathf.Clamp(relativeVelocity.z / turnRadius, -minMaxTurn / 10, minMaxTurn / 10);
+        transform.RotateAround(transform.position + transform.right * turnRadius * _steerInput, transform.up,
+                                turnSpeed * Mathf.Rad2Deg * Time.deltaTime * _steerInput);
+    }
+    private float EvaluateSpeedToTurn(float speed)
+    {
+        if (speed > topSpeed / 2) return minimumTurn;
+        var speedIndex = 1 - (speed / (topSpeed / 2));
+
+        return minimumTurn + speedIndex * (maximumTurn - minimumTurn);
     }
 }

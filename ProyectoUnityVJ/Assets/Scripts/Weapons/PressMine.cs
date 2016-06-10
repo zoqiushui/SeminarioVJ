@@ -64,16 +64,16 @@ public class PressMine : Trap
        //   float dist = direction.magnitude;
        //   direction.Normalize();
            // print(cols[i].gameObject);
-            if (cols[i].GetComponent<Rigidbody>() != null)
+            if (cols[i].GetComponentInParent<Rigidbody>() != null)
             {
                // print("impact");
                 print(cols[i].gameObject);
-                cols[i].GetComponent<Rigidbody>().AddExplosionForce(expPower, transform.position,expRadius,0.5f,ForceMode.Impulse);
+                cols[i].GetComponentInParent<Rigidbody>().AddExplosionForce(expPower, transform.position, expRadius, 0.5f, ForceMode.Impulse);
                 if (cols[i].gameObject.layer == K.LAYER_PLAYER)
-                    cols[i].gameObject.GetComponent<VehicleData>().Damage(expDamage);
+                    cols[i].gameObject.GetComponentInParent<VehicleData>().Damage(expDamage);
 
                 if (cols[i].gameObject.layer == K.LAYER_IA)
-                    cols[i].gameObject.GetComponent<VehicleData>().Damage(expDamage);
+                    cols[i].gameObject.GetComponentInParent<VehicleData>().Damage(expDamage);
 
 
             }
