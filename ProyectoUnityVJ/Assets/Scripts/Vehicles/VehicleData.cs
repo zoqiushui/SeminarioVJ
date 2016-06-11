@@ -11,7 +11,9 @@ public class VehicleData : MonoBehaviour
     public GameObject explosion;
     private SoundManager _soundManagerReference;
     private bool _alive;
-
+    public ParticleSystem whiteSmoke;
+    public ParticleSystem blackSmoke;
+    public ParticleSystem fire;
 
     void Start ()
     {
@@ -50,23 +52,35 @@ public class VehicleData : MonoBehaviour
         if (currentLife >= 80)
         {
             visualHealth.color = Color.green;
+            whiteSmoke.Stop();
+            blackSmoke.Stop();
+            fire.Stop();
             
         }
         else if (currentLife >= 50)
         {
             visualHealth.color = Color.yellow;
             DamagePortrait.GetComponent<SpriteRenderer>().sprite = K.spritesDamage[0];
+            whiteSmoke.Play();
+            blackSmoke.Stop();
+            fire.Stop();
         }
         else if (currentLife >= 30)
         {
             visualHealth.color = Color.red;
             DamagePortrait.GetComponent<SpriteRenderer>().sprite = K.spritesDamage[1];
+            whiteSmoke.Stop();
+            blackSmoke.Play();
+            fire.Stop();
         }
 
         else if (currentLife >= 0)
         {
             visualHealth.color = Color.red;
             DamagePortrait.GetComponent<SpriteRenderer>().sprite = K.spritesDamage[2];
+            whiteSmoke.Stop();
+            blackSmoke.Play();
+            fire.Play();
         }
     }
 

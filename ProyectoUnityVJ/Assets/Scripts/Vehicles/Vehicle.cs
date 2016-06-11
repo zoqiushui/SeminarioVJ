@@ -44,6 +44,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     private float resetTimer;
     public float resetTime;
     public float maximumTurn, minimumTurn;
+    public ParticleSystem backDust;
 
     protected int _checkpointNumber;
     protected Checkpoint _lastCheckpoint;
@@ -167,6 +168,13 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         CheckDirection();
         if (Input.GetKeyUp(KeyCode.R)) ResetCar();
         CheckCarFlipped();
+        CheckDustVehicle();
+    }
+
+    private void CheckDustVehicle()
+    {
+        if (currentVelZ > 10 && _isGrounded || currentVelZ < -5 && _isGrounded) backDust.Play();
+        else backDust.Stop();
     }
     private void ChangeToRearView()
     {

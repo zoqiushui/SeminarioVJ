@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: ParticleDuststorm
+  m_Name: ParticleDuststorm 1
   m_Shader: {fileID: 203, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -35,7 +35,7 @@ Material:
       data:
         first:
           name: _TintColor
-        second: {r: 0.8014706, g: 0.74457103, b: 0.6836073, a: 0.07058824}
+        second: {r: 0.17647052, g: 0.17647052, b: 0.17647052, a: 0.509}
       data:
         first:
           name: _EmisColor
