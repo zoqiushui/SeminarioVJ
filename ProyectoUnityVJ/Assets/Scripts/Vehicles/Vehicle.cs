@@ -56,6 +56,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     protected GameManager _gameManagerReference;
     protected Rigidbody _rb;
     protected bool _isGrounded;
+    protected bool _isGroundedRamp;
     protected List<TrailRenderer> _wheelTrails;
 
     protected float friction
@@ -137,7 +138,14 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         foreach (var wheel in wheelSuspensionList)
         {
             _isGrounded = false;
-            if (wheel.IsGrounded())
+            _isGroundedRamp = false;
+
+            if (wheel.IsGroundedRamp())
+            {
+                _isGroundedRamp = true;
+                break;
+            }
+            else if (wheel.IsGrounded())
             {
                 _isGrounded = true;
                 //_rb.drag = 1;
@@ -381,6 +389,11 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             _rb.velocity = (topSpeed / K.KPH_TO_MPS_MULTIPLIER) * _rb.velocity.normalized;
             currentVelZ = transform.InverseTransformDirection(_rb.velocity).z;
         }
+    }
+
+    public void PushRamp(float amount)
+    {
+        if (_isGroundedRamp) _rb.AddForce(transform.forward * amount);
     }
 
     private void ApplySteering(Vector3 relativeVelocity)

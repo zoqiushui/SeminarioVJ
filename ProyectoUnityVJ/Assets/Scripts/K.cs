@@ -28,6 +28,7 @@ public class K
     public const int LAYER_OBSTACLE = 16;
     public const int LAYER_RAMP = 17;
     public const int LAYER_SIDEGROUND = 18;
+    public const int LAYER_DESTRUCTIBLE= 19;
 
     // ===== TAG =====
     public const string TAG_PLAYER = "Player";

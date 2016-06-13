@@ -9,7 +9,7 @@ public class Suspension : MonoBehaviour
     private Rigidbody _rb;
     private Vehicle _vehicleScript;
     private bool _isGrounded;
-
+    private bool _isGroundedRamp;
     private void Start()
     {
         _isGrounded = false;
@@ -31,21 +31,29 @@ public class Suspension : MonoBehaviour
             if (hit.collider.gameObject.layer == K.LAYER_GROUND || hit.collider.gameObject.layer == K.LAYER_RAMP)
             {
                 _isGrounded = true;
+                if (hit.collider.gameObject.layer == K.LAYER_RAMP) _isGroundedRamp = true;
             }
             else
             {
                 _isGrounded = false;
+                _isGroundedRamp = false;
             }
         }
+
         else
         {
             _isGrounded = false;
+            _isGroundedRamp = false;
         }
     }
 
     public bool IsGrounded()
     {
         return _isGrounded;
+    }
+    public bool IsGroundedRamp()
+    {
+        return _isGroundedRamp;
     }
 
     private void OnDrawGizmos()
