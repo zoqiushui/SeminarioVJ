@@ -111,6 +111,7 @@ ModelImporter:
     100206: Paletas
     100208: Tube001
     100210: Weapon1
+    100212: Helices
     400000: Body
     400002: Box002
     400004: Box004
@@ -217,6 +218,7 @@ ModelImporter:
     400206: Paletas
     400208: Tube001
     400210: Weapon1
+    400212: Helices
     2300000: Box002
     2300002: Box004
     2300004: Box005

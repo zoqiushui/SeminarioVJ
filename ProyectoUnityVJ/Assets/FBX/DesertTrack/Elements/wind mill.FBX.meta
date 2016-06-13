@@ -12,6 +12,7 @@ ModelImporter:
     100008: Cylinder001
     100010: Cylinder004
     100012: //RootNode
+    100014: propeller
     400000: Box001
     400002: Box002
     400004: Box003
@@ -19,6 +20,7 @@ ModelImporter:
     400008: Cylinder001
     400010: Cylinder004
     400012: //RootNode
+    400014: propeller
     2300000: Box001
     2300002: Box002
     2300004: Box003
