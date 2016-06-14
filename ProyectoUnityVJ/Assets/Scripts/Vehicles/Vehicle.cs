@@ -2,7 +2,6 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityStandardAssets.ImageEffects;
 
 [RequireComponent(typeof(VehicleData))]
@@ -24,22 +23,20 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     public float groundFriction = 0.96f;
     public float currentVelZ { get; private set; }
 
-    private bool _modeNitro = false;
-    public float nitroPower;
+    protected bool _modeNitro = false;
+    protected float nitroPower;
     public float nitroTimer;
-    private float _nitroTimer;
+    protected float _nitroTimer;
     public float rechargeNitro;
-    private bool _nitroEnd;
-    public Image visualNitro;
-    private float _lapsEnded;
-    private bool _canRechargeNitro;
-    private bool _nitroEmpty;
-    private bool _countInAir;
-    private float _timerWrongDirection;
+    protected bool _nitroEnd;
+    protected float _lapsEnded;
+    protected bool _canRechargeNitro;
+    protected bool _nitroEmpty;
+    protected bool _countInAir;
+    protected float _timerWrongDirection;
 
     public Camera rearMirror;
     protected float _steerInput, _motorInput;
-    public Text wrongDirectionText;
     private float _finalAngle;
     private float resetTimer;
     public float resetTime;
@@ -91,7 +88,6 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             _wheelTrails.Add(trail);
         }*/
 
-        wrongDirectionText.gameObject.SetActive(false);
         vehicleName = PlayerPrefs.GetString("PilotName");
         Cursor.visible = false;
         lapCount = 0;
@@ -166,14 +162,14 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         //Maniobrabilidad
      //   ApplySteering(relativeVelocity);
     }
-    protected void Update()
+    protected virtual void Update()
     {
         positionWeight = Vector3.Distance(transform.position, _checkpointMananagerReference.checkpointsList[_checkpointNumber].transform.position);
         
         UpdateTyres();
-        ChangeToRearView();
-        CheckBars();
-        CheckDirection();
+        //ChangeToRearView();
+        //CheckBars();
+        //CheckDirection();
         if (Input.GetKeyUp(KeyCode.R)) ResetCar();
         CheckCarFlipped();
         CheckDustVehicle();
@@ -184,19 +180,19 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         if (currentVelZ > 10 && _isGrounded || currentVelZ < -5 && _isGrounded) backDust.Play();
         else backDust.Stop();
     }
-    private void ChangeToRearView()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            rearMirror.enabled = true;
-            Camera.main.depth = -1f;
-        }
-        else if (Input.GetKeyUp(KeyCode.Q))
-        {
-            rearMirror.enabled = false;
-            Camera.main.depth = 0f;
-        }
-    }
+    //private void ChangeToRearView()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Q))
+    //    {
+    //        rearMirror.enabled = true;
+    //        Camera.main.depth = -1f;
+    //    }
+    //    else if (Input.GetKeyUp(KeyCode.Q))
+    //    {
+    //        rearMirror.enabled = false;
+    //        Camera.main.depth = 0f;
+    //    }
+    //}
 
     protected void UpdateTyres()
     {
@@ -301,17 +297,6 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         _rb.angularVelocity = Vector3.zero;
         resetTimer = 0;
     }
-    private void CheckBars()
-    {
-        CheckNitroBar();
-        RechargeNitro();
-    }
-    private void CheckNitroBar()
-    {
-        visualNitro.GetComponentInParent<Canvas>().transform.LookAt(Camera.main.transform.position);
-        float calc_nitro = _nitroTimer / nitroTimer;
-        visualNitro.fillAmount = calc_nitro;
-    }
     private void NitroInput(float nitroInput, float brakeInput)
     {
         if (nitroInput > 0 && _isGrounded && !_nitroEmpty)
@@ -345,42 +330,27 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             }
         }
     }
-    private void RechargeNitro()
-    {
-        if (Mathf.FloorToInt(lapCount) == _lapsEnded)
-        {
-            _canRechargeNitro = true;
-            _lapsEnded++;
-        }
+    //private void CheckDirection()
+    //{
+    //    if (_lastCheckpoint)
+    //    {
+    //        var currentDirection = _lastCheckpoint.nextCheckpoint.transform.position - transform.position;
+    //        if (Vector3.Angle(transform.forward, currentDirection) > 80)
+    //        {
+    //            _timerWrongDirection += Time.deltaTime;
+    //        }
+    //        else
+    //        {
+    //            wrongDirectionText.gameObject.SetActive(false);
+    //            _timerWrongDirection = 0;
+    //        }
+    //    }
+    //    if (_timerWrongDirection > 2)
+    //    {
+    //        wrongDirectionText.gameObject.SetActive(true);
+    //    }
 
-        if (!_modeNitro && _nitroTimer < nitroTimer && _canRechargeNitro) _nitroTimer += Time.deltaTime / rechargeNitro;
-        if (visualNitro.fillAmount == 1)
-        {
-            _canRechargeNitro = false;
-            _nitroEmpty = false;
-        }
-    }
-    private void CheckDirection()
-    {
-        if (_lastCheckpoint)
-        {
-            var currentDirection = _lastCheckpoint.nextCheckpoint.transform.position - transform.position;
-            if (Vector3.Angle(transform.forward, currentDirection) > 80)
-            {
-                _timerWrongDirection += Time.deltaTime;
-            }
-            else
-            {
-                wrongDirectionText.gameObject.SetActive(false);
-                _timerWrongDirection = 0;
-            }
-        }
-        if (_timerWrongDirection > 2)
-        {
-            wrongDirectionText.gameObject.SetActive(true);
-        }
-
-    }
+    //}
 
     protected void CapSpeed()
     {

@@ -62,10 +62,92 @@ public class BuggyController : Vehicle
     //private bool countInAir;
     //private float _timerWrongDirection;
 
+    public Image visualNitro;
+    public Text wrongDirectionText;
+
     ////public GameObject varManager;
 
-    //protected override void Start()
-    //{
+    protected override void Start()
+    {
+
+        wrongDirectionText.gameObject.SetActive(false);
+        base.Start();
+    }
+    protected override void Update()
+    {
+        base.Update();
+        ChangeToRearView();
+        CheckBars();
+        CheckDirection();
+
+    }
+
+    private void CheckBars()
+    {
+        CheckNitroBar();
+        RechargeNitro();
+    }
+    private void CheckNitroBar()
+    {
+        visualNitro.GetComponentInParent<Canvas>().transform.LookAt(Camera.main.transform.position);
+        float calc_nitro = _nitroTimer / nitroTimer;
+        visualNitro.fillAmount = calc_nitro;
+    }
+
+    
+    private void RechargeNitro()
+    {
+        if (Mathf.FloorToInt(lapCount) == _lapsEnded)
+        {
+            _canRechargeNitro = true;
+            _lapsEnded++;
+        }
+
+        if (!_modeNitro && _nitroTimer < nitroTimer && _canRechargeNitro) _nitroTimer += Time.deltaTime / rechargeNitro;
+        if (visualNitro.fillAmount == 1)
+        {
+            _canRechargeNitro = false;
+            _nitroEmpty = false;
+        }
+    }
+
+    private void CheckDirection()
+    {
+        if (_lastCheckpoint)
+        {
+            var currentDirection = _lastCheckpoint.nextCheckpoint.transform.position - transform.position;
+            if (Vector3.Angle(transform.forward, currentDirection) > 80)
+            {
+                _timerWrongDirection += Time.deltaTime;
+            }
+            else
+            {
+                wrongDirectionText.gameObject.SetActive(false);
+                _timerWrongDirection = 0;
+            }
+        }
+        if (_timerWrongDirection > 2)
+        {
+            wrongDirectionText.gameObject.SetActive(true);
+        }
+
+    }
+    private void ChangeToRearView()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            rearMirror.enabled = true;
+            Camera.main.depth = -1f;
+        }
+        else if (Input.GetKeyUp(KeyCode.Q))
+        {
+            rearMirror.enabled = false;
+            Camera.main.depth = 0f;
+        }
+    }
+
+
+
     //    base.Start();
     //    wrongDirectionText.gameObject.SetActive(false);
 
