@@ -15,7 +15,7 @@ public class SightTrigger : MonoBehaviour
 	// Update is called once per frame
 	void OnTriggerStay(Collider col)
     {
-        if (col.gameObject.GetComponent<Vehicle>() != null) 
+        if (col.gameObject.GetComponentInParent<Vehicle>() != null) 
            myController.EnemySee();
 	}
 }

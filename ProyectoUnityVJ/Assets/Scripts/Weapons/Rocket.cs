@@ -104,7 +104,7 @@ public class Rocket : MonoBehaviour
 
             if (cols[i].gameObject.layer == K.LAYER_IA)
             {
-                cols[i].GetComponent<IAController>().Damage(damage);
+                cols[i].GetComponentInParent<IAController>().Damage(damage);
 
                 _soundManagerReference.PlaySound(K.SOUND_MISSILE_HEAVY);
                 //cols[i].gameObject.transform.parent.gameObject.GetComponent<IAController>().Damage(damage);

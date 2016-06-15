@@ -105,18 +105,23 @@ public class IAVehicle : Vehicle
 
     protected override void Update()
     {
-        if (currentVelZ < 10f)
+        print(currentVelZ);
+        if (currentVelZ < 5f && !_stoped)
         {
             _stoped = true;
-        }
-        else
+        } else if (_stoped && currentVelZ > 6f)
+        {
             _stoped = false;
+            _timerReset = 0;
+        }
 
         if (_stoped)
         {
+            print("timer: " + _timerReset);
             _timerReset += Time.deltaTime;
             if (_timerReset >= _resetWaitTime)
             {
+                _stoped = false;
                 _timerReset = 0;
                 ResetCar();
             }
