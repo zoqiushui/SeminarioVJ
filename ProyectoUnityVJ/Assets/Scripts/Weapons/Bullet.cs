@@ -32,13 +32,22 @@ public class Bullet : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
         print(col.gameObject.layer);
-        if (col.gameObject.layer == K.LAYER_IA || col.gameObject.layer == K.LAYER_PLAYER)
+        if (col.gameObject.layer == K.LAYER_IA)
         {
-            col.gameObject.GetComponent<VehicleData>().Damage(powerDamage);
+            col.gameObject.GetComponent<IAController>().Damage(powerDamage);
             Vector3 cont = col.contacts[0].point;
             Instantiate(spark, cont + -transform.forward, Quaternion.identity);
             DestroyThis();
         }
+        else if (col.gameObject.layer == K.LAYER_PLAYER)
+        {
+            col.gameObject.GetComponent<BuggyData>().Damage(powerDamage);
+            Vector3 cont = col.contacts[0].point;
+            Instantiate(spark, cont + -transform.forward, Quaternion.identity);
+            DestroyThis();
+        }
+
+
         else
         {
             if (col.contacts.Length != 0)

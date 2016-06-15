@@ -17,7 +17,7 @@ public class MolotovLauncher : Weapon
     }
 	
 	// Update is called once per frame
-	void Update ()
+	protected override void Update ()
     {
         if (GameManager.disableShoot == false)
         {

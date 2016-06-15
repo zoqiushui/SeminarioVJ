@@ -170,7 +170,6 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         //ChangeToRearView();
         //CheckBars();
         //CheckDirection();
-        if (Input.GetKeyUp(KeyCode.R)) ResetCar();
         CheckCarFlipped();
         CheckDustVehicle();
     }
@@ -272,7 +271,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             //else _rb.AddRelativeForce(0, 0, tempForce * 1.1f, ForceMode.Acceleration);
         }
     }
-    private void ResetCar()
+    protected void ResetCar()
     {
         if (_lastCheckpoint == null) return;
 

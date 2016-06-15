@@ -22,7 +22,7 @@ public class MiniGun : Weapon
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
         /*    if (Input.GetMouseButton(shootButtom)) particleEffect.SetActive(true);
             else if (particleEffect.activeInHierarchy) particleEffect.SetActive(false);*/
@@ -87,7 +87,7 @@ public class MiniGun : Weapon
         Instantiate(bulletPref, shootPoint.position + shootPoint.forward, shootPoint.rotation);
         if (type == 0)
         {
-            //_soundManagerReference.PlaySound(K.SOUND_MACHINE_GUN);
+            _soundManagerReference.PlaySound(K.SOUND_MACHINE_GUN);
             ammoInput();
         }
 

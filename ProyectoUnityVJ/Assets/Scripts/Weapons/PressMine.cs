@@ -70,10 +70,10 @@ public class PressMine : Trap
                 print(cols[i].gameObject);
                 cols[i].GetComponentInParent<Rigidbody>().AddExplosionForce(expPower, transform.position, expRadius, 0.5f, ForceMode.Impulse);
                 if (cols[i].gameObject.layer == K.LAYER_PLAYER)
-                    cols[i].gameObject.GetComponentInParent<VehicleData>().Damage(expDamage);
+                    cols[i].gameObject.GetComponentInParent<BuggyData>().Damage(expDamage);
 
                 if (cols[i].gameObject.layer == K.LAYER_IA)
-                    cols[i].gameObject.GetComponentInParent<VehicleData>().Damage(expDamage);
+                    cols[i].gameObject.GetComponentInParent<IAController>().Damage(expDamage);
 
 
             }

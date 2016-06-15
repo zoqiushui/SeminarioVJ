@@ -13,7 +13,7 @@ public abstract class InputController : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        
+        //print("aceleracion input: " + _accel + " stering input: " + _steer);
         _vehicleReference.Move(_accel, _brake, _handbrake, _steer, _nitro);
     }
 }

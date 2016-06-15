@@ -79,6 +79,7 @@ public class BuggyController : Vehicle
         ChangeToRearView();
         CheckBars();
         CheckDirection();
+        if (Input.GetKeyUp(KeyCode.R)) ResetCar();
 
     }
 

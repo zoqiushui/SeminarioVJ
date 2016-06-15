@@ -28,7 +28,7 @@ public class RockedLauncherMK2 : Weapon
 
 
     //currentAmmo >= maxAmmo / missileCountAmmo: chequea mínimo requerido para lanzar misil.
-    void Update()
+    protected override void Update()
     {
         if (GameManager.disableShoot == false)
         {

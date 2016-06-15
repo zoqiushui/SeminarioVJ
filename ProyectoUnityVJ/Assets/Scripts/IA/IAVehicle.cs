@@ -64,7 +64,10 @@ public class IAVehicle : Vehicle
     //private bool _speedForce;
     //private int _checkpointNumber;
 
-
+    private float _timerReset;
+    private float _resetWaitTime = 2.5f;
+    private bool _stoped = false;
+    private InputControllerIA _myInput;
     private Vector3 _nextDestinationPoint;
     //private float _torque;
     //private float _steer;
@@ -83,6 +86,7 @@ public class IAVehicle : Vehicle
 
     protected override void Start()
     {
+        _myInput = this.gameObject.GetComponentInParent<InputControllerIA>();
         base.Start();
         lapCount = 0;
         positionWeight = -Vector3.Distance(transform.position, _checkpointMananagerReference.checkpointsList[0].transform.position);
@@ -91,10 +95,36 @@ public class IAVehicle : Vehicle
         lapsEnded = 1;
         nitroEmpty = false;*/
         _nextDestinationPoint = CalculateNextPoint(_nextCheckpoint);
+        _myInput.SetDestinationPoint(_nextDestinationPoint);
+        
        /* _maxHp = K.IA_MAX_HP;
         _currentHp = _maxHp;
         _aux = hpBarImage.transform.localScale;*/
     }
+
+
+    protected override void Update()
+    {
+        if (currentVelZ < 10f)
+        {
+            _stoped = true;
+        }
+        else
+            _stoped = false;
+
+        if (_stoped)
+        {
+            _timerReset += Time.deltaTime;
+            if (_timerReset >= _resetWaitTime)
+            {
+                _timerReset = 0;
+                ResetCar();
+            }
+        }
+
+    }
+
+
 
     //// Update is called once per frame
     //void Update ()
@@ -277,7 +307,7 @@ public class IAVehicle : Vehicle
     /// <param name="chk">Proximo Checkpoint</param>
     private Vector3 CalculateNextPoint(Checkpoint chk)
     {
-        Vector3 randomPoint = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+        Vector3 randomPoint = new Vector3(Random.Range(-0.75f, 0.75f), 0, Random.Range(-0.75f, 0.75f));
         randomPoint = chk.transform.TransformPoint(randomPoint * 0.5f);
         return randomPoint;
     }
@@ -293,6 +323,7 @@ public class IAVehicle : Vehicle
     {
         _nextCheckpoint = chk;
         _nextDestinationPoint = CalculateNextPoint(chk);
+        _myInput.SetDestinationPoint(_nextDestinationPoint);
     }
 
     //private void CalculateNextCheckpoint(Checkpoint chk)

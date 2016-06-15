@@ -84,18 +84,23 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         if (other.gameObject.GetComponentInParent<BuggyController>() != null)
         {
             if (_checkpointMananagerReference.CheckVehicleCheckpoint(other.GetComponentInParent<Vehicle>(), this)) other.gameObject.GetComponentInParent<BuggyController>().SetCheckpoint(this);
         }
 
-        if (other.gameObject.layer == K.LAYER_IA && other.gameObject.GetComponent<IAVehicle>() != null)
+        if (other.gameObject.layer == K.LAYER_IA && other.gameObject.GetComponentInParent<Vehicle>() != null)
+        {
+            /*
             if (_checkpointMananagerReference.CheckVehicleCheckpoint(other.GetComponent<Vehicle>(), this))
             {
+                print("do it");
                 other.gameObject.GetComponent<IAVehicle>().SetCheckpoint(this);
 
-                other.gameObject.GetComponent<IAVehicle>().SetNextCheckpoint(nextCheckpoint);
-            }
+            }*/
+            other.gameObject.GetComponentInParent<IAVehicle>().SetNextCheckpoint(nextCheckpoint);
+        }
     }
 
     private void OnDrawGizmos()

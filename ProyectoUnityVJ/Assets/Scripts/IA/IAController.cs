@@ -3,11 +3,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class IAController : MonoBehaviour
+public class IAController : VehicleData
 {
-    //public GameObject hpBarContainer;
-    //public RawImage hpBarImage;
-    public GameObject remains;
+    public GameObject hpBarContainer;
+    public RawImage hpBarImage;
     public Weapon myWeapon;
     public GameObject primaryWeaponSound;
     public GameObject eyes;
@@ -22,27 +21,24 @@ public class IAController : MonoBehaviour
 
   //  private List<IObserver> _observers;
   
-    private SoundManager _soundManagerReference;
     //private float _currentHp;
     private Vector3 _aux;
-
-    void Awake()
-    {
-        _soundManagerReference = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<SoundManager>();
-    }
     
-    void Start()
+    
+    protected override void Start()
     {
         //_observers = new List<IObserver>();
+        base.Start();
         eyes.SetActive(false);
         primaryWeaponSound.SetActive(false);
         //_maxHp = K.IA_MAX_HP;
         //_currentHp = _maxHp;
-        //_aux = hpBarImage.transform.localScale;
+        _aux = hpBarImage.transform.localScale;
+        currentLife = maxLife;
 
     }
 
-    private void Update()
+    protected override void Update()
     {
        // UpdateHpBar();
 
@@ -67,6 +63,16 @@ public class IAController : MonoBehaviour
         if (_attacking && primaryWeaponSound.activeSelf == false)
             primaryWeaponSound.SetActive(true);
             
+    }
+    public override void Damage(float damageTaken)
+    {
+        base.Damage(damageTaken);
+    }
+    protected override void CheckHealthBar()
+    {
+        hpBarContainer.transform.LookAt(Camera.main.transform.position);
+        _aux.x = currentLife / maxLife;
+        hpBarImage.transform.localScale = _aux;
     }
 
     void Attack()

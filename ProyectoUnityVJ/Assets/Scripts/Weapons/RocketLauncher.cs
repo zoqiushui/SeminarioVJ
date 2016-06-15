@@ -39,10 +39,11 @@ public class RocketLauncher : Weapon
         currentAmmo = maxAmmo = visualAmmo.fillAmount;
     }
 
-    void Update()
+    protected override void Update()
     {
-        if (GameManager.disableShoot == false)
-        {
+       // if (GameManager.disableShoot == false)
+        //{
+            base.Update();
             CheckAmmoBar();
             ShootDownButtom();
 
@@ -56,15 +57,15 @@ public class RocketLauncher : Weapon
 
             if (Input.GetMouseButtonUp(shootButtom) && _finalTarget != null && canShoot)
             {
+                print("shootear");
                 if (visualAmmo.fillAmount > 0 && !ammoEmpty && currentAmmo >= maxAmmo / missileCountAmmo) Shoot();
             }
 
             if (_finalTarget != null && _enemyFound) LockTarget();
 
             if (!Input.GetMouseButton(shootButtom) && lockOn.activeSelf) lockOn.SetActive(false);
-        }
+       // }
 
-        base.Update();
 
     }
 
@@ -86,7 +87,6 @@ public class RocketLauncher : Weapon
 
     private void LockEnemy()
     {
-
         //float distance = Mathf.Infinity;
         foreach (var posibilities in GameObject.FindGameObjectsWithTag("Target"))
         {
@@ -136,7 +136,7 @@ public class RocketLauncher : Weapon
     public override void Shoot()
     {
         base.Shoot();
-
+        print("disparo");
         currentAmmo -= maxAmmo / missileCountAmmo;
 
         _enemyFound = false;

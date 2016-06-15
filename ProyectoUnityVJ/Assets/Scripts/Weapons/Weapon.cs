@@ -40,7 +40,7 @@ public class Weapon : MonoBehaviour
             canShoot = true;
         }
     }
-    protected void Update()
+    protected virtual void Update()
     {
         if (Input.GetMouseButton(shootButtom)) _isShooting = true;
         else _isShooting = false;
