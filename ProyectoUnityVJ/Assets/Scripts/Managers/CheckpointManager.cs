@@ -19,11 +19,11 @@ public class CheckpointManager : Manager
             checkpointsList.Add(checkpoint);
         }
         _vehiclesDictionary.Add(GameObject.FindGameObjectWithTag(K.TAG_PLAYER).GetComponent<Vehicle>(), 0);
-        var temp = GameObject.FindGameObjectsWithTag("Target");
+        var temp = GameObject.FindGameObjectsWithTag("VehicleIA");
 
         for (int i = 0; i < temp.Length; i++)
         {
-            _vehiclesDictionary.Add(temp[i].GetComponent<Vehicle>(), 0);
+            _vehiclesDictionary.Add(temp[i].GetComponentInParent<Vehicle>(), 0);
         }
         checkpointValue = (float)1 / checkpointsList.Count;
         int aux = 1;

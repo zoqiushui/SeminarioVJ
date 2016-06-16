@@ -24,6 +24,12 @@ public class BuggyData : VehicleData
     public override void Damage(float damageTaken)
     {
         base.Damage(damageTaken);
+        if(!_alive)
+        {
+            K.pilotIsAlive = false;
+        }
+           
+            
     }
 
     protected override void CheckHealthBar()

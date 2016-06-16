@@ -10,6 +10,7 @@ TagManager:
   - Vehicles
   - Checkpoints
   - Track
+  - VehicleIA
   layers:
   - Default
   - TransparentFX

@@ -26,7 +26,7 @@ public class Checkpoint : MonoBehaviour
 
         RaycastHit hit;
         Ray ray;
-        List<GameObject> nodesToRemove = new List<GameObject>() ;
+        List<GameObject> nodesToRemove = new List<GameObject>();
         foreach (var item in checkpointNodes)
         {
             item.transform.parent = transform;
@@ -92,16 +92,16 @@ public class Checkpoint : MonoBehaviour
 
         if (other.gameObject.layer == K.LAYER_IA && other.gameObject.GetComponentInParent<Vehicle>() != null)
         {
-            /*
-            if (_checkpointMananagerReference.CheckVehicleCheckpoint(other.GetComponent<Vehicle>(), this))
+
+            if (_checkpointMananagerReference.CheckVehicleCheckpoint(other.transform.parent.parent.GetComponent<Vehicle>(), this))
             {
-                print("do it");
-                other.gameObject.GetComponent<IAVehicle>().SetCheckpoint(this);
+                //print(other.transform.parent.parent.GetComponent<Vehicle>().positionWeight+" "+other.transform.parent.parent.gameObject);
+                other.transform.parent.parent.GetComponent<IAVehicle>().SetCheckpoint(this);
+                other.transform.parent.parent.GetComponentInParent<IAVehicle>().SetNextCheckpoint(nextCheckpoint);
 
-            }*/
+            }
 
-            other.gameObject.GetComponentInParent<IAVehicle>().SetCheckpoint(this);
-            other.gameObject.GetComponentInParent<IAVehicle>().SetNextCheckpoint(nextCheckpoint);
+            //other.gameObject.GetComponentInParent<IAVehicle>().SetCheckpoint(this);
         }
     }
 

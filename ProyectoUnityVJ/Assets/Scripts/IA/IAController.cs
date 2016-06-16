@@ -40,8 +40,8 @@ public class IAController : VehicleData
 
     protected override void Update()
     {
-       // UpdateHpBar();
-
+        // UpdateHpBar();
+        hpBarContainer.transform.LookAt(Camera.main.transform.position);
         if (!_activeShoot)
         {
             _currentCool += Time.deltaTime;
@@ -67,10 +67,15 @@ public class IAController : VehicleData
     public override void Damage(float damageTaken)
     {
         base.Damage(damageTaken);
+        if(!_alive)
+        {
+            GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<GameManager>().Notify(GetComponent<IAVehicle>(),K.OBS_MESSAGE_DESTROYED);
+            Destroy(this.gameObject);
+        }
     }
     protected override void CheckHealthBar()
     {
-        hpBarContainer.transform.LookAt(Camera.main.transform.position);
+      
         _aux.x = currentLife / maxLife;
         hpBarImage.transform.localScale = _aux;
     }

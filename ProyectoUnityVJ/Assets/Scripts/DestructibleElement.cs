@@ -24,7 +24,7 @@ public class DestructibleElement : MonoBehaviour
 
     private void Explode(float explosionForce, Vector3 explosionPosition, float explosionRadius)
     {
-        foreach (var rb in childsRB) rb.AddExplosionForce(explosionForce, explosionPosition, explosionRadius, 3f);
+        foreach (var rb in childsRB) rb.AddExplosionForce(10000,transform.position,5);
     }
    private void OnCollisionEnter(Collision coll)
    {

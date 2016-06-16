@@ -2226,7 +2226,7 @@ GameObject:
   - 65: {fileID: 6584494}
   m_Layer: 12
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2726,7 +2726,7 @@ GameObject:
   - 114: {fileID: 11427696}
   m_Layer: 12
   m_Name: Buggy IA
-  m_TagString: Target
+  m_TagString: VehicleIA
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4712,7 +4712,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 191602}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: -72.15, y: 27.04, z: 338.32}
+  m_LocalPosition: {x: -76.7, y: 27.04, z: 338.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 486150}
@@ -8862,8 +8862,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.0421066, y: 3.2429523, z: 1.8094562}
-  m_Center: {x: -0.020349324, y: 0.18154305, z: 0.87129253}
+  m_Size: {x: 4.75, y: 3.2429523, z: 2.57}
+  m_Center: {x: 0.7, y: 0.18154305, z: 0.87129253}
 --- !u!65 &6584494
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -9258,7 +9258,7 @@ MonoBehaviour:
   whiteSmoke: {fileID: 19899248}
   blackSmoke: {fileID: 19876128}
   fire: {fileID: 19894346}
-  hpBarContainer: {fileID: 106554}
+  hpBarContainer: {fileID: 107302}
   hpBarImage: {fileID: 11430934}
   myWeapon: {fileID: 11485060}
   primaryWeaponSound: {fileID: 161876}
@@ -9688,7 +9688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63c96c5ebbaf5844ab5e4f49ea14ee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vehicleName: Sebas
+  vehicleName: Exe
   wheelRadius: 0.25
   downForce: 200
   topSpeed: 180

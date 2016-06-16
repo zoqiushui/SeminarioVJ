@@ -12,7 +12,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     public float lapCount { get; protected set; }
     public string vehicleName;
     public float wheelRadius, downForce, topSpeed;
-    public Transform leftTurnWheelPosition, rightWheelTurnPosition;    
+    public Transform leftTurnWheelPosition, rightWheelTurnPosition;
     public Transform centerOfMass;
     public List<Transform> wheelMeshList;
     public List<Suspension> wheelSuspensionList;
@@ -24,7 +24,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     public float currentVelZ { get; private set; }
 
     protected bool _modeNitro = false;
-    protected float nitroPower;
+    public float nitroPower;
     public float nitroTimer;
     protected float _nitroTimer;
     public float rechargeNitro;
@@ -87,8 +87,6 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             trail.enabled = false;
             _wheelTrails.Add(trail);
         }*/
-
-        vehicleName = PlayerPrefs.GetString("PilotName");
         Cursor.visible = false;
         lapCount = 0;
         positionWeight = -Vector3.Distance(transform.position, _checkpointMananagerReference.checkpointsList[0].transform.position);
@@ -123,7 +121,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         lapCount += _checkpointMananagerReference.checkpointValue;
     }
 
-    public void Move(float accelInput, float brakeInput, float handbrakeInput, float steerInput, float nitroInput)
+    public virtual void Move(float accelInput, float brakeInput, float handbrakeInput, float steerInput, float nitroInput)
     {
         _steerInput = steerInput;
         currentVelZ = transform.InverseTransformDirection(_rb.velocity).z;
@@ -150,22 +148,21 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             }
         }
         ApplyDrive(forwardForce, accelInput, brakeForce);
-        ApplySteer(steerForce, steerInput);
+     //   ApplySteer(steerForce, steerInput);
         Drag(accelInput, brakeInput);
         AddDownForce();
         CapSpeed();
-        NitroInput(nitroInput,brakeInput);
-        NotifyObserver(K.OBS_MESSAGE_SPEED);
+        NitroInput(nitroInput, brakeInput);
 
         //Transforma una dirección de world space a local space.
         var relativeVelocity = transform.InverseTransformDirection(_rb.velocity);
         //Maniobrabilidad
-     //   ApplySteering(relativeVelocity);
+           ApplySteering(relativeVelocity);
     }
     protected virtual void Update()
     {
         positionWeight = Vector3.Distance(transform.position, _checkpointMananagerReference.checkpointsList[_checkpointNumber].transform.position);
-        
+
         UpdateTyres();
         //ChangeToRearView();
         //CheckBars();
@@ -205,7 +202,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
                 wheelMeshList[i].localEulerAngles = steerAngle;
             }
         }
-    }    
+    }
 
     protected void CalculateSteerForceWithVelocity(out float sf, float si)
     {
@@ -315,8 +312,8 @@ public abstract class Vehicle : MonoBehaviour, IObservable
 
         if (_modeNitro)
         {
-            if (brakeInput < 0) _rb.AddForce(transform.forward * -nitroPower);
-            else _rb.AddForce(transform.forward * nitroPower);
+            if (brakeInput < 0) _rb.AddForce(0,0, -nitroPower);
+            else _rb.AddRelativeForce(0,0, nitroPower);
             _nitroTimer -= Time.deltaTime;
             if (_nitroTimer < 0)
             {
@@ -353,10 +350,18 @@ public abstract class Vehicle : MonoBehaviour, IObservable
 
     protected void CapSpeed()
     {
-        if (currentVelZ > (topSpeed / K.KPH_TO_MPS_MULTIPLIER))
+        if (!_modeNitro)
         {
-            _rb.velocity = (topSpeed / K.KPH_TO_MPS_MULTIPLIER) * _rb.velocity.normalized;
-            currentVelZ = transform.InverseTransformDirection(_rb.velocity).z;
+            if (currentVelZ > (topSpeed / K.KPH_TO_MPS_MULTIPLIER))
+            {
+                _rb.velocity -= .4f * _rb.velocity.normalized;
+                currentVelZ = transform.InverseTransformDirection(_rb.velocity).z;
+                /*if (currentVelZ < (topSpeed / K.KPH_TO_MPS_MULTIPLIER))
+                {
+                    _rb.velocity = (topSpeed / K.KPH_TO_MPS_MULTIPLIER) * _rb.velocity.normalized;
+                    currentVelZ = transform.InverseTransformDirection(_rb.velocity).z;
+                }*/
+            }
         }
     }
 

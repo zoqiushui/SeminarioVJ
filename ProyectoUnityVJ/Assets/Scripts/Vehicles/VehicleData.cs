@@ -34,9 +34,9 @@ public class VehicleData : MonoBehaviour
             CheckHealthBar();
             if (currentLife <= 0)
             {
+                
                 _alive = false;
                 Instantiate(explosion, transform.position + transform.up, transform.rotation);
-                print("Car Destroy");
                 _soundManagerReference.PlaySound(K.SOUND_CAR_DESTROY);
                 Instantiate(remainsCar, transform.position + transform.up, transform.rotation);
             }

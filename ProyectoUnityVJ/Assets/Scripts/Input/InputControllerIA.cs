@@ -34,7 +34,6 @@ public class InputControllerIA : InputController
 
     private void SteeringToTarget()
     {
-        print("girar hacia el check");
         Vector3 steerVector = transform.InverseTransformPoint(_destinationPoint.x, transform.position.y, _destinationPoint.z);
         _steerInput = (steerVector.x / steerVector.magnitude);
     }
@@ -64,20 +63,19 @@ public class InputControllerIA : InputController
         //FrontRightSensor
         if (Physics.Raycast(frontRightSensor.position, angleRightSensor.forward, out hit, sensorsDistance * 2))
         {
-            if (hit.transform.tag != "Track")
+            
+            if (hit.collider.gameObject.layer != K.LAYER_GROUND)
             {
                 _torqueInput /= 2;
                 _steerInput -= 1f;
-                Debug.DrawLine(frontRightSensor.position, hit.point, Color.white);
             }
         }
         else if (Physics.Raycast(angleRightSensor.position, angleRightSensor.forward, out hit, sensorsDistance))
         {
-            if (hit.transform.tag != "Track")
+            if (hit.collider.gameObject.layer != K.LAYER_GROUND)
             {
                 _torqueInput /= 2;
                 _steerInput -= 0.5f;
-                Debug.DrawLine(angleRightSensor.position, hit.point, Color.white);
             }
         }
 
@@ -85,21 +83,19 @@ public class InputControllerIA : InputController
         //FrontLeftSensor
         if (Physics.Raycast(frontLeftSensor.position, frontLeftSensor.forward, out hit, sensorsDistance * 2))
         {
-            if (hit.transform.tag != "Track")
+            if (hit.collider.gameObject.layer != K.LAYER_GROUND)
             {
                 _torqueInput /= 2;
                 _steerInput += 1f;
-
-                Debug.DrawLine(frontLeftSensor.position, hit.point, Color.white);
+                
             }
         }
         else if (Physics.Raycast(angleLeftSensor.position, angleLeftSensor.forward, out hit, sensorsDistance))
         {
-            if (hit.transform.tag != "Track")
+            if (hit.collider.gameObject.layer != K.LAYER_GROUND)
             {
                 _torqueInput /= 2;
                 _steerInput += 5f;
-                Debug.DrawLine(angleLeftSensor.position, hit.point, Color.white);
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Manager
 {
@@ -32,7 +33,6 @@ public class GameManager : Manager
 
     private void Update()
     {
-      /*  print(_enemiesReferences.Count);
         if (Mathf.FloorToInt(playerReference.lapCount) == K.MAX_LAPS)
         {
             playerReference.NotifyObserver(K.OBS_MESSAGE_FINISHED);
@@ -56,12 +56,12 @@ public class GameManager : Manager
             GameOver("You Win");
         }
 
-        if (playerReference.gameObject.GetComponent<VehicleData>().currentLife <= 0)
+        if (playerReference.gameObject.GetComponent<BuggyData>().currentLife <= 0)
         {
             ((BuggyController)playerReference).EndRaceHandbrake();
             playerReference.enabled = false;
             GameOver("You Lose");
-        }*/
+        }
 
         PauseInput();
     }
@@ -114,12 +114,14 @@ public class GameManager : Manager
     }
     private void GameOver(string s)
     {
+        print(s);
         switch (s)
         {
             case "You Win":
                 {
                     youWin.gameObject.SetActive(true);
-                    PlayerPrefs.SetInt("Resources", 20);
+                    int currentResources=PlayerPrefs.GetInt("Resources");
+                    PlayerPrefs.SetInt("Resources", currentResources+20);
                     SaveDamageInfo();
                     Cursor.visible = true;
                     Cursor.lockState = CursorLockMode.None;
@@ -129,8 +131,9 @@ public class GameManager : Manager
                 break;
             case "Race Finished":
                 {
+                    int currentResources = PlayerPrefs.GetInt("Resources");
                     raceFinishedText.gameObject.SetActive(true);
-                    PlayerPrefs.SetInt("Resources", 10);
+                    PlayerPrefs.SetInt("Resources", currentResources + 10);
                     SaveDamageInfo();
                     Cursor.visible = true;
                     Cursor.lockState = CursorLockMode.None;
@@ -141,7 +144,7 @@ public class GameManager : Manager
             case "You Lose":
                 {
                     DeletePlayer();
-                    //SceneManager.LoadScene(1);
+                    //SceneManager.LoadScene(2);
                     Cursor.visible = true;
                     Cursor.lockState = CursorLockMode.None;
                     playerReference.gameObject.GetComponentInChildren<WeaponsManager>().enabled = false;

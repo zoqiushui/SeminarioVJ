@@ -71,6 +71,7 @@ public class BuggyController : Vehicle
     {
 
         wrongDirectionText.gameObject.SetActive(false);
+        vehicleName = PlayerPrefs.GetString("PilotName");
         base.Start();
     }
     protected override void Update()
@@ -137,17 +138,21 @@ public class BuggyController : Vehicle
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            rearMirror.enabled = true;
+            rearMirror.gameObject.SetActive(true);
             Camera.main.depth = -1f;
         }
         else if (Input.GetKeyUp(KeyCode.Q))
         {
-            rearMirror.enabled = false;
+            rearMirror.gameObject.SetActive( false);
             Camera.main.depth = 0f;
         }
     }
 
-
+    public override void Move(float accelInput, float brakeInput, float handbrakeInput, float steerInput, float nitroInput)
+    {
+        base.Move(accelInput, brakeInput, handbrakeInput, steerInput, nitroInput);
+        NotifyObserver(K.OBS_MESSAGE_SPEED);
+    }
 
     //    base.Start();
     //    wrongDirectionText.gameObject.SetActive(false);
@@ -398,7 +403,7 @@ public class BuggyController : Vehicle
         //for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = brake;
         //dragMultiplier.z += 10 * Time.deltaTime;
         //handbrake = true;
-        _rb.drag = 10;
+        _rb.drag = 10000;
     }
 
     //private void CheckHandbrake()

@@ -10,18 +10,38 @@ public class ScreenManager : MonoBehaviour {
     public Text repairAmount;
     private int resourcesCurrent;
 
+    public GameObject portrait;
+    public GameObject newPilotButton;
+    public GameObject youNeedPilot;
+
     public void Awake()
     {
         resourcesCurrent = PlayerPrefs.GetInt("Resources");
         resourcesText.text= "Resources: " + PlayerPrefs.GetInt("Resources");
-        pilotName.text = "Pilot's name: " + PlayerPrefs.GetString("PilotName");
+        if (K.pilotIsAlive==true)
+        {
+            pilotName.text = "Pilot's name: " + PlayerPrefs.GetString("PilotName");
+        }
+        else
+        {
+            pilotName.text = "";
+        }
+        
 
         repairAmount.text = "Vehicle's state: "+PlayerPrefs.GetInt("CurrentLife")+"/"+PlayerPrefs.GetInt("MaxLife");
+
+
+        if (K.pilotIsAlive==false)
+        {
+            portrait.SetActive(false);
+            newPilotButton.SetActive(true);
+        }
+
     }
 
     public void Repair()
     {
-        if (PlayerPrefs.GetInt("CurrentLife") == PlayerPrefs.GetInt("MaxLife"))
+        if (PlayerPrefs.GetInt("CurrentLife") != PlayerPrefs.GetInt("MaxLife") && PlayerPrefs.GetInt("Resources")>=10)
         {
             resourcesCurrent -= 10;
             PlayerPrefs.SetInt("Resources", resourcesCurrent);
@@ -34,6 +54,19 @@ public class ScreenManager : MonoBehaviour {
 
 	public void SearchForRace()
     {
-        SceneManager.LoadScene(3);
+        if (K.pilotIsAlive==true)
+        {
+            SceneManager.LoadScene(3);
+        }
+        else
+        {
+            youNeedPilot.SetActive(true);
+        }
+        
+    }
+
+    public void NewPilot()
+    {
+        SceneManager.LoadScene(1);
     }
 }

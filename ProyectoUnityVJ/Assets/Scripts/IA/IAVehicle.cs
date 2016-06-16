@@ -88,9 +88,9 @@ public class IAVehicle : Vehicle
     {
         _myInput = this.gameObject.GetComponentInParent<InputControllerIA>();
         base.Start();
-        lapCount = 0;
-        positionWeight = -Vector3.Distance(transform.position, _checkpointMananagerReference.checkpointsList[0].transform.position);
-        _checkpointNumber = 0;
+        //lapCount = 0;
+        //positionWeight = -Vector3.Distance(transform.position, _checkpointMananagerReference.checkpointsList[0].transform.position);
+        //_checkpointNumber = 0;
         /*_nitroTimer = nitroTimer;
         lapsEnded = 1;
         nitroEmpty = false;*/
@@ -105,7 +105,7 @@ public class IAVehicle : Vehicle
 
     protected override void Update()
     {
-        print(currentVelZ);
+        base.Update();
         if (currentVelZ < 5f && !_stoped)
         {
             _stoped = true;
@@ -117,7 +117,6 @@ public class IAVehicle : Vehicle
 
         if (_stoped)
         {
-            print("timer: " + _timerReset);
             _timerReset += Time.deltaTime;
             if (_timerReset >= _resetWaitTime)
             {

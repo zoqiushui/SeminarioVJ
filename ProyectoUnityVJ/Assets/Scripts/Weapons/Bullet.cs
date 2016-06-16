@@ -31,7 +31,6 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        print(col.gameObject.layer);
         if (col.gameObject.layer == K.LAYER_IA)
         {
             col.gameObject.GetComponent<IAController>().Damage(powerDamage);
