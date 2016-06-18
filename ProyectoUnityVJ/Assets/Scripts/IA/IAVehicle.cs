@@ -128,8 +128,6 @@ public class IAVehicle : Vehicle
 
     }
 
-
-
     //// Update is called once per frame
     //void Update ()
     //{

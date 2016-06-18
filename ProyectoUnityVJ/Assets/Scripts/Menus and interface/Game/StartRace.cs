@@ -21,7 +21,7 @@ public class StartRace : MonoBehaviour
     {
         for (int countDown = countMax; countDown >= 0; countDown--)
         {
-            print(countDown);
+          //  print(countDown);
             if (countDown == 0)
             {
                 _countTxt.text = lastString;

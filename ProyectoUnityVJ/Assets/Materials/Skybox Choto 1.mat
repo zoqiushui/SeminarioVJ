@@ -159,4 +159,4 @@ Material:
       data:
         first:
           name: _GroundColor
-        second: {r: 0.625, g: 0.4675457, b: 0.12867647, a: 1}
+        second: {r: 0.7647059, g: 0.53102857, b: 0.028114168, a: 1}

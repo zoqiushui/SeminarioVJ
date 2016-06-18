@@ -403,7 +403,7 @@ public class BuggyController : Vehicle
         //for (int i = 0; i < wheelColliders.Length; i++) wheelColliders[i].brakeTorque = brake;
         //dragMultiplier.z += 10 * Time.deltaTime;
         //handbrake = true;
-        _rb.drag = 10000;
+        _rb.drag += 1f * Time.deltaTime;
     }
 
     //private void CheckHandbrake()

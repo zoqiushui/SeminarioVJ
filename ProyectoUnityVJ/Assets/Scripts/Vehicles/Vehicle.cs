@@ -302,7 +302,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             Camera.main.GetComponent<VignetteAndChromaticAberration>().enabled = true;
             Camera.main.GetComponent<MotionBlur>().enabled = true;
         }
-        else
+        else if(gameObject.GetComponent<BuggyController>() != null)
         {
             _modeNitro = false;
             Camera.main.GetComponent<Bloom>().enabled = false;

@@ -17,6 +17,7 @@ public class GameManager : Manager
     public GameObject pauseCanvas;
 
     public static bool disableShoot = false;
+    private bool _oneTime;
     private void Awake()
     {
         //if (instance == null) instance = this;
@@ -24,6 +25,7 @@ public class GameManager : Manager
         _enemiesReferences = new List<Vehicle>();
         _enemiesReferences.AddRange(GameObject.Find(K.CONTAINER_VEHICLES_NAME).GetComponentsInChildren<IAVehicle>());
         disableShoot = false;
+        _oneTime = false;
     }
 
     private void Start()
@@ -93,13 +95,31 @@ public class GameManager : Manager
         
         if (disableShoot)
         {
-            playerReference.enabled = false;
-            foreach (var enemy in _enemiesReferences) enemy.enabled = false;
+            if (!_oneTime)
+            {
+                playerReference.gameObject.GetComponent<InputControllerPlayer>().enabled = false;
+                playerReference.enabled = false;
+                foreach (var enemy in _enemiesReferences)
+                {
+                    enemy.gameObject.GetComponent<InputControllerIA>().enabled = false;
+                    enemy.enabled = false;
+                }
+                _oneTime = true;
+            }
         }
         else
         {
-            playerReference.enabled = true;
-            foreach (var enemy in _enemiesReferences) enemy.enabled = true;
+           if (_oneTime)
+           {
+               playerReference.gameObject.GetComponent<InputControllerPlayer>().enabled = true;
+               playerReference.enabled = true;
+               foreach (var enemy in _enemiesReferences)
+               {
+                   enemy.gameObject.GetComponent<InputControllerIA>().enabled = true;
+                   enemy.enabled = true;
+               }
+               _oneTime = false;
+           }
         }
     }
     public void ResumeGame()
