@@ -142,7 +142,6 @@ public class IngameUIManager : Manager
             case K.OBS_MESSAGE_DESTROYED:
                 if (!_destroyedRacers.Contains(caller.vehicleName))
                 {
-                    print("caller " + caller.vehicleName);
                     _destroyedRacers.Add(caller.vehicleName);
                 }
                 break;

@@ -22,6 +22,8 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     [Range(0, 1)]
     public float groundFriction = 0.96f;
     public float currentVelZ { get; private set; }
+    public bool isGrounded { private set; get; }
+
 
     protected bool _modeNitro = false;
     public float nitroPower;
@@ -52,7 +54,6 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     protected SoundManager _soundManagerReference;
     protected GameManager _gameManagerReference;
     protected Rigidbody _rb;
-    protected bool _isGrounded;
     protected bool _isGroundedRamp;
     protected List<TrailRenderer> _wheelTrails;
 
@@ -60,7 +61,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     {
         get
         {
-            if (_isGrounded)
+            if (isGrounded)
                 return groundFriction;
             else
                 return airFriction;
@@ -131,7 +132,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         //_rb.drag = K.AIR_DRAG;
         foreach (var wheel in wheelSuspensionList)
         {
-            _isGrounded = false;
+            isGrounded = false;
             _isGroundedRamp = false;
 
             if (wheel.IsGroundedRamp())
@@ -141,14 +142,14 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             }
             else if (wheel.IsGrounded())
             {
-                _isGrounded = true;
+                isGrounded = true;
                 //_rb.drag = 1;
                 //CalculateSteerForceWithVelocity(out steerForce,steerInput); 
                 break;
             }
         }
         ApplyDrive(forwardForce, accelInput, brakeForce);
-     //   ApplySteer(steerForce, steerInput);
+        //   ApplySteer(steerForce, steerInput);
         Drag(accelInput, brakeInput);
         AddDownForce();
         CapSpeed();
@@ -157,7 +158,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         //Transforma una dirección de world space a local space.
         var relativeVelocity = transform.InverseTransformDirection(_rb.velocity);
         //Maniobrabilidad
-           ApplySteering(relativeVelocity);
+        ApplySteering(relativeVelocity);
     }
     protected virtual void Update()
     {
@@ -173,7 +174,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
 
     private void CheckDustVehicle()
     {
-        if (currentVelZ > 10 && _isGrounded || currentVelZ < -5 && _isGrounded) backDust.Play();
+        if (currentVelZ > 10 && isGrounded || currentVelZ < -5 && isGrounded) backDust.Play();
         else backDust.Stop();
     }
     //private void ChangeToRearView()
@@ -194,14 +195,8 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     {
         _finalAngle = _steerInput * K.JEEP_MAX_STEERING_ANGLE;
         for (int i = 0; i < wheelMeshList.Count; i++)
-        {
             if (i < 2f)
-            {
-                Vector3 steerAngle = wheelMeshList[i].localEulerAngles;
-                steerAngle.y = _finalAngle;
-                wheelMeshList[i].localEulerAngles = steerAngle;
-            }
-        }
+                wheelMeshList[i].localEulerAngles = new Vector3(0, _finalAngle, 0);
     }
 
     protected void CalculateSteerForceWithVelocity(out float sf, float si)
@@ -264,7 +259,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             _rb.AddRelativeForce(0, 0, brakeF, ForceMode.Acceleration);
         }
         else {
-            if (_isGrounded) _rb.AddRelativeForce(0, 0, tempForce, ForceMode.Acceleration);
+            if (isGrounded) _rb.AddRelativeForce(0, 0, tempForce, ForceMode.Acceleration);
             //else _rb.AddRelativeForce(0, 0, tempForce * 1.1f, ForceMode.Acceleration);
         }
     }
@@ -295,14 +290,14 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     }
     private void NitroInput(float nitroInput, float brakeInput)
     {
-        if (nitroInput > 0 && _isGrounded && !_nitroEmpty)
+        if (nitroInput > 0 && isGrounded && !_nitroEmpty)
         {
             _modeNitro = true;
             Camera.main.GetComponent<Bloom>().enabled = true;
             Camera.main.GetComponent<VignetteAndChromaticAberration>().enabled = true;
             Camera.main.GetComponent<MotionBlur>().enabled = true;
         }
-        else if(gameObject.GetComponent<BuggyController>() != null)
+        else if (gameObject.GetComponent<BuggyController>() != null)
         {
             _modeNitro = false;
             Camera.main.GetComponent<Bloom>().enabled = false;
@@ -312,8 +307,8 @@ public abstract class Vehicle : MonoBehaviour, IObservable
 
         if (_modeNitro)
         {
-            if (brakeInput < 0) _rb.AddRelativeForce(0,0, -nitroPower);
-            else _rb.AddRelativeForce(0,0, nitroPower);
+            if (brakeInput < 0) _rb.AddRelativeForce(0, 0, -nitroPower);
+            else _rb.AddRelativeForce(0, 0, nitroPower);
             _nitroTimer -= Time.deltaTime;
             if (_nitroTimer < 0)
             {

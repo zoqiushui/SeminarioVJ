@@ -67,7 +67,7 @@ public class PressMine : Trap
             if (cols[i].GetComponentInParent<Rigidbody>() != null)
             {
                // print("impact");
-                print(cols[i].gameObject);
+                //print(cols[i].gameObject);
                 cols[i].GetComponentInParent<Rigidbody>().AddExplosionForce(expPower, transform.position, expRadius, 0.5f, ForceMode.Impulse);
                 if (cols[i].gameObject.layer == K.LAYER_PLAYER)
                     cols[i].gameObject.GetComponentInParent<BuggyData>().Damage(expDamage);

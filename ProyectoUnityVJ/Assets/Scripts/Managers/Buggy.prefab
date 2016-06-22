@@ -8735,8 +8735,8 @@ MonoBehaviour:
   airFriction: 0.999
   groundFriction: 0.95
   nitroPower: 30000
-  nitroTimer: 1.5
-  rechargeNitro: 1.5
+  nitroTimer: 3
+  rechargeNitro: 3
   rearMirror: {fileID: 2040760}
   resetTime: 0.5
   maximumTurn: 15

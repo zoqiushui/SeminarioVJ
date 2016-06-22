@@ -34,7 +34,7 @@ public class VehicleData : MonoBehaviour
             CheckHealthBar();
             if (currentLife <= 0)
             {
-                
+                GetComponent<Vehicle>().NotifyObserver(K.OBS_MESSAGE_DESTROYED);
                 _alive = false;
                 Instantiate(explosion, transform.position + transform.up, transform.rotation);
                 _soundManagerReference.PlaySound(K.SOUND_CAR_DESTROY);

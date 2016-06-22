@@ -1134,7 +1134,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: de34320095c1cb04fb837b79709b228d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de34320095c1cb04fb837b79709b228d, type: 3}
@@ -15469,46 +15469,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11499896, guid: 3ffa406f456676144978fed702deda20, type: 2}
-      propertyPath: _mainCam
-      value: 
-      objectReference: {fileID: 1213899684}
-    - target: {fileID: 11499896, guid: 3ffa406f456676144978fed702deda20, type: 2}
-      propertyPath: lockOn
-      value: 
-      objectReference: {fileID: 1735283006}
-    - target: {fileID: 11492906, guid: 3ffa406f456676144978fed702deda20, type: 2}
-      propertyPath: wrongDirectionText
-      value: 
-      objectReference: {fileID: 1816569549}
-    - target: {fileID: 11468976, guid: 3ffa406f456676144978fed702deda20, type: 2}
-      propertyPath: crosshair
-      value: 
-      objectReference: {fileID: 1735283006}
-    - target: {fileID: 11468976, guid: 3ffa406f456676144978fed702deda20, type: 2}
-      propertyPath: _mainCam
-      value: 
-      objectReference: {fileID: 1213899684}
-    - target: {fileID: 11432002, guid: 3ffa406f456676144978fed702deda20, type: 2}
-      propertyPath: _mainCam
-      value: 
-      objectReference: {fileID: 1213899684}
-    - target: {fileID: 11432002, guid: 3ffa406f456676144978fed702deda20, type: 2}
-      propertyPath: lockOn
-      value: 
-      objectReference: {fileID: 2016792}
-    - target: {fileID: 11429618, guid: 3ffa406f456676144978fed702deda20, type: 2}
-      propertyPath: visualHealth
-      value: 
-      objectReference: {fileID: 1183936128}
-    - target: {fileID: 11429618, guid: 3ffa406f456676144978fed702deda20, type: 2}
-      propertyPath: DamagePortrait
-      value: 
-      objectReference: {fileID: 261896915}
-    - target: {fileID: 11403652, guid: 3ffa406f456676144978fed702deda20, type: 2}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 1213899684}
     - target: {fileID: 486964, guid: 3ffa406f456676144978fed702deda20, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0.09074578
@@ -15525,6 +15485,46 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: -0.07704067
       objectReference: {fileID: 0}
+    - target: {fileID: 11403652, guid: 3ffa406f456676144978fed702deda20, type: 2}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1213899684}
+    - target: {fileID: 11429618, guid: 3ffa406f456676144978fed702deda20, type: 2}
+      propertyPath: visualHealth
+      value: 
+      objectReference: {fileID: 1183936128}
+    - target: {fileID: 11429618, guid: 3ffa406f456676144978fed702deda20, type: 2}
+      propertyPath: DamagePortrait
+      value: 
+      objectReference: {fileID: 261896915}
+    - target: {fileID: 11432002, guid: 3ffa406f456676144978fed702deda20, type: 2}
+      propertyPath: _mainCam
+      value: 
+      objectReference: {fileID: 1213899684}
+    - target: {fileID: 11432002, guid: 3ffa406f456676144978fed702deda20, type: 2}
+      propertyPath: lockOn
+      value: 
+      objectReference: {fileID: 2016792}
+    - target: {fileID: 11468976, guid: 3ffa406f456676144978fed702deda20, type: 2}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 1735283006}
+    - target: {fileID: 11468976, guid: 3ffa406f456676144978fed702deda20, type: 2}
+      propertyPath: _mainCam
+      value: 
+      objectReference: {fileID: 1213899684}
+    - target: {fileID: 11492906, guid: 3ffa406f456676144978fed702deda20, type: 2}
+      propertyPath: wrongDirectionText
+      value: 
+      objectReference: {fileID: 1816569549}
+    - target: {fileID: 11499896, guid: 3ffa406f456676144978fed702deda20, type: 2}
+      propertyPath: _mainCam
+      value: 
+      objectReference: {fileID: 1213899684}
+    - target: {fileID: 11499896, guid: 3ffa406f456676144978fed702deda20, type: 2}
+      propertyPath: lockOn
+      value: 
+      objectReference: {fileID: 1735283006}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ffa406f456676144978fed702deda20, type: 2}
   m_IsPrefabParent: 0
