@@ -380,4 +380,15 @@ public abstract class Vehicle : MonoBehaviour, IObservable
 
         return minimumTurn + speedIndex * (maximumTurn - minimumTurn);
     }
+
+    private void OnCollisionEnter(Collision hit)
+    {
+        if (GetComponent<InputControllerPlayer>() &&
+            hit.gameObject.layer != K.LAYER_RAMP &&
+            hit.gameObject.layer != K.LAYER_SIDEGROUND
+            )
+        {
+            Camera.main.GetComponent<ShakeCamera>().DoShake();
+        }
+    }
 }

@@ -27,6 +27,7 @@ public class SoundManager : MonoBehaviour
     {
 
         channels = new List<AudioSource>();
+        mainCamera = Camera.main;
 
         for (int i = 0; i < channelCount; i++)
         {
