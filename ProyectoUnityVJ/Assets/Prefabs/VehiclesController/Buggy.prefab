@@ -2672,7 +2672,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182136}
-  m_LocalRotation: {x: 0.09074578, y: 0.72925246, z: 0.6738108, w: -0.07704067}
+  m_LocalRotation: {x: 0.09074577, y: 0.7292524, z: 0.6738107, w: -0.077040665}
   m_LocalPosition: {x: 0.0025065783, y: 0.038258396, z: 0.2060594}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -7797,10 +7797,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLife: 100
   currentLife: 0
-  visualHealth: {fileID: 0}
-  DamagePortrait: {fileID: 0}
   remainsCar: {fileID: 100556, guid: f6e664d70d146c740a2c0733e1c4f717, type: 2}
   explosion: {fileID: 177362, guid: dc93d4677be59f343b2402a2ddceaa05, type: 2}
+  whiteSmoke: {fileID: 0}
+  blackSmoke: {fileID: 0}
+  fire: {fileID: 0}
 --- !u!114 &11411092
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8018,6 +8019,7 @@ MonoBehaviour:
   leftTurnWheelPosition: {fileID: 412622}
   rightWheelTurnPosition: {fileID: 447198}
   centerOfMass: {fileID: 486484}
+  carFootprintPrefab: {fileID: 186302, guid: c51b2b9c7b82cc94488c8f3dbb5a3c5c, type: 2}
   wheelMeshList:
   - {fileID: 412622}
   - {fileID: 447198}
@@ -8033,6 +8035,16 @@ MonoBehaviour:
   brakeForce: 20
   airFriction: 0.99
   groundFriction: 0.95
+  nitroPower: 0
+  nitroTimer: 0
+  rechargeNitro: 0
+  rearMirror: {fileID: 0}
+  resetTime: 0
+  maximumTurn: 0
+  minimumTurn: 0
+  backDust: {fileID: 0}
+  visualNitro: {fileID: 0}
+  wrongDirectionText: {fileID: 0}
 --- !u!114 &11438596
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13752,7 +13764,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: carFootprintPrefab
+      value: 
+      objectReference: {fileID: 186302, guid: c51b2b9c7b82cc94488c8f3dbb5a3c5c, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 185748}

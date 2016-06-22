@@ -3882,7 +3882,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 119838}
-  m_LocalRotation: {x: 0.09074578, y: 0.72925246, z: 0.6738108, w: -0.07704067}
+  m_LocalRotation: {x: 0.09074577, y: 0.7292524, z: 0.6738107, w: -0.077040665}
   m_LocalPosition: {x: 0.0025065783, y: 0.038258396, z: 0.2060594}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -4867,7 +4867,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113732}
-  m_LocalRotation: {x: 0.09074577, y: 0.7292524, z: 0.6738107, w: -0.077040665}
+  m_LocalRotation: {x: 0.09074578, y: 0.72925246, z: 0.6738108, w: -0.07704067}
   m_LocalPosition: {x: 0.0025065783, y: 0.038258396, z: 0.2060594}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -9695,6 +9695,7 @@ MonoBehaviour:
   leftTurnWheelPosition: {fileID: 461476}
   rightWheelTurnPosition: {fileID: 402570}
   centerOfMass: {fileID: 443510}
+  carFootprintPrefab: {fileID: 186302, guid: c51b2b9c7b82cc94488c8f3dbb5a3c5c, type: 2}
   wheelMeshList:
   - {fileID: 461476}
   - {fileID: 402570}
@@ -9710,6 +9711,7 @@ MonoBehaviour:
   brakeForce: 20
   airFriction: 0.99
   groundFriction: 0.95
+  nitroPower: 0
   nitroTimer: 1.5
   rechargeNitro: 1.5
   rearMirror: {fileID: 0}
@@ -22950,7 +22952,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: carFootprintPrefab
+      value: 
+      objectReference: {fileID: 186302, guid: c51b2b9c7b82cc94488c8f3dbb5a3c5c, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 191602}

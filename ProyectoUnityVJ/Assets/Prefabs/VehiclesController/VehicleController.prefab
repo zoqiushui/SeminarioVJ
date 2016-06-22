@@ -1797,7 +1797,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187748}
-  m_LocalRotation: {x: 0.09074578, y: 0.72925246, z: 0.6738108, w: -0.07704067}
+  m_LocalRotation: {x: 0.09074577, y: 0.7292524, z: 0.6738107, w: -0.077040665}
   m_LocalPosition: {x: 0.0025065783, y: 0.038258396, z: 0.2060594}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -4605,12 +4605,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ec1ba3928593646a210b0bbe493465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  springForce: 0
-  damperForce: 0
   springConstant: 20000
   damperConstant: 2000
   restLenght: 0.3
-  isGrounded: 0
 --- !u!114 &11406536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4664,12 +4661,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ec1ba3928593646a210b0bbe493465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  springForce: 0
-  damperForce: 0
   springConstant: 20000
   damperConstant: 2000
   restLenght: 0.3
-  isGrounded: 0
 --- !u!114 &11411136
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4683,7 +4677,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLife: 100
   currentLife: 0
-  visualHealth: {fileID: 0}
+  remainsCar: {fileID: 0}
+  explosion: {fileID: 0}
+  whiteSmoke: {fileID: 0}
+  blackSmoke: {fileID: 0}
+  fire: {fileID: 0}
 --- !u!114 &11414906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4695,12 +4693,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ec1ba3928593646a210b0bbe493465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  springForce: 0
-  damperForce: 0
   springConstant: 20000
   damperConstant: 2000
   restLenght: 0.3
-  isGrounded: 0
 --- !u!114 &11415774
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4714,34 +4709,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vehicleName: Player
   wheelRadius: 0.25
-  maxTorque: 800000
+  downForce: 0
+  topSpeed: 180
+  leftTurnWheelPosition: {fileID: 0}
+  rightWheelTurnPosition: {fileID: 0}
   centerOfMass: {fileID: 402894}
-  speedText: {fileID: 0}
-  wrongDirectionText: {fileID: 0}
-  trailRenderModel: {fileID: 0}
+  carFootprintPrefab: {fileID: 186302, guid: c51b2b9c7b82cc94488c8f3dbb5a3c5c, type: 2}
   wheelMeshList:
   - {fileID: 497726}
   - {fileID: 455590}
   - {fileID: 429056}
   - {fileID: 496094}
-  topSpeed: 180
-  maxReverseSpeed: 80
-  maximumTurn: 15
-  minimumTurn: 10
-  dragMultiplier: {x: 0, y: 0, z: 0}
-  resetTime: 0.5
-  stuckMaxDist: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  fallForce: 600
-  carModel: {fileID: 125956}
-  antiRoll: 1500
+  wheelSuspensionList: []
+  maxSteerForce: 0
+  maxForce: 0
   brakeForce: 0
+  airFriction: 0.98
+  groundFriction: 0.96
   nitroPower: 50000
   nitroTimer: 1.5
   rechargeNitro: 1.5
-  visualNitro: {fileID: 11434568}
+  rearMirror: {fileID: 0}
+  resetTime: 0.5
+  maximumTurn: 15
+  minimumTurn: 10
+  backDust: {fileID: 0}
 --- !u!114 &11417256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4889,12 +4881,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ec1ba3928593646a210b0bbe493465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  springForce: 0
-  damperForce: 0
   springConstant: 20000
   damperConstant: 2000
   restLenght: 0.3
-  isGrounded: 0
 --- !u!114 &11430618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5170,6 +5159,7 @@ MonoBehaviour:
   missileCountAmmo: 0
   reloadSpeed: 5
   ammoTimer: 1
+  type: 0
   particleEffect: {fileID: 159198}
   bulletPref: {fileID: 179808, guid: 8ce189ac209b3b84eb19fedeadf411d5, type: 2}
   forceImpact: 30
@@ -10597,7 +10587,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: carFootprintPrefab
+      value: 
+      objectReference: {fileID: 186302, guid: c51b2b9c7b82cc94488c8f3dbb5a3c5c, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 134510}

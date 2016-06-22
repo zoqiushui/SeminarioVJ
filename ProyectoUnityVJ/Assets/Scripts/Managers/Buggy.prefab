@@ -8719,6 +8719,7 @@ MonoBehaviour:
   leftTurnWheelPosition: {fileID: 423716}
   rightWheelTurnPosition: {fileID: 413074}
   centerOfMass: {fileID: 468886}
+  carFootprintPrefab: {fileID: 186302, guid: c51b2b9c7b82cc94488c8f3dbb5a3c5c, type: 2}
   wheelMeshList:
   - {fileID: 423716}
   - {fileID: 413074}

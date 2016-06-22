@@ -14,6 +14,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     public float wheelRadius, downForce, topSpeed;
     public Transform leftTurnWheelPosition, rightWheelTurnPosition;
     public Transform centerOfMass;
+    public GameObject carFootprintPrefab;
     public List<Transform> wheelMeshList;
     public List<Suspension> wheelSuspensionList;
     public float maxSteerForce, maxForce, brakeForce;
@@ -55,7 +56,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     protected GameManager _gameManagerReference;
     protected Rigidbody _rb;
     protected bool _isGroundedRamp;
-    protected List<TrailRenderer> _wheelTrails;
+    protected List<GameObject> _wheelTrails;
 
     protected float friction
     {
@@ -95,6 +96,14 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         _nitroTimer = nitroTimer;
         _lapsEnded = 1;
         _nitroEmpty = false;
+        _wheelTrails = new List<GameObject>();
+        foreach (var wheel in wheelMeshList)
+        {
+            var go = Instantiate(carFootprintPrefab);
+            go.transform.parent = wheel.transform.parent;
+            go.transform.localPosition = new Vector3(0, -wheel.GetComponent<MeshRenderer>().bounds.extents.y, 0);
+            _wheelTrails.Add(go);
+        }
     }
 
     public void AddObserver(IObserver obs)
@@ -170,6 +179,25 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         //CheckDirection();
         CheckCarFlipped();
         CheckDustVehicle();
+
+        if (currentVelZ*K.KPH_TO_MPS_MULTIPLIER > 50 && isGrounded && (_steerInput > .5f || _steerInput < -.5f))
+        {
+            for (int i = 0; i < wheelMeshList.Count; i++)
+            {
+                if (wheelMeshList[i].parent.GetComponent<Suspension>().IsGrounded())
+                {
+                    _wheelTrails[i].SetActive(true);
+                    _wheelTrails[i].transform.localPosition = new Vector3(0, -wheelMeshList[i].GetComponent<MeshRenderer>().bounds.extents.y/3, 0);
+                }
+            }
+        }
+        else
+        {
+            foreach (var footprint in _wheelTrails)
+            {
+                footprint.SetActive(false);
+            }
+        }
     }
 
     private void CheckDustVehicle()

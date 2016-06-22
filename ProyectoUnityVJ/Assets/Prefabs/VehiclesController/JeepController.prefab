@@ -1847,7 +1847,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 136132}
-  m_LocalRotation: {x: 0.09074577, y: 0.7292524, z: 0.6738107, w: -0.077040665}
+  m_LocalRotation: {x: 0.09074578, y: 0.72925246, z: 0.6738108, w: -0.07704067}
   m_LocalPosition: {x: 0.0025065783, y: 0.038258396, z: 0.2060594}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -4658,6 +4658,7 @@ MonoBehaviour:
   missileCountAmmo: 0
   reloadSpeed: 5
   ammoTimer: 1
+  type: 0
   particleEffect: {fileID: 128978}
   bulletPref: {fileID: 179808, guid: 8ce189ac209b3b84eb19fedeadf411d5, type: 2}
   forceImpact: 30
@@ -4719,7 +4720,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLife: 100
   currentLife: 0
-  visualHealth: {fileID: 0}
+  remainsCar: {fileID: 0}
+  explosion: {fileID: 0}
+  whiteSmoke: {fileID: 0}
+  blackSmoke: {fileID: 0}
+  fire: {fileID: 0}
 --- !u!114 &11418940
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4962,39 +4967,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vehicleName: Player
   wheelRadius: 0
-  maxTorque: 800
+  downForce: 0
+  topSpeed: 0
+  leftTurnWheelPosition: {fileID: 0}
+  rightWheelTurnPosition: {fileID: 0}
   centerOfMass: {fileID: 474270}
-  speedText: {fileID: 0}
-  wrongDirectionText: {fileID: 0}
-  trailRenderModel: {fileID: 0}
-  wheelColliders:
-  - {fileID: 14650940}
-  - {fileID: 14666714}
-  - {fileID: 14665998}
-  - {fileID: 14682378}
-  tiresCar:
-  - {fileID: 439650}
-  - {fileID: 495836}
-  - {fileID: 437936}
-  - {fileID: 426770}
-  maxSpeed: 180
-  maxReverseSpeed: 80
-  maximumTurn: 15
-  minimumTurn: 10
-  dragMultiplier: {x: 2, y: 0, z: 0}
-  resetTime: 0.5
-  stuckMaxDist: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  fallForce: 30000
-  carModel: {fileID: 152712}
-  antiRoll: 1500
-  brake: 7000
+  carFootprintPrefab: {fileID: 186302, guid: c51b2b9c7b82cc94488c8f3dbb5a3c5c, type: 2}
+  wheelMeshList: []
+  wheelSuspensionList: []
+  maxSteerForce: 0
+  maxForce: 0
+  brakeForce: 0
+  airFriction: 0.98
+  groundFriction: 0.96
   nitroPower: 50000
   nitroTimer: 1.5
   rechargeNitro: 1.5
+  rearMirror: {fileID: 0}
+  resetTime: 0.5
+  maximumTurn: 15
+  minimumTurn: 10
+  backDust: {fileID: 0}
   visualNitro: {fileID: 11472172}
+  wrongDirectionText: {fileID: 0}
 --- !u!114 &11462572
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10722,6 +10717,10 @@ Prefab:
       propertyPath: m_CullingMask.m_Bits
       value: 4294966783
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: carFootprintPrefab
+      value: 
+      objectReference: {fileID: 186302, guid: c51b2b9c7b82cc94488c8f3dbb5a3c5c, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 180746}
