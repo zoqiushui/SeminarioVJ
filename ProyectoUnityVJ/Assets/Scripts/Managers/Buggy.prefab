@@ -8732,7 +8732,7 @@ MonoBehaviour:
   maxSteerForce: 15
   maxForce: 500
   brakeForce: 40
-  airFriction: 0.99
+  airFriction: 0.999
   groundFriction: 0.95
   nitroPower: 30000
   nitroTimer: 1.5

@@ -155,16 +155,21 @@ public class IngameUIManager : Manager
                 break;
 
             case K.OBS_MESSAGE_SPEED:
-                if (((Vehicle)caller).currentVelZ * K.KPH_TO_MPS_MULTIPLIER > ((Vehicle)caller).topSpeed)
+                var auxVelZ = caller.currentVelZ;
+                var rnd = Random.Range(-.5f, .5f);
+                if (auxVelZ < 0)
                 {
-                    _playerSpeed = ((Vehicle)caller).topSpeed / K.SPEEDOMETER_MAX_SPEED;
+                    auxVelZ *= -1;
+                }
+                if (auxVelZ * K.KPH_TO_MPS_MULTIPLIER > caller.topSpeed)
+                {
+                    _playerSpeed = (caller.topSpeed + rnd) / K.SPEEDOMETER_MAX_SPEED;
                 }
                 else
                 {
-                    _playerSpeed = (((Vehicle)caller).currentVelZ * K.KPH_TO_MPS_MULTIPLIER) / K.SPEEDOMETER_MAX_SPEED;
+                    _playerSpeed = ((auxVelZ + rnd) * K.KPH_TO_MPS_MULTIPLIER) / K.SPEEDOMETER_MAX_SPEED;
 
                 }
-
 
                 //else _playerSpeed = ((VehicleController)caller).currentSpeed / K.SPEEDOMETER_MAX_SPEED;
                 break;

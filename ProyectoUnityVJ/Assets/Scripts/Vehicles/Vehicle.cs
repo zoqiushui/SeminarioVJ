@@ -312,7 +312,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
 
         if (_modeNitro)
         {
-            if (brakeInput < 0) _rb.AddForce(0,0, -nitroPower);
+            if (brakeInput < 0) _rb.AddRelativeForce(0,0, -nitroPower);
             else _rb.AddRelativeForce(0,0, nitroPower);
             _nitroTimer -= Time.deltaTime;
             if (_nitroTimer < 0)
@@ -356,11 +356,11 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             {
                 _rb.velocity -= .4f * _rb.velocity.normalized;
                 currentVelZ = transform.InverseTransformDirection(_rb.velocity).z;
-                /*if (currentVelZ < (topSpeed / K.KPH_TO_MPS_MULTIPLIER))
+                if (currentVelZ < (topSpeed / K.KPH_TO_MPS_MULTIPLIER))
                 {
                     _rb.velocity = (topSpeed / K.KPH_TO_MPS_MULTIPLIER) * _rb.velocity.normalized;
                     currentVelZ = transform.InverseTransformDirection(_rb.velocity).z;
-                }*/
+                }
             }
         }
     }

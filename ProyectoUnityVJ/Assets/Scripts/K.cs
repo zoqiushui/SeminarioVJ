@@ -9,7 +9,6 @@ public class K
     public const string INPUT_HANDBRAKE = "Handbrake";
     public const string INPUT_NITRO = "Nitro";
 
-
     // ===== MESSAGES =====
     public const string OBS_MESSAGE_DESTROYED = "Destroyed";
     public const string OBS_MESSAGE_FINISHED = "Finished";
@@ -97,7 +96,6 @@ public class K
     public const float KPH_TO_MPS_MULTIPLIER = 3.6f; // Kilometros por hora a metros por segundo
     public const float TRAIL_WHEEL_START_SPEED = 50f; // Velocidad de inicio de trail
     public const float MIN_FORCE_MULTIPLIER = .155f;
-
 
     // ======  PILOT =======
     public static bool pilotIsAlive=true;
