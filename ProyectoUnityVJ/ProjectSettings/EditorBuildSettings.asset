@@ -13,3 +13,5 @@ EditorBuildSettings:
     path: Assets/Scenes/HUB.unity
   - enabled: 1
     path: Assets/Scenes/DesertTrack.unity
+  - enabled: 1
+    path: Assets/Scenes/PostGame.unity

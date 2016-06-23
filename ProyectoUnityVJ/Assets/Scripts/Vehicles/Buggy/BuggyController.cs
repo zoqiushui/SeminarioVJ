@@ -71,8 +71,15 @@ public class BuggyController : Vehicle
     {
 
         wrongDirectionText.gameObject.SetActive(false);
-        vehicleName = PlayerPrefs.GetString("PilotName");
+        vehicleName = PlayerPrefs.GetString("PilotName") != "" ? PlayerPrefs.GetString("PilotName") : vehicleName;
         base.Start();
+        //Traits
+        
+        /*maxForce += maxForce / 100 * 20 * PlayerPrefs.GetInt("BonusAcceleration");
+        print(maxForce / 100 * 20 * PlayerPrefs.GetInt("BonusAcceleration"));
+        _nitroTimer += _nitroTimer / 100 * 20 * PlayerPrefs.GetInt("BonusTurbo");
+        topSpeed += topSpeed / 100 * 20 * PlayerPrefs.GetInt("BonusMaxSpeed");*/
+        
     }
     protected override void Update()
     {

@@ -2720,7 +2720,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 478680}
   - 54: {fileID: 5473226}
-  - 114: {fileID: 11446340}
   - 114: {fileID: 11436704}
   - 114: {fileID: 11463236}
   - 114: {fileID: 11427696}
@@ -3882,7 +3881,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 119838}
-  m_LocalRotation: {x: 0.09074577, y: 0.7292524, z: 0.6738107, w: -0.077040665}
+  m_LocalRotation: {x: 0.09074578, y: 0.72925246, z: 0.6738108, w: -0.07704067}
   m_LocalPosition: {x: 0.0025065783, y: 0.038258396, z: 0.2060594}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -4867,7 +4866,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113732}
-  m_LocalRotation: {x: 0.09074578, y: 0.72925246, z: 0.6738108, w: -0.07704067}
+  m_LocalRotation: {x: 0.09074577, y: 0.7292524, z: 0.6738107, w: -0.077040665}
   m_LocalPosition: {x: 0.0025065783, y: 0.038258396, z: 0.2060594}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -9434,24 +9433,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
---- !u!114 &11446340
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 191602}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce56955e1027f3543b48e9a7c4406b56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxLife: 100
-  currentLife: 0
-  remainsCar: {fileID: 100556, guid: f6e664d70d146c740a2c0733e1c4f717, type: 2}
-  explosion: {fileID: 177362, guid: dc93d4677be59f343b2402a2ddceaa05, type: 2}
-  whiteSmoke: {fileID: 19899248}
-  blackSmoke: {fileID: 19876128}
-  fire: {fileID: 19894346}
 --- !u!114 &11446428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9688,7 +9669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63c96c5ebbaf5844ab5e4f49ea14ee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vehicleName: Exe
+  vehicleName: Marcos
   wheelRadius: 0.25
   downForce: 200
   topSpeed: 180
@@ -9706,7 +9687,7 @@ MonoBehaviour:
   - {fileID: 11418206}
   - {fileID: 11474228}
   - {fileID: 11401180}
-  maxSteerForce: 15
+  maxSteerForce: 45
   maxForce: 500
   brakeForce: 20
   airFriction: 0.99
@@ -9716,8 +9697,8 @@ MonoBehaviour:
   rechargeNitro: 1.5
   rearMirror: {fileID: 0}
   resetTime: 0.5
-  maximumTurn: 15
-  minimumTurn: 10
+  maximumTurn: 55
+  minimumTurn: 45
   backDust: {fileID: 19808590}
   _nextCheckpoint: {fileID: 0}
 --- !u!114 &11464428

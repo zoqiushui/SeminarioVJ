@@ -18,17 +18,33 @@ public class InputControllerIA : InputController
     private float _brakeInput;
     private Vector3 _destinationPoint;
 
+    protected override void Start()
+    {
+        base.Start();
+        StartCoroutine("SensorsCalculator");
+
+    }
 
     protected override void FixedUpdate()
     {
         //
         // TODO: Cambiar valores accel, brake, steer.... 
         //
-        SteeringToTarget();
-        Sensors();
+//        SteeringToTarget();
+  //      Sensors();
         _steer = Mathf.Clamp(_steerInput, -1, 1);
         _accel = Mathf.Clamp(_torqueInput, 0.15f, 1);
         base.FixedUpdate();
+    }
+
+
+    IEnumerator SensorsCalculator()
+    {
+
+        SteeringToTarget();
+        Sensors();
+        yield return new WaitForSeconds(0.1f);
+        yield return StartCoroutine("SensorsCalculator");
     }
 
 

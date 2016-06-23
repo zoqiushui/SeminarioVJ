@@ -104,6 +104,8 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             go.transform.localPosition = new Vector3(0, -wheel.GetComponent<MeshRenderer>().bounds.extents.y, 0);
             _wheelTrails.Add(go);
         }
+
+       
     }
 
     public void AddObserver(IObserver obs)
@@ -186,7 +188,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             {
                 if (wheelMeshList[i].parent.GetComponent<Suspension>().IsGrounded())
                 {
-                    _wheelTrails[i].SetActive(true);
+                    _wheelTrails[i].GetComponentInChildren<TrailRenderer>().enabled = true;
                     _wheelTrails[i].transform.localPosition = new Vector3(0, -wheelMeshList[i].GetComponent<MeshRenderer>().bounds.extents.y/3, 0);
                 }
             }
@@ -195,7 +197,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         {
             foreach (var footprint in _wheelTrails)
             {
-                footprint.SetActive(false);
+                footprint.GetComponentInChildren<TrailRenderer>().enabled = false;
             }
         }
     }
@@ -379,13 +381,14 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             {
                 _rb.velocity -= .4f * _rb.velocity.normalized;
                 currentVelZ = transform.InverseTransformDirection(_rb.velocity).z;
-                if (currentVelZ < (topSpeed / K.KPH_TO_MPS_MULTIPLIER))
+                if (currentVelZ > (topSpeed / K.KPH_TO_MPS_MULTIPLIER))
                 {
                     _rb.velocity = (topSpeed / K.KPH_TO_MPS_MULTIPLIER) * _rb.velocity.normalized;
                     currentVelZ = transform.InverseTransformDirection(_rb.velocity).z;
                 }
             }
         }
+//        print(currentVelZ);
     }
 
     public void PushRamp(float amount)

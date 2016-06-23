@@ -15,7 +15,7 @@ public class IngameUIManager : Manager
     private int _playerLaps;
     private List<Vehicle> _racerList;
     private List<string> _endRacerList, _destroyedRacers;
-    private string _positionsTextString;
+    private string _positionsTextString, _playerName;
 
     private void Start()
     {
@@ -23,7 +23,8 @@ public class IngameUIManager : Manager
         _racerList.AddRange(GameObject.Find(K.CONTAINER_VEHICLES_NAME).GetComponentsInChildren<Vehicle>());
         _endRacerList = new List<string>();
         _destroyedRacers = new List<string>();
-
+        _playerName = GameObject.FindGameObjectWithTag(K.TAG_PLAYER).GetComponent<Vehicle>().vehicleName;
+        print(_playerName);
 
         //InfoIAPosition();
     }
@@ -72,6 +73,15 @@ public class IngameUIManager : Manager
         _playerSpeedometerRotation.z = (_playerSpeed * K.SPEEDOMETER_MAX_ANGLE) + K.SPEEDOMETER_MIN_ANGLE;
         speedpmeterNeedleImage.transform.eulerAngles = _playerSpeedometerRotation;
 
+    }
+
+    public int GetPLayerPosition(string playerName)
+    {
+        if (_endRacerList.Contains(playerName))
+        {
+            return _endRacerList.IndexOf(playerName);
+        }
+        else return -1;
     }
 
     /*private void InfoIAPosition()
@@ -132,7 +142,31 @@ public class IngameUIManager : Manager
 
     public void OnRestartButtonClicked()
     {
-        SceneManager.LoadScene(2);
+        if(K.pilotIsAlive==false)
+        {
+            SceneManager.LoadScene(2);
+            PlayerPrefs.SetString("PilotName", "");
+            PlayerPrefs.SetInt("Face", 0);
+            PlayerPrefs.SetInt("Hair", 0);
+            PlayerPrefs.SetInt("FaceHair", 0);
+            PlayerPrefs.SetInt("Accesory", 0);
+            PlayerPrefs.SetInt("HairColor", 0);
+            PlayerPrefs.SetInt("SkinColor", 0);
+
+            //Delete traits
+            PlayerPrefs.SetInt("BonusMaxSpeed", 0);
+            PlayerPrefs.SetInt("BonusTurbo", 0);
+            PlayerPrefs.SetInt("BonusAcceleration", 0);
+            PlayerPrefs.SetInt("BonusAmmo", 0);
+            PlayerPrefs.SetInt("BonusAmmoReload", 0);
+            PlayerPrefs.SetInt("BonusLessMineDamage", 0);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Position", GetPLayerPosition(_playerName));
+            SceneManager.LoadScene(4);
+        }
+        
     }
 
     public override void Notify(Vehicle caller, string msg)

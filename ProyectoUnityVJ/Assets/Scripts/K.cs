@@ -49,9 +49,9 @@ public class K
     public const float JEEP_ROTATION_FORCE = 10000;
 
     // ===== UI =====
-    public const float SPEEDOMETER_MAX_ANGLE = -270;
-    public const float SPEEDOMETER_MIN_ANGLE = 45;
-    public const float SPEEDOMETER_MAX_SPEED = 260;
+    public const float SPEEDOMETER_MAX_ANGLE = -180;
+    public const float SPEEDOMETER_MIN_ANGLE = 0;
+    public const float SPEEDOMETER_MAX_SPEED = 200;
 
     // ===== IA =====
     public const float IA_MAX_HP = 100;

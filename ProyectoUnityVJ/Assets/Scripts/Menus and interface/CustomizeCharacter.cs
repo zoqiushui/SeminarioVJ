@@ -20,7 +20,7 @@ public class CustomizeCharacter : MonoBehaviour
 
     public int currentFlag;
 
-
+    public Pilot pilot;
     
     //Referencias a sus hijos
     public GameObject gameObjectHead;
@@ -283,6 +283,8 @@ public class CustomizeCharacter : MonoBehaviour
             PlayerPrefs.SetInt("FaceHair", currentFaceHair);
 
             K.pilotIsAlive = true;
+
+            pilot.UpdateStats();
 
             SceneManager.LoadScene(2);
 
