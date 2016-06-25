@@ -45,8 +45,6 @@ public class Bullet : MonoBehaviour
             Instantiate(spark, cont + -transform.forward, Quaternion.identity);
             DestroyThis();
         }
-
-
         else
         {
             if (col.contacts.Length != 0)
