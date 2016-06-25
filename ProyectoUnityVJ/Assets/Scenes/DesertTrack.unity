@@ -41871,7 +41871,7 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Convex: 0
-  m_Mesh: {fileID: 4300038, guid: 77dddcc10125cde49a580b302e809a97, type: 3}
+  m_Mesh: {fileID: 4300040, guid: 77dddcc10125cde49a580b302e809a97, type: 3}
 --- !u!1 &973756852
 GameObject:
   m_ObjectHideFlags: 0
@@ -60480,11 +60480,15 @@ Prefab:
     - target: {fileID: 3300038, guid: 77dddcc10125cde49a580b302e809a97, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4300040, guid: 77dddcc10125cde49a580b302e809a97, type: 3}
     - target: {fileID: 100002, guid: 77dddcc10125cde49a580b302e809a97, type: 3}
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2300038, guid: 77dddcc10125cde49a580b302e809a97, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d5e240ad146f40e4f8cdae9592d466d0, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 77dddcc10125cde49a580b302e809a97, type: 3}
   m_IsPrefabParent: 0
