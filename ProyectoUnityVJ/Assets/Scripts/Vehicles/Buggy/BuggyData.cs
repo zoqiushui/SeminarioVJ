@@ -1,19 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Linq;
 
 public class BuggyData : VehicleData
 {
 
     public Image visualHealth;
     public GameObject DamagePortrait;
-
-
+    public GameObject glassDamage;
+    private List<RectTransform> _crackedGlass;
     // Use this for initialization
     protected override void Start ()
     {
         base.Start();
         currentLife = PlayerPrefs.GetInt("CurrentLife") > 0 ? PlayerPrefs.GetInt("CurrentLife") : maxLife;
+
+        _crackedGlass = glassDamage.GetComponentsInChildren<RectTransform>().ToList();
+        _crackedGlass.RemoveAt(0);
 
         CheckHealthBar();
     }
@@ -38,6 +43,14 @@ public class BuggyData : VehicleData
     {
         float calc_health = currentLife / maxLife;
         visualHealth.fillAmount = calc_health;
+
+        if(currentLife != maxLife)
+        {
+            var index = Random.Range(0, _crackedGlass.Count - 1);
+            _crackedGlass[index].GetComponent<RawImage>().enabled = true;
+            _crackedGlass.RemoveAt(index);
+        }
+
         if (currentLife >= 80)
         {
             visualHealth.color = Color.green;
