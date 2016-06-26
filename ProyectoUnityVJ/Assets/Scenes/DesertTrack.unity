@@ -30208,7 +30208,7 @@ RectTransform:
   m_RootOrder: 5
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -825, y: 492}
+  m_AnchoredPosition: {x: -825, y: 470.7}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &646406336
@@ -30231,11 +30231,11 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 9864d5baec0629f408bf952a2a884953, type: 3}
     m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 1
+    m_MinSize: 0
     m_MaxSize: 100
     m_Alignment: 3
     m_AlignByGeometry: 0
@@ -55633,8 +55633,8 @@ MonoBehaviour:
   lapsText: {fileID: 646406336}
   positionsText: {fileID: 1361052340}
   endRaceColor: {r: 0.109915674, g: 0.78676474, b: 0.11458356, a: 0}
-  enemiesColor: {r: 0.8722111, g: 1, b: 0.07352942, a: 0}
-  playerColor: {r: 1, g: 1, b: 1, a: 0}
+  enemiesColor: {r: 1, g: 1, b: 1, a: 0}
+  playerColor: {r: 0.87367964, g: 1, b: 0.0745098, a: 0}
   destroyedColor: {r: 0.9264706, g: 0.20436849, b: 0.20436849, a: 0}
 --- !u!4 &1329840852
 Transform:
@@ -57672,7 +57672,7 @@ RectTransform:
   m_RootOrder: 10
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -824, y: 420}
+  m_AnchoredPosition: {x: -824, y: 382.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1361052340
@@ -57695,7 +57695,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 9864d5baec0629f408bf952a2a884953, type: 3}
     m_FontSize: 35
     m_FontStyle: 0
     m_BestFit: 0
