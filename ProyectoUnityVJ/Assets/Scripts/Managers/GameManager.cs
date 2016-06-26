@@ -184,7 +184,9 @@ public class GameManager : Manager
         _ingameUIManagerReference.positionsText.fontSize = 60;
         _ingameUIManagerReference.lapsText.gameObject.SetActive(false);
         playerReference.GetComponent<BuggyController>().wrongDirectionText.gameObject.SetActive(false);
+        playerReference.GetComponent<BuggyController>().visualNitro.transform.parent.transform.parent.transform.parent.gameObject.SetActive(false);
         playerReference.GetComponentInChildren<WeaponsManager>().crosshair.SetActive(false);
+        _ingameUIManagerReference.speedpmeterNeedleImage.gameObject.SetActive(false);
     }
 
     void DeletePlayer()
