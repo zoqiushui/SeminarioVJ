@@ -143,10 +143,7 @@ public class GameManager : Manager
                     int currentResources=PlayerPrefs.GetInt("Resources");
                     PlayerPrefs.SetInt("Resources", currentResources+20);
                     SaveDamageInfo();
-                    Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.None;
-                    playerReference.gameObject.GetComponentInChildren<WeaponsManager>().enabled = false;
-                    disableShoot = true;
+                    BasicSettings();
                 }
                 break;
             case "Race Finished":
@@ -155,26 +152,30 @@ public class GameManager : Manager
                     raceFinishedText.gameObject.SetActive(true);
                     PlayerPrefs.SetInt("Resources", currentResources + 10);
                     SaveDamageInfo();
-                    Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.None;
-                    playerReference.gameObject.GetComponentInChildren<WeaponsManager>().enabled = false;
-                    disableShoot = true;
+                    BasicSettings();
                 }
                 break;
             case "You Lose":
                 {
                     DeletePlayer();
                     //SceneManager.LoadScene(2);
-                    Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.None;
-                    playerReference.gameObject.GetComponentInChildren<WeaponsManager>().enabled = false;
-                    disableShoot = true;
+                    BasicSettings();
                 } 
                 break;
             default:
                 break;
         }
         restartButton.gameObject.SetActive(true);
+    }
+
+    private void BasicSettings()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        playerReference.gameObject.GetComponentInChildren<WeaponsManager>().enabled = false;
+        playerReference.gameObject.GetComponent<InputControllerPlayer>().enabled = false;
+        playerReference.enabled = false;
+        playerReference.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationY;
     }
 
     void DeletePlayer()

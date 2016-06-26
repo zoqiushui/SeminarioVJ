@@ -411,6 +411,7 @@ public class BuggyController : Vehicle
         //dragMultiplier.z += 10 * Time.deltaTime;
         //handbrake = true;
         _rb.drag += 1f * Time.deltaTime;
+        backDust.Stop();
     }
 
     //private void CheckHandbrake()
