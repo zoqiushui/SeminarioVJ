@@ -9,6 +9,7 @@ public class GameManager : Manager
     public Text raceFinishedText;
     public Text youLoseText;
     public Button restartButton;
+    public GameObject scoreBackground;
     public Vehicle playerReference { get; private set; }
     private List<Vehicle> _enemiesReferences;
     private IngameUIManager _ingameUIManagerReference;
@@ -175,7 +176,12 @@ public class GameManager : Manager
         playerReference.gameObject.GetComponentInChildren<WeaponsManager>().enabled = false;
         playerReference.gameObject.GetComponent<InputControllerPlayer>().enabled = false;
         playerReference.enabled = false;
-        playerReference.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationY;
+        playerReference.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+
+        scoreBackground.SetActive(true);
+        _ingameUIManagerReference.positionsText.rectTransform.position = new Vector3(Screen.width / 2 - 50, Screen.height / 2 + 90, _ingameUIManagerReference.positionsText.rectTransform.position.z);
+        _ingameUIManagerReference.positionsText.fontSize = 60;
+        _ingameUIManagerReference.lapsText.gameObject.SetActive(false);
     }
 
     void DeletePlayer()
