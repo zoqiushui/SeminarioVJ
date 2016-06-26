@@ -7,7 +7,7 @@ public class GameManager : Manager
 {
     public Text youWin;
     public Text raceFinishedText;
-    public Text youLoseText;
+    public Text youDiedText;
     public Button restartButton;
     public GameObject scoreBackground;
     public Vehicle playerReference { get; private set; }
@@ -158,6 +158,7 @@ public class GameManager : Manager
                 break;
             case "You Lose":
                 {
+                    youDiedText.gameObject.SetActive(true);
                     DeletePlayer();
                     //SceneManager.LoadScene(2);
                     BasicSettings();
@@ -182,6 +183,8 @@ public class GameManager : Manager
         _ingameUIManagerReference.positionsText.rectTransform.position = new Vector3(Screen.width / 2 - 50, Screen.height / 2 + 90, _ingameUIManagerReference.positionsText.rectTransform.position.z);
         _ingameUIManagerReference.positionsText.fontSize = 60;
         _ingameUIManagerReference.lapsText.gameObject.SetActive(false);
+        playerReference.GetComponent<BuggyController>().wrongDirectionText.gameObject.SetActive(false);
+        playerReference.GetComponentInChildren<WeaponsManager>().crosshair.SetActive(false);
     }
 
     void DeletePlayer()

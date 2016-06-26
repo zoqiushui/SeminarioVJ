@@ -39874,7 +39874,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 915967985}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -39882,8 +39882,8 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -1732, y: -520}
-  m_SizeDelta: {x: 115.05, y: 30}
+  m_AnchoredPosition: {x: -1728.8, y: -517.8}
+  m_SizeDelta: {x: 98, y: 25}
   m_Pivot: {x: 0.75, y: 0.5}
 --- !u!114 &915967987
 MonoBehaviour:
@@ -42960,7 +42960,7 @@ GameObject:
   - 222: {fileID: 1010794294}
   - 114: {fileID: 1010794293}
   m_Layer: 5
-  m_Name: TextYouLose
+  m_Name: TextYouDied
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42995,7 +42995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2827587, g: 0, b: 1, a: 1}
+  m_Color: {r: 0.77205884, g: 0.11921499, b: 0.11921499, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -43015,7 +43015,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: YOU LOSE
+  m_Text: YOU DIED
 --- !u!222 &1010794294
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -55469,7 +55469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   youWin: {fileID: 914436794}
   raceFinishedText: {fileID: 1638990605}
-  youLoseText: {fileID: 1010794293}
+  youDiedText: {fileID: 1010794293}
   restartButton: {fileID: 1970233413}
   scoreBackground: {fileID: 354747693}
   pauseCanvas: {fileID: 272485335}
@@ -77364,7 +77364,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: be4533c98c13bd74ab378e65eb1b0b48, type: 3}
     m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0

@@ -49,8 +49,8 @@ public class K
     public const float JEEP_ROTATION_FORCE = 10000;
 
     // ===== UI =====
-    public const float SPEEDOMETER_MAX_ANGLE = -180;
-    public const float SPEEDOMETER_MIN_ANGLE = 0;
+    public const float SPEEDOMETER_MAX_ANGLE = -150;
+    public const float SPEEDOMETER_MIN_ANGLE = -20;
     public const float SPEEDOMETER_MAX_SPEED = 200;
 
     // ===== IA =====
@@ -63,7 +63,7 @@ public class K
     public const float MINIMAP_HEIGHT = 50;
 
     // ===== GAME PRESETS =====
-    public const int MAX_LAPS = 3;
+    public const int MAX_LAPS = 1;
 
     // ===== SCENE CONTAINERS =====
     public const string CONTAINER_VEHICLES_NAME = "VEHICLES";

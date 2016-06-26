@@ -14,6 +14,8 @@ public class BuggyData : VehicleData
     {
         base.Start();
         currentLife = PlayerPrefs.GetInt("CurrentLife") > 0 ? PlayerPrefs.GetInt("CurrentLife") : maxLife;
+
+        CheckHealthBar();
     }
 	
 	// Update is called once per frame
@@ -36,7 +38,6 @@ public class BuggyData : VehicleData
     {
         float calc_health = currentLife / maxLife;
         visualHealth.fillAmount = calc_health;
-
         if (currentLife >= 80)
         {
             visualHealth.color = Color.green;
