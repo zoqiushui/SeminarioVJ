@@ -27,13 +27,13 @@ public class WeaponsManager : MonoBehaviour {
 
         if (activeSet == 0)
         {
-            Activate(weaponsSet1);
             Desactivate(weaponsSet2);
+            Activate(weaponsSet1);
         }
         else if (activeSet == 1)
         {
-            Activate(weaponsSet2);
             Desactivate(weaponsSet1);
+            Activate(weaponsSet2);
         }
     }
 	

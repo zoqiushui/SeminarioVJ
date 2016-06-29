@@ -3881,7 +3881,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 119838}
-  m_LocalRotation: {x: 0.09074578, y: 0.72925246, z: 0.6738108, w: -0.07704067}
+  m_LocalRotation: {x: 0.09074577, y: 0.7292524, z: 0.6738107, w: -0.077040665}
   m_LocalPosition: {x: 0.0025065783, y: 0.038258396, z: 0.2060594}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -4711,7 +4711,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 191602}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: -76.7, y: 27.04, z: 338.32}
+  m_LocalPosition: {x: -84.2, y: 27.04, z: 338.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 486150}
@@ -4866,7 +4866,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113732}
-  m_LocalRotation: {x: 0.09074577, y: 0.7292524, z: 0.6738107, w: -0.077040665}
+  m_LocalRotation: {x: 0.09074578, y: 0.72925246, z: 0.6738108, w: -0.07704067}
   m_LocalPosition: {x: 0.0025065783, y: 0.038258396, z: 0.2060594}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -8894,7 +8894,7 @@ AudioSource:
   Priority: 213
   DopplerLevel: 1
   MinDistance: 0.1
-  MaxDistance: 30.273285
+  MaxDistance: 13.383064
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -9034,8 +9034,8 @@ MonoBehaviour:
   missileCountAmmo: 0
   reloadSpeed: 0
   ammoTimer: 0
-  damage: 2
-  flames: {fileID: 106100}
+  damage: 0.1
+  flames: {fileID: 0}
 --- !u!114 &11401180
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9262,7 +9262,7 @@ MonoBehaviour:
   myWeapon: {fileID: 11485060}
   primaryWeaponSound: {fileID: 161876}
   eyes: {fileID: 112378}
-  clip: 5
+  clip: 4
   cooldownShoot: 5
 --- !u!114 &11428010
 MonoBehaviour:
@@ -9389,7 +9389,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 191602}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f472a7c932119b40b7ca36aef1274b3, type: 3}
+  m_Script: {fileID: 11500000, guid: 8119b4569463f0443a227222f9cd2ff7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   frontSensor: {fileID: 425420}
@@ -9525,16 +9525,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf94d9e92a67d9749a2ab37ecca84f51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponsSet1:
-  - {fileID: 125990}
-  - {fileID: 186636}
-  weaponsSet2:
-  - {fileID: 138726}
-  - {fileID: 195678}
+  weaponsSet1: []
+  weaponsSet2: []
   crosshair: {fileID: 0}
   _mainCam: {fileID: 0}
-  distance: 20
-  activeSet: 1
+  distance: 0
+  activeSet: 0
 --- !u!114 &11448374
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9669,10 +9665,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63c96c5ebbaf5844ab5e4f49ea14ee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vehicleName: Marcos
+  vehicleName: Pyro
   wheelRadius: 0.25
   downForce: 200
-  topSpeed: 180
+  topSpeed: 220
   leftTurnWheelPosition: {fileID: 461476}
   rightWheelTurnPosition: {fileID: 402570}
   centerOfMass: {fileID: 443510}
@@ -9688,15 +9684,16 @@ MonoBehaviour:
   - {fileID: 11474228}
   - {fileID: 11401180}
   maxSteerForce: 45
-  maxForce: 500
+  maxForce: 240
   brakeForce: 20
   airFriction: 0.99
   groundFriction: 0.95
   nitroPower: 0
   nitroTimer: 1.5
   rechargeNitro: 1.5
+  _canRechargeNitro: 0
   rearMirror: {fileID: 0}
-  resetTime: 0.5
+  resetTime: 1.5
   maximumTurn: 55
   minimumTurn: 45
   backDust: {fileID: 19808590}
@@ -9799,13 +9796,13 @@ MonoBehaviour:
   shootButtom: 0
   isCrosshair: 0
   crosshair: {fileID: 0}
-  visualAmmo: {fileID: 11453478}
-  missileCountAmmo: 3
-  reloadSpeed: 0.1
+  visualAmmo: {fileID: 0}
+  missileCountAmmo: 0
+  reloadSpeed: 0
   ammoTimer: 0
-  angleView: 90
-  bomb: {fileID: 107168, guid: 21da40b739db98d429b479f8c35936fd, type: 2}
-  launchPoint: {fileID: 471306}
+  angleView: 0
+  bomb: {fileID: 0}
+  launchPoint: {fileID: 0}
   mainCamera: {fileID: 0}
 --- !u!114 &11481968
 MonoBehaviour:
@@ -9862,18 +9859,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 0
-  shootButtom: 1
+  shootButtom: 0
   isCrosshair: 0
   crosshair: {fileID: 0}
-  visualAmmo: {fileID: 11481968}
-  missileCountAmmo: 3
-  reloadSpeed: 0.3
+  visualAmmo: {fileID: 0}
+  missileCountAmmo: 0
+  reloadSpeed: 0
   ammoTimer: 0
-  angleView: 90
-  maxDistance: 90
-  damage: 20
-  launchPoint: {fileID: 456090}
-  rocket: {fileID: 188932, guid: c7ae7c08a2a93cf4daac21aa2c6ae70b, type: 2}
+  angleView: 0
+  maxDistance: 0
+  damage: 0
+  launchPoint: {fileID: 0}
+  rocket: {fileID: 0}
   _mainCam: {fileID: 0}
   lockOn: {fileID: 0}
 --- !u!114 &11485060
@@ -9896,7 +9893,7 @@ MonoBehaviour:
   reloadSpeed: 5
   ammoTimer: 1
   type: 1
-  particleEffect: {fileID: 161642}
+  particleEffect: {fileID: 168502, guid: 824ce576afdebab4885607a6f69cfa78, type: 2}
   bulletPref: {fileID: 179808, guid: 8ce189ac209b3b84eb19fedeadf411d5, type: 2}
   forceImpact: 30
   maxDistance: 30
@@ -9995,20 +9992,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d48ad581787fea4ebb20d55d724b3bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 0.1
+  cooldown: 0
   shootButtom: 0
   isCrosshair: 0
   crosshair: {fileID: 0}
-  visualAmmo: {fileID: 11417910}
+  visualAmmo: {fileID: 0}
   missileCountAmmo: 0
-  reloadSpeed: 0.5
-  ammoTimer: 1
+  reloadSpeed: 0
+  ammoTimer: 0
   type: 0
-  particleEffect: {fileID: 166376}
-  bulletPref: {fileID: 179808, guid: 8ce189ac209b3b84eb19fedeadf411d5, type: 2}
-  forceImpact: 30
-  maxDistance: 30
-  shootPoint: {fileID: 485656}
+  particleEffect: {fileID: 0}
+  bulletPref: {fileID: 0}
+  forceImpact: 0
+  maxDistance: 0
+  shootPoint: {fileID: 0}
 --- !u!114 &11495112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10032,20 +10029,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7419a2a0289077d47a4b89067d9c91ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 2.5
-  shootButtom: 1
+  cooldown: 0
+  shootButtom: 0
   isCrosshair: 0
   crosshair: {fileID: 0}
-  visualAmmo: {fileID: 11449492}
-  missileCountAmmo: 3
-  reloadSpeed: 0.1
+  visualAmmo: {fileID: 0}
+  missileCountAmmo: 0
+  reloadSpeed: 0
   ammoTimer: 0
-  angleView: 90
-  maxDistance: 80
-  damage: 15
-  launchPoint: {fileID: 486682}
-  myTransf: {fileID: 486682}
-  rocket: {fileID: 188932, guid: 999fe62e95ad83644a0afdb91818bc2c, type: 2}
+  angleView: 0
+  maxDistance: 0
+  damage: 0
+  launchPoint: {fileID: 0}
+  myTransf: {fileID: 0}
+  rocket: {fileID: 0}
   _mainCam: {fileID: 0}
   lockOn: {fileID: 0}
 --- !u!114 &11499254

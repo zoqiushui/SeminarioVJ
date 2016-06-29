@@ -73,6 +73,7 @@ public class VehicleCamera : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, target.transform.position + transform.up * 3);
+        if(target != null)
+            Gizmos.DrawLine(transform.position, target.transform.position + transform.up * 3);
     }
 }

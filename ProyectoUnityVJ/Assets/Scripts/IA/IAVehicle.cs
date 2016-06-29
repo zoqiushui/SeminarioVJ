@@ -65,7 +65,7 @@ public class IAVehicle : Vehicle
     //private int _checkpointNumber;
 
     private float _timerReset;
-    private float _resetWaitTime = 2.5f;
+    private float _resetWaitTime = 1.5f;
     private bool _stoped = false;
     private InputControllerIA _myInput;
     private Vector3 _nextDestinationPoint;
@@ -470,25 +470,26 @@ public class IAVehicle : Vehicle
     //    if (_isGroundedRamp) _rb.AddForce(transform.forward * amount);
     //}
 
-    //public void ChangeGear(string id)
-    //{
-    //    switch (id)
-    //    {
-    //        case "normal":
-    //            maxSpeed = 300f;
-    //            maxTorque = 1250f;
-    //            break;
-    //        case "high":
-    //            maxSpeed = 600f;
-    //            maxTorque = 1500f;
-    //            break;
-    //        case "low":
-    //            maxTorque = 1000f;
-    //            maxSpeed = 240f;
-    //            break;
-    //        default:
-    //            print("Error de Id");
-    //            break;
-    //    }
-    //}
+    public void ChangeGear(string id)
+    {
+        print(gameObject + id);
+        switch (id)
+        {
+            case "normal":
+                topSpeed = 180f;
+                maxForce = 200f;
+                break;
+            case "high":
+                topSpeed = 230f;
+                maxForce = 260f;
+                break;
+            case "low":
+                topSpeed = 150f;
+                maxForce = 130f;
+                break;
+            default:
+                print("Error de Id");
+                break;
+        }
+    }
 }

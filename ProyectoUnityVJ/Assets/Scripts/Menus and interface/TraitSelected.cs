@@ -135,8 +135,10 @@ public class TraitSelected : MonoBehaviour {
 
     public void Selected()
     {
-        postGameManager.GetComponent<PostGameManager>().Deselec();
-        postGameManager.traitSelected = this.gameObject;
-        postGameManager.GetComponent<PostGameManager>().UpdateSelected();
+      
+            postGameManager.GetComponent<PostGameManager>().Deselec();
+            postGameManager.traitSelected = this.gameObject;
+            postGameManager.GetComponent<PostGameManager>().UpdateSelected();
+         
     }
 }

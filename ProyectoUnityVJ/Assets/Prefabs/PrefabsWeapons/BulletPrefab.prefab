@@ -89,8 +89,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 179808}
   m_LocalRotation: {x: 0, y: -0.00000035762787, z: -0, w: -1}
-  m_LocalPosition: {x: 150.54749, y: 28.287, z: 439.75293}
-  m_LocalScale: {x: 1.2849187, y: 1.2849189, z: 0.89550227}
+  m_LocalPosition: {x: -36.645416, y: 26.678, z: 327.19357}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 419530}
   m_Father: {fileID: 0}
@@ -196,7 +196,7 @@ Light:
   m_Type: 2
   m_Color: {r: 0.6838235, g: 0.55177486, b: 0, a: 1}
   m_Intensity: 8
-  m_Range: 0.8
+  m_Range: 0.15
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -207,7 +207,7 @@ Light:
     m_NormalBias: 0.4
     m_NearPlane: 0.2
   m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
+  m_DrawHalo: 1
   m_Flare: {fileID: 0}
   m_RenderMode: 0
   m_CullingMask:
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230cac1b9774d67459502f2e5199f39a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 100
+  speed: 150
   powerDamage: 5
   destroyTime: 3
   spark: {fileID: 168502, guid: 824ce576afdebab4885607a6f69cfa78, type: 2}

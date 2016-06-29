@@ -83,6 +83,14 @@ public class IngameUIManager : Manager
         else return -1;
     }
 
+    public void GiveListData(List<Vehicle> t)
+    {
+        foreach (var item in _racerList)
+        {
+            t.Add(item);
+        }
+    }
+
     /*private void InfoIAPosition()
     {
         if (_racerList != null)
@@ -182,6 +190,7 @@ public class IngameUIManager : Manager
             case K.OBS_MESSAGE_FINISHED:
                 if (!_endRacerList.Contains(caller.vehicleName))
                 {
+                    caller.GetComponentInChildren<Collider>().enabled = false;
                     _endRacerList.Add(caller.vehicleName);
                 }
                 break;

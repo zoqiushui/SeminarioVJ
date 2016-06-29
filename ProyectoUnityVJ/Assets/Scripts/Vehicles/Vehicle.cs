@@ -33,7 +33,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     public float rechargeNitro;
     protected bool _nitroEnd;
     protected float _lapsEnded;
-    protected bool _canRechargeNitro;
+    public bool _canRechargeNitro;
     protected bool _nitroEmpty;
     protected bool _countInAir;
     protected float _timerWrongDirection;
@@ -126,7 +126,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         if (_obsList.Contains(obs)) _obsList.Remove(obs);
     }
 
-    public void SetCheckpoint(Checkpoint chk)
+    public virtual void SetCheckpoint(Checkpoint chk)
     {
         _checkpointNumber = _checkpointMananagerReference.checkpointsList.Count - 1 == _checkpointNumber ? 0 : _checkpointNumber + 1;
         _lastCheckpoint = chk;
@@ -298,8 +298,18 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         if (_lastCheckpoint == null) return;
 
         _rb.velocity = Vector3.zero;
-        transform.position = _lastCheckpoint.GetRespawnPoint(transform.position) + Vector3.up;
-        transform.rotation = _lastCheckpoint.transform.rotation;
+        var temp = Physics.RaycastAll(_lastCheckpoint.transform.position, -_lastCheckpoint.transform.up, Mathf.Infinity);
+        foreach (var item in temp)
+        {
+            if (item.collider.tag == "Track")
+            {
+                transform.position = item.point + Vector3.up;
+                transform.rotation = _lastCheckpoint.transform.rotation;
+                return;
+            }
+        }
+//          transform.position = _lastCheckpoint.GetRespawnPoint(transform.position) + Vector3.up;
+        
     }
     private void CheckCarFlipped()
     {

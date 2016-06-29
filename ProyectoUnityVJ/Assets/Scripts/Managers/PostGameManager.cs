@@ -14,9 +14,12 @@ public class PostGameManager : MonoBehaviour {
     int _random2;
     int _random3;
 
+    int gray;
+
     // Use this for initialization
     void Awake ()
     {
+        gray = 0;
         GetRandoms();
 
         trait1.Assign(_random1);
@@ -35,11 +38,30 @@ public class PostGameManager : MonoBehaviour {
         {
             GetRandoms();
         }
+
+        /*
+        if (PlayerPrefs.GetInt(trait1.GetComponent<TraitSelected>().trait) == 5)
+        {
+            trait1.GetComponent<TraitSelected>().sprite.GetComponent<SpriteRenderer>().color = Color.gray;
+            gray++;
+        }
+        if (PlayerPrefs.GetInt(trait2.GetComponent<TraitSelected>().trait) == 5)
+        {
+            trait2.GetComponent<TraitSelected>().sprite.GetComponent<SpriteRenderer>().color = Color.gray;
+            gray++;
+        }
+        if (PlayerPrefs.GetInt(trait3.GetComponent<TraitSelected>().trait) == 5)
+        {
+            trait3.GetComponent<TraitSelected>().sprite.GetComponent<SpriteRenderer>().color = Color.gray;
+            gray++;
+        }
+        */
+
     }
 
     public void UpdateSelected()
     {
-        traitSelected.GetComponent<TraitSelected>().sprite.GetComponent<SpriteRenderer>().color = Color.red;
+        traitSelected.GetComponent<TraitSelected>().sprite.GetComponent<SpriteRenderer>().color = Color.green;
     }
 
     public void Deselec()
@@ -53,9 +75,13 @@ public class PostGameManager : MonoBehaviour {
 
     public void Next()
     {
-        if(traitSelected!=null)
+        if(traitSelected!=null || gray==3)
         {
             int sum = PlayerPrefs.GetInt(traitSelected.GetComponent<TraitSelected>().trait) + 1;
+            if (sum > 5)
+            {
+                sum = 5;
+            }
             PlayerPrefs.SetInt(traitSelected.GetComponent<TraitSelected>().trait, sum);
             SceneManager.LoadScene(2);
         }

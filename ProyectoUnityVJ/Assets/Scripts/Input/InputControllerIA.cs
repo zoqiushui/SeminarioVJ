@@ -33,17 +33,16 @@ public class InputControllerIA : InputController
 //        SteeringToTarget();
   //      Sensors();
         _steer = Mathf.Clamp(_steerInput, -1, 1);
-        _accel = Mathf.Clamp(_torqueInput, 0.15f, 1);
+        _accel = Mathf.Clamp(_torqueInput, 0.5f, 1);
         base.FixedUpdate();
     }
 
 
     IEnumerator SensorsCalculator()
     {
-
         SteeringToTarget();
         Sensors();
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
         yield return StartCoroutine("SensorsCalculator");
     }
 

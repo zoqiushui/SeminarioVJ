@@ -42,27 +42,28 @@ public class IAController : VehicleData
     {
         // UpdateHpBar();
         hpBarContainer.transform.LookAt(Camera.main.transform.position);
-        if (!_activeShoot)
+        if (!GameManager.disableShoot)
         {
-            _currentCool += Time.deltaTime;
-            if (_currentCool >= cooldownShoot)
+            if (!_activeShoot)
             {
-                eyes.SetActive(true);
-                _activeShoot = true;
+                _currentCool += Time.deltaTime;
+                if (_currentCool >= cooldownShoot)
+                {
+                    eyes.SetActive(true);
+                    _activeShoot = true;
+                }
             }
-        }
 
-        if (_activeShoot && _enemyInSight)
-        {
-
-            _attacking = true;
-            Attack();
-        }
+            if (_activeShoot && _enemyInSight)
+            {
+                _attacking = true;
+                Attack();
+            }
 
 
-        if (_attacking && primaryWeaponSound.activeSelf == false)
-            primaryWeaponSound.SetActive(true);
-            
+            if (_attacking && primaryWeaponSound.activeSelf == false)
+                primaryWeaponSound.SetActive(true);
+        }    
     }
     public override void Damage(float damageTaken)
     {
@@ -73,9 +74,8 @@ public class IAController : VehicleData
             Destroy(this.gameObject);
         }
     }
-    protected override void CheckHealthBar()
-    {
-      
+    public override void CheckHealthBar(bool hasCured)
+    {  
         _aux.x = currentLife / maxLife;
         hpBarImage.transform.localScale = _aux;
     }

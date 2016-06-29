@@ -31,7 +31,7 @@ public class VehicleData : MonoBehaviour
         if (_alive)
         {
             currentLife -= damageTaken;
-            CheckHealthBar();
+            CheckHealthBar(false);
             if (currentLife <= 0)
             {
                 GetComponent<Vehicle>().NotifyObserver(K.OBS_MESSAGE_DESTROYED);
@@ -42,7 +42,7 @@ public class VehicleData : MonoBehaviour
             }
         }
     }
-    protected virtual void CheckHealthBar()
+    public virtual void CheckHealthBar(bool hasCured)
     {
         
     }

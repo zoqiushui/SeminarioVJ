@@ -51,8 +51,8 @@ public class RockedLauncherMK2 : Weapon
     {
         base.Shoot();
         _soundManagerReference.PlaySound(K.SOUND_MISIL_LAUNCH);
-        GameObject rock = (GameObject)GameObject.Instantiate(rocket, launchPoint.position, Quaternion.identity);
-        rock.GetComponent<Rocket>().SetTarget(_pointAttack,damage);
+        GameObject rock = (GameObject)GameObject.Instantiate(rocket, launchPoint.position, launchPoint.rotation);
+        rock.GetComponent<Rocket>().SetTarget(_pointAttack,damage); //cambio
      //   lockOn.SetActive(false);
         currentAmmo -= maxAmmo / missileCountAmmo;
     }

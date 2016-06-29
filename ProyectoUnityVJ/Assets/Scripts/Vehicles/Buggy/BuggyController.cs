@@ -81,6 +81,12 @@ public class BuggyController : Vehicle
         topSpeed += topSpeed / 100 * 20 * PlayerPrefs.GetInt("BonusMaxSpeed");*/
         
     }
+
+    public override void SetCheckpoint(Checkpoint chk)
+    {
+        base.SetCheckpoint(chk);
+        NotifyObserver(K.OBS_MESSAGE_LAPCOUNT);
+    }
     protected override void Update()
     {
         base.Update();
@@ -104,14 +110,15 @@ public class BuggyController : Vehicle
     }
 
     
-    private void RechargeNitro()
+    public void RechargeNitro()
     {
+        /*
         if (Mathf.FloorToInt(lapCount) == _lapsEnded)
         {
             _canRechargeNitro = true;
             _lapsEnded++;
         }
-
+        */
         if (!_modeNitro && _nitroTimer < nitroTimer && _canRechargeNitro) _nitroTimer += Time.deltaTime / rechargeNitro;
         if (visualNitro.fillAmount == 1)
         {

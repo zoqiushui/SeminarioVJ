@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         _lifeTime += Time.deltaTime;
-        if (_lifeTime > 0.020f && col.isTrigger) col.isTrigger = false;
+        if (_lifeTime > 0.05f && col.isTrigger) col.isTrigger = false;
         if (destroyTime <= _lifeTime) DestroyThis();
 
         transform.position += transform.forward * speed * Time.deltaTime;

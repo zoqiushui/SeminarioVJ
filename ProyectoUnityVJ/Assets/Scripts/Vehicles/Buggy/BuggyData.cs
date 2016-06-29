@@ -20,12 +20,12 @@ public class BuggyData : VehicleData
         _crackedGlass = glassDamage.GetComponentsInChildren<RectTransform>().ToList();
         _crackedGlass.RemoveAt(0);
 
-        CheckHealthBar();
+        CheckHealthBar(false);
     }
 	
 	// Update is called once per frame
 	protected override void Update () {
-	
+	    
 	}
 
     public override void Damage(float damageTaken)
@@ -39,7 +39,7 @@ public class BuggyData : VehicleData
             
     }
 
-    protected override void CheckHealthBar()
+    public override void CheckHealthBar(bool hasCured)
     {
         float calc_health = currentLife / maxLife;
         visualHealth.fillAmount = calc_health;
@@ -48,7 +48,11 @@ public class BuggyData : VehicleData
         {
             var index = Random.Range(0, _crackedGlass.Count - 1);
             _crackedGlass[index].GetComponent<RawImage>().enabled = true;
-            _crackedGlass.RemoveAt(index);
+        }
+
+        if (hasCured)
+        {
+            foreach (var glass in _crackedGlass) glass.GetComponent<RawImage>().enabled = false;
         }
 
         if (currentLife >= 80)
