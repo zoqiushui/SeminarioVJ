@@ -282,7 +282,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     protected void ApplyDrive(float forwardForce, float accI, float brakeF)
     {
         //print("VelZ:" + Mathf.Floor(_velZ) + " / topSpeed:" + topSpeed + " = " + (Mathf.Floor(_velZ) / topSpeed));
-        var tempForce = forwardForce * (Mathf.Floor(currentVelZ) / topSpeed);
+        var tempForce = forwardForce * (Mathf.Floor(currentVelZ*K.KPH_TO_MPS_MULTIPLIER) / topSpeed);
         if (tempForce < maxForce * K.MIN_FORCE_MULTIPLIER && accI > 0) tempForce = maxForce * K.MIN_FORCE_MULTIPLIER;
         if (brakeF < 0)
         {
@@ -384,11 +384,10 @@ public abstract class Vehicle : MonoBehaviour, IObservable
                 if (currentVelZ > (topSpeed / K.KPH_TO_MPS_MULTIPLIER))
                 {
                     _rb.velocity = (topSpeed / K.KPH_TO_MPS_MULTIPLIER) * _rb.velocity.normalized;
-                    currentVelZ = transform.InverseTransformDirection(_rb.velocity).z;
+                    currentVelZ = transform.InverseTransformDirection(_rb.velocity).z;                    
                 }
             }
         }
-//        print(currentVelZ);
     }
 
     public void PushRamp(float amount)
@@ -416,7 +415,8 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     {
         if (GetComponent<InputControllerPlayer>() &&
             hit.gameObject.layer != K.LAYER_RAMP &&
-            hit.gameObject.layer != K.LAYER_SIDEGROUND
+            hit.gameObject.layer != K.LAYER_SIDEGROUND &&
+            hit.gameObject.layer != K.LAYER_MISSILE
             )
         {
             Camera.main.GetComponent<ShakeCamera>().DoShake();

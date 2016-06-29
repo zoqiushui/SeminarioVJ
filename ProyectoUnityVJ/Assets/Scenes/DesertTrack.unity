@@ -9271,7 +9271,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11463236, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: maxForce
-      value: 550
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 11463236, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: maxSteerForce
@@ -15854,7 +15854,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11492906, guid: 3ffa406f456676144978fed702deda20, type: 2}
       propertyPath: maxForce
-      value: 500
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 11492906, guid: 3ffa406f456676144978fed702deda20, type: 2}
       propertyPath: visualNitro
@@ -15868,6 +15868,10 @@ Prefab:
       propertyPath: glassDamage
       value: 
       objectReference: {fileID: 554278755}
+    - target: {fileID: 11492906, guid: 3ffa406f456676144978fed702deda20, type: 2}
+      propertyPath: topSpeed
+      value: 180
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ffa406f456676144978fed702deda20, type: 2}
   m_IsPrefabParent: 0
@@ -56298,10 +56302,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1329840852}
+  - 114: {fileID: 1329840855}
   - 114: {fileID: 1329840851}
   - 114: {fileID: 1329840853}
   - 114: {fileID: 1329840854}
-  - 114: {fileID: 1329840855}
   - 114: {fileID: 1329840856}
   m_Layer: 0
   m_Name: Managers
@@ -75028,6 +75032,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c979dba99af4a9c4cbf4a0be1e83b0fe, type: 2}
+    - target: {fileID: 11463236, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: maxForce
+      value: 170
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: db8e992369588774881a237658596c93, type: 2}
   m_IsPrefabParent: 0
@@ -76723,7 +76731,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11463236, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: maxForce
-      value: 500
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 11463236, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: maxSteerForce
@@ -80248,6 +80256,10 @@ Prefab:
     - target: {fileID: 11463236, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: vehicleName
       value: Pedro
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463236, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: maxForce
+      value: 170
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: db8e992369588774881a237658596c93, type: 2}
@@ -90137,7 +90149,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11463236, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: maxForce
-      value: 550
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 11463236, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: maxSteerForce

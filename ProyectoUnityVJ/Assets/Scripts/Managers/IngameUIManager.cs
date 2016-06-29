@@ -24,7 +24,6 @@ public class IngameUIManager : Manager
         _endRacerList = new List<string>();
         _destroyedRacers = new List<string>();
         _playerName = GameObject.FindGameObjectWithTag(K.TAG_PLAYER).GetComponent<Vehicle>().vehicleName;
-        print(_playerName);
 
         //InfoIAPosition();
     }
