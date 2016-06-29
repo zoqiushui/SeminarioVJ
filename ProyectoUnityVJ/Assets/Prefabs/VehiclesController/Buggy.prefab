@@ -17,6 +17,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &100832
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 471748}
+  m_Layer: 10
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &101724
 GameObject:
   m_ObjectHideFlags: 1
@@ -132,7 +147,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &105166
 GameObject:
   m_ObjectHideFlags: 1
@@ -370,7 +385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &114598
 GameObject:
   m_ObjectHideFlags: 1
@@ -455,7 +470,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &116398
 GameObject:
   m_ObjectHideFlags: 1
@@ -1382,7 +1397,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &148624
 GameObject:
   m_ObjectHideFlags: 1
@@ -2494,7 +2509,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &196412
 GameObject:
   m_ObjectHideFlags: 1
@@ -2615,7 +2630,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &402600
 Transform:
   m_ObjectHideFlags: 1
@@ -3892,6 +3907,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 407344}
   m_RootOrder: 28
+--- !u!4 &471748
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100832}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0.397}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 488502}
+  m_RootOrder: 2
 --- !u!4 &471808
 Transform:
   m_ObjectHideFlags: 1
@@ -4152,7 +4179,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120240}
-  m_LocalRotation: {x: 0.09074577, y: 0.7292524, z: 0.6738107, w: -0.077040665}
+  m_LocalRotation: {x: 0.09074578, y: 0.72925246, z: 0.6738108, w: -0.07704067}
   m_LocalPosition: {x: 0.0025065783, y: 0.038258396, z: 0.2060594}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -4176,12 +4203,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146822}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.77, y: 1.278, z: 1.935}
+  m_LocalRotation: {x: 0.000000019368526, y: -0.000000041189104, z: -0.17803305, w: 0.9840245}
+  m_LocalPosition: {x: -1.043, y: 1.162, z: 1.935}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 497024}
   - {fileID: 22452134}
+  - {fileID: 471748}
   m_Father: {fileID: 490214}
   m_RootOrder: 1
 --- !u!4 &488526
@@ -8346,6 +8374,7 @@ MonoBehaviour:
   fire: {fileID: 19830860}
   visualHealth: {fileID: 0}
   DamagePortrait: {fileID: 0}
+  glassDamage: {fileID: 0}
 --- !u!114 &11432002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8357,7 +8386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7419a2a0289077d47a4b89067d9c91ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 2.5
+  cooldown: 2
   shootButtom: 1
   isCrosshair: 0
   crosshair: {fileID: 0}
@@ -8366,7 +8395,7 @@ MonoBehaviour:
   reloadSpeed: 0.1
   ammoTimer: 0.1
   angleView: 90
-  maxDistance: 80
+  maxDistance: 30
   damage: 15
   launchPoint: {fileID: 472314}
   myTransf: {fileID: 472314}
@@ -8537,7 +8566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponsSet1:
   - {fileID: 176852}
-  - {fileID: 105108}
+  - {fileID: 146822}
   weaponsSet2:
   - {fileID: 150648}
   - {fileID: 146822}
@@ -8731,7 +8760,7 @@ MonoBehaviour:
   - {fileID: 11416982}
   - {fileID: 11401182}
   maxSteerForce: 15
-  maxForce: 500
+  maxForce: 170
   brakeForce: 40
   airFriction: 0.999
   groundFriction: 0.95
@@ -8743,7 +8772,7 @@ MonoBehaviour:
   maximumTurn: 15
   minimumTurn: 10
   backDust: {fileID: 19873576}
-  visualNitro: {fileID: 11413134}
+  visualNitro: {fileID: 0}
   wrongDirectionText: {fileID: 0}
 --- !u!114 &11493926
 MonoBehaviour:
@@ -8821,7 +8850,7 @@ MonoBehaviour:
   angleView: 90
   maxDistance: 90
   damage: 20
-  launchPoint: {fileID: 488502}
+  launchPoint: {fileID: 471748}
   rocket: {fileID: 188932, guid: c7ae7c08a2a93cf4daac21aa2c6ae70b, type: 2}
   _mainCam: {fileID: 0}
   lockOn: {fileID: 0}
@@ -19916,8 +19945,8 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182782}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.7}
+  m_LocalRotation: {x: -0.0000000161423, y: 0.00000004322733, z: 0.18611111, w: 0.98252875}
+  m_LocalPosition: {x: 0, y: 0, z: -1.6999995}
   m_LocalScale: {x: -0.01323003, y: 0.013230026, z: 0.01323002}
   m_Children:
   - {fileID: 22449562}
@@ -19925,7 +19954,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.18307415, y: 0.232}
+  m_AnchoredPosition: {x: -0.18845594, y: 0.23097414}
   m_SizeDelta: {x: 51.68, y: 8.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22452534

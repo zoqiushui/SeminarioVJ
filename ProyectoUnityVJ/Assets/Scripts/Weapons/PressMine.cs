@@ -6,6 +6,7 @@ public class PressMine : Trap
     public float expPower;
     public float expRadius;
     public float expDamage;
+    public GameObject sound;
     public LayerMask layersDamege;
     public GameObject feedback;
     public GameObject feedLight;
@@ -79,8 +80,9 @@ public class PressMine : Trap
             }
         }
         Instantiate(feedback, transform.position + transform.up, Quaternion.identity);
-        _soundManagerReference.PlaySound(K.SOUND_MINE_EXPLOSION);
-        GameObject.Destroy(this.gameObject);
+        sound.SetActive(true);
+        
+        GameObject.Destroy(this.gameObject,2f);
     }
     void OnDrawGizmos()
     {

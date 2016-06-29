@@ -48,12 +48,13 @@ public class RocketLauncher : Weapon
             ShootDownButtom();
 
             if (canShoot) LockEnemy();
-            if (_enemyFound && targets.Count > 1)
+            if (_enemyFound)
             {
                 SearchClose(targets);
             }
-            else if (_enemyFound)
-                _finalTarget = targets[0];
+
+
+          //  if (_finalTarget != null && _enemyFound) LockTarget();
 
             if (Input.GetMouseButtonUp(shootButtom) && _finalTarget != null && canShoot)
             {
@@ -61,28 +62,28 @@ public class RocketLauncher : Weapon
                 if (visualAmmo.fillAmount > 0 && !ammoEmpty && currentAmmo >= maxAmmo / missileCountAmmo) Shoot();
             }
 
-            if (_finalTarget != null && _enemyFound) LockTarget();
 
             if (!Input.GetMouseButton(shootButtom) && lockOn.activeSelf) lockOn.SetActive(false);
-       // }
+        // }
 
 
     }
 
     private void LockTarget()
     {
+        print("posicionando mira");
         lockOn.SetActive(true);
         Vector3 temp = _mainCam.WorldToScreenPoint(_finalTarget.transform.position);
         if (temp.z < 10)
         {
             _finalTarget = null;
-            if (visualAmmo.fillAmount > 0 && !ammoEmpty && currentAmmo >= maxAmmo / missileCountAmmo) Shoot();
+//            if (visualAmmo.fillAmount > 0 && !ammoEmpty && currentAmmo >= maxAmmo / missileCountAmmo) Shoot();
         }
         else
         {
-            temp.z = 0;
             _lockOn.rectTransform.position = temp;
         }
+        //_lockOn.rectTransform.position = temp;
     }
 
     private void LockEnemy()
@@ -90,7 +91,6 @@ public class RocketLauncher : Weapon
         //float distance = Mathf.Infinity;
         foreach (var posibilities in GameObject.FindGameObjectsWithTag("Target"))
         {
-			Debug.Log (posibilities.gameObject);
           //float dist = (posibilities.transform.position - transform.position).sqrMagnitude;
             Vector3 direction = posibilities.transform.position - myTransf.position;
             float angle = Vector3.Angle(myTransf.forward, direction);
@@ -105,15 +105,15 @@ public class RocketLauncher : Weapon
                     Vector3 temp = _mainCam.WorldToScreenPoint(hit.transform.position);
                     if (hit.collider.gameObject.tag == "Target" && temp.z > 8)
                     {
-                        targets.Add(posibilities);
-                        print(posibilities);
+                        targets.Add(posibilities.transform.parent.transform.parent.gameObject);
+                        print("posible objetivo: " + posibilities.transform.parent.transform.parent.gameObject);
                         if(!_enemyFound) _enemyFound = true;
                     }
                 }
             }
         }
     }
-
+    
 
     private void SearchClose(List<GameObject> t)
     {
@@ -129,6 +129,7 @@ public class RocketLauncher : Weapon
             {
                 distance = dist;
                 _finalTarget = targ;
+                print(_finalTarget);
             }
         }
     }

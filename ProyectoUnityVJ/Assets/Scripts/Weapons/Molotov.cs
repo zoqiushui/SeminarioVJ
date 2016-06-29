@@ -3,9 +3,7 @@ using System.Collections;
 
 public class Molotov : MonoBehaviour {
     
-    public float damage;
     public float fallSpeed;
-    public GameObject fire;
     private Rigidbody _rb;
     private RaycastHit hit;
     public LayerMask maskGround;
@@ -29,14 +27,13 @@ public class Molotov : MonoBehaviour {
     {
         if (col.gameObject.layer == K.LAYER_GROUND)
         {
-            Instantiate(fire, col.contacts[0].point + transform.up, fire.transform.localRotation);
+            this.GetComponentInParent<MolotovBomb>().StartBurn(col.contacts[0].point + transform.up);
         }
         else
         {
             print("abajo");
             Physics.Raycast(col.contacts[0].point, -transform.up, out hit, maskGround);
-            Instantiate(fire, hit.point + transform.up, fire.transform.localRotation);
+            this.GetComponentInParent<MolotovBomb>().StartBurn(hit.point + transform.up);
         }
-        Destroy(this.gameObject);
     }
 }

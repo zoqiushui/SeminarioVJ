@@ -44,17 +44,17 @@ public class WeaponsManager : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.Alpha1) && activeSet != 0)
         {
             activeSet = 0;
-            Activate(weaponsSet1);
             Desactivate(weaponsSet2);
+            Activate(weaponsSet1);
 
         }
         else if (Input.GetKeyUp(KeyCode.Alpha2) && activeSet != 1)
         {
             activeSet = 1;
-            Activate(weaponsSet2);
             Desactivate(weaponsSet1);
+            Activate(weaponsSet2);
         }
-
+        /*
         if (activeSet == 0)
         {
             _frezze = _mainCam.WorldToScreenPoint(weaponsSet1[0].transform.position + -weaponsSet1[0].transform.forward * distance);
@@ -66,7 +66,9 @@ public class WeaponsManager : MonoBehaviour {
         {
             _lockOn.transform.position = Input.mousePosition;
             AimCollision();
-        }
+        }*/
+        _lockOn.transform.position = Input.mousePosition;
+        AimCollision();
     }
 
     private void AimCollision()

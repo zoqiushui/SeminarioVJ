@@ -94,7 +94,7 @@ public class IAVehicle : Vehicle
         /*_nitroTimer = nitroTimer;
         lapsEnded = 1;
         nitroEmpty = false;*/
-        _nextDestinationPoint = CalculateNextPoint(_nextCheckpoint);
+        _nextDestinationPoint = CalculateNextPoint(_nextCheckpoint, -0.75f, 0.75f);
         _myInput.SetDestinationPoint(_nextDestinationPoint);
         
        /* _maxHp = K.IA_MAX_HP;
@@ -307,9 +307,9 @@ public class IAVehicle : Vehicle
     /// Tomo el proximo checkpoint y calculo un punto aleatorio dentro del mismo, si hay un obstaculo vuelvo a calcular. 
     /// </summary>
     /// <param name="chk">Proximo Checkpoint</param>
-    private Vector3 CalculateNextPoint(Checkpoint chk)
+    private Vector3 CalculateNextPoint(Checkpoint chk ,float min, float max)
     {
-        Vector3 randomPoint = new Vector3(Random.Range(-0.75f, 0.75f), 0, Random.Range(-0.75f, 0.75f));
+        Vector3 randomPoint = new Vector3(Random.Range(min, max), 0, Random.Range(min, max));
         randomPoint = chk.transform.TransformPoint(randomPoint * 0.5f);
         return randomPoint;
     }
@@ -321,10 +321,10 @@ public class IAVehicle : Vehicle
     //    lapCount += _checkpointMananagerReference.checkpointValue;
     //}
 
-    public void SetNextCheckpoint(Checkpoint chk)
+    public void SetNextCheckpoint(Checkpoint chk, float minimo, float maximo)
     {
         _nextCheckpoint = chk;
-        _nextDestinationPoint = CalculateNextPoint(chk);
+        _nextDestinationPoint = CalculateNextPoint(chk, minimo, maximo);
         _myInput.SetDestinationPoint(_nextDestinationPoint);
     }
 

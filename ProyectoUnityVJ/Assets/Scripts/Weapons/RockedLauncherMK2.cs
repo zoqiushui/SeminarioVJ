@@ -41,12 +41,11 @@ public class RockedLauncherMK2 : Weapon
                 {
                     _pointAttack = hit.point;
            //         Debug.Log(currentAmmo % 3  + " asdfa " + maxAmmo / missileCountAmmo);
-                    if (visualAmmo.fillAmount > 0 && currentAmmo >= maxAmmo / missileCountAmmo && _isShooting) Shoot();
+                    if (visualAmmo.fillAmount > 0 && currentAmmo >= maxAmmo / missileCountAmmo) Shoot();
 
                 }
             }
         }
-        base.Update();
     }
     public override void Shoot()
     {

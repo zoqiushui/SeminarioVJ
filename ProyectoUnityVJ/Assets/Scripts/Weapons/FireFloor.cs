@@ -9,7 +9,7 @@ public class FireFloor : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        Destroy(this.gameObject, duration);
+        Destroy(this.transform.parent.gameObject, duration);
 	
 	}
 

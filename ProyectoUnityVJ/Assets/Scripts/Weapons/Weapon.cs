@@ -32,11 +32,10 @@ public class Weapon : MonoBehaviour
     public virtual void ShootDownButtom()
     {
         _timeCoolDown += Time.deltaTime;
-        
 
         if (Input.GetMouseButton(shootButtom) && _timeCoolDown > cooldown && !canShoot && !ammoEmpty)
         {
-            _timeCoolDown = 0;
+            print("intenta");
             canShoot = true;
         }
     }
@@ -48,6 +47,7 @@ public class Weapon : MonoBehaviour
 
     public virtual void OneShoot()
     {
+        if(!canShoot)
         _timeCoolDown += Time.deltaTime;
 
         if (Input.GetMouseButtonUp(shootButtom) && _timeCoolDown > cooldown && !canShoot && !ammoEmpty)

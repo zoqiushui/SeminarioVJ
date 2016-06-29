@@ -23,10 +23,9 @@ public class MolotovLauncher : Weapon
         {
             CheckAmmoBar();
             OneShoot();
-            if (canShoot && _isShooting && currentAmmo >= maxAmmo / missileCountAmmo) Shoot();
+            if (canShoot && currentAmmo >= maxAmmo / missileCountAmmo) Shoot();
         }
-
-        base.Update();
+        
     }
 
     /// <summary>
@@ -38,9 +37,8 @@ public class MolotovLauncher : Weapon
         _soundManagerReference.PlaySound(K.SOUND_MOLOTOV_LAUNCH);
         GameObject granade = (GameObject)GameObject.Instantiate(bomb, launchPoint.position + launchPoint.forward * 2, Quaternion.identity);
         granade.transform.forward = launchPoint.forward;
-        granade.GetComponent<Rigidbody>().AddForce(transform.forward * 500, ForceMode.Impulse);
+        granade.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * 500, ForceMode.Impulse);
         currentAmmo -= maxAmmo / missileCountAmmo;
-        canShoot = false;
     }
 
     private void CheckAmmoBar()

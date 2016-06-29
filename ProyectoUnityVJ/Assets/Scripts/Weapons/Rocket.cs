@@ -79,7 +79,7 @@ public class Rocket : MonoBehaviour
                 Destroy(this);
             }
         }
-        _soundManagerReference.PlaySound(K.SOUND_MISSILE);
+//       _soundManagerReference.PlaySound(K.SOUND_MISSILE);
         CreateParticle();
     }
 

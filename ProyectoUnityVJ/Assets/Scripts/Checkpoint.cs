@@ -6,6 +6,7 @@ public class Checkpoint : MonoBehaviour
 {
     public List<GameObject> checkpointNodes { get; private set; }
     public Checkpoint nextCheckpoint;// { get; private set; }
+    public float maxRandom = 0.75f, minRandom = -0.75f;
 
     private CheckpointManager _checkpointMananagerReference;
 
@@ -97,7 +98,7 @@ public class Checkpoint : MonoBehaviour
             {
                 //print(other.transform.parent.parent.GetComponent<Vehicle>().positionWeight+" "+other.transform.parent.parent.gameObject);
                 other.transform.parent.parent.GetComponent<IAVehicle>().SetCheckpoint(this);
-                other.transform.parent.parent.GetComponentInParent<IAVehicle>().SetNextCheckpoint(nextCheckpoint);
+                other.transform.parent.parent.GetComponentInParent<IAVehicle>().SetNextCheckpoint(nextCheckpoint, minRandom, maxRandom);
 
             }
 
