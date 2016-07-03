@@ -108,7 +108,6 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             _wheelTrails.Add(go);
         }
         engineSound = GetComponent<AudioSource>();
-       
     }
 
     public void AddObserver(IObserver obs)
@@ -256,13 +255,6 @@ public abstract class Vehicle : MonoBehaviour, IObservable
                 wheelMeshList[i].localEulerAngles = new Vector3(0, _finalAngle, 0);
     }
 
-    protected void CalculateSteerForceWithVelocity(out float sf, float si)
-    {
-        var a = (currentVelZ / topSpeed);
-        sf = (a * maxSteerForce);
-        print(sf);
-    }
-
     protected void Drag(float a, float b)
     {
         var vel = _rb.velocity;
@@ -355,21 +347,16 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         _rb.angularVelocity = Vector3.zero;
         resetTimer = 0;
     }
-    private void NitroInput(float nitroInput, float brakeInput)
+
+    protected virtual void NitroInput(float nitroInput, float brakeInput)
     {
         if (nitroInput > 0 && isGrounded && !_nitroEmpty)
         {
-            _modeNitro = true;
-            Camera.main.GetComponent<Bloom>().enabled = true;
-            Camera.main.GetComponent<VignetteAndChromaticAberration>().enabled = true;
-            Camera.main.GetComponent<MotionBlur>().enabled = true;
+            _modeNitro = true;            
         }
-        else if (gameObject.GetComponent<BuggyController>() != null)
+        else /*if (gameObject.GetComponent<BuggyController>() != null)*/
         {
-            _modeNitro = false;
-            Camera.main.GetComponent<Bloom>().enabled = false;
-            Camera.main.GetComponent<VignetteAndChromaticAberration>().enabled = false;
-            Camera.main.GetComponent<MotionBlur>().enabled = false;
+            _modeNitro = false;            
         }
 
         if (_modeNitro)
@@ -382,9 +369,6 @@ public abstract class Vehicle : MonoBehaviour, IObservable
                 _modeNitro = false;
                 _nitroEnd = true;
                 _nitroEmpty = true;
-                Camera.main.GetComponent<Bloom>().enabled = false;
-                Camera.main.GetComponent<VignetteAndChromaticAberration>().enabled = false;
-                Camera.main.GetComponent<MotionBlur>().enabled = false;
             }
         }
     }

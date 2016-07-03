@@ -65,21 +65,27 @@ public class BuggyController : Vehicle
     public Image visualNitro;
     public Text wrongDirectionText;
 
+    private Bloom _cameraBloom;
+    private VignetteAndChromaticAberration _cameraViggneteAndChromaticAberration;
+    private MotionBlur _cameraMotionBlur;
+
     ////public GameObject varManager;
 
     protected override void Start()
     {
-
         wrongDirectionText.gameObject.SetActive(false);
         vehicleName = PlayerPrefs.GetString("PilotName") != "" ? PlayerPrefs.GetString("PilotName") : vehicleName;
         base.Start();
+        _cameraBloom = Camera.main.GetComponent<Bloom>();
+        _cameraViggneteAndChromaticAberration = Camera.main.GetComponent<VignetteAndChromaticAberration>();
+        _cameraMotionBlur = Camera.main.GetComponent<MotionBlur>();
         //Traits
-        
+
         /*maxForce += maxForce / 100 * 20 * PlayerPrefs.GetInt("BonusAcceleration");
         print(maxForce / 100 * 20 * PlayerPrefs.GetInt("BonusAcceleration"));
         _nitroTimer += _nitroTimer / 100 * 20 * PlayerPrefs.GetInt("BonusTurbo");
         topSpeed += topSpeed / 100 * 20 * PlayerPrefs.GetInt("BonusMaxSpeed");*/
-        
+
     }
 
     public override void SetCheckpoint(Checkpoint chk)
@@ -109,7 +115,23 @@ public class BuggyController : Vehicle
         visualNitro.fillAmount = calc_nitro;
     }
 
-    
+    protected override void NitroInput(float nitroInput, float brakeInput)
+    {
+        base.NitroInput(nitroInput, brakeInput);
+        if (_modeNitro)
+        {
+            _cameraBloom.enabled = true;
+            _cameraViggneteAndChromaticAberration.enabled = true;
+            _cameraMotionBlur.enabled = true;
+        }
+        else
+        {
+            _cameraBloom.enabled = false;
+            _cameraViggneteAndChromaticAberration.enabled = false;
+            _cameraMotionBlur.enabled = false;
+        }
+    }
+
     public void RechargeNitro()
     {
         /*
@@ -157,7 +179,7 @@ public class BuggyController : Vehicle
         }
         else if (Input.GetKeyUp(KeyCode.Q))
         {
-            rearMirror.gameObject.SetActive( false);
+            rearMirror.gameObject.SetActive(false);
             Camera.main.depth = 0f;
         }
     }
