@@ -3684,7 +3684,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 421008, guid: b37889dffb3c72e489c725d41ebe563d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -171.7
+      value: -173
       objectReference: {fileID: 0}
     - target: {fileID: 421008, guid: b37889dffb3c72e489c725d41ebe563d, type: 2}
       propertyPath: m_LocalPosition.y
@@ -3692,7 +3692,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 421008, guid: b37889dffb3c72e489c725d41ebe563d, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 783.4
+      value: 779.6
       objectReference: {fileID: 0}
     - target: {fileID: 421008, guid: b37889dffb3c72e489c725d41ebe563d, type: 2}
       propertyPath: m_LocalRotation.x
@@ -3720,7 +3720,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 421008, guid: b37889dffb3c72e489c725d41ebe563d, type: 2}
       propertyPath: m_LocalScale.x
-      value: 33.196625
+      value: 48.43
       objectReference: {fileID: 0}
     - target: {fileID: 106288, guid: b37889dffb3c72e489c725d41ebe563d, type: 2}
       propertyPath: m_Name
@@ -6499,7 +6499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76765671d0d113f46afc65f17e3bedc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceRamp: 50000
+  forceRamp: 30000
 --- !u!1 &99244626
 GameObject:
   m_ObjectHideFlags: 0
@@ -17767,7 +17767,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 315100997}
   m_LocalRotation: {x: -0.4691266, y: 0.48381838, z: 0.37441573, w: 0.6369089}
-  m_LocalPosition: {x: 447.79, y: -10.53, z: 917.91}
+  m_LocalPosition: {x: 445.01, y: -9.69, z: 917.21}
   m_LocalScale: {x: 18.953781, y: 11.959093, z: 18.95378}
   m_Children: []
   m_Father: {fileID: 1288394456}
@@ -17782,7 +17782,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.79, y: 2.04, z: 0.17}
+  m_Size: {x: 0.79, y: 1.65, z: 0.17}
   m_Center: {x: -0.0024479032, y: -0.000007638651, z: 0.30326355}
 --- !u!114 &315101000
 MonoBehaviour:
@@ -17795,7 +17795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76765671d0d113f46afc65f17e3bedc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceRamp: 50000
+  forceRamp: 30000
 --- !u!1 &316995130
 GameObject:
   m_ObjectHideFlags: 0
@@ -21644,7 +21644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76765671d0d113f46afc65f17e3bedc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceRamp: 50000
+  forceRamp: 30000
 --- !u!1001 &417114959
 Prefab:
   m_ObjectHideFlags: 0
@@ -30983,7 +30983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76765671d0d113f46afc65f17e3bedc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceRamp: 50000
+  forceRamp: 30000
 --- !u!1 &670928595
 GameObject:
   m_ObjectHideFlags: 0
@@ -36310,7 +36310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76765671d0d113f46afc65f17e3bedc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceRamp: 50000
+  forceRamp: 30000
 --- !u!4 &805454068 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400170, guid: 4e9e557ddd8fe024aa77317f88608b77, type: 3}
@@ -55867,7 +55867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76765671d0d113f46afc65f17e3bedc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceRamp: 50000
+  forceRamp: 30000
 --- !u!1001 &1332687898
 Prefab:
   m_ObjectHideFlags: 0
@@ -60442,7 +60442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76765671d0d113f46afc65f17e3bedc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceRamp: 50000
+  forceRamp: 30000
 --- !u!1001 &1444746000
 Prefab:
   m_ObjectHideFlags: 0
@@ -79815,7 +79815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76765671d0d113f46afc65f17e3bedc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceRamp: 50000
+  forceRamp: 30000
 --- !u!1001 &1855541464
 Prefab:
   m_ObjectHideFlags: 0
@@ -80099,7 +80099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76765671d0d113f46afc65f17e3bedc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceRamp: 50000
+  forceRamp: 30000
 --- !u!1 &1867088449
 GameObject:
   m_ObjectHideFlags: 0
@@ -86267,7 +86267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76765671d0d113f46afc65f17e3bedc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceRamp: 50000
+  forceRamp: 30000
 --- !u!1 &2006794736
 GameObject:
   m_ObjectHideFlags: 0

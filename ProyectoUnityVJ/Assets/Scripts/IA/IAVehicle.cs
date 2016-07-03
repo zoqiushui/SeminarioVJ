@@ -472,7 +472,7 @@ public class IAVehicle : Vehicle
 
     public void ChangeGear(string id)
     {
-        print(gameObject + id);
+        //print(gameObject + id);
         switch (id)
         {
             case "normal":

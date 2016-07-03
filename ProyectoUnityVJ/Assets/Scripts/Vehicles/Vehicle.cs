@@ -57,9 +57,9 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     protected SoundManager _soundManagerReference;
     protected GameManager _gameManagerReference;
     protected Rigidbody _rb;
-    protected bool _isGroundedRamp;
+    protected bool _isGroundedRamp, _canAdjustVelocityZ;
     protected List<GameObject> _wheelTrails;
-
+    protected float _lastGroundedVelocityZ;
 
     protected float friction
     {
@@ -143,24 +143,28 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         var steerForce = steerInput * maxSteerForce;
         var forwardForce = accelInput * maxForce;
         var brakeForce = brakeInput * this.brakeForce;
-        //_rb.drag = K.AIR_DRAG;
+        isGrounded = false;
+        _isGroundedRamp = false;
         foreach (var wheel in wheelSuspensionList)
         {
-            isGrounded = false;
-            _isGroundedRamp = false;
-
             if (wheel.IsGroundedRamp())
             {
                 _isGroundedRamp = true;
+                if (!_canAdjustVelocityZ) _lastGroundedVelocityZ = currentVelZ;
                 break;
             }
             else if (wheel.IsGrounded())
             {
                 isGrounded = true;
+                if (!_canAdjustVelocityZ) _lastGroundedVelocityZ = currentVelZ;
                 //_rb.drag = 1;
                 //CalculateSteerForceWithVelocity(out steerForce,steerInput); 
                 break;
             }
+        }
+        if (!_isGroundedRamp && !isGrounded && !_canAdjustVelocityZ)
+        {
+            _canAdjustVelocityZ = true;
         }
         ApplyDrive(forwardForce, accelInput, brakeForce);
         //   ApplySteer(steerForce, steerInput);
@@ -174,6 +178,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         //Maniobrabilidad
         ApplySteering(relativeVelocity);
     }
+
     protected virtual void Update()
     {
         positionWeight = Vector3.Distance(transform.position, _checkpointMananagerReference.checkpointsList[_checkpointNumber].transform.position);
@@ -186,14 +191,14 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         CheckDustVehicle();
         EngineSound();
 
-        if (currentVelZ*K.KPH_TO_MPS_MULTIPLIER > 50 && isGrounded && (_steerInput > .5f || _steerInput < -.5f))
+        if (currentVelZ * K.KPH_TO_MPS_MULTIPLIER > 50 && isGrounded && (_steerInput > .5f || _steerInput < -.5f))
         {
             for (int i = 0; i < wheelMeshList.Count; i++)
             {
                 if (wheelMeshList[i].parent.GetComponent<Suspension>().IsGrounded())
                 {
                     _wheelTrails[i].GetComponentInChildren<TrailRenderer>().enabled = true;
-                    _wheelTrails[i].transform.localPosition = new Vector3(0, -wheelMeshList[i].GetComponent<MeshRenderer>().bounds.extents.y/3, 0);
+                    _wheelTrails[i].transform.localPosition = new Vector3(0, -wheelMeshList[i].GetComponent<MeshRenderer>().bounds.extents.y / 3, 0);
                 }
             }
         }
@@ -301,7 +306,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     protected void ApplyDrive(float forwardForce, float accI, float brakeF)
     {
         //print("VelZ:" + Mathf.Floor(_velZ) + " / topSpeed:" + topSpeed + " = " + (Mathf.Floor(_velZ) / topSpeed));
-        var tempForce = forwardForce * (Mathf.Floor(currentVelZ*K.KPH_TO_MPS_MULTIPLIER) / topSpeed);
+        var tempForce = forwardForce * (Mathf.Floor(currentVelZ * K.KPH_TO_MPS_MULTIPLIER) / topSpeed);
         if (tempForce < maxForce * K.MIN_FORCE_MULTIPLIER && accI > 0) tempForce = maxForce * K.MIN_FORCE_MULTIPLIER;
         if (brakeF < 0)
         {
@@ -327,8 +332,8 @@ public abstract class Vehicle : MonoBehaviour, IObservable
                 return;
             }
         }
-//          transform.position = _lastCheckpoint.GetRespawnPoint(transform.position) + Vector3.up;
-        
+        //          transform.position = _lastCheckpoint.GetRespawnPoint(transform.position) + Vector3.up;
+
     }
     private void CheckCarFlipped()
     {
@@ -352,11 +357,11 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     {
         if (nitroInput > 0 && isGrounded && !_nitroEmpty)
         {
-            _modeNitro = true;            
+            _modeNitro = true;
         }
         else /*if (gameObject.GetComponent<BuggyController>() != null)*/
         {
-            _modeNitro = false;            
+            _modeNitro = false;
         }
 
         if (_modeNitro)
@@ -396,16 +401,19 @@ public abstract class Vehicle : MonoBehaviour, IObservable
 
     protected void CapSpeed()
     {
-        if (!_modeNitro)
+        if (isGrounded)
         {
-            if (currentVelZ > (topSpeed / K.KPH_TO_MPS_MULTIPLIER))
+            if (!_modeNitro)
             {
-                _rb.velocity -= .4f * _rb.velocity.normalized;
-                currentVelZ = transform.InverseTransformDirection(_rb.velocity).z;
                 if (currentVelZ > (topSpeed / K.KPH_TO_MPS_MULTIPLIER))
                 {
-                    _rb.velocity = (topSpeed / K.KPH_TO_MPS_MULTIPLIER) * _rb.velocity.normalized;
-                    currentVelZ = transform.InverseTransformDirection(_rb.velocity).z;                    
+                    _rb.velocity -= .4f * _rb.velocity.normalized;
+                    currentVelZ = transform.InverseTransformDirection(_rb.velocity).z;
+                    if (currentVelZ > (topSpeed / K.KPH_TO_MPS_MULTIPLIER))
+                    {
+                        _rb.velocity = (topSpeed / K.KPH_TO_MPS_MULTIPLIER) * _rb.velocity.normalized;
+                        currentVelZ = transform.InverseTransformDirection(_rb.velocity).z;
+                    }
                 }
             }
         }
@@ -413,7 +421,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
 
     public void PushRamp(float amount)
     {
-        if (_isGroundedRamp) _rb.AddForce(transform.forward * amount);
+        if (_isGroundedRamp) _rb.AddRelativeForce(0, 0, amount);
     }
 
     private void ApplySteering(Vector3 relativeVelocity)
@@ -441,6 +449,19 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             )
         {
             Camera.main.GetComponent<ShakeCamera>().DoShake();
+        }
+
+        if (GetComponent<InputControllerPlayer>() &&
+            (hit.gameObject.layer == K.LAYER_GROUND ||
+            hit.gameObject.layer == K.LAYER_RAMP) &&
+            (transform.rotation.z < 20 ||
+            transform.rotation.z > 340))
+        {
+            if (_canAdjustVelocityZ)
+            {
+                _rb.velocity = _lastGroundedVelocityZ * _rb.velocity.normalized;
+                _canAdjustVelocityZ = false;
+            }
         }
     }
 }

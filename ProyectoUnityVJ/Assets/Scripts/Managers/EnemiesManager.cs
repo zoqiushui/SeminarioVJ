@@ -25,7 +25,7 @@ public class EnemiesManager : MonoBehaviour
     IEnumerator CalculateChanges()
     {
         yield return new WaitForSeconds(5f);
-        print("calculating");
+        //print("calculating");
         positionTable.Clear();
         positionTable = new List<Vehicle>();
         GetComponentInParent<IngameUIManager>().GiveListData(positionTable);
@@ -45,7 +45,7 @@ public class EnemiesManager : MonoBehaviour
     {
         if (positionTable[0].gameObject == vehiclePlayer.gameObject)
         {
-            print("player is first");
+            //print("player is first");
             for (int i = 1; i < positionTable.Count; i++)
             {
                 if (Vector3.Distance(vehiclePlayer.transform.position, positionTable[i].transform.position) < 20f)

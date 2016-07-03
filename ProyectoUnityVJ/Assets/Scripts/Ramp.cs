@@ -17,8 +17,8 @@ public class Ramp : MonoBehaviour
     {
         if (other.gameObject.layer == K.LAYER_PLAYER)
         {
-            if (other.gameObject.GetComponentInParent<BuggyController>() != null) other.gameObject.GetComponentInParent<BuggyController>().PushRamp(forceRamp);
-            else if (other.gameObject.GetComponent<IAVehicle>() != null) other.gameObject.GetComponent<IAVehicle>().PushRamp(forceRamp);
+            if (other.gameObject.GetComponentInParent<InputControllerPlayer>() != null) other.gameObject.GetComponentInParent<Vehicle>().PushRamp(forceRamp);
+            else if (other.gameObject.GetComponent<InputControllerIA>() != null) other.gameObject.GetComponent<Vehicle>().PushRamp(forceRamp);
 
         }
 

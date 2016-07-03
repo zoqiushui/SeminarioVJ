@@ -22,7 +22,7 @@ public class RepairCharger : MonoBehaviour {
             {
                 c.GetComponentInParent<BuggyData>().currentLife = c.GetComponentInParent<BuggyData>().currentLife + c.GetComponentInParent<BuggyData>().maxLife / 4;
             }*/
-            print(c.GetComponentInParent<BuggyData>().currentLife);
+            //print(c.GetComponentInParent<BuggyData>().currentLife);
             c.GetComponentInParent<BuggyData>().CheckHealthBar(true);
         }
     }
