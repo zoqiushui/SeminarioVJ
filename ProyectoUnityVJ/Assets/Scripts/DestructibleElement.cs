@@ -10,7 +10,10 @@ public class DestructibleElement : MonoBehaviour
 
     void Awake()
     {
-        if (destructibleElement.layer == K.LAYER_DESTRUCTIBLE) childsRB = destructibleElement.GetComponentsInChildren<Rigidbody>();
+       if (destructibleElement != null)
+       {
+           if (destructibleElement.layer == K.LAYER_DESTRUCTIBLE) childsRB = destructibleElement.GetComponentsInChildren<Rigidbody>();
+       }
 
     }
 	void Start ()
@@ -38,5 +41,28 @@ public class DestructibleElement : MonoBehaviour
 
            Destroy(newElement, 3);
        }
+   }
+   void OnTriggerEnter(Collider coll)
+   {
+       if (coll.gameObject.layer == K.LAYER_MISSILE && GetComponent<Animation>() != null)
+       {
+           Destroy(gameObject);
+           transform.parent.transform.parent.gameObject.GetComponentInChildren<Animation>().enabled = false;
+           transform.parent.transform.parent.gameObject.GetComponentInChildren<Rigidbody>().useGravity = true;
+           transform.parent.transform.parent.gameObject.GetComponentInChildren<Rigidbody>().isKinematic = false;
+           transform.parent.transform.parent.gameObject.GetComponentInChildren<ConstantForce>().force = new Vector3(0, -100, 0);
+           Instantiate(destructibleElement, transform.position, transform.rotation);
+       }
+       else if (coll.gameObject.layer == K.LAYER_IA)
+       {
+           coll.GetComponentInParent<IAController>().Damage(100f);
+           Destroy(transform.parent.gameObject, 3);
+           Instantiate(destructibleElement, transform.position, transform.rotation);
+       }
+       else if (coll.gameObject.layer == K.LAYER_GROUND)
+       {
+           Destroy(transform.parent.gameObject, 3);
+       }
+           
    }
 }

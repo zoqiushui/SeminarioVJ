@@ -78,7 +78,7 @@ public class WeaponsManager : MonoBehaviour {
 
         if (Physics.Raycast(ray, out hit, 1 << K.LAYER_IA))
         {
-            if (hit.collider.gameObject.layer == K.LAYER_IA) _lockOn.gameObject.GetComponent<CanvasRenderer>().SetColor(Color.red);
+            if (hit.collider.gameObject.layer == K.LAYER_IA || hit.collider.gameObject.layer == K.LAYER_DESTRUCTIBLE) _lockOn.gameObject.GetComponent<CanvasRenderer>().SetColor(Color.red);
             else _lockOn.gameObject.GetComponent<CanvasRenderer>().SetColor(Color.white);
         }
     }
