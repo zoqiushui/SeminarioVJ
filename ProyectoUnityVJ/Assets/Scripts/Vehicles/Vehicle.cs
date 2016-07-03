@@ -45,6 +45,8 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     public float resetTime;
     public float maximumTurn, minimumTurn;
     public ParticleSystem backDust;
+    private AudioSource engineSound;
+    public List<int> totalGears;
 
     protected int _checkpointNumber;
     protected Checkpoint _lastCheckpoint;
@@ -57,6 +59,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     protected Rigidbody _rb;
     protected bool _isGroundedRamp;
     protected List<GameObject> _wheelTrails;
+
 
     protected float friction
     {
@@ -104,7 +107,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             go.transform.localPosition = new Vector3(0, -wheel.GetComponent<MeshRenderer>().bounds.extents.y, 0);
             _wheelTrails.Add(go);
         }
-
+        engineSound = GetComponent<AudioSource>();
        
     }
 
@@ -136,6 +139,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     public virtual void Move(float accelInput, float brakeInput, float handbrakeInput, float steerInput, float nitroInput)
     {
         _steerInput = steerInput;
+        _motorInput = accelInput;
         currentVelZ = transform.InverseTransformDirection(_rb.velocity).z;
         var steerForce = steerInput * maxSteerForce;
         var forwardForce = accelInput * maxForce;
@@ -181,6 +185,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
         //CheckDirection();
         CheckCarFlipped();
         CheckDustVehicle();
+        EngineSound();
 
         if (currentVelZ*K.KPH_TO_MPS_MULTIPLIER > 50 && isGrounded && (_steerInput > .5f || _steerInput < -.5f))
         {
@@ -201,7 +206,29 @@ public abstract class Vehicle : MonoBehaviour, IObservable
             }
         }
     }
+    public void EngineSound()
+    {
+        //FIVE GEARS
 
+        /*   for (var i = 0; i < totalGears.Count; i++)
+        {
+            if (totalGears[i] > currentVelZ) break;
+            float gearMinValue;
+            float gearMaxValue;
+            if (i == 0) gearMinValue = 0;
+            else gearMinValue = totalGears[i - 1];
+            gearMaxValue = totalGears[i];
+            var enginePitch = ((currentVelZ - gearMinValue) / (gearMaxValue - gearMinValue)) + 1;
+            engineSound.pitch = enginePitch;
+        }*/
+
+
+        //ONE GEAR
+
+        var enginePitch = ((currentVelZ - 0) / (25 - 0)) + 1;
+        engineSound.pitch = enginePitch;
+
+    }
     private void CheckDustVehicle()
     {
         if (currentVelZ > 10 && isGrounded || currentVelZ < -5 && isGrounded) backDust.Play();

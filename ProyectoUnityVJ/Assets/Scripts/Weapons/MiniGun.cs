@@ -89,6 +89,7 @@ public class MiniGun : Weapon
         {
             _soundManagerReference.PlaySound(K.SOUND_MACHINE_GUN);
             ammoInput();
+            print("asd");
         }
 
         /*
