@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class TraitSelected : MonoBehaviour {
@@ -135,10 +136,13 @@ public class TraitSelected : MonoBehaviour {
 
     public void Selected()
     {
-      
+      if(sprite.GetComponent<SpriteRenderer>().color!=Color.red)
+        {
             postGameManager.GetComponent<PostGameManager>().Deselec();
             postGameManager.traitSelected = this.gameObject;
             postGameManager.GetComponent<PostGameManager>().UpdateSelected();
+        }
+            
          
     }
 }

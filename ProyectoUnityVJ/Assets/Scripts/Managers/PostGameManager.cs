@@ -19,6 +19,12 @@ public class PostGameManager : MonoBehaviour {
     // Use this for initialization
     void Awake ()
     {
+
+        if(PlayerPrefs.GetInt("Position")>2)
+        {
+            SceneManager.LoadScene(2);
+        }
+
         gray = 0;
         GetRandoms();
 
@@ -56,6 +62,19 @@ public class PostGameManager : MonoBehaviour {
             gray++;
         }
         */
+
+        int position = PlayerPrefs.GetInt("Position");
+        Debug.Log(position);
+        //position = 3;
+        if (position==1)
+        {
+            trait2.sprite.GetComponent<SpriteRenderer>().color = Color.red;
+        }
+        else if (position==2)
+        {
+            trait2.sprite.GetComponent<SpriteRenderer>().color = Color.red;
+            trait3.sprite.GetComponent<SpriteRenderer>().color = Color.red;
+        }
 
     }
 

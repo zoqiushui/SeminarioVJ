@@ -167,10 +167,13 @@ public class IngameUIManager : Manager
             PlayerPrefs.SetInt("BonusAmmo", 0);
             PlayerPrefs.SetInt("BonusAmmoReload", 0);
             PlayerPrefs.SetInt("BonusLessMineDamage", 0);
+
+            PlayerPrefs.SetInt("Position",0);
         }
         else
         {
-            PlayerPrefs.SetInt("Position", GetPLayerPosition(_playerName));
+            PlayerPrefs.SetInt("Position", GetPLayerPosition(PlayerPrefs.GetString("PilotName")));
+            print(PlayerPrefs.GetInt("Position"));
             SceneManager.LoadScene(4);
         }
         
