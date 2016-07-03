@@ -151,7 +151,7 @@ public class IngameUIManager : Manager
     {
         if(K.pilotIsAlive==false)
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene((int)SCENES_NUMBER.HUB);
             PlayerPrefs.SetString("PilotName", "");
             PlayerPrefs.SetInt("Face", 0);
             PlayerPrefs.SetInt("Hair", 0);
@@ -174,7 +174,7 @@ public class IngameUIManager : Manager
         {
             PlayerPrefs.SetInt("Position", GetPLayerPosition(PlayerPrefs.GetString("PilotName")));
             print(PlayerPrefs.GetInt("Position"));
-            SceneManager.LoadScene(4);
+            SceneManager.LoadScene((int)SCENES_NUMBER.PostGame);
         }
         
     }

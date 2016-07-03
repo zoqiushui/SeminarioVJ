@@ -22,7 +22,7 @@ public class PostGameManager : MonoBehaviour {
 
         if(PlayerPrefs.GetInt("Position")>2)
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene((int)SCENES_NUMBER.HUB);
         }
 
         gray = 0;
@@ -102,7 +102,7 @@ public class PostGameManager : MonoBehaviour {
                 sum = 5;
             }
             PlayerPrefs.SetInt(traitSelected.GetComponent<TraitSelected>().trait, sum);
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene((int)SCENES_NUMBER.HUB);
         }
         
     }

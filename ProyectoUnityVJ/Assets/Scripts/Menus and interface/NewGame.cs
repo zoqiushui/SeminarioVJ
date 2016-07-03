@@ -15,7 +15,7 @@ public class NewGame : MonoBehaviour {
     public void StartCampaign()
     {
         
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene((int)SCENES_NUMBER.PilotCreation);
         PlayerPrefs.SetInt("Resources", 0);
         PlayerPrefs.SetInt("CurrentLife", 100);
         PlayerPrefs.SetInt("MaxLife", 100);

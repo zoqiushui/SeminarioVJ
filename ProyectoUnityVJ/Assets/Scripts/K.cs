@@ -101,3 +101,13 @@ public class K
     public static bool pilotIsAlive=true;
 }
 
+public enum SCENES_NUMBER : int
+{
+    NewGame = 0,
+    PilotCreation = 1,
+    HUB = 2,
+    DesertTrack = 3,
+    PostGame = 4,
+    LoadingScene = 5
+}
+

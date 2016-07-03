@@ -56,7 +56,7 @@ public class ScreenManager : MonoBehaviour {
     {
         if (K.pilotIsAlive==true)
         {
-            SceneManager.LoadScene(3);
+            SceneManager.LoadScene((int)SCENES_NUMBER.LoadingScene);
         }
         else
         {
@@ -67,6 +67,6 @@ public class ScreenManager : MonoBehaviour {
 
     public void NewPilot()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene((int)SCENES_NUMBER.PilotCreation);
     }
 }

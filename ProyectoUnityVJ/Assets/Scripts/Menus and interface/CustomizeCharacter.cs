@@ -286,7 +286,7 @@ public class CustomizeCharacter : MonoBehaviour
 
             pilot.UpdateStats();
 
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene((int)SCENES_NUMBER.HUB);
 
         }
         else

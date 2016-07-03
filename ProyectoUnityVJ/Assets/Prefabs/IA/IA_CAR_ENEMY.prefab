@@ -353,7 +353,6 @@ GameObject:
   - 114: {fileID: 11474484}
   - 65: {fileID: 6530156}
   - 54: {fileID: 5455336}
-  - 114: {fileID: 11464936}
   - 114: {fileID: 11497692}
   m_Layer: 12
   m_Name: IA_CAR_ENEMY
@@ -906,7 +905,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 185202}
-  m_LocalRotation: {x: 0.09074577, y: 0.7292524, z: 0.6738107, w: -0.077040665}
+  m_LocalRotation: {x: 0.09074578, y: 0.72925246, z: 0.6738108, w: -0.07704067}
   m_LocalPosition: {x: 0.0025065783, y: 0.038258396, z: 0.2060594}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2173,17 +2172,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &11464936
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 147390}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f472a7c932119b40b7ca36aef1274b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11473236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2216,14 +2204,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa3db5d3b2b448c4589121d35ed7be0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  remains: {fileID: 100556, guid: f6e664d70d146c740a2c0733e1c4f717, type: 2}
+  maxLife: 100
+  currentLife: 0
+  remainsCar: {fileID: 0}
+  explosion: {fileID: 0}
+  whiteSmoke: {fileID: 0}
+  blackSmoke: {fileID: 0}
+  fire: {fileID: 0}
+  hpBarContainer: {fileID: 0}
+  hpBarImage: {fileID: 0}
   myWeapon: {fileID: 11416760}
   primaryWeaponSound: {fileID: 154272}
   eyes: {fileID: 115304}
   clip: 5
   cooldownShoot: 5
-  _maxHp: 100
-  _currentHp: 0
 --- !u!114 &11493134
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2263,53 +2257,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vehicleName: Marcos
   wheelRadius: 0
-  hpBarContainer: {fileID: 183774}
-  hpBarImage: {fileID: 11493134}
-  remains: {fileID: 100556, guid: f6e664d70d146c740a2c0733e1c4f717, type: 2}
-  _maxHp: 100
-  _currentHp: 0
-  maxTorque: 1500
+  downForce: 0
+  topSpeed: 0
+  leftTurnWheelPosition: {fileID: 0}
+  rightWheelTurnPosition: {fileID: 0}
   centerOfMass: {fileID: 409940}
-  wheelColliders:
-  - {fileID: 14614364}
-  - {fileID: 14629762}
-  - {fileID: 14653586}
-  - {fileID: 14692020}
-  tiresCar:
-  - {fileID: 460988}
-  - {fileID: 408020}
-  - {fileID: 411656}
-  - {fileID: 427320}
-  maxSpeed: 300
-  maxReverseSpeed: 100
-  maximumTurn: 45
-  minimumTurn: 15
-  dragMultiplier: {x: 2, y: 0, z: 0}
-  resetTime: 0.5
-  respawnTime: 5
-  stuckMaxDist: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  fallForce: 30000
-  carModel: {fileID: 160744}
-  _isGrounded: 0
-  _isGroundedRamp: 0
-  _lastCheckpoint: {fileID: 0}
-  _nextCheckpoint: {fileID: 0}
-  frontSensor: {fileID: 438938}
-  rightSensor: {fileID: 407240}
-  leftSensor: {fileID: 426760}
-  frontRightSensor: {fileID: 405504}
-  frontLeftSensor: {fileID: 487300}
-  angleRightSensor: {fileID: 496310}
-  angleLeftSensor: {fileID: 481310}
-  sensorsDistance: 10
-  antiRoll: 1500
-  brake: 7000
+  carFootprintPrefab: {fileID: 0}
+  wheelMeshList: []
+  wheelSuspensionList: []
+  maxSteerForce: 0
+  maxForce: 0
+  brakeForce: 0
+  airFriction: 0.98
+  groundFriction: 0.96
   nitroPower: 50000
   nitroTimer: 2
   rechargeNitro: 1.5
+  _canRechargeNitro: 0
+  rearMirror: {fileID: 0}
+  resetTime: 0.5
+  maximumTurn: 45
+  minimumTurn: 15
+  backDust: {fileID: 0}
+  totalGears: 
+  _nextCheckpoint: {fileID: 0}
 --- !u!114 &11499514
 MonoBehaviour:
   m_ObjectHideFlags: 1
