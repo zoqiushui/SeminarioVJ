@@ -45,7 +45,7 @@ public class DestructibleElement : MonoBehaviour
    void OnTriggerEnter(Collider coll)
    {
        print("DRONE " + coll.gameObject.layer);
-       if (coll.gameObject.layer == K.LAYER_MISSILE && GetComponent<Animation>() != null)
+    /*   if (coll.gameObject.layer == K.LAYER_MISSILE && GetComponent<Animation>() != null)
        {
            Destroy(gameObject);
            transform.parent.transform.parent.gameObject.GetComponentInChildren<Animation>().enabled = false;
@@ -53,17 +53,23 @@ public class DestructibleElement : MonoBehaviour
            transform.parent.transform.parent.gameObject.GetComponentInChildren<Rigidbody>().isKinematic = false;
            transform.parent.transform.parent.gameObject.GetComponentInChildren<ConstantForce>().force = new Vector3(0, -100, 0);
            Instantiate(destructibleElement, transform.position, transform.rotation);
-       }
-       else if (coll.gameObject.layer == K.LAYER_IA)
+       }*/
+       if (coll.gameObject.layer == K.LAYER_IA)
        {
            coll.GetComponentInParent<IAController>().Damage(100f);
            Destroy(transform.parent.gameObject, 5);
            Instantiate(destructibleElement, transform.position, transform.rotation);
        }
-       else if (coll.gameObject.layer == K.LAYER_GROUND)
-       {
-           Destroy(transform.parent.gameObject, 5);
-       }
-           
+       else Destroy(transform.parent.gameObject, 5);          
+   }
+
+   public void DestroyDrone(Collider coll)
+   {
+       Destroy(gameObject);
+       transform.parent.transform.parent.gameObject.GetComponentInChildren<Animation>().enabled = false;
+       transform.parent.transform.parent.gameObject.GetComponentInChildren<Rigidbody>().useGravity = true;
+       transform.parent.transform.parent.gameObject.GetComponentInChildren<Rigidbody>().isKinematic = false;
+       transform.parent.transform.parent.gameObject.GetComponentInChildren<ConstantForce>().force = new Vector3(0, -100, 0);
+       Instantiate(destructibleElement, transform.position, transform.rotation);
    }
 }

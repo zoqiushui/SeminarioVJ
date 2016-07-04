@@ -31,7 +31,7 @@ public class Rocket : MonoBehaviour
 
         if (tipe == 2)
         {
-            if (Vector3.Distance(transform.position, targetVector) < 0f)
+            if (Vector3.Distance(transform.position, targetVector) < 2f)
                 Explote();
         }
         _life += Time.deltaTime;
@@ -78,6 +78,12 @@ public class Rocket : MonoBehaviour
                 cols[i].GetComponentInParent<VehicleData>().Damage(damage);
                 Destroy(this);
             }
+        }
+        var colsDrone = Physics.OverlapSphere(transform.position, radio);
+        foreach (var coll in colsDrone)
+        {
+            if (coll.gameObject.layer == K.LAYER_DESTRUCTIBLE) coll.GetComponent<DestructibleElement>().DestroyDrone(coll);
+            Destroy(this);
         }
 //       _soundManagerReference.PlaySound(K.SOUND_MISSILE);
         CreateParticle();
