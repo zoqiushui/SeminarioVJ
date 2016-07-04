@@ -181,6 +181,8 @@ public abstract class Vehicle : MonoBehaviour, IObservable
 
     protected virtual void Update()
     {
+     //   print(currentVelZ);
+        
         positionWeight = Vector3.Distance(transform.position, _checkpointMananagerReference.checkpointsList[_checkpointNumber].transform.position);
 
         UpdateTyres();

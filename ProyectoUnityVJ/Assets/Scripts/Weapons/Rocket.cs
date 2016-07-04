@@ -31,7 +31,7 @@ public class Rocket : MonoBehaviour
 
         if (tipe == 2)
         {
-            if (Vector3.Distance(transform.position, targetVector) < 2f)
+            if (Vector3.Distance(transform.position, targetVector) < 0f)
                 Explote();
         }
         _life += Time.deltaTime;
