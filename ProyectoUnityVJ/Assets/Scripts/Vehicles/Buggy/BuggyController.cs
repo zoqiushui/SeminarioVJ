@@ -69,6 +69,7 @@ public class BuggyController : Vehicle
     private VignetteAndChromaticAberration _cameraViggneteAndChromaticAberration;
     private MotionBlur _cameraMotionBlur;
 
+    private float _chargedAmount;
     ////public GameObject varManager;
 
     protected override void Start()
@@ -141,11 +142,19 @@ public class BuggyController : Vehicle
             _lapsEnded++;
         }
         */
-        if (!_modeNitro && _nitroTimer < nitroTimer && _canRechargeNitro) _nitroTimer += Time.deltaTime / rechargeNitro;
-        if (visualNitro.fillAmount == 1)
+        if (!_modeNitro && _nitroTimer < nitroTimer && _canRechargeNitro)
         {
+            _nitroTimer += Time.deltaTime / rechargeNitro;
+            _chargedAmount += Time.deltaTime / rechargeNitro;
+            print(_chargedAmount);
+        }
+        if (_nitroTimer > 0) _nitroEmpty = false;
+        if (visualNitro.fillAmount == 1 || _chargedAmount >= nitroTimer)
+        {
+            print("FULL");
             _canRechargeNitro = false;
             _nitroEmpty = false;
+            _chargedAmount = 0;
         }
     }
 
