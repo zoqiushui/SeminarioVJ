@@ -37,6 +37,7 @@ public class Weapon : MonoBehaviour
         {
             print("intenta");
             canShoot = true;
+            _timeCoolDown = 0;
         }
     }
     protected virtual void Update()
