@@ -63,13 +63,16 @@ public class DestructibleElement : MonoBehaviour
        else Destroy(transform.parent.gameObject, 5);          
    }
 
-   public void DestroyDrone(Collider coll)
+   public void DestroyDrone()
    {
        Destroy(gameObject);
-       transform.parent.transform.parent.gameObject.GetComponentInChildren<Animation>().enabled = false;
-       transform.parent.transform.parent.gameObject.GetComponentInChildren<Rigidbody>().useGravity = true;
-       transform.parent.transform.parent.gameObject.GetComponentInChildren<Rigidbody>().isKinematic = false;
-       transform.parent.transform.parent.gameObject.GetComponentInChildren<ConstantForce>().force = new Vector3(0, -100, 0);
-       Instantiate(destructibleElement, transform.position, transform.rotation);
+       if (transform.parent.transform.parent.gameObject.GetComponentInChildren<Rigidbody>() != null)
+       {
+           transform.parent.transform.parent.gameObject.GetComponentInChildren<Animation>().enabled = false;
+           transform.parent.transform.parent.gameObject.GetComponentInChildren<Rigidbody>().useGravity = true;
+           transform.parent.transform.parent.gameObject.GetComponentInChildren<Rigidbody>().isKinematic = false;
+           transform.parent.transform.parent.gameObject.GetComponentInChildren<ConstantForce>().force = new Vector3(0, -100, 0);
+           Instantiate(destructibleElement, transform.position, transform.rotation);
+       }
    }
 }

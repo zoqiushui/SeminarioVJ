@@ -82,7 +82,7 @@ public class Rocket : MonoBehaviour
         var colsDrone = Physics.OverlapSphere(transform.position, radio);
         foreach (var coll in colsDrone)
         {
-            if (coll.gameObject.layer == K.LAYER_DESTRUCTIBLE) coll.GetComponent<DestructibleElement>().DestroyDrone(coll);
+            if (coll.gameObject.layer == K.LAYER_DESTRUCTIBLE) coll.GetComponent<DestructibleElement>().DestroyDrone();
             Destroy(this);
         }
 //       _soundManagerReference.PlaySound(K.SOUND_MISSILE);
