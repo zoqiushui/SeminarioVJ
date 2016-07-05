@@ -39,7 +39,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     protected float _timerWrongDirection;
 
     public Camera rearMirror;
-    protected float _steerInput, _motorInput;
+    protected float _steerInput, _motorInput, _accelInput;
     private float _finalAngle;
     private float resetTimer;
     public float resetTime;
@@ -139,6 +139,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     {
         _steerInput = steerInput;
         _motorInput = accelInput;
+		_accelInput = accelInput;
         currentVelZ = transform.InverseTransformDirection(_rb.velocity).z;
         var steerForce = steerInput * maxSteerForce;
         var forwardForce = accelInput * maxForce;
@@ -423,7 +424,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
 
     public void PushRamp(float amount)
     {
-        if (_isGroundedRamp) _rb.AddRelativeForce(0, 0, amount);
+        if (_isGroundedRamp && _accelInput > 0) _rb.AddRelativeForce(0, 0, amount);
     }
 
     private void ApplySteering(Vector3 relativeVelocity)

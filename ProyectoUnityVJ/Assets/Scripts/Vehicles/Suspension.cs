@@ -28,15 +28,20 @@ public class Suspension : MonoBehaviour
             _springForce = springConstant * _currentLength;
             _damperForce = damperConstant * _springVelocity;
             _rb.AddForceAtPosition(transform.up * (_springForce + _damperForce), transform.position);
-            if (hit.collider.gameObject.layer == K.LAYER_GROUND || hit.collider.gameObject.layer == K.LAYER_RAMP)
+			if (hit.collider.gameObject.layer == K.LAYER_RAMP)
+            {
+				_isGroundedRamp = true;
+            } else 
+			{
+				_isGroundedRamp = false;
+			}
+            if (hit.collider.gameObject.layer == K.LAYER_GROUND)
             {
                 _isGrounded = true;
-                if (hit.collider.gameObject.layer == K.LAYER_RAMP) _isGroundedRamp = true;
             }
             else
             {
-                _isGrounded = false;
-                _isGroundedRamp = false;
+                _isGrounded = false;                
             }
         }
 
