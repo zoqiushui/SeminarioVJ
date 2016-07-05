@@ -487,6 +487,11 @@ public class IAVehicle : Vehicle
                 topSpeed = 150f;
                 maxForce = 130f;
                 break;
+
+            case "mach3":
+                topSpeed = 350f;
+                maxForce = 330f;
+                break;
             default:
                 print("Error de Id");
                 break;

@@ -123,11 +123,11 @@ public class InputControllerIA : InputController
             _steerInput *= -1;
         }
     }
-
+    /*
     void OnDrawGizmos()
     {
         Gizmos.color = Color.black;
         if(_destinationPoint != null)
             Gizmos.DrawWireSphere(_destinationPoint, 5f);
-    }
+    }*/
 }

@@ -48,8 +48,10 @@ public class EnemiesManager : MonoBehaviour
             //print("player is first");
             for (int i = 1; i < positionTable.Count; i++)
             {
-                if (Vector3.Distance(vehiclePlayer.transform.position, positionTable[i].transform.position) < 20f)
+                if (Vector3.Distance(vehiclePlayer.transform.position, positionTable[i].transform.position) < 15f)
                     positionTable[i].GetComponentInParent<IAVehicle>().ChangeGear("normal");
+                else if(Vector3.Distance(vehiclePlayer.transform.position, positionTable[i].transform.position) > 70f)
+                    positionTable[i].GetComponentInParent<IAVehicle>().ChangeGear("mach3");
                 else positionTable[i].GetComponentInParent<IAVehicle>().ChangeGear("high");
             }
             return true;
@@ -61,7 +63,6 @@ public class EnemiesManager : MonoBehaviour
     {
         if (positionTable[positionTable.Count-1] == vehiclePlayer)
         {
-            print("player is last");
             for (int i = 0; i < positionTable.Count-1; i++)
             {
                 if (Vector3.Distance(vehiclePlayer.transform.position, positionTable[i].transform.position) < 40f)
@@ -89,8 +90,10 @@ public class EnemiesManager : MonoBehaviour
                 }
                 if (i > playerIndex)
                 {
-                    if (Vector3.Distance(vehiclePlayer.transform.position, positionTable[i].transform.position) < 20f)
+                    if (Vector3.Distance(vehiclePlayer.transform.position, positionTable[i].transform.position) < 15f)
                         positionTable[i].GetComponentInParent<IAVehicle>().ChangeGear("normal");
+                    else if (Vector3.Distance(vehiclePlayer.transform.position, positionTable[i].transform.position) > 70f)
+                        positionTable[i].GetComponentInParent<IAVehicle>().ChangeGear("mach3");
                     else positionTable[i].GetComponentInParent<IAVehicle>().ChangeGear("high");
                 }
             }

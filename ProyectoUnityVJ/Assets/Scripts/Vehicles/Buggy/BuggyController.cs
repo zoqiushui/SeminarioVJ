@@ -146,7 +146,6 @@ public class BuggyController : Vehicle
         {
             _nitroTimer += Time.deltaTime / rechargeNitro;
             _chargedAmount += Time.deltaTime / rechargeNitro;
-            print(_chargedAmount);
         }
         if (_nitroTimer > 0) _nitroEmpty = false;
         if (visualNitro.fillAmount == 1 || _chargedAmount >= nitroTimer)

@@ -8,16 +8,16 @@ public class IAController : VehicleData
     public GameObject hpBarContainer;
     public RawImage hpBarImage;
     public Weapon myWeapon;
-    public GameObject primaryWeaponSound;
+    public GameObject primaryWeaponFeedback;
     public GameObject eyes;
 
     public float clip;
-    private float _usedBullets;
+    public float _usedBullets;
     public float cooldownShoot;
     private float _currentCool;
-    private bool _activeShoot;
+    public bool _activeShoot;
     private bool _enemyInSight;
-    private bool _attacking;
+    public bool _attacking;
 
   //  private List<IObserver> _observers;
   
@@ -30,7 +30,7 @@ public class IAController : VehicleData
         //_observers = new List<IObserver>();
         base.Start();
         eyes.SetActive(false);
-        primaryWeaponSound.SetActive(false);
+        primaryWeaponFeedback.SetActive(false);
         //_maxHp = K.IA_MAX_HP;
         //_currentHp = _maxHp;
         _aux = hpBarImage.transform.localScale;
@@ -61,8 +61,8 @@ public class IAController : VehicleData
             }
 
 
-            if (_attacking && primaryWeaponSound.activeSelf == false)
-                primaryWeaponSound.SetActive(true);
+            if (_attacking && primaryWeaponFeedback.activeSelf == false)
+                primaryWeaponFeedback.SetActive(true);
         }    
     }
     public override void Damage(float damageTaken)
@@ -83,19 +83,20 @@ public class IAController : VehicleData
     void Attack()
     {
         myWeapon.Shoot();
+        _enemyInSight = false;
         eyes.SetActive(false);
         if (clip > _usedBullets)
         {
             _usedBullets++;
-            Invoke("Attack", 0.25f);
+            Invoke("Attack", 0.5f);
         }
         else
         {
             _currentCool = 0;
             _attacking = false;
-            _enemyInSight = false;
             _activeShoot = false;
             _usedBullets = 0;
+            primaryWeaponFeedback.SetActive(false);
         }
 
     }

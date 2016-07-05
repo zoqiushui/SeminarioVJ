@@ -5,6 +5,7 @@ public class MiniGun : Weapon
 {
     public short type;
     public GameObject particleEffect;
+    public AudioSource soundEffect;
     public GameObject bulletPref;
     public float forceImpact;
     public float maxDistance;
@@ -32,11 +33,17 @@ public class MiniGun : Weapon
             CheckAmmoBar();
             ShootDownButtom();
 
-            if (canShoot && visualAmmo.fillAmount > 0 && _isShooting) Shoot();
+            if (visualAmmo.fillAmount > 0 && _isShooting && !soundEffect.isPlaying)
+                soundEffect.Play();
+            if (!_isShooting && soundEffect.isPlaying)
+                soundEffect.Stop();
+            else if (visualAmmo.fillAmount <= 0)
+                soundEffect.Stop();
+
+            if (canShoot && visualAmmo.fillAmount > 0 && _isShooting)
+                Shoot();
             else
                 particleEffect.SetActive(false);
-            
-
         }
         else
         if (canShoot && type == 1)
@@ -87,7 +94,7 @@ public class MiniGun : Weapon
         Instantiate(bulletPref, shootPoint.position + shootPoint.forward, shootPoint.rotation);
         if (type == 0)
         {
-            _soundManagerReference.PlaySound(K.SOUND_MACHINE_GUN);
+            //_soundManagerReference.PlaySound(K.SOUND_MACHINE_GUN);
             ammoInput();
             print("asd");
         }
