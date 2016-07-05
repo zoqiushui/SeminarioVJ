@@ -151,7 +151,6 @@ public class BuggyController : Vehicle
         if (_nitroTimer > 0) _nitroEmpty = false;
         if (visualNitro.fillAmount == 1 || _chargedAmount >= nitroTimer)
         {
-            print("FULL");
             _canRechargeNitro = false;
             _nitroEmpty = false;
             _chargedAmount = 0;

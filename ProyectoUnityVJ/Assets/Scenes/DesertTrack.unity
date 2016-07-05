@@ -1174,7 +1174,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: de34320095c1cb04fb837b79709b228d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de34320095c1cb04fb837b79709b228d, type: 3}
@@ -38554,6 +38554,10 @@ Prefab:
       propertyPath: cooldown
       value: 0.15
       objectReference: {fileID: 0}
+    - target: {fileID: 5473226, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: m_Mass
+      value: 500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: db8e992369588774881a237658596c93, type: 2}
   m_IsPrefabParent: 0
@@ -71862,6 +71866,10 @@ Prefab:
       propertyPath: cooldown
       value: 0.15
       objectReference: {fileID: 0}
+    - target: {fileID: 5473226, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: m_Mass
+      value: 500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: db8e992369588774881a237658596c93, type: 2}
   m_IsPrefabParent: 0
@@ -75458,6 +75466,10 @@ Prefab:
       propertyPath: cooldown
       value: 0.15
       objectReference: {fileID: 0}
+    - target: {fileID: 5473226, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: m_Mass
+      value: 500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: db8e992369588774881a237658596c93, type: 2}
   m_IsPrefabParent: 0
@@ -77639,6 +77651,10 @@ Prefab:
     - target: {fileID: 11485060, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: cooldown
       value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5473226, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: m_Mass
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: db8e992369588774881a237658596c93, type: 2}
@@ -91464,6 +91480,10 @@ Prefab:
     - target: {fileID: 11485060, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: cooldown
       value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5473226, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: m_Mass
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: db8e992369588774881a237658596c93, type: 2}

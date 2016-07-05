@@ -44,7 +44,6 @@ public class DestructibleElement : MonoBehaviour
    }
    void OnTriggerEnter(Collider coll)
    {
-       print("DRONE " + coll.gameObject.layer);
     /*   if (coll.gameObject.layer == K.LAYER_MISSILE && GetComponent<Animation>() != null)
        {
            Destroy(gameObject);
