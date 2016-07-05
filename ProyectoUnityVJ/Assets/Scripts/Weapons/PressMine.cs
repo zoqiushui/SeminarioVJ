@@ -6,18 +6,18 @@ public class PressMine : Trap
     public float expPower;
     public float expRadius;
     public float expDamage;
-    public GameObject sound;
+    //public AudioSource sound;
     public LayerMask layersDamege;
     public GameObject feedback;
     public GameObject feedLight;
     private float coolLig = 0.5f;
     private float currentCool;
 
-    protected SoundManager _soundManagerReference;
+   // protected SoundManager _soundManagerReference;
 
     private void Start()
     {
-        _soundManagerReference = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<SoundManager>();
+       // _soundManagerReference = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<SoundManager>();
     }
 
     public override void Update()
@@ -80,15 +80,9 @@ public class PressMine : Trap
             }
         }
         Instantiate(feedback, transform.position + transform.up, Quaternion.identity);
-        sound.SetActive(true);
+     //   sound.Play();
         
-        GameObject.Destroy(this.gameObject,2f);
-    }
-    void OnDrawGizmos()
-    {
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position + transform.up, expRadius);
+        Destroy(this.gameObject);
     }
 
 }
