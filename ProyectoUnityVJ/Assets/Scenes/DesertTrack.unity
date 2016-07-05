@@ -38496,19 +38496,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 446036, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.09074578
+      value: 0.09074577
       objectReference: {fileID: 0}
     - target: {fileID: 446036, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.72925246
+      value: 0.7292524
       objectReference: {fileID: 0}
     - target: {fileID: 446036, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.6738108
+      value: 0.6738107
       objectReference: {fileID: 0}
     - target: {fileID: 446036, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.07704067
+      value: -0.077040665
       objectReference: {fileID: 0}
     - target: {fileID: 11463236, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: _nextCheckpoint
@@ -38516,19 +38516,19 @@ Prefab:
       objectReference: {fileID: 626313852}
     - target: {fileID: 488224, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.09074577
+      value: 0.09074578
       objectReference: {fileID: 0}
     - target: {fileID: 488224, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.7292524
+      value: 0.72925246
       objectReference: {fileID: 0}
     - target: {fileID: 488224, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.6738107
+      value: 0.6738108
       objectReference: {fileID: 0}
     - target: {fileID: 488224, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.077040665
+      value: -0.07704067
       objectReference: {fileID: 0}
     - target: {fileID: 8285276, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: MaxDistance
@@ -38541,6 +38541,18 @@ Prefab:
     - target: {fileID: 191602, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285276, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: Priority
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285276, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: m_Volume
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11485060, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: cooldown
+      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: db8e992369588774881a237658596c93, type: 2}
@@ -71838,6 +71850,18 @@ Prefab:
       propertyPath: MaxDistance
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 8285276, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: Priority
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285276, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: m_Volume
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11485060, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: cooldown
+      value: 0.15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: db8e992369588774881a237658596c93, type: 2}
   m_IsPrefabParent: 0
@@ -75422,6 +75446,18 @@ Prefab:
       propertyPath: MaxDistance
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 8285276, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: Priority
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285276, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: m_Volume
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11485060, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: cooldown
+      value: 0.15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: db8e992369588774881a237658596c93, type: 2}
   m_IsPrefabParent: 0
@@ -77591,6 +77627,18 @@ Prefab:
     - target: {fileID: 8285276, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: MaxDistance
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285276, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: Priority
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285276, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: m_Volume
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11485060, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: cooldown
+      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: db8e992369588774881a237658596c93, type: 2}
@@ -91404,6 +91452,18 @@ Prefab:
     - target: {fileID: 8285276, guid: db8e992369588774881a237658596c93, type: 2}
       propertyPath: MaxDistance
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285276, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: Priority
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285276, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: m_Volume
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11485060, guid: db8e992369588774881a237658596c93, type: 2}
+      propertyPath: cooldown
+      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: db8e992369588774881a237658596c93, type: 2}
