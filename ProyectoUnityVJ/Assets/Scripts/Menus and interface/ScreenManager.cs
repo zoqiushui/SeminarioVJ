@@ -20,7 +20,7 @@ public class ScreenManager : MonoBehaviour {
         resourcesText.text= "Resources: " + PlayerPrefs.GetInt("Resources");
         if (K.pilotIsAlive==true)
         {
-            pilotName.text = "Pilot's name: " + PlayerPrefs.GetString("PilotName");
+            pilotName.text = PlayerPrefs.GetString("PilotName");
         }
         else
         {
