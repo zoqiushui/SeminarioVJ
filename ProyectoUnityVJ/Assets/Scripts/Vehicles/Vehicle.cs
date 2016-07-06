@@ -425,6 +425,7 @@ public abstract class Vehicle : MonoBehaviour, IObservable
     public void PushRamp(float amount)
     {
         if (_isGroundedRamp && _accelInput > 0) _rb.AddRelativeForce(0, 0, amount);
+        _modeNitro = false;
     }
 
     private void ApplySteering(Vector3 relativeVelocity)
