@@ -3910,7 +3910,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 119838}
-  m_LocalRotation: {x: 0.09074578, y: 0.72925246, z: 0.6738108, w: -0.07704067}
+  m_LocalRotation: {x: 0.09074577, y: 0.7292524, z: 0.6738107, w: -0.077040665}
   m_LocalPosition: {x: 0.0025065783, y: 0.038258396, z: 0.2060594}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -4820,7 +4820,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 112378}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: 6.799985, y: 0, z: 20.099997}
+  m_LocalPosition: {x: 6.8, y: 0, z: 45}
   m_LocalScale: {x: 9.941915, y: 1.2516227, z: 7.9380536}
   m_Children: []
   m_Father: {fileID: 478680}
@@ -4895,7 +4895,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113732}
-  m_LocalRotation: {x: 0.09074577, y: 0.7292524, z: 0.6738107, w: -0.077040665}
+  m_LocalRotation: {x: 0.09074578, y: 0.72925246, z: 0.6738108, w: -0.07704067}
   m_LocalPosition: {x: 0.0025065783, y: 0.038258396, z: 0.2060594}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -8890,7 +8890,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.75, y: 3.2429523, z: 2.57}
+  m_Size: {x: 10, y: 3.2429523, z: 2.57}
   m_Center: {x: 0.7, y: 0.18154305, z: 0.87129253}
 --- !u!65 &6584494
 BoxCollider:
@@ -8997,7 +8997,7 @@ AudioSource:
   Priority: 256
   DopplerLevel: 1
   MinDistance: 0.1
-  MaxDistance: 34.612686
+  MaxDistance: 100
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -9365,7 +9365,7 @@ MonoBehaviour:
   myWeapon: {fileID: 11485060}
   primaryWeaponFeedback: {fileID: 151174}
   eyes: {fileID: 112378}
-  clip: 4
+  clip: 2
   _usedBullets: 0
   cooldownShoot: 5
   _activeShoot: 0
@@ -10006,6 +10006,7 @@ MonoBehaviour:
   forceImpact: 30
   maxDistance: 30
   shootPoint: {fileID: 470252}
+  myCollider: {fileID: 6584494}
 --- !u!114 &11486004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10115,6 +10116,7 @@ MonoBehaviour:
   forceImpact: 0
   maxDistance: 0
   shootPoint: {fileID: 0}
+  myCollider: {fileID: 0}
 --- !u!114 &11495112
 MonoBehaviour:
   m_ObjectHideFlags: 1

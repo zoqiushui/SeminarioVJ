@@ -10,11 +10,12 @@ public class MiniGun : Weapon
     public float forceImpact;
     public float maxDistance;
     public Transform shootPoint;
-  //  private Vector3 direction;
+    public Collider myCollider;
+    //  private Vector3 direction;
     private RaycastHit hit;
 
     // Use this for initialization
-    protected override void Start ()
+    protected override void Start()
     {
         base.Start();
         isCrosshair = false;
@@ -25,9 +26,6 @@ public class MiniGun : Weapon
     // Update is called once per frame
     protected override void Update()
     {
-        /*    if (Input.GetMouseButton(shootButtom)) particleEffect.SetActive(true);
-            else if (particleEffect.activeInHierarchy) particleEffect.SetActive(false);*/
-
         if (GameManager.disableShoot == false && type == 0)
         {
             CheckAmmoBar();
@@ -62,7 +60,7 @@ public class MiniGun : Weapon
         float calc_ammo = _ammoTimer / ammoTimer;
         visualAmmo.fillAmount = calc_ammo;
 
-    //    if (visualAmmo.fillAmount == 0) ammoEmpty = true;
+        //    if (visualAmmo.fillAmount == 0) ammoEmpty = true;
     }
 
     private void ReloadAmmo()
@@ -78,10 +76,6 @@ public class MiniGun : Weapon
     private void ammoInput()
     {
         _ammoTimer -= Time.deltaTime;
-      /*  if (_ammoTimer < 0)
-        {
-            ammoEmpty = true;
-        }*/
     }
 
     public override void Shoot()
@@ -90,22 +84,13 @@ public class MiniGun : Weapon
         canShoot = false;
         particleEffect.SetActive(true);
         base.Shoot();
-       // direction = shootPoint.TransformDirection(Vector3.forward);
-        Instantiate(bulletPref, shootPoint.position + shootPoint.forward, shootPoint.rotation);
+        // direction = shootPoint.TransformDirection(Vector3.forward);
+        GameObject bala = (GameObject)Instantiate(bulletPref, shootPoint.position + shootPoint.forward, shootPoint.rotation);
+        Physics.IgnoreCollision(bala.GetComponent<Collider>(), myCollider);
         if (type == 0)
         {
             //_soundManagerReference.PlaySound(K.SOUND_MACHINE_GUN);
             ammoInput();
-            print("asd");
         }
-
-        /*
-        Debug.DrawRay(shootPoint.position, direction * maxDistance, Color.blue);
-
-        if (Physics.Raycast(shootPoint.position, direction, out hit,maxDistance))
-        {
-            if(hit.rigidbody!=null)
-                hit.rigidbody.AddForceAtPosition(direction * forceImpact, hit.point);
-        }*/
     }
 }

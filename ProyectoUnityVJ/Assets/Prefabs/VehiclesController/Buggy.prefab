@@ -27,7 +27,7 @@ GameObject:
   - 4: {fileID: 465724}
   - 82: {fileID: 8237988}
   m_Layer: 0
-  m_Name: FeedbacksPrefab
+  m_Name: FeedbackSound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3505,7 +3505,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182590}
   m_LocalRotation: {x: 0.0000003576279, y: 0.7071068, z: 0.7071068, w: 0.0000003576279}
-  m_LocalPosition: {x: -0.018519577, y: 0.76497924, z: 0.19145873}
+  m_LocalPosition: {x: -0.019, y: 1.977, z: -0.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 418664}
@@ -4209,7 +4209,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120240}
-  m_LocalRotation: {x: 0.09074577, y: 0.7292524, z: 0.6738107, w: -0.077040665}
+  m_LocalRotation: {x: 0.09074578, y: 0.72925246, z: 0.6738108, w: -0.07704067}
   m_LocalPosition: {x: 0.0025065783, y: 0.038258396, z: 0.2060594}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -7976,34 +7976,44 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: aeeb4d52c1a3ae84fb91451adab5eb88, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.757
+  m_audioClip: {fileID: 8300000, guid: e0ab7cda369a0454e91ba39cd2c30bf3, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.85
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
-  Priority: 86
+  Priority: 128
   DopplerLevel: 1
-  MinDistance: 0
-  MaxDistance: 500
+  MinDistance: 1
+  MaxDistance: 5
   Pan2D: 0
-  rolloffMode: 1
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - time: 0.019241989
       value: 1
-      inSlope: 0
-      outSlope: -1
+      inSlope: -5.0019917
+      outSlope: -5.0019917
+      tangentMode: 0
+    - time: 0.4
+      value: 0.5
+      inSlope: -1.2504979
+      outSlope: -1.2504979
+      tangentMode: 0
+    - time: 0.8
+      value: 0.25
+      inSlope: -0.31262448
+      outSlope: -0.31262448
       tangentMode: 0
     - time: 1
-      value: 1.1
-      inSlope: -1
-      outSlope: 0
+      value: 0.2
+      inSlope: -0.20007975
+      outSlope: -0.20007975
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -8285,12 +8295,13 @@ MonoBehaviour:
   reloadSpeed: 0.5
   ammoTimer: 1
   type: 0
-  particleEffect: {fileID: 100700}
-  soundEffect: {fileID: 0}
+  particleEffect: {fileID: 111250}
+  soundEffect: {fileID: 8237988}
   bulletPref: {fileID: 179808, guid: 8ce189ac209b3b84eb19fedeadf411d5, type: 2}
   forceImpact: 30
   maxDistance: 30
   shootPoint: {fileID: 444862}
+  myCollider: {fileID: 6591718}
 --- !u!114 &11408288
 MonoBehaviour:
   m_ObjectHideFlags: 1
