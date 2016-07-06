@@ -33,7 +33,8 @@ public class CustomizeCharacter : MonoBehaviour
 
     public GameObject gameObjectFlag;
 
-
+    private AudioSource _source;
+    public AudioClip blipSound;
    
 
     //Names
@@ -61,6 +62,7 @@ public class CustomizeCharacter : MonoBehaviour
 
         currentPilotName = null;
 
+        _source = GetComponent<AudioSource>();
 
         //Names
         if (K.names.Count == 0)
@@ -109,6 +111,7 @@ public class CustomizeCharacter : MonoBehaviour
         currentAccesory = Random.Range(0, K.spritesAccesory.Length);
         currentFaceHair = Random.Range(0, K.spritesFacialHair.Length);
         UpdatePortrait();
+        //_source.PlayOneShot(blipSound);
     }
 
 
@@ -117,6 +120,7 @@ public class CustomizeCharacter : MonoBehaviour
         int random = Random.Range(0, K.names.Count);
         currentPilotName = K.names[random];
         UpdateRandomName();
+        _source.PlayOneShot(blipSound);
     }
 
     public void UpdateName()
@@ -163,7 +167,7 @@ public class CustomizeCharacter : MonoBehaviour
         }
 
         gameObjectHead.GetComponent<SpriteRenderer>().color = K.arrayColorSkin[currentColorSkin];
-
+        _source.PlayOneShot(blipSound);
     }
 
     public void NextColorHair()
@@ -176,7 +180,7 @@ public class CustomizeCharacter : MonoBehaviour
         {
             currentColorHair = 0;
         }
-
+        _source.PlayOneShot(blipSound);
         gameObjectHair.GetComponent<SpriteRenderer>().color = K.arrayColorHair[currentColorHair];
         gameObjectFaceHair.GetComponent<SpriteRenderer>().color = K.arrayColorHair[currentColorHair];
 
@@ -195,6 +199,7 @@ public class CustomizeCharacter : MonoBehaviour
         }
 
         gameObjectFace.GetComponent<SpriteRenderer>().sprite = K.spritesFace[currentFace];
+        _source.PlayOneShot(blipSound);
     }
 
     public void NextHair()
@@ -209,6 +214,7 @@ public class CustomizeCharacter : MonoBehaviour
         }
 
         gameObjectHair.GetComponent<SpriteRenderer>().sprite = K.spritesHair[currentHair];
+        _source.PlayOneShot(blipSound);
     }
 
     public void NextFacialHair()
@@ -223,6 +229,7 @@ public class CustomizeCharacter : MonoBehaviour
         }
 
         gameObjectFaceHair.GetComponent<SpriteRenderer>().sprite = K.spritesFacialHair[currentFaceHair];
+        _source.PlayOneShot(blipSound);
     }
 
     public void NextAccesory()
@@ -237,6 +244,7 @@ public class CustomizeCharacter : MonoBehaviour
         }
 
         gameObjectAccesory.GetComponent<SpriteRenderer>().sprite = K.spritesAccesory[currentAccesory];
+        _source.PlayOneShot(blipSound);
     }
 
     public void NextFlag()
@@ -251,6 +259,7 @@ public class CustomizeCharacter : MonoBehaviour
         }
 
         gameObjectFlag.GetComponent<SpriteRenderer>().sprite = K.spritesFlag[currentFlag];
+        _source.PlayOneShot(blipSound);
     }
 
 
@@ -266,6 +275,7 @@ public class CustomizeCharacter : MonoBehaviour
         }
 
         gameObjectFlag.GetComponent<SpriteRenderer>().sprite = K.spritesFlag[currentFlag];
+        _source.PlayOneShot(blipSound);
     }
 
 

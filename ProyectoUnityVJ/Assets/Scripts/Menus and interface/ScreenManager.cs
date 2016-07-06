@@ -14,8 +14,13 @@ public class ScreenManager : MonoBehaviour {
     public GameObject newPilotButton;
     public GameObject youNeedPilot;
 
+    private AudioSource source;
+    public AudioClip repairSound;
+
     public void Awake()
     {
+        PlayerPrefs.SetInt("SavedData", 1);
+        source = GetComponent<AudioSource>();
         resourcesCurrent = PlayerPrefs.GetInt("Resources");
         resourcesText.text= "Resources: " + PlayerPrefs.GetInt("Resources");
         if (K.pilotIsAlive==true)
@@ -49,6 +54,9 @@ public class ScreenManager : MonoBehaviour {
 
             PlayerPrefs.SetInt("CurrentLife", PlayerPrefs.GetInt("MaxLife"));
             repairAmount.text = "Vehicle's state: " + PlayerPrefs.GetInt("CurrentLife") + "/" + PlayerPrefs.GetInt("MaxLife");
+
+            source.PlayOneShot(repairSound);
+
         }
     }
 
@@ -69,4 +77,17 @@ public class ScreenManager : MonoBehaviour {
     {
         SceneManager.LoadScene((int)SCENES_NUMBER.PilotCreation);
     }
+
+    void Update()
+    {
+        /*
+        //BORRAR FUERA DE PRUEBAS
+        if(Input.GetKeyDown(KeyCode.F12))
+        {
+            PlayerPrefs.SetInt("SavedData", 0);
+            SceneManager.LoadScene((int)SCENES_NUMBER.NewGame);
+        }
+        */
+    }
+
 }
