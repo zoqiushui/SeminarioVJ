@@ -56,8 +56,8 @@ public class DestructibleElement : MonoBehaviour
        if (coll.gameObject.layer == K.LAYER_IA)
        {
            coll.GetComponentInParent<IAController>().Damage(100f);
-           Destroy(transform.parent.gameObject, 5);
            Instantiate(destructibleElement, transform.position, transform.rotation);
+           Destroy(transform.parent.gameObject);
        }
        else Destroy(transform.parent.gameObject, 5);          
    }

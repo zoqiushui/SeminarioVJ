@@ -84,12 +84,12 @@ public class K
     public static Color[] arrayColorHair = new Color[] { new Color(0.10980392156f, 0.07843137254f, 0.04705882352f), new Color(1, 0.90196078431f, 0.4862745098f), new Color(0.30196078431f, 0.26666666666f, 0.20784313725f) };
     public static Color[] arrayColorSkin = new Color[] { new Color(0.94901960784f, 0.90980392156f, 0.85098039215f), new Color(0.86666666666f, 0.71764705882f, 0.49019607843f), new Color(0.43529411764f, 0.26274509803f, 0.0431372549f) };
     //Sprites
-    public static Sprite[] spritesFace=Resources.LoadAll<Sprite>("Sprites/Face");
-    public static Sprite[] spritesHair = Resources.LoadAll<Sprite>("Sprites/Hair");
-    public static Sprite[] spritesAccesory = Resources.LoadAll<Sprite>("Sprites/Accesory");
-    public static Sprite[] spritesFacialHair = Resources.LoadAll<Sprite>("Sprites/FacialHair");
-    public static Sprite[] spritesDamage = Resources.LoadAll<Sprite>("Sprites/Damage");
-    public static Sprite[] spritesFlag = Resources.LoadAll<Sprite>("Sprites/Flags");
+    public static Sprite[] spritesFace=Resources.LoadAll<Sprite>("Sprites Faces/Face");
+    public static Sprite[] spritesHair = Resources.LoadAll<Sprite>("Sprites Faces/Hair");
+    public static Sprite[] spritesAccesory = Resources.LoadAll<Sprite>("Sprites Faces/Accesory");
+    public static Sprite[] spritesFacialHair = Resources.LoadAll<Sprite>("Sprites Faces/FacialHair");
+    public static Sprite[] spritesDamage = Resources.LoadAll<Sprite>("Sprites Faces/Damage");
+    public static Sprite[] spritesFlag = Resources.LoadAll<Sprite>("Sprites Faces/Flags");
     //Names
     public static List<string> names = new List<string>();
 
