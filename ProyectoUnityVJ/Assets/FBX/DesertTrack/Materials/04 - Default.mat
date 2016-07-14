@@ -26,7 +26,7 @@ Material:
         first:
           name: _BumpMap
         second:
-          m_Texture: {fileID: 2800000, guid: 1a88b0b3967078b4598d0d1bb059ba3d, type: 3}
+          m_Texture: {fileID: 2800000, guid: f2101441fe510ec42bdcdf63bdad0dad, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -111,10 +111,6 @@ Material:
         second: 0.02
       data:
         first:
-          name: _Emission
-        second: 1
-      data:
-        first:
           name: _ZWrite
         second: 1
       data:
@@ -145,6 +141,10 @@ Material:
         first:
           name: _Metallic
         second: 0.138
+      data:
+        first:
+          name: _Emission
+        second: 1
     m_Colors:
       data:
         first:
