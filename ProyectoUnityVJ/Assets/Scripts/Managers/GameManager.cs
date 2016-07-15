@@ -71,7 +71,7 @@ public class GameManager : Manager
 
     private void PauseInput()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && disableShoot == paused)
         {
             if (paused)
             {
@@ -172,6 +172,7 @@ public class GameManager : Manager
 
     private void BasicSettings()
     {
+        disableShoot = true;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         playerReference.gameObject.GetComponentInChildren<WeaponsManager>().enabled = false;
