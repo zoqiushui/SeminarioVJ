@@ -181,8 +181,9 @@ public class GameManager : Manager
         playerReference.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
 
         scoreBackground.SetActive(true);
-        _ingameUIManagerReference.positionsText.rectTransform.position = new Vector3(Screen.width / 2 - 50, Screen.height / 2 + 90, _ingameUIManagerReference.positionsText.rectTransform.position.z);
-        _ingameUIManagerReference.positionsText.fontSize = 60;
+        scoreBackground.GetComponentInChildren<Text>().text = _ingameUIManagerReference.positionsText.text;
+        _ingameUIManagerReference.positionsText.gameObject.SetActive(false);
+
         _ingameUIManagerReference.lapsText.gameObject.SetActive(false);
         playerReference.GetComponent<BuggyController>().wrongDirectionText.gameObject.SetActive(false);
         playerReference.GetComponent<BuggyController>().visualNitro.transform.parent.transform.parent.transform.parent.gameObject.SetActive(false);
